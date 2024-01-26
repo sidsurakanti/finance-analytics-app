@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import "@/app/ui/globals.css";
 
+import "@/app/ui/globals.css";
 import { inter, poppins } from "@/app/ui/fonts";
+import NavBar from "@/app/ui/NavBar"
 
 export const metadata: Metadata = {
   title: "Prototype",
@@ -15,7 +16,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${poppins.className} antialiased`}>
+      <body className={`h-screen w-screen ${poppins.className} antialiased overflow-hidden`}>
+        <NavBar />
         {children}
       </body>
     </html>
