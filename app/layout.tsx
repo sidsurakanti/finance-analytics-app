@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import "@/app/ui/globals.css";
-import { inter, poppins } from "@/app/ui/fonts";
+import { poppins } from "@/app/ui/fonts";
 import NavBar from "@/app/ui/NavBar"
 
 export const metadata: Metadata = {
