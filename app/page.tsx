@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -8,9 +9,12 @@ export default function Home() {
           Step into your financial command center
         </h1>
         <div className="flex justify-center space-x-4">
-          <button className="bg-white px-10 py-4 rounded-lg font-semibold text-black">
+          <Link 
+            className="bg-white px-10 py-4 rounded-lg font-semibold text-black"
+            href="/login"
+          >
             Get started
-          </button>
+          </Link>
           <button className="bg-transparent px-10 py-4 rounded-lg font-semibold text-white border-2 border-white">
             Learn more
           </button>
