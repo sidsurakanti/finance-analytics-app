@@ -1,11 +1,11 @@
 import { sql } from "@vercel/postgres";
-import { User } from "@/app/lib/definitions";
+import { User, Cashflow } from "@/app/lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchCashflows(user: User) {
     noStore();
     try {  
-        const res = await sql`
+        const res = await sql<Cashflow>`
             SELECT * FROM cashflows
             WHERE user_id=${user.id?.toString()};
         `;

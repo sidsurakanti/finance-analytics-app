@@ -1,19 +1,15 @@
-'use client'
 import CardItem from "@/app/ui/CardItem"
+import { Cashflow } from "@/app/lib/definitions"
 
-export default function SideBar () {
-    const cardInfo  = [{id: 0, title: "Savings", value: 98000}, {id: 1, title: "Income", value: 8600}, {id: 2, title: "Reoccurring", value: 179}]
+type SideBarProps = {
+    cashflow: Cashflow,
+}
 
-    // TODO: fix the logic for this entirely, start encorporating the db into this beforehand to fetch cashflows
-    function changeHandler (event: React.ChangeEvent<HTMLInputElement>) {
-        return 
-    }
-
+export default function SideBar ({ cashflow }: SideBarProps) {
     return (
         <div className="flex flex-col space-y-6">
-            {cardInfo.map(item => 
-                <CardItem key={item.id} title={item.title} value={`$${item.value}`} handleChange={changeHandler}/>
-            )}
+            <CardItem title="Savings" value={`$${cashflow.savings}`}/>
+            <CardItem title="Income" value={`$${cashflow.income}`}/>
         </div>
     )
 }
