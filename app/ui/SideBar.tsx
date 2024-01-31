@@ -1,9 +1,10 @@
 import CardItem from "@/app/ui/CardItem"
 import { Cashflow } from "@/app/lib/definitions"
 
+
 type SideBarProps = {
     cashflow: Cashflow,
-}
+};
 
 export default function SideBar ({ cashflow }: SideBarProps) {
     return (
@@ -11,5 +12,5 @@ export default function SideBar ({ cashflow }: SideBarProps) {
             <CardItem title="Savings" value={`$${cashflow.savings}`}/>
             <CardItem title="Income" value={`$${cashflow.income}`}/>
         </div>
-    )
-}
+    );
+};

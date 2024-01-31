@@ -7,8 +7,8 @@ export type User = {
 
 export type Cashflow = {
     id: Number | null,
-    savings: Number,
-    income: Number,
+    savings: string,
+    income: string,
     user_id: Number,
 };
 

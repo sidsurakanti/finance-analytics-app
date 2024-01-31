@@ -4,9 +4,7 @@ import { inter } from "@/app/ui/fonts";
 type CardProps = {
     title: string,
     value: string,
-    // handleChange: (a: any) => any
-}
-
+};
 
 export default function CardItem ({ title, value }: CardProps) {
     return (
@@ -17,8 +15,9 @@ export default function CardItem ({ title, value }: CardProps) {
                 className={`text-5xl ${inter.className} outline-none rounded-lg bg-transparent`}
                 value={value}
                 // onChange={handleChange}
+                readOnly // temp until handler is added
             >
             </input>
         </div>
-    )
-}
+    );
+};
