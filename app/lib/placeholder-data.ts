@@ -11,7 +11,6 @@ const users: [User] = [
 
 const cashflows: [Cashflow] = [
     {
-        id: null,
         savings: '93000',
         income: '7200',
         user_id: 1,
@@ -20,7 +19,6 @@ const cashflows: [Cashflow] = [
 
 const transactions: [Transaction] = [
     {
-        id: null,
         name: "Apple",
         amount: 124.99,
         date: null,

@@ -12,6 +12,8 @@ export async function fetchUser (email: string) {
         WHERE email='johndoe@gmail.com';
         `;
         const user = data.rows[0];
+        
+        console.log("Fetched user.")
         return user;
     } catch (error) {
         console.log("Database error", error);
@@ -28,6 +30,8 @@ export async function fetchCashflows(user: User) {
             WHERE user_id=${user.id?.toString()};
         `;
         const cashflows = res.rows[0];
+
+        console.log("Fetched cashflows.")
         return cashflows;
     } catch (error) {
         console.log("Database error", error);
