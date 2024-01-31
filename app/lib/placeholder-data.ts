@@ -12,8 +12,8 @@ const users: [User] = [
 const cashflows: [Cashflow] = [
     {
         id: null,
-        savings: 93000,
-        income: 7200,
+        savings: '93000',
+        income: '7200',
         user_id: 1,
     },
 ];
