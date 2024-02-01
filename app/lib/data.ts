@@ -44,6 +44,7 @@ export async function fetchTransactions(user: User) {
 
   const id = user.id?.toString();
   try {
+    // TODO: only fetch 5 most recent transactions
     const res = await sql<Transaction>`
       SELECT * FROM transactions
       WHERE user_id=${id};

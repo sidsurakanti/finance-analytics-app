@@ -1,6 +1,6 @@
 "use server";
 
-import { Cashflow } from "@/app/lib/definitions";
+import { Cashflow, Transaction } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
 
 export async function updateCashflows(newCashflow: Cashflow) {
@@ -16,5 +16,24 @@ export async function updateCashflows(newCashflow: Cashflow) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update cashflows");
+  }
+}
+
+export async function createTransaction(transaction: Transaction) {
+  const { name, amount, user_id } = transaction;
+
+  try {
+    const res = await sql`
+      INSERT INTO transactions
+      (name, amount, user_id)
+      VALUES 
+          (${name}, ${amount.toString()}, ${user_id.toString()}),
+    `;
+
+    console.log("Created transaction", transaction);
+    return res.rows
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failted to create transaction");
   }
 }
