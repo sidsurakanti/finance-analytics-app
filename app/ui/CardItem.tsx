@@ -1,5 +1,6 @@
 import { inter } from "@/app/ui/fonts";
 
+
 type CardProps = {
     title: string,
     value: string,

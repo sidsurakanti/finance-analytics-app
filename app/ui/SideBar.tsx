@@ -2,16 +2,22 @@
 
 import CardItem from "@/app/ui/CardItem";
 import { Cashflow } from "@/app/lib/definitions";
+
 import { useReducer } from "react";
 import cashflowReducer from "@/app/lib/sidebar-reducer";
+
 
 type SideBarProps = {
     cashflow: Cashflow,
 };
 
+// Displays two cards containing Savings and Income
 export default function SideBar ({ cashflow }: SideBarProps) {
+    // create reducer to change form inputs & submit
     const [cashflowState, dispatch] = useReducer(cashflowReducer, cashflow)
 
+
+    // handlers
     function handleIncomeChange (event: React.ChangeEvent<HTMLInputElement>) {
         dispatch ({
             type: 'income_change',
@@ -28,11 +34,13 @@ export default function SideBar ({ cashflow }: SideBarProps) {
 
     function handleSubmit (event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        
         dispatch ({
             type: "submit"
         });
     }
 
+    
     return (
         <div className="flex flex-col space-y-6">
             <CardItem 
