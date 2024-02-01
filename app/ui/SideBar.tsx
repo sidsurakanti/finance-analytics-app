@@ -41,6 +41,7 @@ export default function SideBar ({ cashflow }: SideBarProps) {
     }
 
     
+    // this prop is not pure solely because of the fact that we're updating and showcasing the cards with the same input field
     return (
         <div className="flex flex-col space-y-6">
             <CardItem 
