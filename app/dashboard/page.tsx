@@ -1,4 +1,4 @@
-import SideBar from "@/app/ui/SideBar"
+import SideBar from "@/app/ui/dashboard/SideBar"
 import { fetchCashflows, fetchUser } from "@/app/lib/data"
 
 export default async function Dashboard () {

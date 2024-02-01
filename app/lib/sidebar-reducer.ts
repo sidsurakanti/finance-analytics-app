@@ -1,6 +1,7 @@
 import { Cashflow } from "@/app/lib/definitions"
 import { updateCashflows } from "@/app/lib/actions";
 
+
 type Action = 
     | { type: "income_change"; income: string}
     | { type: "savings_change"; savings: string}

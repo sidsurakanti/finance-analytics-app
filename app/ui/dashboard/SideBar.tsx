@@ -1,8 +1,7 @@
 'use client'
-
-import CardItem from "@/app/ui/CardItem";
+    
+import CardItem from "@/app/ui/dashboard/CardItem";
 import { Cashflow } from "@/app/lib/definitions";
-
 import { useReducer } from "react";
 import cashflowReducer from "@/app/lib/sidebar-reducer";
 
@@ -13,11 +12,10 @@ type SideBarProps = {
 
 // Displays two cards containing Savings and Income
 export default function SideBar ({ cashflow }: SideBarProps) {
-    // create reducer to change form inputs & submit
+    // create reducer to manage form state
     const [cashflowState, dispatch] = useReducer(cashflowReducer, cashflow)
 
-
-    // handlers
+    // handlers card input change
     function handleIncomeChange (event: React.ChangeEvent<HTMLInputElement>) {
         dispatch ({
             type: 'income_change',
@@ -32,6 +30,7 @@ export default function SideBar ({ cashflow }: SideBarProps) {
         })
     };
 
+    // handle form submit
     function handleSubmit (event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         
@@ -39,9 +38,9 @@ export default function SideBar ({ cashflow }: SideBarProps) {
             type: "submit"
         });
     }
-
     
-    // this prop is not pure solely because of the fact that we're updating and showcasing the cards with the same input field
+    // impure prop 
+    // bc of the fact that we're redering and updating the same card using the same input element
     return (
         <div className="flex flex-col space-y-6">
             <CardItem 
@@ -50,7 +49,6 @@ export default function SideBar ({ cashflow }: SideBarProps) {
                 handleChange={handleSavingsChange}
                 handleSubmit={handleSubmit}
             />
-                
             <CardItem 
                 title="Income" 
                 value={cashflowState.income}

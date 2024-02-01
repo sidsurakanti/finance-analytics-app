@@ -1,4 +1,4 @@
-import LoginForm from "@/app/ui/LoginForm"
+import LoginForm from "@/app/ui/login/LoginForm"
 
 export default function Login () {
     return (
