@@ -9,7 +9,7 @@ export default function Home() {
           Step into your financial command center
         </h1>
         <div className="flex justify-center space-x-4">
-          <Link 
+          <Link
             className="bg-white px-10 py-4 rounded-lg font-semibold text-black"
             href="/login"
           >
@@ -22,12 +22,7 @@ export default function Home() {
       </section>
 
       <section className="py-20">
-        <Image 
-          src="/hero.svg"
-          alt="hero"
-          width={1300}
-          height={1300}
-        />
+        <Image src="/hero.svg" alt="hero" width={1300} height={1300} />
       </section>
     </main>
   );
