@@ -4,8 +4,8 @@ import { Cashflow } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
 
 export async function updateCashflows(newCashflow: Cashflow) {
-  // TODO: find a more efficient way to make income and savings a string too much code
   try {
+    // TODO: find a more efficient way to make income and savings a string
     const res = await sql`
             UPDATE cashflows 
             SET income = ${newCashflow.income.toString()}, savings = ${newCashflow.savings.toString()}

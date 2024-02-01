@@ -25,17 +25,30 @@ CREATE TABLE IF NOT EXISTS transactions (
 -- insert placeholder data
 INSERT INTO users 
 (email, password, name)
-VALUES ('johndoe@gmail.com', 'abc123', 'John Doe');
+VALUES 
+    ('janedoe@gmail.com', 'abc456', 'Jane Doe'),
+    ('johndoe@gmail.com', 'abc123', 'John Doe');
 
 INSERT INTO cashflows
 (savings, income, user_id)
-VALUES (90000, 9000, 1);
+VALUES 
+    (73000, 6200, 2),
+    (90000, 9000, 1);
 
--- get user by email
+INSERT INTO transactions
+(name, amount, user_id)
+VALUES 
+    ('Steam', 24.49, 2),
+    ('Apple', 124.99, 1);
+
+
+-- fetch user by email
 SELECT * FROM users
 WHERE email='johndoe@gmail.com'
 
--- get john's cashflow
+-- fetch john's cashflow
 SELECT * FROM cashflows
 WHERE user_id=1;
 
+SELECT * FROM transactions
+WHERE user_id=1;

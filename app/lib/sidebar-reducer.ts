@@ -6,7 +6,6 @@ type Action =
   | { type: "savings_change"; savings: string }
   | { type: "submit" };
 
-// TODO: add action type
 export default function cashflowReducer(cashflowObj: Cashflow, action: Action) {
   switch (action.type) {
     case "savings_change": {

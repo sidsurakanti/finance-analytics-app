@@ -15,7 +15,7 @@ export type Cashflow = {
 export type Transaction = {
   id?: Number;
   name: string;
-  amount: Number;
-  date: string | null;
+  amount: string | Number;
+  created_at: Date | null;
   user_id: Number;
 };
