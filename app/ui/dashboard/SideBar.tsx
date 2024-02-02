@@ -41,7 +41,7 @@ export default function SideBar({ cashflow }: SideBarProps) {
   // * impure prop
   // bc of the fact that we're redering and updating the same card using the same input element
   return (
-    <div className="flex flex-col space-y-6">
+    <section className="w-1/5 flex flex-col space-y-6 p-10">
       <CardItem
         title="Savings"
         value={cashflowState.savings}
@@ -55,6 +55,6 @@ export default function SideBar({ cashflow }: SideBarProps) {
         handleChange={handleIncomeChange}
         handleSubmit={handleSubmit}
       />
-    </div>
+    </section>
   );
 }

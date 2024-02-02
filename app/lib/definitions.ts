@@ -16,6 +16,6 @@ export type Transaction = {
   id?: Number;
   name: string;
   amount: string | Number;
-  created_at: Date | null;
+  created_at: Date;
   user_id: Number;
 };

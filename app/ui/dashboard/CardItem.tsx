@@ -16,7 +16,7 @@ export default function CardItem({
   // side-bar card (client component)
   return (
     <form
-      className="w-64 bg-[#1F1F1F] rounded-xl outline outline-[#47474b] py-5 px-6 flex flex-col items-start space-y-10"
+      className="w-full bg-[#1F1F1F] rounded-xl outline outline-[#47474b] py-5 px-6 flex flex-col items-start space-y-10"
       onSubmit={handleSubmit}
     >
       <p className="text-xl">{title}</p>

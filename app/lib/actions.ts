@@ -3,6 +3,7 @@
 import { Cashflow, Transaction } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
 
+
 export async function updateCashflows(newCashflow: Cashflow) {
   try {
     // TODO: find a more efficient way to make income and savings a string

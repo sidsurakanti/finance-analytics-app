@@ -1,7 +1,6 @@
 import { sql } from "@vercel/postgres";
-import { User, Cashflow } from "@/app/lib/definitions";
+import { User, Cashflow, Transaction } from "@/app/lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
-import { Transaction } from "firebase/firestore";
 
 export async function fetchUser(email: string) {
   noStore();
@@ -44,12 +43,13 @@ export async function fetchTransactions(user: User) {
 
   const id = user.id?.toString();
   try {
-    // TODO: only fetch 5 most recent transactions
     const res = await sql<Transaction>`
       SELECT * FROM transactions
-      WHERE user_id=${id};
+      WHERE user_id=${id}
+      ORDER BY created_at DESC
+      LIMIT 5;
     `;
-    const transactions = res.rows[0];
+    const transactions = res.rows;
 
     console.log("Fetched transactions for user with id:", id);
     return transactions;

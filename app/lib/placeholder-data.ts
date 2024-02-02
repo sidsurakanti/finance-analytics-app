@@ -1,6 +1,5 @@
 import { User, Cashflow, Transaction } from "@/app/lib/definitions";
 
-// TODO: populate this with more users and data
 const users: User[] = [
   {
     id: 1,
@@ -33,15 +32,33 @@ const transactions: Transaction[] = [
   {
     name: "Apple",
     amount: 124.99,
-    created_at: null,
+    created_at: new Date(),
     user_id: 1,
   },
   {
     name: "Steam",
     amount: 24.49,
-    created_at: null,
+    created_at: new Date(),
     user_id: 2,
   },
+  {
+    name: "Tesla",
+    amount: 11.99,
+    created_at: new Date(),
+    user_id: 2
+  },
+  {
+    name: "Spotify",
+    amount: 16.99,
+    created_at: new Date(),
+    user_id: 2
+  },
+  {
+    name: "T-Mobile",
+    amount: 400.24,
+    created_at: new Date(),
+    user_id: 2
+  }
 ];
 
 export { users, cashflows, transactions };

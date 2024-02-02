@@ -39,7 +39,10 @@ INSERT INTO transactions
 (name, amount, user_id)
 VALUES 
     ('Steam', 24.49, 2),
-    ('Apple', 124.99, 1);
+    ('Apple', 124.99, 1),
+    ('Spotify', 16.99, 2),
+    ('T-Mobile', 400.24, 2),
+    ('Tesla', 11.99, 2);
 
 
 -- fetch user by email
@@ -51,4 +54,6 @@ SELECT * FROM cashflows
 WHERE user_id=1;
 
 SELECT * FROM transactions
-WHERE user_id=1;
+WHERE user_id=1
+ORDER BY created_at DESC
+LIMIT 5;
