@@ -57,3 +57,7 @@ SELECT * FROM transactions
 WHERE user_id=1
 ORDER BY created_at DESC
 LIMIT 5;
+
+-- find all the the transactions that happened this month
+SELECT * FROM transactions
+WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE));

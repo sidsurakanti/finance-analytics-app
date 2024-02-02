@@ -1,6 +1,6 @@
 "use client";
 
-import CardItem from "@/app/ui/dashboard/CardItem";
+import CardItem from "@/app/ui/components/dashboard/SideBarCard";
 import { Cashflow } from "@/app/lib/definitions";
 import { useReducer } from "react";
 import cashflowReducer from "@/app/lib/sidebar-reducer";

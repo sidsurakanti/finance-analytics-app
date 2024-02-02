@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
-import "@/app/ui/globals.css";
-import { poppins } from "@/app/ui/fonts";
-import NavBar from "@/app/ui/NavBar";
+import "@/app/ui/styles/globals.css";
+import { poppins } from "@/app/ui/styles/fonts";
+import NavBar from "@/app/ui/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Prototype",

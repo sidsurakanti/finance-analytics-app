@@ -1,4 +1,4 @@
-import { inter } from "@/app/ui/fonts";
+import { inter } from "@/app/ui/styles/fonts";
 
 type CardProps = {
   title: string;
@@ -23,7 +23,7 @@ export default function CardItem({
       {/* showcase value and handle value change */}
       <input
         type="text"
-        className={`text-4xl ${inter.className} outline-none rounded-lg bg-transparent`}
+        className={`text-5xl ${inter.className} outline-none rounded-lg bg-transparent`}
         value={value}
         onChange={handleChange}
       ></input>

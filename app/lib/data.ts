@@ -58,3 +58,19 @@ export async function fetchTransactions(user: User) {
     throw new Error("Failed to fetch transactions");
   }
 }
+
+
+export async function fetchTransactionsThisMonth(user: User) {
+  const id = user.id?.toString();
+  try {
+    const res = await sql<Transaction>`
+        SELECT * FROM transactions
+        WHERE (user_id=${id} AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE));
+      `;
+    const transactions = res.rows
+    return transactions
+  } catch(error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch this month's transactions");
+  }
+}

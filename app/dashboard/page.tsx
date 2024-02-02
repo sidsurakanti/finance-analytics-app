@@ -1,5 +1,5 @@
-import SideBar from "@/app/ui/dashboard/SideBar";
-import TransactionSection from "@/app/ui/dashboard/TransactionsSection";
+import SideBar from "@/app/ui/components/dashboard/SideBar";
+import TransactionSection from "@/app/ui/components/dashboard/TransactionsSection";
 import { fetchCashflows, fetchTransactions, fetchUser } from "@/app/lib/data";
 
 export default async function Dashboard() {
