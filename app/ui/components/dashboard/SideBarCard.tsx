@@ -1,4 +1,4 @@
-import { inter } from "@/app/ui/styles/fonts";
+import { inter } from "@ui/styles/fonts";
 
 type CardProps = {
   title: string;

@@ -3,10 +3,10 @@
 import {
   CardItem,
   ReadOnlyCard,
-} from "@/app/ui/components/dashboard/SideBarCard";
-import { Cashflow } from "@/app/lib/definitions";
+} from "@components/dashboard/SideBarCard";
+import { Cashflow } from "@lib/definitions";
+import cashflowReducer from "@lib/sidebar-reducer";
 import { useReducer } from "react";
-import cashflowReducer from "@/app/lib/sidebar-reducer";
 
 type SideBarProps = {
   cashflow: Cashflow;

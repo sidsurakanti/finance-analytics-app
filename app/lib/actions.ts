@@ -1,6 +1,6 @@
 "use server";
 
-import { Cashflow, Transaction } from "@/app/lib/definitions";
+import { Cashflow, Transaction } from "@lib/definitions";
 import { sql } from "@vercel/postgres";
 
 export async function updateCashflows(newCashflow: Cashflow) {

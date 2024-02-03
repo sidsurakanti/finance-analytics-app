@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { User, Cashflow, Transaction } from "@/app/lib/definitions";
+import { User, Cashflow, Transaction } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchUser(email: string) {

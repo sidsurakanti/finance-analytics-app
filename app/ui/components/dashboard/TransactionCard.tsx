@@ -1,4 +1,4 @@
-import { type Transaction } from "@/app/lib/definitions";
+import { type Transaction } from "@lib/definitions";
 
 interface TransactionProps {
   transaction: Transaction;
@@ -28,7 +28,7 @@ export default function Transaction({ transaction }: TransactionProps) {
         <p> {id?.toString()} </p>
         <p className="text-2xl"> {name} </p>
         <p> {date} </p>
-        <p> {amount.toString()} </p>
+        <p className="text-2xl"> ${amount.toString()} </p>
       </div>
     </section>
   );

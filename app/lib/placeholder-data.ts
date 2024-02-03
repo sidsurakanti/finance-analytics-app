@@ -1,4 +1,4 @@
-import { User, Cashflow, Transaction } from "@/app/lib/definitions";
+import { User, Cashflow, Transaction } from "@lib/definitions";
 
 const users: User[] = [
   {

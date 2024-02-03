@@ -1,5 +1,5 @@
-import { type Transaction } from "@/app/lib/definitions";
-import TransactionCard from "@/app/ui/components/dashboard/TransactionCard";
+import { type Transaction } from "@lib/definitions";
+import TransactionCard from "@components/dashboard/TransactionCard";
 
 type TransactionSectionProps = {
   transactions: Transaction[];
@@ -8,6 +8,9 @@ type TransactionSectionProps = {
 export default function TransactionSection({
   transactions,
 }: TransactionSectionProps) {
+  // TODO: create button dialogue 
+  // TODO: add names to table
+  
   const recentTotal = transactions
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
@@ -27,12 +30,6 @@ export default function TransactionSection({
       </div>
 
       <div className="space-y-5">
-        {/* <div className="w-full text-[#606060] flex flex-row justify-evenly space-x-10 px-10">
-          <p>#</p>
-          <p>Name</p>
-          <p>Date</p>
-          <p>Amount</p>
-        </div> */}
         {transactions.map((transaction, index) => (
           <TransactionCard key={index} transaction={transaction} />
         ))}

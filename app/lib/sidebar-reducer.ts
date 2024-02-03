@@ -1,5 +1,5 @@
-import { Cashflow } from "@/app/lib/definitions";
-import { updateCashflows } from "@/app/lib/actions";
+import { Cashflow } from "@lib/definitions";
+import { updateCashflows } from "@lib/actions";
 
 type Action =
   | { type: "income_change"; income: string }
