@@ -57,7 +57,7 @@ export default function SideBar({ cashflow, thisMonthTotal }: SideBarProps) {
         handleSubmit={handleSubmit}
       />
       <ReadOnlyCard
-        title="Last month"
+        title="This month"
         value={thisMonthTotal}
       />
     </section>
