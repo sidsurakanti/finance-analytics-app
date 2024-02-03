@@ -1,13 +1,26 @@
 import { type Transaction } from "@/app/lib/definitions";
 
 interface TransactionProps {
-  transaction: Transaction,
+  transaction: Transaction;
 }
 
-export default function Transaction({transaction}: TransactionProps) {
+export default function Transaction({ transaction }: TransactionProps) {
   const { id, name, amount, created_at } = transaction;
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-  const date = `${months[created_at.getMonth()]} ${created_at.getDate()}, ${created_at.getFullYear()}`
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const date = `${months[created_at.getMonth()]} ${created_at.getDate()}, ${created_at.getFullYear()}`;
 
   return (
     <section>

@@ -45,20 +45,20 @@ const transactions: Transaction[] = [
     name: "Tesla",
     amount: 11.99,
     created_at: new Date(),
-    user_id: 2
+    user_id: 2,
   },
   {
     name: "Spotify",
     amount: 16.99,
     created_at: new Date(),
-    user_id: 2
+    user_id: 2,
   },
   {
     name: "T-Mobile",
     amount: 400.24,
     created_at: new Date(),
-    user_id: 2
-  }
+    user_id: 2,
+  },
 ];
 
 export { users, cashflows, transactions };

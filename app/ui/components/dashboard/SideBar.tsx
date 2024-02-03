@@ -1,13 +1,16 @@
 "use client";
 
-import { CardItem, ReadOnlyCard } from "@/app/ui/components/dashboard/SideBarCard";
+import {
+  CardItem,
+  ReadOnlyCard,
+} from "@/app/ui/components/dashboard/SideBarCard";
 import { Cashflow } from "@/app/lib/definitions";
 import { useReducer } from "react";
 import cashflowReducer from "@/app/lib/sidebar-reducer";
 
 type SideBarProps = {
   cashflow: Cashflow;
-  thisMonthTotal: string,
+  thisMonthTotal: string;
 };
 
 // Displays two cards containing Savings and Income
@@ -56,10 +59,7 @@ export default function SideBar({ cashflow, thisMonthTotal }: SideBarProps) {
         handleChange={handleIncomeChange}
         handleSubmit={handleSubmit}
       />
-      <ReadOnlyCard
-        title="This month"
-        value={thisMonthTotal}
-      />
+      <ReadOnlyCard title="This month" value={thisMonthTotal} />
     </section>
   );
 }

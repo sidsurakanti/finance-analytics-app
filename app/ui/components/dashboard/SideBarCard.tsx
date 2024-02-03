@@ -8,9 +8,9 @@ type CardProps = {
 };
 
 type ReadOnlyCardProps = {
-  title: string,
-  value: string,
-}
+  title: string;
+  value: string;
+};
 
 export function CardItem({
   title,
@@ -38,13 +38,15 @@ export function CardItem({
   );
 }
 
-export function ReadOnlyCard ({title, value}: ReadOnlyCardProps) {
+export function ReadOnlyCard({ title, value }: ReadOnlyCardProps) {
   return (
     <div className="w-full bg-[#1F1F1F] rounded-xl outline outline-[#47474b] py-5 px-6 flex flex-col items-start space-y-10">
       <p className="text-xl">{title}</p>
-      <p className={`text-5xl ${inter.className} outline-none rounded-lg bg-transparent`}>
+      <p
+        className={`text-5xl ${inter.className} outline-none rounded-lg bg-transparent`}
+      >
         ${value}
       </p>
     </div>
-  )
+  );
 }

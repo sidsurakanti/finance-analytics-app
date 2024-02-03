@@ -3,7 +3,6 @@
 import { Cashflow, Transaction } from "@/app/lib/definitions";
 import { sql } from "@vercel/postgres";
 
-
 export async function updateCashflows(newCashflow: Cashflow) {
   try {
     // TODO: find a more efficient way to make income and savings a string
@@ -32,7 +31,7 @@ export async function createTransaction(transaction: Transaction) {
     `;
 
     console.log("Created transaction", transaction);
-    return res.rows
+    return res.rows;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to create transaction");
