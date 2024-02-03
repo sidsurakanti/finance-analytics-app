@@ -1,16 +1,17 @@
 "use client";
 
-import CardItem from "@/app/ui/components/dashboard/SideBarCard";
+import { CardItem, ReadOnlyCard } from "@/app/ui/components/dashboard/SideBarCard";
 import { Cashflow } from "@/app/lib/definitions";
 import { useReducer } from "react";
 import cashflowReducer from "@/app/lib/sidebar-reducer";
 
 type SideBarProps = {
   cashflow: Cashflow;
+  thisMonthTotal: string,
 };
 
 // Displays two cards containing Savings and Income
-export default function SideBar({ cashflow }: SideBarProps) {
+export default function SideBar({ cashflow, thisMonthTotal }: SideBarProps) {
   // create reducer to manage form state
   const [cashflowState, dispatch] = useReducer(cashflowReducer, cashflow);
 
@@ -54,6 +55,10 @@ export default function SideBar({ cashflow }: SideBarProps) {
         value={cashflowState.income}
         handleChange={handleIncomeChange}
         handleSubmit={handleSubmit}
+      />
+      <ReadOnlyCard
+        title="Last month"
+        value={thisMonthTotal}
       />
     </section>
   );
