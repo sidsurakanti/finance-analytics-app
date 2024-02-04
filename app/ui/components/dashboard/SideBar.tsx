@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  CardItem,
-  ReadOnlyCard,
-} from "@components/dashboard/SideBarCard";
+import { CardItem, ReadOnlyCard } from "@components/dashboard/SideBarCard";
 import { Cashflow } from "@lib/definitions";
 import cashflowReducer from "@lib/sidebar-reducer";
 import { useReducer } from "react";
@@ -15,8 +12,14 @@ type SideBarProps = {
 
 // Displays two cards containing Savings and Income
 export default function SideBar({ cashflow, thisMonthTotal }: SideBarProps) {
-  // create reducer to manage form state
-  const [cashflowState, dispatch] = useReducer(cashflowReducer, cashflow);
+  // renaming cashflow for better readability
+  const initialCashflow = cashflow;
+
+  // create reducer to manage form actions for the savings and input cards
+  const [cashflowState, dispatch] = useReducer(
+    cashflowReducer,
+    initialCashflow,
+  );
 
   // handlers card input change
   function handleIncomeChange(event: React.ChangeEvent<HTMLInputElement>) {

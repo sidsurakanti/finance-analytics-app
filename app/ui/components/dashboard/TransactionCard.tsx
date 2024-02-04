@@ -1,8 +1,8 @@
 import { type Transaction } from "@lib/definitions";
 
-interface TransactionProps {
+type TransactionProps = {
   transaction: Transaction;
-}
+};
 
 export default function Transaction({ transaction }: TransactionProps) {
   const { id, name, amount, created_at } = transaction;

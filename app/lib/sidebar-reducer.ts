@@ -1,12 +1,15 @@
 import { Cashflow } from "@lib/definitions";
 import { updateCashflows } from "@lib/actions";
 
-type Action =
+type ReducerActions =
   | { type: "income_change"; income: string }
   | { type: "savings_change"; savings: string }
   | { type: "submit" };
 
-export default function cashflowReducer(cashflowObj: Cashflow, action: Action) {
+export default function cashflowReducer(
+  cashflowObj: Cashflow,
+  action: ReducerActions,
+) {
   switch (action.type) {
     case "savings_change": {
       const newCashflow = { ...cashflowObj, savings: action.savings };

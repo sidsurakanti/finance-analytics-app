@@ -9,7 +9,7 @@ import {
 
 export default async function Dashboard() {
   const user = await fetchUser("janedoe@gmail.com");
-  
+
   const cashflows = await fetchCashflows(user);
   const transactions = await fetchTransactions(user);
 

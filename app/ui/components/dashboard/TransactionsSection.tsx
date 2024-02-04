@@ -1,5 +1,6 @@
 import { type Transaction } from "@lib/definitions";
 import TransactionCard from "@components/dashboard/TransactionCard";
+import TransactionDialogue from "@components/dashboard/TransactionDialogue";
 
 type TransactionSectionProps = {
   transactions: Transaction[];
@@ -8,9 +9,10 @@ type TransactionSectionProps = {
 export default function TransactionSection({
   transactions,
 }: TransactionSectionProps) {
-  // TODO: create button dialogue 
-  // TODO: add names to table
-  
+  // TODO: complete add transaction functionality
+  // TODO: transfer functionality to zod & react-hook-form
+  // TODO: change component to shadcn-ui/table
+
   const recentTotal = transactions
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
@@ -23,9 +25,7 @@ export default function TransactionSection({
           <p className="text-5xl">${recentTotal}</p>
         </div>
         <div className="flex flex-col justify-center">
-          <button className="bg-blue-500 rounded-lg px-4 py-2">
-            add transaction
-          </button>
+          <TransactionDialogue />
         </div>
       </div>
 
