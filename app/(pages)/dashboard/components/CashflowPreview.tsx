@@ -1,12 +1,9 @@
-import type {  Cashflow, User } from "@lib/definitions";
+import type { Cashflow, User } from "@lib/definitions";
 import { CashflowCard } from "@/(pages)/dashboard/components/CashflowCard";
-import {
-  fetchCashflows,
-  fetchTransactionsThisMonth,
-} from "@lib/data";
+import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 
 type Props = {
-  user: User
+  user: User;
 };
 
 export default async function CashflowPreview({ user }: Props) {
@@ -18,18 +15,9 @@ export default async function CashflowPreview({ user }: Props) {
 
   return (
     <section className="w-1/5 flex flex-col gap-5 px-5">
-      <CashflowCard 
-        title="This month" 
-        value={thisMonthTotal} 
-      />
-      <CashflowCard
-        title="Savings"
-        value={cashflows.savings}
-      />
-      <CashflowCard
-        title="Income"
-        value={cashflows.income}
-      />
+      <CashflowCard title="This month" value={thisMonthTotal} />
+      <CashflowCard title="Savings" value={cashflows.savings} />
+      <CashflowCard title="Income" value={cashflows.income} />
     </section>
   );
 }

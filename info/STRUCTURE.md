@@ -55,7 +55,7 @@ This structure helps us keep page-specific components tidy and separate from glo
     hero.png
     logo.svg
 
-- info 
+- info
     CONTRIBUTING.md
     design.png
     STRUCTURE.md (you are here)

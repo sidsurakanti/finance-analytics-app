@@ -1,6 +1,4 @@
-import {
-  fetchUser,
-} from "@lib/data";
+import { fetchUser } from "@lib/data";
 
 import TransactionSection from "@/(pages)/dashboard/components/TransactionsPreview";
 import CashflowPreview from "@/(pages)/dashboard/components/CashflowPreview";
