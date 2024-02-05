@@ -27,7 +27,7 @@ export async function createTransaction(transaction: Transaction) {
       INSERT INTO transactions
       (name, amount, user_id)
       VALUES 
-          (${name}, ${amount.toString()}, ${user_id.toString()}),
+          (${name}, ${amount.toString()}, ${user_id.toString()});
     `;
 
     console.log("Created transaction", transaction);

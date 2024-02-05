@@ -17,12 +17,13 @@
         "name": "next",
       },
     ],
+    // @ == ./app
     "baseUrl": "app",
     "paths": {
-      "@/*": ["./*"], // ./app/*
-      "@ui/*": ["ui/*"], // ./app/ui/*
-      "@lib/*": ["lib/*"], // ./app/lib/*
-      "@components/*": ["ui/components/*"], // ./app/ui/components/*
+      "@/*": ["./*"],
+      "@ui/*": ["ui/*"],
+      "@lib/*": ["lib/*"],
+      "@components/*": ["ui/components/*"]
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

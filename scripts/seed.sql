@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL
 )
 
- CREATE TABLE IF NOT EXISTS cashflows (
+CREATE TABLE IF NOT EXISTS cashflows (
     id SERIAL PRIMARY KEY, 
     savings NUMERIC,
     income NUMERIC,
@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS transactions (
     user_id INTEGER REFERENCES users
 )
 
-
--- insert placeholder data
+-- insert placeholder data into tables
 INSERT INTO users 
 (email, password, name)
 VALUES 
@@ -44,15 +43,15 @@ VALUES
     ('T-Mobile', 400.24, 2),
     ('Tesla', 11.99, 2);
 
-
 -- fetch user by email
 SELECT * FROM users
 WHERE email='johndoe@gmail.com'
 
--- fetch john's cashflow
+-- fetch someone's cashflow
 SELECT * FROM cashflows
 WHERE user_id=1;
 
+-- fetch someone's last 5 transactions
 SELECT * FROM transactions
 WHERE user_id=1
 ORDER BY created_at DESC

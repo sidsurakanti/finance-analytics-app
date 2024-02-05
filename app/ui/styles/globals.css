@@ -2,25 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
+/* define background and foreground colors for light mode  */
 :root {
   --foreground-rgb: 30, 30, 30;
-  --background-rgb: 240, 240, 240;
+  --background-rgb: 220, 220, 220;
 }
 
+/* define background and foreground colors for dark mode  */
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-rgb: 13, 13, 13;
+    --background-rgb: 0, 0, 0;
   }
 }
 
+/* set background and foreground colors  */
 body {
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-rgb));
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
 }
