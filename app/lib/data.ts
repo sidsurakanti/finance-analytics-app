@@ -1,9 +1,7 @@
 import { sql } from "@vercel/postgres";
 import { User, Cashflow, Transaction } from "@lib/definitions";
-import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchUser(email: string) {
-  noStore();
   try {
     const data = await sql<User>`
         SELECT * FROM users
@@ -20,8 +18,6 @@ export async function fetchUser(email: string) {
 }
 
 export async function fetchCashflows(user: User) {
-  noStore();
-
   const id = user.id?.toString();
   try {
     const res = await sql<Cashflow>`
@@ -39,8 +35,6 @@ export async function fetchCashflows(user: User) {
 }
 
 export async function fetchTransactions(user: User) {
-  noStore();
-
   const id = user.id?.toString();
   try {
     const res = await sql<Transaction>`

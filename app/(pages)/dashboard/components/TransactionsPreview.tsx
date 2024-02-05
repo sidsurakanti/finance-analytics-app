@@ -1,6 +1,7 @@
 import type { User } from "@lib/definitions";
 import { fetchTransactions } from "@/lib/data";
 import RecentTransactions from "@/(pages)/dashboard/components/RecentTransactions";
+import Link from "next/link";
 
 interface Props {
   user: User;
@@ -21,9 +22,12 @@ export default async function TransactionSection({ user }: Props) {
         </div>
 
         <div className="flex flex-col justify-center">
-          <button className="bg-blue-500 rounded-lg px-4 py-2">
+          <Link 
+            href="/transactions/create" 
+            className="bg-blue-500 rounded-lg px-4 py-2 text-sm"
+          >
             add transaction
-          </button>
+          </Link>
         </div>
       </header>
 

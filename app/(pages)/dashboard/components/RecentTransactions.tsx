@@ -1,4 +1,4 @@
-import TransactionCard from "@/(pages)/dashboard/components/TransactionCard";
+import TransactionCard from "@/(pages)/transactions/components/TransactionCard";
 import type { Transaction } from "@/lib/definitions";
 
 interface Props {

@@ -3,8 +3,9 @@
 import { type User, type Transaction } from "@/lib/definitions";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createTransaction } from "@/lib/actions";
+import { redirect } from "next/navigation";
 
-// TODO: convert this using zod
+// TODO: convert to a zod schema
 interface Inputs {
   name: string;
   amount: Number;

@@ -1,5 +1,5 @@
 import type { Cashflow, User } from "@lib/definitions";
-import { CashflowCard } from "@/(pages)/dashboard/components/CashflowCard";
+import { CashflowCard } from "@/(pages)/cashflows/components/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 
 type Props = {
@@ -14,7 +14,7 @@ export default async function CashflowPreview({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="w-1/5 flex flex-col gap-5 px-5">
+    <section className="w-1/5 h-full flex xl:flex-col gap-5 px-5 justify-start">
       <CashflowCard title="This month" value={thisMonthTotal} />
       <CashflowCard title="Savings" value={cashflows.savings} />
       <CashflowCard title="Income" value={cashflows.income} />

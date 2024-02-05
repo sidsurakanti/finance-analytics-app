@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "@ui/styles/globals.css";
 import { poppins } from "@ui/styles/fonts";
-import NavBar from "@components/NavBar";
+import NavBar from "@/ui/components/NavBar";
 
 export const metadata: Metadata = {
   title: "Prototype",
@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`h-screen w-screen ${poppins.className} antialiased overflow-hidden`}
+        className={`h-screen w-full ${poppins.className} antialiased`}
       >
         <NavBar />
         {children}
