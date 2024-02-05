@@ -10,7 +10,7 @@ interface Inputs {
   amount: Number;
 }
 
-export default function TransactionDialogue({ user }: { user: User }) {
+export default function CreateTransactionForm({ user }: { user: User }) {
   // * this is a client component bc of the useForm hook
   const { register, handleSubmit } = useForm<Inputs>();
 
