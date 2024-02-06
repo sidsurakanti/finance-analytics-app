@@ -27,5 +27,5 @@ body {
   margin: 0;
   padding: 0;
   /* border-box is default in tailwind but we're gonna put that here anyways */
-  box-sizing: border-box; 
+  box-sizing: border-box;
 }

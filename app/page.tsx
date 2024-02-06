@@ -5,9 +5,7 @@ export default function Home() {
   return (
     <main className="bg-gray-400">
       <section>
-        <h1 className="text-2xl">
-          Step into your financial command center
-        </h1>
+        <h1 className="text-2xl">Step into your financial command center</h1>
         <div>
           <Link
             className="p-2 bg-white text-black outline outline-black"

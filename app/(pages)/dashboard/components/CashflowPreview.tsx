@@ -6,9 +6,10 @@ type Props = {
   user: User;
 };
 
-export default async function CashflowPreview({ user }: Props) {
+export async function CashflowPreview({ user }: Props) {
   const cashflows: Cashflow = await fetchCashflows(user);
-  const transactionsThisMonth: Transaction[] = await fetchTransactionsThisMonth(user);
+  const transactionsThisMonth: Transaction[] =
+    await fetchTransactionsThisMonth(user);
   const thisMonthTotal: string = transactionsThisMonth
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
