@@ -7,7 +7,7 @@ interface Props {
 
 export default function RecentTransactions({ transactions }: Props) {
   return (
-    <section className="space-y-5">
+    <section>
       {transactions.map((transaction, index) => (
         <TransactionCard key={index} transaction={transaction} />
       ))}

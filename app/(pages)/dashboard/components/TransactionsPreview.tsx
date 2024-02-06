@@ -14,22 +14,15 @@ export default async function TransactionSection({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="w-4/5 h-fit p-5 space-y-6 bg-[#121212] outline outline-[#292929] rounded-lg text-xl">
-      <header className="flex flex-row justify-between">
-        <div className="flex flex-col space-y-2">
-          <p className="text-[#C7C7C7]">Recent</p>
-          <p className="text-5xl">${recentTotal}</p>
-        </div>
-
-        <div className="flex flex-col justify-center">
-          <Link 
-            href="/transactions/create" 
-            className="bg-blue-500 rounded-lg px-4 py-2 text-sm"
-          >
-            add transaction
-          </Link>
-        </div>
-      </header>
+    <section className="bg-green-900">
+      <p>Recent</p>
+      <p>${recentTotal}</p>
+      <Link 
+        className="text-blue-500"
+        href="/transactions/create" 
+      >
+        add transaction
+      </Link>
 
       <RecentTransactions transactions={transactions} />
     </section>

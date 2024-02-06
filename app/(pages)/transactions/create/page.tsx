@@ -6,7 +6,7 @@ export default async function Page() {
   const user = await fetchUser("janedoe@gmail.com");
 
   return (
-    <main className="flex flex-row justify-center w-4/5 h-full items-center mx-auto">  
+    <main className="">  
       <CreateTransactionForm user={user} />
     </main>
   )

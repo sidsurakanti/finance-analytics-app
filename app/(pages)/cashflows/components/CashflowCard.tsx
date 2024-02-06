@@ -7,9 +7,11 @@ type Props = {
 
 export function CashflowCard({ title, value }: Props) {
   return (
-    <div className="bg-[#1F1F1F] rounded-xl outline outline-[#232323] p-5 flex flex-col gap-10 text-xl">
+    <div className="bg-teal-400">
       <p>{title}</p>
-      <p className={`sm:text-2xl xl:text-4xl  ${inter.className}`}>${value}</p>
+      <p className={inter.className}>
+        ${value}
+      </p>
     </div>
   );
 }
