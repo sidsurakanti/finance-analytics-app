@@ -7,7 +7,7 @@ type Props = {
 };
 
 export async function CashflowPreview({ user }: Props) {
-  const cashflows: Cashflow = await fetchCashflows(user);
+  const {savings, income} = await fetchCashflows(user);
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);
   const thisMonthTotal: string = transactionsThisMonth
@@ -17,8 +17,8 @@ export async function CashflowPreview({ user }: Props) {
   return (
     <section className="bg-red-400">
       <CashflowCard title="This month" value={thisMonthTotal} />
-      <CashflowCard title="Savings" value={cashflows.savings} />
-      <CashflowCard title="Income" value={cashflows.income} />
+      <CashflowCard title="Savings" value={savings} />
+      <CashflowCard title="Income" value={income} />
     </section>
   );
 }
