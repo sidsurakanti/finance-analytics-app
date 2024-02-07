@@ -1,4 +1,4 @@
-import TransactionCard from "./TransactionCard";
+import { TransactionCard } from "./TransactionCard";
 import type { User, Transaction } from "@/lib/definitions";
 import { fetchAllTransactions } from "@/lib/data";
 
