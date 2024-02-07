@@ -1,15 +1,20 @@
 import { fetchUser } from "@lib/data";
 
-import TransactionSection from "@/(pages)/dashboard/components/TransactionsPreview";
-import CashflowPreview from "@/(pages)/dashboard/components/CashflowPreview";
+import { TransactionSection } from "@/(pages)/dashboard/components/TransactionsPreview";
+import { CashflowPreview } from "@/(pages)/dashboard/components/CashflowPreview";
+import { Suspense } from "react";
 
 export default async function Dashboard() {
   const user = await fetchUser("janedoe@gmail.com");
 
   return (
     <main>
-      <CashflowPreview user={user} />
-      <TransactionSection user={user} />
+      <Suspense fallback={"Loading cashflows..."}>
+        <CashflowPreview user={user} />
+      </Suspense>
+      <Suspense fallback={"Loading transactions..."}>
+        <TransactionSection user={user} />
+      </Suspense>
     </main>
   );
 }

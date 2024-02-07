@@ -1,13 +1,13 @@
 import type { User } from "@lib/definitions";
 import { fetchTransactions } from "@/lib/data";
-import RecentTransactions from "@/(pages)/dashboard/components/RecentTransactions";
+import { RecentTransactions } from "@/(pages)/dashboard/components/RecentTransactions";
 import Link from "next/link";
 
 interface Props {
   user: User;
 }
 
-export default async function TransactionSection({ user }: Props) {
+export async function TransactionSection({ user }: Props) {
   const transactions = await fetchTransactions(user);
   const recentTotal = transactions
     .reduce((a, b) => a + Number(b.amount), 0)
@@ -17,10 +17,7 @@ export default async function TransactionSection({ user }: Props) {
     <section className="bg-green-900">
       <p>Recent</p>
       <p>${recentTotal}</p>
-      <Link 
-        className="text-blue-500"
-        href="/transactions/create" 
-      >
+      <Link className="text-blue-500" href="/transactions/create">
         add transaction
       </Link>
 

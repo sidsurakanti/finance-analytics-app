@@ -1,11 +1,11 @@
-import TransactionCard from "@/(pages)/transactions/components/TransactionCard";
+import { TransactionCard } from "@/(pages)/transactions/components/TransactionCard";
 import type { Transaction } from "@/lib/definitions";
 
 interface Props {
   transactions: Transaction[];
 }
 
-export default function RecentTransactions({ transactions }: Props) {
+export function RecentTransactions({ transactions }: Props) {
   return (
     <section>
       {transactions.map((transaction, index) => (

@@ -4,7 +4,7 @@ type TransactionProps = {
   transaction: Transaction;
 };
 
-export default function TransactionCard({ transaction }: TransactionProps) {
+export function TransactionCard({ transaction }: TransactionProps) {
   const { name, amount, created_at } = transaction;
   const months = [
     "Jan",
@@ -23,7 +23,7 @@ export default function TransactionCard({ transaction }: TransactionProps) {
   const date = `${months[created_at.getMonth()]} ${created_at.getDate()}, ${created_at.getFullYear()}`;
 
   return (
-    <div >
+    <div>
       {/* <p> {id?.toString()} </p> */}
       <p> {name} </p>
       <p> {date} </p>

@@ -6,9 +6,10 @@ type Props = {
   user: User;
 };
 
-export default async function CashflowPreview({ user }: Props) {
-  const cashflows: Cashflow = await fetchCashflows(user);
-  const transactionsThisMonth: Transaction[] = await fetchTransactionsThisMonth(user);
+export async function CashflowPreview({ user }: Props) {
+  const {savings, income} = await fetchCashflows(user);
+  const transactionsThisMonth: Transaction[] =
+    await fetchTransactionsThisMonth(user);
   const thisMonthTotal: string = transactionsThisMonth
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
@@ -16,8 +17,8 @@ export default async function CashflowPreview({ user }: Props) {
   return (
     <section className="bg-red-400">
       <CashflowCard title="This month" value={thisMonthTotal} />
-      <CashflowCard title="Savings" value={cashflows.savings} />
-      <CashflowCard title="Income" value={cashflows.income} />
+      <CashflowCard title="Savings" value={savings} />
+      <CashflowCard title="Income" value={income} />
     </section>
   );
 }

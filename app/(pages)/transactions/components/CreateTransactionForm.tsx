@@ -10,7 +10,7 @@ interface Inputs {
   amount: Number;
 }
 
-export default function CreateTransactionForm({ user }: { user: User }) {
+export function CreateTransactionForm({ user }: { user: User }) {
   // * this is a client component bc of the useForm hook
   const { register, handleSubmit } = useForm<Inputs>();
 
@@ -27,17 +27,17 @@ export default function CreateTransactionForm({ user }: { user: User }) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-        <input
+      <input
         className="text-black"
-          {...register("name", { required: true })}
-          placeholder="Name"
-        />
-        <input
-          className="text-black"
-          {...register("amount", { required: true })}
-          placeholder="Amount"
-        />
-        <input className="bg-blue-500" type="submit" />
+        {...register("name", { required: true })}
+        placeholder="Name"
+      />
+      <input
+        className="text-black"
+        {...register("amount", { required: true })}
+        placeholder="Amount"
+      />
+      <input className="bg-blue-500" type="submit" />
     </form>
   );
 }

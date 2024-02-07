@@ -1,6 +1,6 @@
 import { sql } from "@vercel/postgres";
 import { User, Cashflow, Transaction } from "@lib/definitions";
-import { unstable_noStore as noStore} from "next/cache";
+import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchUser(email: string) {
   try {
@@ -70,18 +70,18 @@ export async function fetchTransactionsThisMonth(user: User) {
 }
 
 export async function fetchAllTransactions(user: User) {
-  noStore()
+  noStore();
   const id = user.id?.toString();
   try {
     const res = await sql<Transaction>`
         SELECT * FROM transactions
         WHERE user_id=${id}
         ORDER BY created_at DESC
-      `
+      `;
     const data = res.rows;
     return data;
   } catch (error) {
     console.log("Database error", error);
-    throw new Error ("Failed to fetch all transactions.");
+    throw new Error("Failed to fetch all transactions.");
   }
 }
