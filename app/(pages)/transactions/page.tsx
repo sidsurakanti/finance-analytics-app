@@ -1,5 +1,5 @@
-import { fetchUser } from "@/lib/data";
-import TransactionList from "./components/TransactionList";
+import { fetchUser } from "@lib/data";
+import TransactionList from "@components/transactions/TransactionList";
 import Link from "next/link";
 import { Suspense } from "react";
 

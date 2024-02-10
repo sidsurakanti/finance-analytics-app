@@ -1,6 +1,6 @@
-import { TransactionCard } from "./TransactionCard";
-import type { User, Transaction } from "@/lib/definitions";
-import { fetchAllTransactions } from "@/lib/data";
+import { TransactionCard } from "@components/transactions/TransactionCard";
+import type { User, Transaction } from "@lib/definitions";
+import { fetchAllTransactions } from "@lib/data";
 
 interface Props {
   user: User;

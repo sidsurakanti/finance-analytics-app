@@ -1,5 +1,5 @@
-import { CreateTransactionForm } from "@/(pages)/transactions/components/CreateTransactionForm";
-import { fetchUser } from "@/lib/data";
+import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
+import { fetchUser } from "@lib/data";
 
 export default async function Page() {
   // * temporary solution until auth is added

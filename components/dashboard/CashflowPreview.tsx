@@ -1,5 +1,5 @@
-import type { Cashflow, Transaction, User } from "@lib/definitions";
-import { CashflowCard } from "@/(pages)/cashflows/components/CashflowCard";
+import type { Transaction, User } from "@lib/definitions";
+import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 
 type Props = {
@@ -7,7 +7,7 @@ type Props = {
 };
 
 export async function CashflowPreview({ user }: Props) {
-  const {savings, income} = await fetchCashflows(user);
+  const { savings, income } = await fetchCashflows(user);
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);
   const thisMonthTotal: string = transactionsThisMonth

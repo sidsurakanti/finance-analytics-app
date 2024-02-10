@@ -1,4 +1,4 @@
-import { inter } from "@ui/styles/fonts";
+import { inter } from "@/styles/fonts";
 
 type Props = {
   title: string;

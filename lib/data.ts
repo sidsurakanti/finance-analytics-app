@@ -19,6 +19,7 @@ export async function fetchUser(email: string) {
 }
 
 export async function fetchCashflows(user: User) {
+  noStore();
   const id = user.id?.toString();
   try {
     const res = await sql<Cashflow>`
@@ -36,6 +37,7 @@ export async function fetchCashflows(user: User) {
 }
 
 export async function fetchTransactions(user: User) {
+  noStore();
   const id = user.id?.toString();
   try {
     const res = await sql<Transaction>`

@@ -15,52 +15,57 @@ You can find the basic design and visual guidelines for this project [here](./de
 
 I've organized the project structure to keep things neat and easy to work with. Here's how I structured it:
 
-- Each page, like `/dashboard` and `/cashflows`, has it's own `components` folder specific to that page for storing all the components it uses.
-- The `ui/` folder houses all the global components and styles used throughout the app.
-- The `lib/` folder contains all the essential utilities for this app.
-- `public/` Directory: stores static assets like `favicon.ico` and `logo.svg`
-- `.env.local` is used for local environmental variables. Keep this file private and safe.
+- Each page has it's own folder in the `components` folder to store all the components it uses
+- The `lib/` folder contains all the essential utilities for this app
+- `styles/` Directory: stores fonts and global css styles
+- `.env.local` is used for environmental variables
 
 This structure helps us keep page-specific components tidy and separate from global components, ensuring our codebase is easy to navigate and maintain.
 
 ```
-- app
-  - (pages)
-    - cashflows
-      - components
-        page.tsx
-    - dashboard
-      - components
-        page.tsx
-    - login
-        - components
-        page.tsx
-    - transactions
-        page.tsx
-  - ui
-    - components
-    - styles
-        fonts.ts
-        globals.css
-  - lib
-      actions.ts
-      data.ts
-      definitions.ts
-      utils.ts
-  page.tsx
-  layout.tsx
-
-- public
-    favicon.ico
-    hero.png
-    logo.svg
-
-- info
-    CONTRIBUTING.md
-    design.png
-    STRUCTURE.md (you are here)
-- scripts
-    seed.sql
-
-.env.local
+└── 📁app
+    └── 📁(auth)
+        └── 📁login
+            └── page.tsx
+        └── 📁register
+            └── page.tsx
+    └── 📁(pages)
+        └── 📁cashflows
+            └── 📁edit
+                └── page.tsx
+            └── page.tsx
+        └── 📁dashboard
+            └── 📁components
+            └── page.tsx
+        └── 📁transactions
+            └── 📁components
+            └── 📁create
+                └── page.tsx
+            └── page.tsx
+    └── layout.tsx
+    └── page.tsx
+└── 📁components
+    └── 📁cashflows
+        └── CashflowCard.tsx
+        └── CashflowChart.tsx
+        └── EditButtonWrapper.tsx
+    └── 📁dashboard
+        └── CashflowPreview.tsx
+        └── RecentTransactions.tsx
+        └── TransactionsPreview.tsx
+    └── 📁login
+        └── LoginForm.tsx
+    └── nav.tsx
+    └── 📁transactions
+        └── CreateTransactionForm.tsx
+        └── TransactionCard.tsx
+        └── TransactionList.tsx
+└── 📁lib
+    └── actions.ts
+    └── data.ts
+    └── definitions.ts
+    └── placeholder-data.ts
+└── 📁styles
+    └── fonts.ts
+    └── globals.css
 ```

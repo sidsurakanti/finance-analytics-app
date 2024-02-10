@@ -1,5 +1,5 @@
-import { TransactionCard } from "@/(pages)/transactions/components/TransactionCard";
-import type { Transaction } from "@/lib/definitions";
+import { TransactionCard } from "@components/transactions/TransactionCard";
+import type { Transaction } from "@lib/definitions";
 
 interface Props {
   transactions: Transaction[];

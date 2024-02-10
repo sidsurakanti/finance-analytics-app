@@ -1,5 +1,5 @@
 export type User = {
-  id: Number;
+  id: string;
   email: string;
   password: string;
   name: string;
@@ -9,7 +9,7 @@ export type Cashflow = {
   id?: Number;
   savings: string;
   income: string;
-  user_id: Number;
+  user_id: string;
 };
 
 export type Transaction = {
@@ -17,5 +17,5 @@ export type Transaction = {
   name: string;
   amount: string | Number;
   created_at: Date;
-  user_id: Number;
+  user_id: string;
 };

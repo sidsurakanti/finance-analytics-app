@@ -1,8 +1,8 @@
 "use client";
 
-import { type User, type Transaction } from "@/lib/definitions";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { createTransaction } from "@/lib/actions";
+import { type User, type Transaction } from "@lib/definitions";
+import { createTransaction } from "@lib/actions";
 
 // TODO: convert to a zod schema
 interface Inputs {

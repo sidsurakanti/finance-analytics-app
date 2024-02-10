@@ -18,12 +18,11 @@
       },
     ],
     // @ == ./app
-    "baseUrl": "app",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@ui/*": ["ui/*"],
       "@lib/*": ["lib/*"],
-      "@components/*": ["ui/components/*"],
+      "@components/*": ["components/*"],
     },
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

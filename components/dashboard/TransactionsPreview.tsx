@@ -1,6 +1,6 @@
 import type { User } from "@lib/definitions";
-import { fetchTransactions } from "@/lib/data";
-import { RecentTransactions } from "@/(pages)/dashboard/components/RecentTransactions";
+import { fetchTransactions } from "@lib/data";
+import { RecentTransactions } from "@components/dashboard/RecentTransactions";
 import Link from "next/link";
 
 interface Props {
