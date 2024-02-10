@@ -14,10 +14,10 @@ export const authConfig = {
       const url = request.nextUrl;
       // * make sure to add any routes that aren't protected
       // ? is it possible to handle this with middleware
-      const unprotectedRoutes = ["/", "/login", "/resgister"];
+      const unprotectedRoutes = ["/", "/login", "/register"];
 
       const isLoggedIn = !!auth?.user;
-      const isOnProtected = !unprotectedRoutes.includes(url.pathname)
+      const isOnProtected = !unprotectedRoutes.includes(url.pathname);
 
       if (isOnProtected) {
         if (isLoggedIn) {

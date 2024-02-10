@@ -19,7 +19,6 @@ export default function RootLayout({
       <body
         className={`h-screen w-full ${poppins.className} overflow-y-auto antialiased`}
       >
-        <Nav />
         {children}
       </body>
     </html>
