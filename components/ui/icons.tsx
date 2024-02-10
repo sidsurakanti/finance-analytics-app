@@ -72,3 +72,77 @@ export function MaterialSymbolsArrowBackIos(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function DashboardIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M5.615 20q-.666 0-1.14-.475Q4 19.051 4 18.385V5.615q0-.666.475-1.14Q4.949 4 5.615 4h4.27q.666 0 1.14.475q.475.474.475 1.14v12.77q0 .666-.475 1.14q-.474.475-1.14.475zm8.5 0q-.666 0-1.14-.475q-.475-.474-.475-1.14v-4.77q0-.666.475-1.14t1.14-.475h4.27q.666 0 1.14.475q.475.474.475 1.14v4.77q0 .666-.475 1.14q-.474.475-1.14.475zm0-9q-.666 0-1.14-.475q-.475-.474-.475-1.14v-3.77q0-.666.475-1.14Q13.449 4 14.115 4h4.27q.666 0 1.14.475q.475.474.475 1.14v3.77q0 .666-.475 1.14q-.474.475-1.14.475z"
+      ></path>
+    </svg>
+  );
+}
+
+export function TransactionsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <circle cx="5.5" cy="7.5" r="1.5" fill="currentColor"></circle>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M8 6.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5"
+        clipRule="evenodd"
+      ></path>
+      <circle cx="5.5" cy="12" r="1.5" fill="currentColor"></circle>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M8 11a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8A.5.5 0 0 1 8 11m0 2a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 8 13"
+        clipRule="evenodd"
+      ></path>
+      <circle cx="5.5" cy="16.5" r="1.5" fill="currentColor"></circle>
+      <path
+        fill="currentColor"
+        fillRule="evenodd"
+        d="M8 15.5a.5.5 0 0 1 .5-.5H18a.5.5 0 0 1 0 1H8.5a.5.5 0 0 1-.5-.5m0 2a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  );
+}
+
+
+
+export function CashflowsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0-8 0M6 21v-2a4 4 0 0 1 4-4h3m8 0h-2.5a1.5 1.5 0 0 0 0 3h1a1.5 1.5 0 0 1 0 3H17m2 0v1m0-8v1"
+      ></path>
+    </svg>
+  );
+}
