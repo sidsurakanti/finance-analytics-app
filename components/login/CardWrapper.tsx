@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { Social } from "@/components/login/Socials";
 import { Button } from "@/components/ui/button";
+import { MaterialSymbolsArrowBackIos } from "@components/ui/icons";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ interface CardWrapperProps {
   backButtonLabel: string;
   backButtonHref: string;
   showSocial?: boolean;
+  showBackIcon?: boolean;
 }
 
 export function CardWrapper({
@@ -25,6 +27,7 @@ export function CardWrapper({
   backButtonLabel,
   backButtonHref,
   showSocial,
+  showBackIcon,
 }: CardWrapperProps) {
   return (
     <Card className="w-[325px] shadow-md">
@@ -43,6 +46,7 @@ export function CardWrapper({
             className="hover:text-blue-500 font-normal"
             href={backButtonHref}
           >
+            {showBackIcon && <MaterialSymbolsArrowBackIos />}
             {backButtonLabel}
           </Link>
         </Button>

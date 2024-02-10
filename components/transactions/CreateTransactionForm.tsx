@@ -6,13 +6,24 @@ import { createTransaction } from "@lib/actions";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 import { z } from "zod";
 
+import { CardWrapper } from "@/components/login/CardWrapper";
+import {
+  Form,
+  FormControl,
+  FormLabel,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Button } from "@components/ui/button";
+import { Input } from "@/components/ui/input";
+
 export function CreateTransactionForm({ user }: { user: User }) {
   // * this is a client component bc of the useForm hook
-  const { register, handleSubmit } =
-    useForm<z.infer<typeof createTransactionSchema>>();
+  const form = useForm<z.infer<typeof createTransactionSchema>>();
 
   const onSubmit: SubmitHandler<z.infer<typeof createTransactionSchema>> = (
-    data: z.infer<typeof createTransactionSchema>
+    data: z.infer<typeof createTransactionSchema>,
   ) => {
     console.log(data);
     const newTransaction: Transaction = {
@@ -25,18 +36,52 @@ export function CreateTransactionForm({ user }: { user: User }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input
-        className="text-black"
-        {...register("name", { required: true })}
-        placeholder="Name"
-      />
-      <input
-        className="text-black"
-        {...register("amount", { required: true })}
-        placeholder="Amount"
-      />
-      <input className="bg-blue-500" type="submit" />
-    </form>
+    <CardWrapper
+      headerLabel="Add transaction"
+      backButtonHref="/transactions"
+      backButtonLabel="Go back"
+      showBackIcon
+    >
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="w-full space-y-2 flex flex-col"
+        >
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="Romeo and Juliet" {...field}></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Amount</FormLabel>
+                <FormControl>
+                  <Input placeholder="888.88" {...field}></Input>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            variant="secondary"
+            type="submit"
+            className="hover:bg-slate-950 hover:text-white"
+          >
+            Add
+          </Button>
+        </form>
+      </Form>
+    </CardWrapper>
   );
 }

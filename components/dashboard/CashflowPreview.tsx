@@ -1,13 +1,16 @@
 import type { Transaction, User } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
+import { Button } from "@components/ui/button";
+import Link from "next/link";
 
 type Props = {
-  user: User,
+  user: User;
 };
 
 export async function CashflowPreview({ user }: Props) {
-  const { savings, income } = await fetchCashflows(user);
+  const cashflows = await fetchCashflows(user);
+
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);
   const thisMonthTotal: string = transactionsThisMonth
@@ -16,9 +19,21 @@ export async function CashflowPreview({ user }: Props) {
 
   return (
     <section className="bg-red-400">
-      <CashflowCard title="This month" value={thisMonthTotal} />
-      <CashflowCard title="Savings" value={savings} />
-      <CashflowCard title="Income" value={income} />
+      {!(cashflows == undefined) && (
+        <div>
+          <CashflowCard title="This month" value={thisMonthTotal} />
+          <CashflowCard title="Savings" value={cashflows.savings} />
+          <CashflowCard title="Income" value={cashflows.income} />
+        </div>
+      )}
+      {cashflows == undefined && (
+        <div>
+          <p>You don't have any cashflows yet, start by adding some</p>
+          <Link href="/cashflows/edit">
+            <Button>Go</Button>
+          </Link>
+        </div>
+      )}
     </section>
   );
 }
