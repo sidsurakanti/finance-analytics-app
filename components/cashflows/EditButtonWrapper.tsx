@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 
 export function Wrapper({ children }: { children: React.ReactNode }) {
@@ -12,7 +12,7 @@ export function Wrapper({ children }: { children: React.ReactNode }) {
       onMouseLeave={() => setHover(false)}
     >
       {hover && <Link href="/cashflows/edit">Edit cashflows</Link>}
-      <Suspense>{children}</Suspense>
+      {children}
     </div>
   );
 }

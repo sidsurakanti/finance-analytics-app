@@ -1,13 +1,14 @@
 "use server";
 
-import { Cashflow, Transaction } from "@lib/definitions";
+import type { User, Cashflow, Transaction } from "@lib/definitions";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { formSchema } from "@/schemas/login-schemas";
+import { formSchema } from "@/schemas/login";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
+import bcrypt from "bcrypt";
 
 export async function updateCashflows(newCashflow: Cashflow) {
   try {
@@ -62,7 +63,6 @@ export async function authenticate(data: z.infer<typeof formSchema>) {
   }
 }
 
-
 export async function logout() {
   try {
     // call sign out method
@@ -70,4 +70,29 @@ export async function logout() {
   } catch (error) {
     throw error;
   }
+}
+
+export async function createUser(user: User) {
+  // encrypt password and destructure data
+  const { name, email, password } = {
+    ...user,
+    password: await bcrypt.hash(user.password, 10),
+  };
+
+  try {
+    // * duplicate users are not allowed by db columns bc of unique email contrainsts
+    const res = await sql`
+      INSERT INTO users (name, email, password) 
+      VALUES (${name}, ${email}, ${password})
+    `;
+    console.log("Created new user", res);
+  } catch (error) {
+    if ((error as any).code === "23505") {
+      console.log("Error: user with that email already exists");
+      return "User with that email already exists";
+    }
+    console.log("Database error", error);
+    throw new Error("Database error");
+  }
+  redirect("/login");
 }

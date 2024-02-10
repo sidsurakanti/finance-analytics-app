@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
 import { authConfig } from "@/auth.config";
-import { formSchema } from "@/schemas/login-schemas";
+import { formSchema } from "@/schemas/login";
 import { fetchUser } from "@/lib/data";
 
 export const { auth, signIn, signOut } = NextAuth({

@@ -10,9 +10,9 @@ export default async function Nav() {
 
   return (
     <header className="bg-blue-300 flex flex-row justify-between h-24 items-center">
-      <div className="flex items-center">
+      <div className="flex items-center gap-3">
         <Image src="/logo.svg" alt="logo" height={50} width={50} />
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 bg-slate-950 text-white">
           <Link href="/dashboard">Home</Link>
           <Link href="/transactions">Transactions</Link>
           <Link href="/cashflows">Cashflows</Link>

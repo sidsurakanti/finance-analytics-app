@@ -14,7 +14,7 @@ export async function TransactionSection({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="bg-green-900">
+    <section className="bg-green-200">
       <p>Recent</p>
       <p>${recentTotal}</p>
       <Link className="text-blue-500" href="/transactions/create">

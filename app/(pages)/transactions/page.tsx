@@ -10,7 +10,7 @@ export default async function Transactions() {
   const user = session?.user as User;
 
   return (
-    <main className="bg-green-500">
+    <main className="bg-green-200">
       <Link className="text-blue-500" href="/transactions/create">
         add transaction
       </Link>

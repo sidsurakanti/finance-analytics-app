@@ -3,7 +3,7 @@
 import { CardWrapper } from "@/components/login/CardWrapper";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-// import { FormError } from "@/components/auth/form-error";
+import { FormError } from "@/components/login/FormError";
 
 import {
   Form,
@@ -16,7 +16,7 @@ import {
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { formSchema } from "@/schemas/login-schemas";
+import { formSchema } from "@/schemas/login";
 import { authenticate } from "@lib/actions";
 import { useState } from "react";
 
@@ -78,7 +78,7 @@ export function LoginForm() {
                 </FormItem>
               )}
             />
-            {/* <FormError message={formError} /> */}
+            <FormError message={formError} />
             <Button type="submit" className="hover:bg-blue-500">
               Go
             </Button>
