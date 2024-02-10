@@ -9,6 +9,7 @@ import {
   CashflowsIcon,
 } from "@components/ui/icons";
 import Cashflows from "@/app/(pages)/cashflows/page";
+import { ModeToggle } from "./ui/themes";
 
 export default async function Nav() {
   const session = await auth();
@@ -18,7 +19,7 @@ export default async function Nav() {
     <header className="bg-blue-300 flex flex-row justify-between h-24 items-center">
       <div className="flex items-center gap-3">
         <Image src="/logo.svg" alt="logo" height={50} width={50} />
-        <ul className="flex gap-4 text-white">
+        <ul className="flex gap-2 text-white">
           <Link href="/dashboard">
             <Button className="gap-1">
               <DashboardIcon width={20} height={20} />
@@ -41,7 +42,8 @@ export default async function Nav() {
       </div>
 
       <div className="flex items-center gap-4">
-        {user?.name}
+        <ModeToggle />
+        <p>{user?.name}</p>
         <LogoutButton>
           <Button>Logout</Button>
         </LogoutButton>

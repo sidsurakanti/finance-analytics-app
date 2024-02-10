@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import "@/styles/globals.css";
 import { poppins } from "@/styles/fonts";
-import Nav from "@components/nav";
+import { ThemeProvider } from "@components/ui/themes";
 
 export const metadata: Metadata = {
   title: "Prototype",
@@ -15,11 +15,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`h-screen w-full ${poppins.className} overflow-y-auto antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
