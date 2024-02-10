@@ -1,14 +1,17 @@
 import {
   fetchCashflows,
   fetchTransactionsThisMonth,
-  fetchUser,
 } from "@lib/data";
-import { Cashflow, Transaction } from "@lib/definitions";
+import type { User, Cashflow, Transaction } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { Wrapper } from "@components/cashflows/EditButtonWrapper";
 
+import { auth } from "@/auth";
+
 export default async function Cashflows() {
-  const user = await fetchUser("janedoe@gmail.com");
+  const session = await auth();
+  const user = session?.user as User;
+  
   const cashflows: Cashflow = await fetchCashflows(user);
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);

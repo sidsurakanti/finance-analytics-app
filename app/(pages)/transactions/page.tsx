@@ -1,11 +1,13 @@
-import { fetchUser } from "@lib/data";
+import { auth } from "@/auth";
+import { User } from "@/lib/definitions";
 import TransactionList from "@components/transactions/TransactionList";
 import Link from "next/link";
 import { Suspense } from "react";
 
 // Server component
 export default async function Transactions() {
-  const user = await fetchUser("janedoe@gmail.com");
+  const session = await auth();
+  const user = session?.user as User;
 
   return (
     <main className="bg-green-500">

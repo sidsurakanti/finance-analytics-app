@@ -1,9 +1,10 @@
 import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
-import { fetchUser } from "@lib/data";
+import { auth } from "@/auth";
+import { User } from "@/lib/definitions";
 
 export default async function CreateTransaction() {
-  // * temporary solution until auth is added
-  const user = await fetchUser("janedoe@gmail.com");
+  const session = await auth();
+  const user = session?.user as User;
 
   return (
     <main className="">
