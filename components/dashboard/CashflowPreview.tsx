@@ -3,7 +3,7 @@ import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 
 type Props = {
-  user: User;
+  user: User,
 };
 
 export async function CashflowPreview({ user }: Props) {

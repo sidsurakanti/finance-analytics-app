@@ -10,7 +10,7 @@ export async function fetchUser(email: string) {
         `;
     const user = data.rows[0];
 
-    console.log("Fetched user with email:", email);
+    console.log("Fetched user with email:", email, user);
     return user;
   } catch (error) {
     console.log("Database error", error);
