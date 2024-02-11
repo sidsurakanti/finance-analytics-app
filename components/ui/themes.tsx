@@ -5,6 +5,8 @@ import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { type ThemeProviderProps } from "next-themes/dist/types";
 
 import { Button } from "@components/ui/button";
+import { Switch } from "@components/ui/switch";
+import { Label } from "@components/ui/label";
 import { ThemeIcons } from "@components/ui/icons";
 import { useTheme } from "next-themes";
 
@@ -23,6 +25,20 @@ export function ModeToggle({}) {
       >
         <ThemeIcons width={20} height={20} />
       </Button>
+    </div>
+  );
+}
+
+export function ModeSwitch({}) {
+  const { theme, setTheme } = useTheme();
+  return (
+    <div className="flex flex-row gap-2 justify-center items-center md:hidden">
+      <Switch
+        checked={theme == "dark"}
+        onCheckedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+        id="dark-mode"
+      />
+      <Label htmlFor="dark-mode">Dark mode</Label>
     </div>
   );
 }

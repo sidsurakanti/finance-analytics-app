@@ -42,7 +42,7 @@ export function RecentTransactions({ transactions }: Props) {
       </TableHeader>
       <TableBody>
         {transactions.map((transaction, index) => (
-          <TableRow className="text-lg md:h-24" key={index}>
+          <TableRow className="md:text-lg md:h-24" key={index}>
             <TableCell>{transaction.name}</TableCell>
             <TableCell>
               {`${months[transaction.created_at.getMonth()]} ${transaction.created_at.getDate()}, ${transaction.created_at.getFullYear()}`}

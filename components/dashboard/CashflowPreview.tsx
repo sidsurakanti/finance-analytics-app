@@ -18,7 +18,7 @@ export async function CashflowPreview({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="h-full flex flex-col md:flex-row xl:flex-col justify-between gap-2 xl:justify-between">
+    <section className="h-full flex flex-col md:flex-row xl:flex-col justify-between gap-2 xl:justify-end">
       {cashflows && (
         <>
           <CashflowCard title="This month" value={thisMonthTotal} />

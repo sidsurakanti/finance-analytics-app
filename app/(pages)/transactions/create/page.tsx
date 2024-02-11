@@ -7,8 +7,10 @@ export default async function CreateTransaction() {
   const user = session?.user as User;
 
   return (
-    <main className="">
-      <CreateTransactionForm user={user} />
+    <main className="w-[90%] md:w-5/6 mx-auto flex justify-center">
+      <div>
+        <CreateTransactionForm user={user} />
+      </div>
     </main>
   );
 }

@@ -1,13 +1,16 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import { BackArrow } from "@/components/ui/icons";
 
 export default function EditCashflows() {
   return (
-    <section>
+    <section className="w-[90%] md:w-5/6 mx-auto">
       {/* // TODO: add form for this */}
-      <p>Edit cashflows</p>
       <Link href="/cashflows">
-        <Button variant="link">Go back</Button>
+        <Button size="lg" variant="link">
+          <BackArrow />
+          Go back
+        </Button>
       </Link>
     </section>
   );

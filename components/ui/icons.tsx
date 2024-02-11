@@ -124,8 +124,6 @@ export function TransactionsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
-
 export function CashflowsIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -147,7 +145,6 @@ export function CashflowsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
 export function ThemeIcons(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -160,6 +157,23 @@ export function ThemeIcons(props: SVGProps<SVGSVGElement>) {
       <path
         fill="currentColor"
         d="M10 3.5a6.5 6.5 0 1 1 0 13zM10 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16"
+      ></path>
+    </svg>
+  );
+}
+
+export function EditIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M5 19h1.425L16.2 9.225L14.775 7.8L5 17.575zm-1 2q-.425 0-.712-.288T3 20v-2.425q0-.4.15-.763t.425-.637L16.2 3.575q.3-.275.663-.425t.762-.15q.4 0 .775.15t.65.45L20.425 5q.3.275.437.65T21 6.4q0 .4-.138.763t-.437.662l-12.6 12.6q-.275.275-.638.425t-.762.15zM19 6.4L17.6 5zm-3.525 2.125l-.7-.725L16.2 9.225z"
       ></path>
     </svg>
   );

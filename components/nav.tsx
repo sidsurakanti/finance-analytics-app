@@ -14,7 +14,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { ModeToggle } from "@components/ui/themes";
+import { ModeToggle, ModeSwitch } from "@components/ui/themes";
 
 export default async function Nav() {
   const session = await auth();
@@ -59,15 +59,15 @@ export default async function Nav() {
               <p className="text-sm text-gray-400">{user?.email}</p>
             </div>
             <hr></hr>
-            <div className="">
-              <ModeToggle />
+            <div className="pt-2">
+              <ModeSwitch />
+              <LogoutButton>
+                <Button variant="ghost" className="w-full">
+                  <BackArrow />
+                  Logout
+                </Button>
+              </LogoutButton>
             </div>
-            <LogoutButton>
-              <Button variant="ghost" className="w-full">
-                <BackArrow />
-                Logout
-              </Button>
-            </LogoutButton>
           </PopoverContent>
         </Popover>
       </div>

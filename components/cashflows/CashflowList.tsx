@@ -19,12 +19,12 @@ export async function CashflowList() {
     .toFixed(2);
 
   return (
-    <section>
+    <section className="w-[90%] md:w-5/6 mx-auto">
       {!(cashflows == undefined) && (
         <div>
           {/* // TODO: find a more efficient way to do this */}
           <Wrapper>
-            <div>
+            <div className="h-full flex flex-col md:flex-row justify-between gap-2">
               <CashflowCard title="This month" value={thisMonthTotal} />
               <CashflowCard title="Savings" value={cashflows.savings} />
               <CashflowCard title="Income" value={cashflows.income} />
@@ -33,7 +33,7 @@ export async function CashflowList() {
         </div>
       )}
       {cashflows == undefined && (
-        <div>
+        <div className="h-full flex flex-col md:flex-row justify-between gap-2">
           <p>You don&apos;t have any cashflows yet, start by adding some</p>
           <Link href="/cashflows/edit">
             <Button>Go</Button>

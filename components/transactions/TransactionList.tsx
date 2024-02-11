@@ -38,7 +38,7 @@ export default async function TransactionList({ user }: Props) {
     <Table>
       <TableCaption>Transactions</TableCaption>
       <TableHeader>
-        <TableRow>
+        <TableRow className="h-14">
           <TableHead>Name</TableHead>
           <TableHead>Date</TableHead>
           <TableHead className="text-right">Amount</TableHead>
@@ -46,7 +46,7 @@ export default async function TransactionList({ user }: Props) {
       </TableHeader>
       <TableBody>
         {transactions.map((transaction, index) => (
-          <TableRow key={index}>
+          <TableRow key={index} className="h-20 text-lg">
             <TableCell>{transaction.name}</TableCell>
             <TableCell>
               {`${months[transaction.created_at.getMonth()]} ${transaction.created_at.getDate()}, ${transaction.created_at.getFullYear()}`}

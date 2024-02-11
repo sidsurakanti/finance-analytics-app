@@ -15,11 +15,11 @@ export async function TransactionSection({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="bg-slate-500/75 p-5 text-black flex flex-col gap-5">
+    <section className="bg-slate-400/75 rounded-lg p-5 text-black flex flex-col gap-5">
       <div className="flex flex-row justify-between">
-        <span>
+        <span className="flex flex-col gap-[2px]">
           <p className="text-muted">Recent</p>
-          <p className="text-2xl">${recentTotal}</p>
+          <p className="text-3xl">${recentTotal}</p>
         </span>
         <Link className="" href="/transactions/create">
           <Button>add transaction</Button>
