@@ -3,7 +3,7 @@ import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 import { Button } from "@components/ui/button";
 import Link from "next/link";
-import { Wrapper } from "@/components/cashflows/CashflowWrapper";
+import { Wrapper } from "@components/cashflows/CashflowWrapper";
 
 type Props = {
   user: User;
