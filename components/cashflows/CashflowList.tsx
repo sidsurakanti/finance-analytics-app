@@ -19,7 +19,7 @@ export async function CashflowList() {
     .toFixed(2);
 
   return (
-    <section className="w-[90%] md:w-5/6 mx-auto">
+    <section>
       {!(cashflows == undefined) && (
         <div>
           {/* // TODO: find a more efficient way to do this */}
