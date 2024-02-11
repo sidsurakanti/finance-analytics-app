@@ -18,18 +18,18 @@ export async function CashflowPreview({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="bg-accent">
+    <section className="h-full flex flex-col md:flex-row xl:flex-col justify-between gap-2 xl:justify-between">
       {cashflows && (
-        <div className="flex gap-2">
+        <>
           <CashflowCard title="This month" value={thisMonthTotal} />
           <CashflowCard title="Savings" value={cashflows.savings} />
           <CashflowCard title="Income" value={cashflows.income} />
-        </div>
+        </>
       )}
 
       {!cashflows && (
         <div>
-          <p>You don't have any cashflows yet, start by adding some</p>
+          <p>You don&apos;t have any cashflows yet, start by adding some</p>
           <Button>
             <Link href="/cashflows/edit">Go</Link>
           </Button>

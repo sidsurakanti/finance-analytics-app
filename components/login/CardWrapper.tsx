@@ -10,7 +10,7 @@ import {
 import Link from "next/link";
 import { Social } from "@/components/login/Socials";
 import { Button } from "@/components/ui/button";
-import { MaterialSymbolsArrowBackIos } from "@components/ui/icons";
+import { BackArrow } from "@components/ui/icons";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ export function CardWrapper({
             className="hover:text-blue-500 font-normal"
             href={backButtonHref}
           >
-            {showBackIcon && <MaterialSymbolsArrowBackIos />}
+            {showBackIcon && <BackArrow />}
             {backButtonLabel}
           </Link>
         </Button>

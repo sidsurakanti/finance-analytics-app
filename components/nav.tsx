@@ -7,6 +7,7 @@ import {
   DashboardIcon,
   TransactionsIcon,
   CashflowsIcon,
+  BackArrow,
 } from "@components/ui/icons";
 import {
   Popover,
@@ -20,15 +21,8 @@ export default async function Nav() {
   const user = session?.user;
 
   return (
-    <header className="flex flex-row w-[95%] md:w-5/6 mx-auto justify-between h-24 items-center">
+    <header className="flex flex-row w-[90%] md:w-5/6 mx-auto justify-between h-24 items-center">
       <div className="flex items-center gap-8">
-        <Image
-          className="hidden md:block"
-          src="/logo.svg"
-          alt="logo"
-          height={40}
-          width={40}
-        />
         <ul className="flex gap-2 text-white">
           <Link href="/dashboard">
             <Button className="gap-1" size="lg">
@@ -52,16 +46,28 @@ export default async function Nav() {
       </div>
 
       <div className="flex items-center gap-4">
-        <ModeToggle/>
+        <ModeToggle />
         <Popover>
           <PopoverTrigger>
-            <p className="bg-blue-500 text-white py-2 px-4 rounded-full">
-              {user?.name}
-            </p>
+            <Image
+              // className="hidden md:block"
+              src="/logo.svg"
+              alt="logo"
+              height={40}
+              width={40}
+            />
           </PopoverTrigger>
           <PopoverContent className="w-fit">
+            <div className="p-2">
+              <p>{user?.name}</p>
+              <p className="text-sm text-gray-400">{user?.email}</p>
+            </div>
+            <hr></hr>
             <LogoutButton>
-              <Button variant="ghost" size="lg">Logout</Button>
+              <Button variant="ghost" className="w-full">
+                <BackArrow />
+                Logout
+              </Button>
             </LogoutButton>
           </PopoverContent>
         </Popover>

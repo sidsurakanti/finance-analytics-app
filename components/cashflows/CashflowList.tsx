@@ -24,15 +24,17 @@ export async function CashflowList() {
         <div>
           {/* // TODO: find a more efficient way to do this */}
           <Wrapper>
-            <CashflowCard title="This month" value={thisMonthTotal} />
-            <CashflowCard title="Savings" value={cashflows.savings} />
-            <CashflowCard title="Income" value={cashflows.income} />
+            <div>
+              <CashflowCard title="This month" value={thisMonthTotal} />
+              <CashflowCard title="Savings" value={cashflows.savings} />
+              <CashflowCard title="Income" value={cashflows.income} />
+            </div>
           </Wrapper>
         </div>
       )}
       {cashflows == undefined && (
         <div>
-          <p>You don't have any cashflows yet, start by adding some</p>
+          <p>You don&apos;t have any cashflows yet, start by adding some</p>
           <Link href="/cashflows/edit">
             <Button>Go</Button>
           </Link>
