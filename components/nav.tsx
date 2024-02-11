@@ -59,7 +59,7 @@ export default async function Nav() {
               <p className="text-sm text-gray-400">{user?.email}</p>
             </div>
             <hr></hr>
-            <div className="pt-2">
+            <div className="pt-2 flex flex-col gap-2">
               <ModeSwitch />
               <LogoutButton>
                 <Button variant="ghost" className="w-full">
