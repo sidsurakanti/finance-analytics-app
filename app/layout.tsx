@@ -7,6 +7,7 @@ import { ThemeProvider } from "@components/ui/themes";
 export const metadata: Metadata = {
   title: "Dashboard",
   description: "A simple dashboard to manage your personal expenses",
+  metadataBase: new URL("https://pbdashboard.vercel.app"),
   keywords: [
     "dashboard",
     "expenses",
