@@ -7,7 +7,7 @@ export default function EditCashflows() {
     <section className="w-[90%] md:w-5/6 mx-auto">
       {/* // TODO: add form for this */}
       <Link href="/cashflows">
-        <Button size="lg" variant="link">
+        <Button size="lg">
           <BackArrow />
           Go back
         </Button>

@@ -40,6 +40,7 @@ export function CreateTransactionForm({ user }: { user: User }) {
       headerLabel="Add transaction"
       backButtonHref="/transactions"
       backButtonLabel="Go back"
+      description="Create a new transaction"
       showBackIcon
     >
       <Form {...form}>
@@ -76,7 +77,7 @@ export function CreateTransactionForm({ user }: { user: User }) {
           <Button
             variant="secondary"
             type="submit"
-            className="hover:bg-slate-950 hover:text-white"
+            className="hover:bg-accent hover:text-white"
           >
             Add
           </Button>

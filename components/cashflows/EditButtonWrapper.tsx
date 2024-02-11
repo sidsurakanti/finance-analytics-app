@@ -4,18 +4,21 @@ import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
 import Link from "next/link";
 
-export function Wrapper({ children }: { children: React.ReactNode }) {
+interface WrapperProps {
+  children: React.ReactNode;
+  editText?: boolean;
+}
+
+export function Wrapper({ children, editText }: WrapperProps) {
   return (
-    <div
-    // className="ease-in-out delay-150"
-    >
-      <Link href="/cashflows/edit" className="flex justify-end">
+    <>
+      <Link href="/cashflows/edit" className="flex justify-end pb-2">
         <Button className="flex flex-row gap-2" variant="link">
-          <EditIcon />
-          <p>Edit</p>
+          <EditIcon width={20} height={20} />
+          {editText && <p className="text-lg hidden md:block">Edit</p>}
         </Button>
       </Link>
       {children}
-    </div>
+    </>
   );
 }

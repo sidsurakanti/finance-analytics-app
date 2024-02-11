@@ -3,6 +3,7 @@
 import {
   Card,
   CardHeader,
+  CardDescription,
   CardTitle,
   CardContent,
   CardFooter,
@@ -17,6 +18,7 @@ interface CardWrapperProps {
   headerLabel: string;
   backButtonLabel: string;
   backButtonHref: string;
+  description?: string;
   showSocial?: boolean;
   showBackIcon?: boolean;
 }
@@ -26,13 +28,15 @@ export function CardWrapper({
   headerLabel,
   backButtonLabel,
   backButtonHref,
+  description,
   showSocial,
   showBackIcon,
 }: CardWrapperProps) {
   return (
-    <Card className="w-[325px] shadow-md">
+    <Card className="w-[325px] lg:w-[400px] xl:w-[450px] shadow-md">
       <CardHeader>
         <CardTitle className="text-xl">{headerLabel}</CardTitle>
+        {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
       <CardContent>{children}</CardContent>
       {showSocial && (
@@ -42,10 +46,7 @@ export function CardWrapper({
       )}
       <CardFooter>
         <Button variant="link" className="w-full" asChild>
-          <Link
-            className="hover:text-blue-500 font-normal"
-            href={backButtonHref}
-          >
+          <Link className="text-white" href={backButtonHref}>
             {showBackIcon && <BackArrow />}
             {backButtonLabel}
           </Link>

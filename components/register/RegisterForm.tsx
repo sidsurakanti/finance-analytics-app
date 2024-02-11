@@ -52,9 +52,9 @@ export function RegisterForm() {
     <div>
       <CardWrapper
         headerLabel="Register"
-        backButtonHref="/auth/login"
+        description="Create a new account"
+        backButtonHref="/login"
         backButtonLabel="Already have an account?"
-        showSocial
       >
         <Form {...form}>
           <form
@@ -119,7 +119,11 @@ export function RegisterForm() {
               )}
             />
             <FormError message={formError} />
-            <Button type="submit" className="hover:bg-blue-500">
+            <Button
+              variant="outline"
+              type="submit"
+              className="hover:bg-blue-500"
+            >
               Go
             </Button>
           </form>

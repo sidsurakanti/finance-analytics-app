@@ -40,9 +40,9 @@ export function LoginForm() {
     <div>
       <CardWrapper
         headerLabel="Login"
+        description="Welcome back!"
         backButtonHref="/register"
         backButtonLabel="Don't have an account?"
-        showSocial
       >
         <Form {...form}>
           <form
@@ -79,7 +79,11 @@ export function LoginForm() {
               )}
             />
             <FormError message={formError} />
-            <Button type="submit" className="hover:bg-blue-500">
+            <Button
+              variant="outline"
+              type="submit"
+              className="hover:bg-blue-500"
+            >
               Go
             </Button>
           </form>

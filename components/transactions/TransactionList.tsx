@@ -36,7 +36,7 @@ export default async function TransactionList({ user }: Props) {
 
   return (
     <Table>
-      <TableCaption>Transactions</TableCaption>
+      <TableCaption></TableCaption>
       <TableHeader>
         <TableRow className="h-14">
           <TableHead>Name</TableHead>

@@ -14,7 +14,7 @@ export default async function Transactions() {
     <main className="w-[90%] md:w-5/6 mx-auto flex flex-col gap-2">
       <div className="flex justify-end">
         <Link href="/transactions/create">
-          <Button variant="secondary">Add transaction</Button>
+          <Button>add transaction</Button>
         </Link>
       </div>
       <div className="mb-4">

@@ -12,7 +12,7 @@ export default async function Dashboard() {
   const user = session?.user as User;
 
   return (
-    <main className="w-[90%] md:w-5/6 mx-auto grid grid-rows grid-cols-1 gap-5 xl:grid-cols-4">
+    <main className="w-[90%] md:w-5/6 mx-auto grid grid-rows grid-cols-1 gap-10 xl:grid-cols-4">
       <div>
         <Suspense fallback={"Loading cashflows..."}>
           <CashflowPreview user={user} />

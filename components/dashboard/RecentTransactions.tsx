@@ -32,7 +32,9 @@ export function RecentTransactions({ transactions }: Props) {
 
   return (
     <Table>
-      <TableCaption className="text-muted">Recent transactions</TableCaption>
+      <TableCaption className="text-secondary-foreground/50">
+        Recent transactions
+      </TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead>Name</TableHead>
