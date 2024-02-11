@@ -2,6 +2,7 @@ import type { User } from "@lib/definitions";
 import { fetchTransactions } from "@lib/data";
 import { RecentTransactions } from "@components/dashboard/RecentTransactions";
 import Link from "next/link";
+import { Button } from "@components/ui/button";
 
 interface Props {
   user: User;
@@ -14,12 +15,16 @@ export async function TransactionSection({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="bg-green-200 text-black">
-      <p>Recent</p>
-      <p>${recentTotal}</p>
-      <Link className="text-blue-500" href="/transactions/create">
-        add transaction
-      </Link>
+    <section className="bg-slate-500/75 p-5 text-black flex flex-col gap-5">
+      <div className="flex flex-row justify-between">
+        <span>
+          <p className="text-muted">Recent</p>
+          <p className="text-2xl">${recentTotal}</p>
+        </span>
+        <Link className="" href="/transactions/create">
+          <Button>add transaction</Button>
+        </Link>
+      </div>
 
       <RecentTransactions transactions={transactions} />
     </section>

@@ -46,16 +46,12 @@ export default async function Nav() {
       </div>
 
       <div className="flex items-center gap-4">
-        <ModeToggle />
+        <div className="hidden md:block">
+          <ModeToggle />
+        </div>
         <Popover>
           <PopoverTrigger>
-            <Image
-              // className="hidden md:block"
-              src="/logo.svg"
-              alt="logo"
-              height={40}
-              width={40}
-            />
+            <Image src="/logo.svg" alt="logo" height={40} width={40} />
           </PopoverTrigger>
           <PopoverContent className="w-fit">
             <div className="p-2">
@@ -63,6 +59,9 @@ export default async function Nav() {
               <p className="text-sm text-gray-400">{user?.email}</p>
             </div>
             <hr></hr>
+            <div className="">
+              <ModeToggle />
+            </div>
             <LogoutButton>
               <Button variant="ghost" className="w-full">
                 <BackArrow />

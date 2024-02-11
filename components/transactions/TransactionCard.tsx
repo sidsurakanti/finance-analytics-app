@@ -4,6 +4,7 @@ type TransactionProps = {
   transaction: Transaction;
 };
 
+// !!! REMOVE THIS IF NOT USED BEFORE PROD THIS COMPONENT IS NEVER USED
 export function TransactionCard({ transaction }: TransactionProps) {
   const { name, amount, created_at } = transaction;
   const months = [
@@ -24,7 +25,6 @@ export function TransactionCard({ transaction }: TransactionProps) {
 
   return (
     <div>
-      {/* <p> {id?.toString()} </p> */}
       <p> {name} </p>
       <p> {date} </p>
       <p> ${amount.toString()} </p>
