@@ -17,11 +17,11 @@ export function ModeToggle({}) {
   return (
     <div>
       <Button
-        onClick={() =>
-          setTheme(theme === "dark" ? "light" : "dark")
-        }
+        onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        variant="ghost"
+        className="hidden md:block"
       >
-        <ThemeIcons />
+        <ThemeIcons width={20} height={20} />
       </Button>
     </div>
   );

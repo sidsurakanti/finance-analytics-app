@@ -8,32 +8,42 @@ import {
   TransactionsIcon,
   CashflowsIcon,
 } from "@components/ui/icons";
-import Cashflows from "@/app/(pages)/cashflows/page";
-import { ModeToggle } from "./ui/themes";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { ModeToggle } from "@components/ui/themes";
 
 export default async function Nav() {
   const session = await auth();
   const user = session?.user;
 
   return (
-    <header className="bg-blue-300 flex flex-row justify-between h-24 items-center">
-      <div className="flex items-center gap-3">
-        <Image src="/logo.svg" alt="logo" height={50} width={50} />
+    <header className="flex flex-row w-[95%] md:w-5/6 mx-auto justify-between h-24 items-center">
+      <div className="flex items-center gap-8">
+        <Image
+          className="hidden md:block"
+          src="/logo.svg"
+          alt="logo"
+          height={40}
+          width={40}
+        />
         <ul className="flex gap-2 text-white">
           <Link href="/dashboard">
-            <Button className="gap-1">
+            <Button className="gap-1" size="lg">
               <DashboardIcon width={20} height={20} />
               <p className="hidden lg:block">Dashboard</p>
             </Button>
           </Link>
           <Link href="/transactions">
-            <Button className="gap-1">
+            <Button className="gap-1" size="lg">
               <TransactionsIcon width={20} height={20} />
               <p className="hidden lg:block">Transactions</p>
             </Button>
           </Link>
           <Link href="/cashflows">
-            <Button className="gap-1">
+            <Button className="gap-1" size="lg">
               <CashflowsIcon width={18} height={18} />
               <p className="hidden lg:block">Cashflows</p>
             </Button>
@@ -42,11 +52,19 @@ export default async function Nav() {
       </div>
 
       <div className="flex items-center gap-4">
-        <ModeToggle />
-        <p>{user?.name}</p>
-        <LogoutButton>
-          <Button>Logout</Button>
-        </LogoutButton>
+        <ModeToggle/>
+        <Popover>
+          <PopoverTrigger>
+            <p className="bg-blue-500 text-white py-2 px-4 rounded-full">
+              {user?.name}
+            </p>
+          </PopoverTrigger>
+          <PopoverContent className="w-fit">
+            <LogoutButton>
+              <Button variant="ghost" size="lg">Logout</Button>
+            </LogoutButton>
+          </PopoverContent>
+        </Popover>
       </div>
     </header>
   );
