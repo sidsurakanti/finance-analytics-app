@@ -4,6 +4,7 @@ import { TransactionSection } from "@components/dashboard/TransactionsPreview";
 import { CashflowPreview } from "@components/dashboard/CashflowPreview";
 import { Suspense } from "react";
 import { User } from "@/lib/definitions";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Dashboard() {
   const session = await auth();
@@ -14,12 +15,12 @@ export default async function Dashboard() {
   return (
     <main className="w-[90%] md:w-5/6 mx-auto grid grid-rows grid-cols-1 gap-10 xl:grid-cols-4">
       <div>
-        <Suspense fallback={"Loading cashflows..."}>
+        <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
           <CashflowPreview user={user} />
         </Suspense>
       </div>
       <div className="xl:col-span-3">
-        <Suspense fallback={"Loading transactions..."}>
+        <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
           <TransactionSection user={user} />
         </Suspense>
       </div>

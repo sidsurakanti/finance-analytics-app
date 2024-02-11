@@ -4,6 +4,7 @@ import TransactionList from "@components/transactions/TransactionList";
 import Link from "next/link";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Server component
 export default async function Transactions() {
@@ -18,7 +19,9 @@ export default async function Transactions() {
         </Link>
       </div>
       <div className="mb-4">
-        <Suspense fallback={"Loading transactions..."}>
+        <Suspense
+          fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
+        >
           <TransactionList user={user} />
         </Suspense>
       </div>
