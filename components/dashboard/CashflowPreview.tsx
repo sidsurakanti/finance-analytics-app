@@ -3,7 +3,7 @@ import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 import { Button } from "@components/ui/button";
 import Link from "next/link";
-import { Wrapper } from "@components/cashflows/EditButtonWrapper";
+import { Wrapper } from "@/components/cashflows/CashflowWrapper";
 
 type Props = {
   user: User;
@@ -21,7 +21,7 @@ export async function CashflowPreview({ user }: Props) {
   return (
     <section className="flex flex-col md:flex-row xl:flex-col justify-between gap-2 xl:justify-end">
       {cashflows && (
-        <Wrapper>
+        <Wrapper viewMore>
           <CashflowCard title="This month" value={thisMonthTotal} />
           <CashflowCard title="Savings" value={cashflows.savings} />
           <CashflowCard title="Income" value={cashflows.income} />

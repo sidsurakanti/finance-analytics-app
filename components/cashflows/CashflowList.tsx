@@ -1,7 +1,7 @@
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 import type { User, Cashflow, Transaction } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
-import { Wrapper } from "@components/cashflows/EditButtonWrapper";
+import { Wrapper } from "@/components/cashflows/CashflowWrapper";
 import { Button } from "@components/ui/button";
 import { auth } from "@/auth";
 import Link from "next/link";
