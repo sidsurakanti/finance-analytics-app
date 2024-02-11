@@ -12,7 +12,7 @@ export const authConfig = {
     // manage user authorization to access page
     authorized({ request, auth }) {
       const url = request.nextUrl;
-      // * make sure to add any routes that aren't protected
+      // * make sure to add any routes that aren't protected later on
       // ? is it possible to handle this with middleware
       const unprotectedRoutes = ["/", "/login", "/register"];
 
