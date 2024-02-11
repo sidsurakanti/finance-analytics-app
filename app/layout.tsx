@@ -5,8 +5,17 @@ import { poppins } from "@/styles/fonts";
 import { ThemeProvider } from "@components/ui/themes";
 
 export const metadata: Metadata = {
-  title: "Prototype",
-  description: "Wolhaikso - 1/26/2024",
+  title: "Dashboard",
+  description: "A simple dashboard to manage your personal expenses",
+  keywords: [
+    "dashboard",
+    "expenses",
+    "personal",
+    "management",
+    "budgeting",
+    "money",
+  ],
+  openGraph: { images: "/hero.svg" },
 };
 
 export default function RootLayout({
