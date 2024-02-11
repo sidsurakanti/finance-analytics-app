@@ -26,9 +26,8 @@ export const authConfig = {
         return false;
       } else if (isLoggedIn) {
         return NextResponse.redirect(new URL("/dashboard", url));
-      } else {
-        return NextResponse.next();
       }
+      return NextResponse.next();
     },
   },
 } satisfies NextAuthConfig;
