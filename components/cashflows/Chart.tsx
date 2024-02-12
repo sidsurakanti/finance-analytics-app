@@ -21,11 +21,11 @@ export function Chart({ cashflows, thisMonthTotal }: ChartProps) {
   
   // TODO: add reoccuring 
   const data = {
-  labels: ['Income', 'Expenses', 'Reoccuring'],
+  labels: ['Leftover', 'Expenses', 'Reoccuring'],
   datasets: [
       {
         label: '',
-        data: [cashflows.income, thisMonthTotal, 0],
+        data: [(Number(cashflows.income) - thisMonthTotal).toString(), thisMonthTotal, 0],
         backgroundColor: [
           'rgba(54, 162, 235, 0.2)',
           'rgba(255, 99, 132, 0.2)',
