@@ -19,7 +19,7 @@ export async function CashflowPreview({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="flex flex-col md:flex-row xl:flex-col justify-between gap-2 xl:justify-end">
+    <section className="flex flex-col md:flex-row xl:flex-col justify-between gap-3 xl:justify-end">
       {cashflows && (
         <Wrapper viewMore>
           <CashflowCard title="This month" value={thisMonthTotal} />
