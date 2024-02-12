@@ -9,7 +9,6 @@ export default function EditCashflows() {
       <Link href="/cashflows">
         <Button size="lg">
           <BackArrow />
-          Go back
         </Button>
       </Link>
     </section>
