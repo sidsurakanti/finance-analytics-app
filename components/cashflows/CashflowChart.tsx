@@ -18,7 +18,7 @@ export async function CashflowChart() {
 
   
   return (
-    <section className="w-[400px] h-[400px]">
+    <section className="w-full h-full xl:w-[90%] xl:h-[90%]">
       <Chart cashflows={cashflows} thisMonthTotal={Number(thisMonthTotal)} />
     </section>
   )

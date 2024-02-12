@@ -182,6 +182,7 @@ export function EditIcon(props: SVGProps<SVGSVGElement>) {
 
 export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14" {...props}><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4v6M4 7h6"></path><rect width="13" height="13" x=".5" y=".5" rx="3"></rect></g></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 14 14" {...props}><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="M7 .54v13M.5 7h13"></path></svg>
   )
 }
+

@@ -5,13 +5,13 @@ import { Suspense } from "react";
 
 export default async function Cashflows() {
   return (
-    <main className="w-[90%] md:w-5/6 mx-auto flex flex-col gap-4">
+    <main className="w-[90%] md:w-5/6 mx-auto grid grid-rows grid-cols-1 xl:grid-cols-3 gap-4">
       <Suspense
         fallback={<Skeleton className="w-full h-[400px]"/>}
       >
         <CashflowList/>
       </Suspense>
-      <div className="flex justify-center">
+      <div className="flex justify-center xl:col-span-2">
         <CashflowChart />
         </div>
     </main>

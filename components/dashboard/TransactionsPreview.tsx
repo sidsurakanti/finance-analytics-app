@@ -19,7 +19,7 @@ export async function TransactionSection({ user }: Props) {
     <section className="bg-accent/70 text-secondary-foreground border border-border rounded-lg p-5 flex flex-col gap-5">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col gap-2">
-          <p className="text-secondary-foreground/50">Recent</p>
+          <p className="text-secondary-foreground/65">Recent</p>
           <span className="text-4xl flex flex-row gap-[2px]">
             <div className="text-muted-foreground">$</div>
             {recentTotal}
@@ -30,7 +30,7 @@ export async function TransactionSection({ user }: Props) {
             <p>add transaction</p>
           </Button>
           <Button className="md:hidden" size="icon">
-            <PlusIcon height={20} width={20} />
+            <PlusIcon height={17} width={17} />
           </Button>
           
         </Link>
