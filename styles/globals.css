@@ -75,6 +75,7 @@
   }
 }
 
+/* remove up and down buttons for number inputs */
 input[type="number"] {
   -webkit-appearance: textfield;
   -moz-appearance: textfield;
@@ -83,4 +84,21 @@ input[type="number"] {
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
+}
+
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.15); 
+}
+::-webkit-scrollbar-thumb {
+  background: #797979;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #888; 
 }
