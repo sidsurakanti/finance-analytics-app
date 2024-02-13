@@ -39,7 +39,7 @@ export async function CashflowList() {
           </p>
           <p>
             <Button size="lg">
-              <Link href="/cashflows/edit">Let&apos;s go!</Link>
+              <Link href="/cashflows/new">Let&apos;s go!</Link>
             </Button>
           </p>
         </div>

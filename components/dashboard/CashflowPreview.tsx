@@ -35,7 +35,7 @@ export async function CashflowPreview({ user }: Props) {
           </p>
           <div>
             <Button size="lg">
-              <Link href="/cashflows/edit">Let&apos;s go!</Link>
+              <Link href="/cashflows/new">Let&apos;s go!</Link>
             </Button>
           </div>
         </div>
