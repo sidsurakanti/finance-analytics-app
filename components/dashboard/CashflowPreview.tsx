@@ -1,8 +1,7 @@
 import type { Transaction, User } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
-import { Button } from "@components/ui/button";
-import Link from "next/link";
+import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { Wrapper } from "@components/cashflows/CashflowWrapper";
 
 type Props = {
@@ -29,15 +28,11 @@ export async function CashflowPreview({ user }: Props) {
       )}
 
       {!cashflows && (
-        <div className="bg-accent p-4 rounded-lg text-lg flex flex-col gap-2">
-          <p>
+        <div className="bg-accent w-full p-4 rounded-lg text-lg flex flex-col gap-2">
+          <span>
             You don&apos;t have any cashflows yet, get started by adding some.
-          </p>
-          <div>
-            <Button size="lg">
-              <Link href="/cashflows/new">Let&apos;s go!</Link>
-            </Button>
-          </div>
+          </span>
+          <CashflowsOnboarding user={user} />
         </div>
       )}
     </section>

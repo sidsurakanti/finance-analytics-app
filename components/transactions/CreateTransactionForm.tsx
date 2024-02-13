@@ -15,12 +15,19 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "@components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Button } from "@components/ui/button";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function CreateTransactionForm({ user }: { user: User }) {
   // * this is a client component bc of the useForm hook
-  const form = useForm<z.infer<typeof createTransactionSchema>>();
+  const form = useForm<z.infer<typeof createTransactionSchema>>({
+    resolver: zodResolver(createTransactionSchema),
+    defaultValues: {
+      name: "",
+      amount: "",
+    },
+  });
 
   const onSubmit: SubmitHandler<z.infer<typeof createTransactionSchema>> = (
     data: z.infer<typeof createTransactionSchema>,
@@ -68,7 +75,7 @@ export function CreateTransactionForm({ user }: { user: User }) {
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
-                  <Input placeholder="888.88" {...field}></Input>
+                  <Input type="number" placeholder="888.88" {...field}></Input>
                 </FormControl>
                 <FormMessage />
               </FormItem>

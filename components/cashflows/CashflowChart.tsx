@@ -1,7 +1,8 @@
 import type { Cashflow, Transaction, User } from "@lib/definitions";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
 import { auth } from "@/auth";
-import { Chart } from "./Chart";
+import { Chart } from "@components/cashflows/Chart";
+import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 
 export async function CashflowChart() {
   const session = await auth();
@@ -17,7 +18,9 @@ export async function CashflowChart() {
 
   return (
     <section className="flex justify-center items-center">
-      <Chart income={cashflows.income} expenses={thisMonthTotal} />
+      {cashflows && (
+        <Chart income={cashflows.income} expenses={thisMonthTotal} />
+      )}
     </section>
   );
 }

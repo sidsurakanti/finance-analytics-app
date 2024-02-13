@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
+import { setCashflowsSchema } from "@/schemas/set-cashflows";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
@@ -69,6 +70,19 @@ export async function logout() {
     await signOut({});
   } catch (error) {
     throw error;
+  }
+}
+
+export async function setCashflows(cashflows: Cashflow) {
+  try {
+    const res = await sql`
+      INSERT INTO cashflows (income, savings, user_id) 
+      VALUES (${cashflows.income.toString()}, ${cashflows.savings.toString()}, ${cashflows.user_id.toString()})
+    `;
+    console.log("Created new cashflows", cashflows, res);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Database error");
   }
 }
 
