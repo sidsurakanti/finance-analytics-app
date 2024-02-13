@@ -62,104 +62,96 @@
 
 "use client";
 
-// 'use client';
-import { Card, DonutChart, List, ListItem } from "@tremor/react";
+import { DonutChart, Card, List, ListItem } from "@tremor/react";
+import { CardWrapper } from "../login/CardWrapper";
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(" ");
+const valueFormatter = (number: number) =>
+  "$" + Intl.NumberFormat("us").format(number).toString();
+
+interface Props {
+  income: string;
+  expenses: string;
 }
 
-const data = [
-  {
-    name: "Travel",
-    amount: 6730,
-    share: "32.1%",
-    color: "bg-cyan-500",
-  },
-  {
-    name: "IT & equipment",
-    amount: 4120,
-    share: "19.6%",
-    color: "bg-blue-500",
-  },
-  {
-    name: "Training & development",
-    amount: 3920,
-    share: "18.6%",
-    color: "bg-indigo-500",
-  },
-  {
-    name: "Office supplies",
-    amount: 3210,
-    share: "15.3%",
-    color: "bg-violet-500",
-  },
-  {
-    name: "Communication",
-    amount: 3010,
-    share: "14.3%",
-    color: "bg-fuchsia-500",
-  },
-];
-
-const currencyFormatter = (number: number) => {
-  return "$" + Intl.NumberFormat("us").format(number).toString();
+type CustomTooltipTypeDonut = {
+  payload: any;
+  active: boolean | undefined;
+  label: any;
 };
 
-export function Chart() {
+export function Chart({ income, expenses }: Props) {
+  const cashflows = [
+    {
+      name: "Remaining",
+      amount: Number(income) - Number(expenses),
+      color: "bg-blue-500",
+    },
+    {
+      name: "Expenses",
+      amount: Number(expenses),
+      color: "bg-indigo-500",
+    },
+    {
+      name: "Reoccuring",
+      amount: 0,
+      color: "bg-green-500",
+    },
+  ];
+
+  const customTooltip = (props: CustomTooltipTypeDonut) => {
+    const { payload, active } = props;
+    if (!active || !payload) return null;
+    const categoryPayload = payload?.[0];
+    if (!categoryPayload) return null;
+    return (
+      <div className="w-56 rounded-tremor-default border border-tremor-border bg-tremor-background p-2 text-tremor-default shadow-tremor-dropdown">
+        <div className="flex flex-1 space-x-2.5">
+          <div
+            className={`flex w-1.5 flex-col bg-${categoryPayload?.color} rounded`}
+          />
+          <div className="w-full">
+            <div className="flex items-center justify-between space-x-8">
+              <p className="whitespace-nowrap text-right text-tremor-content">
+                {categoryPayload.name}
+              </p>
+              <p className="whitespace-nowrap text-right font-medium text-tremor-content-emphasis">
+                {categoryPayload.value}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <>
-      <Card className="sm:mx-auto sm:max-w-lg">
-        <h3 className="text-tremor-default font-medium text-tremor-content-strong dark:text-dark-tremor-content-strong">
-          Total expenses by category
-        </h3>
-        <DonutChart
-          className="mt-8"
-          data={data}
-          category="amount"
-          index="name"
-          valueFormatter={currencyFormatter}
-          showTooltip={false}
-          colors={[
-            "blue-900",
-            "blue-800",
-            "blue-700",
-            "blue-600",
-            "blue-500",
-            "blue-400",
-          ]}
-        />
-        <p className="mt-8 flex items-center justify-between text-tremor-label text-tremor-content dark:text-dark-tremor-content">
-          <span>Category</span>
-          <span>Amount / Share</span>
-        </p>
-        <List className="mt-2">
-          {data.map((item) => (
-            <ListItem key={item.name} className="space-x-6">
-              <div className="flex items-center space-x-2.5 truncate">
-                <span
-                  className={classNames(
-                    item.color,
-                    "h-2.5 w-2.5 shrink-0 rounded-sm",
-                  )}
-                  aria-hidden={true}
-                />
-                <span className="truncate dark:text-dark-tremor-content-emphasis">
-                  {item.name}
-                </span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <span className="font-medium tabular-nums text-tremor-content-strong dark:text-dark-tremor-content-strong">
-                  {currencyFormatter(item.amount)}
-                </span>
-                <span className="rounded-tremor-small bg-tremor-background-subtle px-1.5 py-0.5 text-tremor-label font-medium tabular-nums text-tremor-content-emphasis dark:bg-dark-tremor-background-subtle dark:text-dark-tremor-content-emphasis">
-                  {item.share}
-                </span>
-              </div>
-            </ListItem>
-          ))}
-        </List>
-      </Card>
-    </>
+    <Card className="grid xl:grid-cols-2 dark:bg-accent dark:text-accent-foreground">
+      <DonutChart
+        data={cashflows}
+        category="amount"
+        index="name"
+        variant="donut"
+        className="font-medium"
+        colors={["blue-500", "indigo-500"]}
+        valueFormatter={valueFormatter}
+        customTooltip={customTooltip}
+        showAnimation
+      />
+      <List className="mt-4">
+        <ListItem>
+          <span>Income</span>
+          <span className="font-medium">${income}</span>
+        </ListItem>
+        {cashflows.map((cashflow, index) => (
+          <ListItem key={index}>
+            <div className="flex gap-2 items-center">
+              <span className={`${cashflow.color} h-2 w-2 rounded-full`}></span>
+              <span>{cashflow.name}</span>
+            </div>
+            <span className="font-medium">${cashflow.amount}</span>
+          </ListItem>
+        ))}
+      </List>
+    </Card>
   );
 }

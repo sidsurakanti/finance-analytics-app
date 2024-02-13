@@ -9,7 +9,7 @@ export default async function Cashflows() {
       <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
         <CashflowList />
       </Suspense>
-      <div className="flex justify-center xl:col-span-2">
+      <div className="xl:col-span-2 xl:pt-[44px]">
         <CashflowChart />
       </div>
     </main>

@@ -16,8 +16,8 @@ import { BackArrow } from "@components/ui/icons";
 interface CardWrapperProps {
   children: React.ReactNode;
   headerLabel: string;
-  backButtonLabel: string;
-  backButtonHref: string;
+  backButtonLabel?: string;
+  backButtonHref?: string;
   description?: string;
   showSocial?: boolean;
   showBackIcon?: boolean;
@@ -44,14 +44,19 @@ export function CardWrapper({
           <Social />
         </CardFooter>
       )}
-      <CardFooter>
-        <Button variant="link" className="w-full" asChild>
-          <Link className="text-secondary-foreground/70" href={backButtonHref}>
-            {showBackIcon && <BackArrow />}
-            {backButtonLabel}
-          </Link>
-        </Button>
-      </CardFooter>
+      {backButtonHref && (
+        <CardFooter>
+          <Button variant="link" className="w-full" asChild>
+            <Link
+              className="text-secondary-foreground/70"
+              href={backButtonHref}
+            >
+              {showBackIcon && <BackArrow />}
+              {backButtonLabel}
+            </Link>
+          </Button>
+        </CardFooter>
+      )}
     </Card>
   );
 }
