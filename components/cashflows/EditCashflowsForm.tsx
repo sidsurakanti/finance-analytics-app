@@ -76,7 +76,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
             <Input
               type="number"
               id="savings"
-              value={cashflows.savings}
+              value={cashflows.savings ? cashflows.savings : "0.00"}
               onClick={() => setIsEditingSavings(true)}
               onChange={handleSavingsChange}
               className="p-5 pl-7 text-lg"
@@ -105,16 +105,19 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
           )}
         </div>
       </div>
-      <Button
-        variant="secondary"
-        className="hover:bg-blue-500"
-        onClick={() => {
-          setIsEditingSavings(false);
-          handleSubmit();
-        }}
-      >
-        Save all
-      </Button>
+      {(isEditingIncome || isEditingSavings) && (
+        <Button
+          variant="secondary"
+          className="hover:bg-blue-500"
+          onClick={() => {
+            setIsEditingSavings(false);
+            setIsEditingIncome(false);
+            handleSubmit();
+          }}
+        >
+          Save all
+        </Button>
+      )}
     </section>
   );
 }

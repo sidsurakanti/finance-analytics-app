@@ -199,7 +199,6 @@ export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
 export function CloseIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -217,8 +216,6 @@ export function CloseIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
-
 export function CheckIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -235,6 +232,23 @@ export function CheckIcon(props: SVGProps<SVGSVGElement>) {
         stroke-linejoin="round"
         stroke-width="2"
         d="m4 12l4.95 4.95L19.557 6.343"
+      ></path>
+    </svg>
+  );
+}
+
+export function ReoccuringSymbol(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M5 22q-.825 0-1.412-.587T3 20V6q0-.825.588-1.412T5 4h1V3q0-.425.288-.712T7 2q.425 0 .713.288T8 3v1h8V3q0-.425.288-.712T17 2q.425 0 .713.288T18 3v1h1q.825 0 1.413.588T21 6v5q0 .425-.288.713T20 12q-.425 0-.712-.288T19 11v-1H5v10h6q.425 0 .713.288T12 21q0 .425-.288.713T11 22zm14 2q-1.6 0-2.863-.888T14.326 20.8q-.125-.275.063-.537t.487-.263q.35 0 .638.213t.462.537q.45.8 1.25 1.275T19 22.5q1.45 0 2.475-1.025T22.5 19q0-1.45-1.025-2.475T19 15.5q-.725 0-1.35.262t-1.1.738h.7q.325 0 .538.213t.212.537q0 .325-.213.538T17.25 18H15q-.425 0-.712-.288T14 17v-2.25q0-.325.213-.537T14.75 14q.325 0 .538.213t.212.537v.675q.675-.65 1.575-1.037T19 14q2.075 0 3.538 1.463T24 19q0 2.075-1.463 3.538T19 24"
       ></path>
     </svg>
   );

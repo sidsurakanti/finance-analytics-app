@@ -32,7 +32,6 @@ export async function TransactionSection({ user }: Props) {
           <Button className="md:hidden" size="icon">
             <PlusIcon height={17} width={17} />
           </Button>
-          
         </Link>
       </div>
 

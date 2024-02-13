@@ -1,12 +1,14 @@
 import { CardWrapper } from "@components/login/CardWrapper";
 import { EditCashflowsForm } from "@components/cashflows/EditCashflowsForm";
-import type { Cashflow } from "@/lib/definitions";
+import type { Cashflow, User } from "@/lib/definitions";
+import { auth } from "@/auth";
+import { fetchCashflows } from "@/lib/data";
 
-type Props = {
-  initialCashflows: Cashflow;
-};
+export async function EditCashflows() {
+  const session = await auth();
+  const user = session?.user as User;
+  const cashflows = await fetchCashflows(user);
 
-export function EditCashflows({ initialCashflows }: Props) {
   return (
     <CardWrapper
       headerLabel="Edit"
@@ -15,7 +17,7 @@ export function EditCashflows({ initialCashflows }: Props) {
       backButtonLabel="Go back"
       showBackIcon
     >
-      <EditCashflowsForm initialCashflows={initialCashflows} />
+      <EditCashflowsForm initialCashflows={cashflows} />
     </CardWrapper>
   );
 }

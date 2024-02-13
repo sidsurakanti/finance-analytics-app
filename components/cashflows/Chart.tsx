@@ -1,69 +1,6 @@
-// "use client"
-
-// import { Cashflow } from '@/lib/definitions';
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend, defaults } from 'chart.js';
-// import { Doughnut } from "react-chartjs-2";
-
-// interface ChartProps {
-//   cashflows: Cashflow,
-//   thisMonthTotal: number
-
-// }
-
-// export function Chart({ cashflows, thisMonthTotal }: ChartProps) {
-//   ChartJS.register(ArcElement, Tooltip, Legend);
-
-//   // const income = new Intl.NumberFormat('en-US', {
-//   //   style: 'currency',
-//   //   currency: 'USD',
-//   // }).format(Number(cashflows.income));
-
-//   // TODO: add reoccuring
-//   const data = {
-//   labels: ['Leftover', 'Expenses', 'Reoccuring'],
-//   datasets: [
-//       {
-//         label: '',
-//         data: [(Number(cashflows.income) - thisMonthTotal).toString(), thisMonthTotal, 0],
-//         backgroundColor: [
-//           'rgba(54, 162, 235, 0.2)',
-//           'rgba(255, 99, 132, 0.2)',
-//           'rgba(255, 206, 86, 0.2)',
-//         ],
-//         borderColor: [
-//           'rgba(54, 162, 235, 1)',
-//           'rgba(255, 99, 132, 1)',
-//           'rgba(255, 206, 86, 1)',
-//         ],
-//         borderWidth: 1,
-//       },
-//     ],
-//   };
-
-//   const options = {
-//     plugins: {
-//       legend: {
-//         display: true,
-//         position: 'left' as const,
-//         align: "start" as const,
-//       },
-//       title: {
-//         display: true,
-//         text: "Overview",
-//         color: "white",
-//       }
-//     },
-//   };
-
-//   return (
-//     <Doughnut data={data} options={options} />
-//   )
-// }
-
 "use client";
 
 import { DonutChart, Card, List, ListItem } from "@tremor/react";
-import { CardWrapper } from "../login/CardWrapper";
 
 const valueFormatter = (number: number) =>
   "$" + Intl.NumberFormat("us").format(number).toString();
@@ -131,7 +68,7 @@ export function Chart({ income, expenses }: Props) {
         category="amount"
         index="name"
         variant="donut"
-        className="font-medium"
+        className="text-xl"
         colors={["blue-500", "indigo-500"]}
         valueFormatter={valueFormatter}
         customTooltip={customTooltip}
@@ -140,7 +77,7 @@ export function Chart({ income, expenses }: Props) {
       <List className="mt-4">
         <ListItem>
           <span>Income</span>
-          <span className="font-medium">${income}</span>
+          <span className="font-medium">{valueFormatter(Number(income))}</span>
         </ListItem>
         {cashflows.map((cashflow, index) => (
           <ListItem key={index}>
@@ -148,7 +85,9 @@ export function Chart({ income, expenses }: Props) {
               <span className={`${cashflow.color} h-2 w-2 rounded-full`}></span>
               <span>{cashflow.name}</span>
             </div>
-            <span className="font-medium">${cashflow.amount}</span>
+            <span className="font-medium">
+              {valueFormatter(cashflow.amount)}
+            </span>
           </ListItem>
         ))}
       </List>

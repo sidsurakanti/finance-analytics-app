@@ -8,6 +8,7 @@ import {
   TransactionsIcon,
   CashflowsIcon,
   BackArrow,
+  ReoccuringSymbol,
 } from "@components/ui/icons";
 import {
   Popover,
@@ -40,6 +41,12 @@ export default async function Nav() {
             <Button className="gap-1" size="lg">
               <CashflowsIcon width={18} height={18} />
               <p className="hidden lg:block">Cashflows</p>
+            </Button>
+          </Link>
+          <Link href="/reoccuring">
+            <Button className="gap-1" size="lg">
+              <ReoccuringSymbol width={18} height={18} />
+              <p className="hidden lg:block">Reoccuring</p>
             </Button>
           </Link>
         </ul>
