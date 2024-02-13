@@ -65,7 +65,6 @@ export async function fetchReoccuring(user: User) {
       WHERE user_id=${id};
     `;
     const reoccuring = res.rows;
-    console.log(reoccuring);
     return reoccuring;
   } catch (error) {
     console.log("Database error", error);

@@ -1,12 +1,11 @@
 "use server";
 
-import type { User, Cashflow, Transaction } from "@lib/definitions";
+import type { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
 import { sql } from "@vercel/postgres";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
-import { setCashflowsSchema } from "@/schemas/set-cashflows";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
@@ -46,6 +45,23 @@ export async function createTransaction(transaction: Transaction) {
 
   revalidatePath("/dashboard");
   redirect("/dashboard");
+}
+
+export async function createReoccuring(reoccuring: Reoccuring) {
+  const { name, amount, timeperiod, user_id } = reoccuring;
+
+  try {
+    await sql`
+      INSERT INTO reoccuring
+      (name, amount, timeperiod, user_id)
+      VALUES 
+          (${name}, ${amount.toString()}, ${timeperiod.toString()}, ${user_id.toString()});
+    `;
+    console.log("Created reoccuring", reoccuring);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to create a reoccuring transaction")
+  }
 }
 
 export async function authenticate(data: z.infer<typeof formSchema>) {
