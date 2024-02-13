@@ -21,7 +21,7 @@ export default async function Nav() {
   const user = session?.user;
 
   return (
-    <header className="flex flex-row w-[90%] md:w-5/6 mx-auto justify-between h-24 items-center">
+    <header className="flex flex-row w-[90%] md:w-5/6 mx-auto justify-between h-[10%] min-h-16 items-center">
       <div className="flex items-center gap-8">
         <ul className="flex gap-2 text-white">
           <Link href="/dashboard">

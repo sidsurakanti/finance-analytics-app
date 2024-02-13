@@ -26,8 +26,8 @@ export async function CashflowList() {
           <Wrapper editText>
             <div className="h-full flex flex-col md:flex-row xl:flex-col justify-between gap-2">
               <CashflowCard title="This month" value={thisMonthTotal} />
-              <CashflowCard title="Savings" value={cashflows.savings} />
               <CashflowCard title="Income" value={cashflows.income} />
+              <CashflowCard title="Savings" value={cashflows.savings} />
             </div>
           </Wrapper>
         </div>

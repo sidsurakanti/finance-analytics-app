@@ -46,7 +46,7 @@ export function CardWrapper({
       )}
       <CardFooter>
         <Button variant="link" className="w-full" asChild>
-          <Link className="text-white" href={backButtonHref}>
+          <Link className="text-secondary-foreground/70" href={backButtonHref}>
             {showBackIcon && <BackArrow />}
             {backButtonLabel}
           </Link>

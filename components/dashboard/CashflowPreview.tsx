@@ -23,8 +23,8 @@ export async function CashflowPreview({ user }: Props) {
       {cashflows && (
         <Wrapper viewMore>
           <CashflowCard title="This month" value={thisMonthTotal} />
-          <CashflowCard title="Savings" value={cashflows.savings} />
           <CashflowCard title="Income" value={cashflows.income} />
+          <CashflowCard title="Savings" value={cashflows.savings} />
         </Wrapper>
       )}
 

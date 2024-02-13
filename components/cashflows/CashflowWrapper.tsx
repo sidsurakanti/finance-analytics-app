@@ -24,14 +24,18 @@ export function Wrapper({ children, editText, viewMore }: WrapperProps) {
               "flex flex-row gap-2",
               theme == "dark" ? "hover:bg-primary" : "hover:bg-accent/75",
             )}
-            variant="link"
+            variant="ghost"
           >
             <EditIcon
               className={cn(theme == "light" && "text-black")}
               width={20}
               height={20}
             />
-            {editText && <p className="text-lg hidden md:block">Edit</p>}
+            {editText && (
+              <p className="text-lg text-foreground/70 hidden md:block">
+                change
+              </p>
+            )}
           </Button>
         </Link>
         {viewMore && (
@@ -47,7 +51,7 @@ export function Wrapper({ children, editText, viewMore }: WrapperProps) {
               )}
               variant="ghost"
             >
-              <p className="text-primary-foreground/50">view more</p>
+              <p className="text-foreground/50">view more</p>
             </Button>
           </Link>
         )}

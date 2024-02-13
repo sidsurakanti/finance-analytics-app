@@ -1,16 +1,16 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { BackArrow } from "@/components/ui/icons";
+import { EditCashflows } from "@/components/cashflows/EditCashflows";
+import { auth } from "@/auth";
+import { User } from "@/lib/definitions";
+import { fetchCashflows } from "@/lib/data";
 
-export default function EditCashflows() {
+export default async function EditCashflowsPage() {
+  const session = await auth();
+  const user = session?.user as User;
+  const cashflows = await fetchCashflows(user);
+
   return (
-    <section className="w-[90%] md:w-5/6 mx-auto">
-      {/* // TODO: add form for this */}
-      <Link href="/cashflows">
-        <Button size="lg">
-          <BackArrow />
-        </Button>
-      </Link>
+    <section className="w-[90%] md:w-5/6 h-[90%] mx-auto flex justify-center items-center">
+      <EditCashflows initialCashflows={cashflows} />
     </section>
   );
 }
