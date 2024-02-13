@@ -1,5 +1,5 @@
 import { sql } from "@vercel/postgres";
-import { User, Cashflow, Transaction } from "@lib/definitions";
+import { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchUser(email: string) {
@@ -53,6 +53,23 @@ export async function fetchTransactions(user: User) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to fetch transactions");
+  }
+}
+
+export async function fetchReoccuring(user: User) {
+  noStore();
+  const id = user.id?.toString();
+  try {
+    const res = await sql<Reoccuring>`
+      SELECT * FROM reoccuring
+      WHERE user_id=${id};
+    `;
+    const reoccuring = res.rows;
+    console.log(reoccuring);
+    return reoccuring;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch reoccuring recoccuring transactions");
   }
 }
 

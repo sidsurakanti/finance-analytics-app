@@ -1,4 +1,3 @@
-import { TransactionCard } from "@components/transactions/TransactionCard";
 import type { User, Transaction } from "@lib/definitions";
 import { fetchAllTransactions } from "@lib/data";
 import {
@@ -9,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@components/ui/table";
 
 interface Props {
   user: User;
@@ -18,7 +17,8 @@ interface Props {
 // Server component
 export default async function TransactionList({ user }: Props) {
   const transactions: Transaction[] = await fetchAllTransactions(user);
-
+  const cashFormatter = (number: number) =>
+    Intl.NumberFormat("us").format(number).toString();
   const months = [
     "Jan",
     "Feb",
@@ -36,7 +36,6 @@ export default async function TransactionList({ user }: Props) {
 
   return (
     <Table>
-      <TableCaption></TableCaption>
       <TableHeader>
         <TableRow className="h-14">
           <TableHead>Name</TableHead>
@@ -52,7 +51,7 @@ export default async function TransactionList({ user }: Props) {
               {`${months[transaction.created_at.getMonth()]} ${transaction.created_at.getDate()}, ${transaction.created_at.getFullYear()}`}
             </TableCell>
             <TableCell className="text-right">
-              ${transaction.amount.toString()}
+              ${cashFormatter(Number(transaction.amount))}
             </TableCell>
           </TableRow>
         ))}

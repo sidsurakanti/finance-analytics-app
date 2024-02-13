@@ -21,6 +21,14 @@ CREATE TABLE IF NOT EXISTS transactions (
     user_id INTEGER REFERENCES users
 )
 
+CREATE TABLE IF NOT EXISTS reoccuring (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    amount NUMERIC NOT NULL,
+    timeperiod VARCHAR(255),
+    user_id INTEGER REFERENCES users
+)
+
 -- insert placeholder data into tables
 INSERT INTO users 
 (email, password, name)
@@ -33,6 +41,14 @@ INSERT INTO cashflows
 VALUES 
     (73000, 6200, 2),
     (90000, 9000, 1);
+
+INSERT INTO reoccuring 
+(name, amount, timeperiod, user_id)
+VALUES 
+    ('Mortgage', 2400, 'monthly', 2),
+    ('Netflix', 15, 'monthly', 2),
+    ('Gym', 50, 'monthly', 2),
+    ('Electricity', 100, 'monthly', 2);
 
 INSERT INTO transactions
 (name, amount, user_id)

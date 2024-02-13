@@ -19,3 +19,11 @@ export type Transaction = {
   created_at: Date;
   user_id: string;
 };
+
+export type Reoccuring = {
+  id?: Number;
+  name: string;
+  amount: string | Number;
+  timeperiod: "weekly" | "monthly" | "yearly";
+  user_id: string;
+};

@@ -86,13 +86,12 @@ input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
-
 /* custom scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.15); 
+  background: rgba(255, 255, 255, 0.15);
 }
 ::-webkit-scrollbar-thumb {
   background: #797979;
@@ -100,5 +99,5 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #888; 
+  background: #888;
 }
