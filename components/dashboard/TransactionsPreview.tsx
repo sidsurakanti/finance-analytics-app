@@ -3,7 +3,7 @@ import { fetchTransactions } from "@lib/data";
 import { RecentTransactions } from "@components/dashboard/RecentTransactions";
 import Link from "next/link";
 import { Button } from "@components/ui/button";
-import { PlusIcon } from "@components/ui/icons";
+import { ViewMore } from "@components/ui/icons";
 
 interface Props {
   user: User;
@@ -25,12 +25,12 @@ export async function TransactionSection({ user }: Props) {
             {recentTotal}
           </span>
         </div>
-        <Link href="/transactions/create">
+        <Link href="/transactions">
           <Button className="hidden md:block">
-            <p>add transaction</p>
+            <p>view all</p>
           </Button>
           <Button className="md:hidden" size="icon">
-            <PlusIcon height={17} width={17} />
+            <ViewMore height={17} width={17} />
           </Button>
         </Link>
       </div>

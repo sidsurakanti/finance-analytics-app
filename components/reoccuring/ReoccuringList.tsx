@@ -1,16 +1,18 @@
 import { fetchReoccuring } from "@/lib/data";
 import { auth } from "@/auth";
+import { inter } from "@/styles/fonts";
 import type { User, Reoccuring } from "@lib/definitions";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
+import { cn } from "@lib/utils";
+import { badgeColors } from "@/lib/colors";
 
 export async function ReoccuringList() {
   const session = await auth();
@@ -26,6 +28,7 @@ export async function ReoccuringList() {
           <TableRow className="h-14">
             <TableHead>Name</TableHead>
             <TableHead>Frequency</TableHead>
+            <TableHead>Category</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
@@ -36,7 +39,12 @@ export async function ReoccuringList() {
               <TableCell>
                 <Badge className="bg-blue-900">{transaction.timeperiod}</Badge>
               </TableCell>
-              <TableCell className="text-right">
+              <TableCell>
+                <Badge className={cn(badgeColors[transaction.category])}>{transaction.category}</Badge>
+              </TableCell>
+              <TableCell
+                className={cn("text-right font-medium", inter.className)}
+              >
                 ${cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>

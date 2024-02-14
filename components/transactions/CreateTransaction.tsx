@@ -10,16 +10,16 @@ import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
 import type { User } from "@lib/definitions";
 
-import { CreateReoccuringForm } from "@components/reoccuring/CreateReoccuringForm";
+import { CreateTransactionForm } from "@/components/transactions/CreateTransactionForm";
 
-export function ReoccuringSheet({ user }: { user: User}) {
+export function TransactionSheet({ user }: { user: User }) {
   return (
     <>
       <Sheet>
         <SheetTrigger asChild>
           <div>
             <Button className="hidden md:block">
-              <p>+ reoccuring</p>
+              <p>+ transaction</p>
             </Button>
             <Button className="md:hidden" size="icon">
               <PlusIcon height={17} width={17} />
@@ -28,11 +28,11 @@ export function ReoccuringSheet({ user }: { user: User}) {
         </SheetTrigger>
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Create reoccuring</SheetTitle>
+            <SheetTitle>Create transaction</SheetTitle>
             <SheetDescription>
-              Add a new reoccuring transaction to your account
+              Add a new transaction to your account
             </SheetDescription>
-            <CreateReoccuringForm user={user}/>
+            <CreateTransactionForm user={user} />
           </SheetHeader>
         </SheetContent>
       </Sheet>

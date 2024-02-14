@@ -11,8 +11,8 @@ export async function EditCashflows() {
 
   return (
     <CardWrapper
-      headerLabel="Edit"
-      description="Revise your recent cashflows here"
+      headerLabel="Edit cashflows"
+      description="Make changes to your cashflows here"
       backButtonHref="/cashflows"
       backButtonLabel="Go back"
       showBackIcon

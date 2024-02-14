@@ -1,14 +1,30 @@
 import { z } from "zod";
 
-const paymentTypeSchema = z.union([
+const timeperiodSchema = z.union([
   z.literal("monthly"),
   z.literal("yearly"),
   z.literal("weekly"),
   z.literal("bi-annually"),
 ])
 
-export const createTransactionSchema = z.object({
+const categoriesSchema = z.union([
+  z.literal("bills"),
+  z.literal("entertainment"),
+  z.literal("food"),
+  z.literal("health"),
+  z.literal("housing"),
+  z.literal("insurance"),
+  z.literal("personal"),
+  z.literal("invesments"),
+  z.literal("transportation"),
+  z.literal("subscriptions"),
+  z.literal("misc"),
+  z.literal("paycheck")
+])
+
+export const createReoccuringSchema = z.object({
   name: z.string(),
   amount: z.string(),
-  timeperiod: paymentTypeSchema
+  timeperiod: timeperiodSchema,
+  category: categoriesSchema
 });

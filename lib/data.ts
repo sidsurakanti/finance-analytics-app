@@ -62,7 +62,8 @@ export async function fetchReoccuring(user: User) {
   try {
     const res = await sql<Reoccuring>`
       SELECT * FROM reoccuring
-      WHERE user_id=${id};
+      WHERE user_id=${id}
+      ORDER BY id DESC;
     `;
     const reoccuring = res.rows;
     return reoccuring;

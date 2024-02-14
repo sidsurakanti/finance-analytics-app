@@ -7,6 +7,7 @@ import { useReducer, useState } from "react";
 import { cashflowReducer } from "@lib/reducers";
 import type { Cashflow } from "@/lib/definitions";
 import { CheckIcon, CloseIcon } from "@components/ui/icons";
+import Link from "next/link";
 
 type Props = {
   initialCashflows: Cashflow;
@@ -37,7 +38,9 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
             <Input
               type="number"
               id="income"
-              value={cashflows.income}
+              placeholder="0.00"
+              // prevent user from submitting form with invalid data by setting value to 0.00
+              value={cashflows.income ? cashflows.income : "0.00"}
               onFocus={() => setIsEditingIncome(true)}
               onChange={handleIncomeChange}
               className="p-5 pl-7 text-lg"
@@ -76,6 +79,8 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
             <Input
               type="number"
               id="savings"
+              placeholder="0.00"
+              // prevent user from submitting form with invalid data by setting value to 0.00
               value={cashflows.savings ? cashflows.savings : "0.00"}
               onClick={() => setIsEditingSavings(true)}
               onChange={handleSavingsChange}
@@ -106,17 +111,19 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
         </div>
       </div>
       {(isEditingIncome || isEditingSavings) && (
-        <Button
-          variant="secondary"
-          className="hover:bg-blue-500"
-          onClick={() => {
-            setIsEditingSavings(false);
-            setIsEditingIncome(false);
-            handleSubmit();
-          }}
-        >
-          Save all
-        </Button>
+        <Link href="/cashflows">
+          <Button
+            variant="secondary"
+            className="hover:bg-blue-500 w-full"
+            onClick={() => {
+              setIsEditingSavings(false);
+              setIsEditingIncome(false);
+              handleSubmit();
+            }}
+          >
+            Save all
+          </Button>
+        </Link>
       )}
     </section>
   );

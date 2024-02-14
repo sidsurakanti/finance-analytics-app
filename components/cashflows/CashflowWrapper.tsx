@@ -5,6 +5,7 @@ import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
 import { useTheme } from "next-themes";
 import Link from "next/link";
+import { ViewMore } from "@components/ui/icons";
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -39,11 +40,7 @@ export function Wrapper({ children, editText, viewMore }: WrapperProps) {
           </Button>
         </Link>
         {viewMore && (
-          // TODO: add icon for mediums screens
-          <Link
-            href="/cashflows"
-            className="flex justify-start pb-2 md:hidden xl:block"
-          >
+          <Link href="/cashflows" className="flex justify-start pb-2 ">
             <Button
               className={cn(
                 "flex flex-row gap-2",
@@ -51,7 +48,8 @@ export function Wrapper({ children, editText, viewMore }: WrapperProps) {
               )}
               variant="ghost"
             >
-              <p className="text-foreground/50">view more</p>
+              <ViewMore height={17} width={17} className="hidden md:block xl:hidden"/>
+              <p className="text-foreground/50 md:hidden xl:block">view more</p>
             </Button>
           </Link>
         )}

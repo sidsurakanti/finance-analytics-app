@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { TransactionSheet } from "@/components/transactions/CreateTransaction";
 
 // Server component
 export default async function Transactions() {
@@ -14,9 +15,7 @@ export default async function Transactions() {
   return (
     <main className="w-[90%] md:w-5/6 mx-auto flex flex-col gap-2">
       <div className="flex justify-end">
-        <Link href="/transactions/create">
-          <Button>add transaction</Button>
-        </Link>
+        <TransactionSheet user={user} />
       </div>
       <div className="mb-4">
         <Suspense
