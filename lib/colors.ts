@@ -20,5 +20,5 @@ export const transactionTypeColors = {
   expense: "bg-rose-700",
   deposit: "bg-sky-500",
   withdrawl: "bg-orange-500",
-  reoccuring: "bg-blue-500"
+  reoccuring: "bg-blue-500",
 };

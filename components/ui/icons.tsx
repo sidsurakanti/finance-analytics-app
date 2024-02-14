@@ -199,7 +199,6 @@ export function PlusIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-
 export function ViewMore(props: SVGProps<SVGSVGElement>) {
   return (
     <svg

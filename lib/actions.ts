@@ -10,7 +10,6 @@ import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 
-
 // cashflow actions
 export async function setCashflows(cashflows: Cashflow) {
   try {
@@ -88,7 +87,13 @@ export async function createReoccuring(reoccuring: Reoccuring) {
       VALUES 
           (${name}, ${amount.toString()}, ${timeperiod}, ${category}, ${user_id.toString()});
     `;
-    createTransaction({ name, amount, type: "reoccuring", created_at: new Date(), user_id })
+    createTransaction({
+      name,
+      amount,
+      type: "reoccuring",
+      created_at: new Date(),
+      user_id,
+    });
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
   } catch (error) {
@@ -122,8 +127,6 @@ export async function logout() {
     throw error;
   }
 }
-
-
 
 export async function createUser(user: User) {
   // encrypt password and destructure data

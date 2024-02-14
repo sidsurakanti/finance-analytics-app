@@ -26,6 +26,18 @@ export type Reoccuring = {
   name: string;
   amount: string | Number;
   timeperiod: "weekly" | "monthly" | "yearly" | "bi-annually";
-  category: "bills" | "entertainment" | "food" | "health" | "housing" | "insurance" | "personal" | "invesments" | "transportation" | "subscriptions" | "misc" | "paycheck";
+  category:
+    | "bills"
+    | "entertainment"
+    | "food"
+    | "health"
+    | "housing"
+    | "insurance"
+    | "personal"
+    | "invesments"
+    | "transportation"
+    | "subscriptions"
+    | "misc"
+    | "paycheck";
   user_id: string;
 };

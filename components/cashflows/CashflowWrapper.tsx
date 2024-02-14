@@ -48,7 +48,11 @@ export function Wrapper({ children, editText, viewMore }: WrapperProps) {
               )}
               variant="ghost"
             >
-              <ViewMore height={17} width={17} className="hidden md:block xl:hidden"/>
+              <ViewMore
+                height={17}
+                width={17}
+                className="hidden md:block xl:hidden"
+              />
               <p className="text-foreground/50 md:hidden xl:block">view more</p>
             </Button>
           </Link>

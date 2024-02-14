@@ -12,7 +12,7 @@ import type { User } from "@lib/definitions";
 
 import { CreateReoccuringForm } from "@components/reoccuring/CreateReoccuringForm";
 
-export function ReoccuringSheet({ user }: { user: User}) {
+export function ReoccuringSheet({ user }: { user: User }) {
   return (
     <>
       <Sheet>
@@ -32,7 +32,7 @@ export function ReoccuringSheet({ user }: { user: User}) {
             <SheetDescription>
               Add a new reoccuring transaction to your account
             </SheetDescription>
-            <CreateReoccuringForm user={user}/>
+            <CreateReoccuringForm user={user} />
           </SheetHeader>
         </SheetContent>
       </Sheet>

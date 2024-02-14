@@ -40,7 +40,9 @@ export async function ReoccuringList() {
                 <Badge className="bg-blue-900">{transaction.timeperiod}</Badge>
               </TableCell>
               <TableCell>
-                <Badge className={cn(badgeColors[transaction.category])}>{transaction.category}</Badge>
+                <Badge className={cn(badgeColors[transaction.category])}>
+                  {transaction.category}
+                </Badge>
               </TableCell>
               <TableCell
                 className={cn("text-right font-medium", inter.className)}

@@ -85,13 +85,16 @@ export function CreateTransactionForm({ user }: { user: User }) {
             <FormItem>
               <FormLabel>Type</FormLabel>
               <FormControl>
-                <TypeSelect onValueChange={field.onChange} defaultValue={field.value} />
+                <TypeSelect
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        
+
         <SheetFooter>
           <SheetClose asChild>
             <Button

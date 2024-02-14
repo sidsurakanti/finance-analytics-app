@@ -54,11 +54,13 @@ export default async function TransactionList({ user }: Props) {
               {`${months[transaction.created_at.getMonth()]} ${transaction.created_at.getDate()}, ${transaction.created_at.getFullYear()}`}
             </TableCell>
             <TableCell>
-              <Badge className={cn(transactionTypeColors[transaction.type])} >{transaction.type}</Badge>
+              <Badge className={cn(transactionTypeColors[transaction.type])}>
+                {transaction.type}
+              </Badge>
             </TableCell>
             <TableCell className="text-right">
               ${cashFormatter(Number(transaction.amount))}
-          </TableCell>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>
