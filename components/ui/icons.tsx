@@ -1,6 +1,6 @@
 import React, { SVGProps } from "react";
 
-export function CarbonLogoGoogle(props: SVGProps<SVGSVGElement>) {
+export function GoogleLogo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +17,7 @@ export function CarbonLogoGoogle(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function CarbonLogoGithub(props: SVGProps<SVGSVGElement>) {
+export function GithubLogo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -35,7 +35,7 @@ export function CarbonLogoGithub(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function CarbonWarning(props: SVGProps<SVGSVGElement>) {
+export function WarningLogo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

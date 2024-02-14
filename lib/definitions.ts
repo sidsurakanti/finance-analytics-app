@@ -28,6 +28,7 @@ export type Reoccuring = {
   timeperiod: "weekly" | "monthly" | "yearly" | "bi-annually";
   category:
     | "bills"
+    | "paycheck"
     | "entertainment"
     | "food"
     | "health"
@@ -37,7 +38,6 @@ export type Reoccuring = {
     | "invesments"
     | "transportation"
     | "subscriptions"
-    | "misc"
-    | "paycheck";
+    | "misc";
   user_id: string;
 };

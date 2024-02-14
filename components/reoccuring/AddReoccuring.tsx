@@ -8,10 +8,11 @@ import {
 } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
-import type { User } from "@lib/definitions";
 
-import { CreateReoccuringForm } from "@components/reoccuring/CreateReoccuringForm";
+import { type User } from "@lib/definitions";
+import { AddReoccuringForm } from "@components/reoccuring/AddReoccuringForm";
 
+// sheet to add reoccuring transactions
 export function ReoccuringSheet({ user }: { user: User }) {
   return (
     <>
@@ -26,14 +27,16 @@ export function ReoccuringSheet({ user }: { user: User }) {
             </Button>
           </div>
         </SheetTrigger>
+
         <SheetContent>
           <SheetHeader>
             <SheetTitle>Create reoccuring</SheetTitle>
             <SheetDescription>
               Add a new reoccuring transaction to your account
             </SheetDescription>
-            <CreateReoccuringForm user={user} />
           </SheetHeader>
+          
+          <AddReoccuringForm user={user} />
         </SheetContent>
       </Sheet>
     </>

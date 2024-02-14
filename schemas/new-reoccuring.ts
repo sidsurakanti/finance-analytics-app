@@ -9,6 +9,7 @@ const timeperiodSchema = z.union([
 
 const categoriesSchema = z.union([
   z.literal("bills"),
+  z.literal("paycheck"),
   z.literal("entertainment"),
   z.literal("food"),
   z.literal("health"),
@@ -19,10 +20,9 @@ const categoriesSchema = z.union([
   z.literal("transportation"),
   z.literal("subscriptions"),
   z.literal("misc"),
-  z.literal("paycheck"),
 ]);
 
-export const createReoccuringSchema = z.object({
+export const newReoccuringSchema = z.object({
   name: z.string(),
   amount: z.string(),
   timeperiod: timeperiodSchema,

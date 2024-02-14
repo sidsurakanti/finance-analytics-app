@@ -78,7 +78,7 @@ export async function fetchTransactionsThisMonth(user: User) {
   try {
     const res = await sql<Transaction>`
         SELECT * FROM transactions
-        WHERE (user_id=${id} AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE));
+        WHERE (user_id=${id} AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE) AND type in ('expense', 'reoccuring', 'withdrawl'));
       `;
     const transactions = res.rows;
     return transactions;

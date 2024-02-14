@@ -6,7 +6,7 @@ import { formSchema } from "@/schemas/login";
 import { fetchUser } from "@/lib/data";
 
 export const { auth, signIn, signOut } = NextAuth({
-  ...authConfig,
+  ...authConfig, // unpack config
   callbacks: {
     // add user's id to session.user so we can access it later on
     // token is jwt token passed down from the jwt callback
@@ -20,6 +20,7 @@ export const { auth, signIn, signOut } = NextAuth({
   providers: [
     Credentials({
       async authorize(credentials) {
+        // parse credentials again on server side to avoid exposing sensitive data
         const parsedCredentials = formSchema.safeParse(credentials);
 
         if (parsedCredentials.success) {

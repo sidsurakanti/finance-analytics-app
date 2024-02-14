@@ -1,3 +1,5 @@
+import { type User } from "@lib/definitions";
+
 import {
   Sheet,
   SheetTrigger,
@@ -8,32 +10,32 @@ import {
 } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
-import type { User } from "@lib/definitions";
-
-import { CreateTransactionForm } from "@/components/transactions/CreateTransactionForm";
+import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
 
 export function TransactionSheet({ user }: { user: User }) {
   return (
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <div>
+          <span>
             <Button className="hidden md:block">
               <p>+ transaction</p>
             </Button>
             <Button className="md:hidden" size="icon">
               <PlusIcon height={17} width={17} />
             </Button>
-          </div>
+          </span>
         </SheetTrigger>
-        <SheetContent>
+
+        <SheetContent className="flex flex-col gap-5">
           <SheetHeader>
-            <SheetTitle>Create transaction</SheetTitle>
+            <SheetTitle>New transaction</SheetTitle>
             <SheetDescription>
-              Add a new transaction to your account
+              Add a new transaction to your account. If this transaction is
+              reoccuring, you can set it up in the Reoccuring tab.
             </SheetDescription>
-            <CreateTransactionForm user={user} />
           </SheetHeader>
+          <CreateTransactionForm user={user} />
         </SheetContent>
       </Sheet>
     </>

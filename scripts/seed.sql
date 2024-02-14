@@ -53,13 +53,13 @@ VALUES
     ('Electricity', 100, 'monthly', 'bills' 2);
 
 INSERT INTO transactions
-(name, amount, user_id)
+(name, amount, type, user_id)
 VALUES 
-    ('Steam', 24.49, 2),
-    ('Apple', 124.99, 1),
-    ('Spotify', 16.99, 2),
-    ('T-Mobile', 400.24, 2),
-    ('Tesla', 11.99, 2);
+    ('Steam', 24.49, 'expense', 2),
+    ('Apple', 124.99, 'expense', 1),
+    ('Spotify', 16.99, 'expense', 2),
+    ('T-Mobile', 400.24 'expense', 2),
+    ('Tesla', 11.99, 'expense', 2);
 
 -- fetch user by email
 SELECT * FROM users
@@ -77,4 +77,4 @@ LIMIT 5;
 
 -- find all the the transactions that happened this month
 SELECT * FROM transactions
-WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE));
+WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));

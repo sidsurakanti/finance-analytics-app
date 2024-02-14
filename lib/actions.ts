@@ -18,6 +18,7 @@ export async function setCashflows(cashflows: Cashflow) {
       VALUES (${cashflows.income.toString()}, ${cashflows.savings.toString()}, ${cashflows.user_id.toString()})
     `;
     console.log("Created new cashflows", cashflows, res);
+    revalidatePath("/cashflows");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Database error");
@@ -48,6 +49,22 @@ export async function paycheckUpdate(newIncome: string, user_id: string) {
             WHERE user_id = ${user_id};
         `;
     console.log("Updated paycheck:", newIncome);
+    revalidatePath("/cashflows");
+    return res.rows;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failted to update paycheck");
+  }
+}
+
+export async function savingsUpdate(newSavings: string, user_id: string) {
+  try {
+    const res = await sql`
+            UPDATE cashflows 
+            SET savings = savings + ${newSavings}
+            WHERE user_id = ${user_id};
+        `;
+    console.log("Updated savings:", newSavings);
     revalidatePath("/cashflows");
     return res.rows;
   } catch (error) {

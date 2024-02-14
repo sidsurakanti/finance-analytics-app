@@ -4,8 +4,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@components/ui/select";
 
+// categories for new reoccuring transactions
 export function CategorySelect({ ...props }) {
   return (
     <>
@@ -13,6 +14,7 @@ export function CategorySelect({ ...props }) {
         <SelectTrigger>
           <SelectValue placeholder="Select a category"></SelectValue>
         </SelectTrigger>
+
         <SelectContent>
           <SelectItem value="housing">Housing</SelectItem>
           <SelectItem value="paycheck">Paycheck</SelectItem>

@@ -4,7 +4,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
+} from "@components/ui/select";
 
 export function TypeSelect({ ...props }) {
   return (
@@ -13,6 +13,7 @@ export function TypeSelect({ ...props }) {
         <SelectTrigger>
           <SelectValue placeholder="Select transaction type"></SelectValue>
         </SelectTrigger>
+
         <SelectContent>
           <SelectItem value="paycheck">Paycheck</SelectItem>
           <SelectItem value="expense">Expense</SelectItem>

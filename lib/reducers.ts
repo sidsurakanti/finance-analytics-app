@@ -1,4 +1,4 @@
-import type { Cashflow } from "@lib/definitions";
+import { type Cashflow } from "@lib/definitions";
 import { updateCashflows } from "@lib/actions";
 
 type Actions =

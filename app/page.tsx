@@ -5,11 +5,9 @@ export default function Home() {
   return (
     <main className="h-screen flex justify-center items-center">
       <section>
-        <div>
-          <Link href="/login">
-            <Button size="lg">Get started</Button>
-          </Link>
-        </div>
+        <Link href="/login">
+          <Button size="lg">Get started</Button>
+        </Link>
       </section>
     </main>
   );

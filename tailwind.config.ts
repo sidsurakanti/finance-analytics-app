@@ -23,6 +23,7 @@ const config = {
     },
     extend: {
       colors: {
+        // tremor light mode
         tremor: {
           brand: {
             faint: colors.blue[50],
@@ -52,7 +53,7 @@ const config = {
             inverted: colors.white,
           },
         },
-        // dark mode
+        // tremor dark mode
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
@@ -116,6 +117,7 @@ const config = {
           foreground: "hsl(var(--card-foreground))",
         },
       },
+      // tremor
       boxShadow: {
         // light
         "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
@@ -160,6 +162,7 @@ const config = {
       },
     },
   },
+  // tremor safelist
   safelist: [
     {
       pattern:

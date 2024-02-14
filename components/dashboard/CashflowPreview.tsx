@@ -19,9 +19,9 @@ export async function CashflowPreview({ user }: Props) {
 
   return (
     <section className="flex flex-col md:flex-row xl:flex-col justify-between gap-3 xl:justify-end">
+      <CashflowCard title="This month" value={thisMonthTotal} />
       {cashflows && (
         <Wrapper viewMore>
-          <CashflowCard title="This month" value={thisMonthTotal} />
           <CashflowCard title="Income" value={cashflows.income} />
           <CashflowCard title="Savings" value={cashflows.savings} />
         </Wrapper>

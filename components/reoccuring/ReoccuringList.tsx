@@ -1,7 +1,11 @@
-import { fetchReoccuring } from "@/lib/data";
 import { auth } from "@/auth";
 import { inter } from "@/styles/fonts";
-import type { User, Reoccuring } from "@lib/definitions";
+
+import { type User, type Reoccuring } from "@lib/definitions";
+import { fetchReoccuring } from "@lib/data";
+import { cn, cashFormatter } from "@lib/utils";
+import { badgeColors } from "@lib/colors";
+
 import {
   Table,
   TableBody,
@@ -11,19 +15,16 @@ import {
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
-import { cn } from "@lib/utils";
-import { badgeColors } from "@/lib/colors";
 
 export async function ReoccuringList() {
   const session = await auth();
   const user: User = session?.user as User;
   const reoccuring: Reoccuring[] = await fetchReoccuring(user);
-  const cashFormatter = (number: number) =>
-    Intl.NumberFormat("us").format(number).toString();
 
   return (
-    <div>
+    <>
       <Table>
+        {/* columns  */}
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Name</TableHead>
@@ -32,18 +33,23 @@ export async function ReoccuringList() {
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
+
+        {/* rows  */}
         <TableBody>
           {reoccuring.map((transaction, index) => (
-            <TableRow key={index} className="h-20 text-lg">
+            <TableRow key={index} className="h-20 text-md xl:text-lg">
               <TableCell>{transaction.name}</TableCell>
+
               <TableCell>
-                <Badge className="bg-blue-900">{transaction.timeperiod}</Badge>
+                <Badge className="bg-sky-900">{transaction.timeperiod}</Badge>
               </TableCell>
+
               <TableCell>
                 <Badge className={cn(badgeColors[transaction.category])}>
                   {transaction.category}
                 </Badge>
               </TableCell>
+
               <TableCell
                 className={cn("text-right font-medium", inter.className)}
               >
@@ -53,6 +59,6 @@ export async function ReoccuringList() {
           ))}
         </TableBody>
       </Table>
-    </div>
+    </>
   );
 }
