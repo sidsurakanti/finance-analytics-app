@@ -24,7 +24,6 @@ export function RecentTransactions({ transactions }: Props) {
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Name</TableHead>
-            <TableHead>Date</TableHead>
             <TableHead className="text-center">Type</TableHead>
             <TableHead className="text-right">Amount</TableHead>
           </TableRow>
@@ -35,10 +34,6 @@ export function RecentTransactions({ transactions }: Props) {
           {transactions.map((transaction, index) => (
             <TableRow key={index} className="h-20 md:text-xl">
               <TableCell>{transaction.name}</TableCell>
-
-              <TableCell>
-                {dateFormatter(transaction.created_at, false)}
-              </TableCell>
 
               <TableCell className="text-center">
                 <Badge

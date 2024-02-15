@@ -45,27 +45,49 @@ export async function CashflowPreview({ user }: { user: User }) {
     Number(reoccuringTotal)
   ).toFixed(2);
 
+  // calculate percentages of expenses, reoccuring, and balance
+  const expensesPercentage: number =
+    (Number(expensesTotal) / Number(cashflows.income)) * 100;
+  const reoccuringPercentage: number =
+    (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
+  const remainingBalancePercentage: number =
+    (Number(remainingBalance) / Number(cashflows.income)) * 100;
+
   return (
     <>
-      <ViewMoreButton />
+      {/* <ViewMoreButton /> */}
 
-      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 xl:grid-cols-1 xl:grid-rows-2 justify-between gap-3 mt-4">
+      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 xl:grid-cols-1 xl:grid-rows-2 justify-between gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
-            title="Income"
-            value={cashflows.income}
-            badge={"monthly"}
+            title="Expenses"
+            percentage={expensesPercentage}
+            value={expensesTotal}
+            badge={"this month"}
+            insideText={true}
           />
-          <CashflowCard title="Balance" value={remainingBalance} />
+          <CashflowCard
+            title="Reoccuring"
+            value={reoccuringTotal}
+            percentage={reoccuringPercentage}
+            insideText={true}
+          />
         </div>
 
         <div className="flex flex-col gap-3">
           <CashflowCard
-            title="Expenses"
-            value={expensesTotal}
-            badge={"this month"}
+            title="Balance"
+            value={remainingBalance}
+            percentage={remainingBalancePercentage}
+            insideText={true}
           />
-          <CashflowCard title="Reoccuring" value={reoccuringTotal} />
+          <CashflowCard
+            title="Income"
+            percentage={100}
+            value={cashflows.income}
+            badge={"monthly"}
+            insideText={false}
+          />
         </div>
       </div>
     </>

@@ -45,19 +45,41 @@ export async function CashflowList() {
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
 
+  // calculate remaining balance
+  const remainingBalance: string = (
+    Number(cashflows.income) -
+    Number(expensesTotal) -
+    Number(reoccuringTotal)
+  ).toFixed(2);
+
+  // calculate percentages of expenses, reoccuring, and balance
+  const expensesPercentage: number =
+    (Number(expensesTotal) / Number(cashflows.income)) * 100;
+  const reoccuringPercentage: number =
+    (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
+  // TODO: add a card to show remaining balance
+  const remainingBalancePercentage: number =
+    (Number(remainingBalance) / Number(cashflows.income)) * 100;
+
   return (
     <>
       {/* open a sheet that shows a form to edit cashflows */}
       <EditCashflows />
 
-      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 justify-between gap-3 mt-4">
+      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 justify-between gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Income"
             value={cashflows.income}
+            percentage={100}
             badge={"monthly"}
+            insideText={true}
           />
-          <CashflowCard title="Savings" value={cashflows.savings} />
+          <CashflowCard
+            title="Savings"
+            value={cashflows.savings}
+            insideText={false}
+          />
         </div>
 
         <div className="flex flex-col gap-3">
@@ -65,8 +87,15 @@ export async function CashflowList() {
             title="Expenses"
             value={expensesTotal}
             badge={"this month"}
+            percentage={expensesPercentage}
+            insideText={true}
           />
-          <CashflowCard title="Reoccuring" value={reoccuringTotal} />
+          <CashflowCard
+            title="Reoccuring"
+            percentage={reoccuringPercentage}
+            value={reoccuringTotal}
+            insideText={true}
+          />
         </div>
       </div>
     </>
