@@ -16,7 +16,7 @@ export async function TransactionsPreview({ user }: Props) {
     .toFixed(2);
 
   return (
-    <section className="bg-accent/75 text-foreground border border-border rounded-lg p-5 flex flex-col gap-5">
+    <section className="bg-accent/75 text-foreground border border-border rounded-lg p-5 flex flex-col gap-5 shadow-md">
       <header className="flex justify-between">
         <div className="flex flex-col gap-2">
           <p className="text-muted-foreground">Recent</p>

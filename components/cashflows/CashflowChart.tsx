@@ -40,7 +40,7 @@ export async function CashflowChart() {
   ).toFixed(2);
 
   return (
-    <div className="col-span-3">
+    <div className="shadow-md">
       {cashflows && (
         <Chart
           income={cashflows.income}

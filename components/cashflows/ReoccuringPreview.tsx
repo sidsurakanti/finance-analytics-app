@@ -25,7 +25,7 @@ export async function ReoccuringPreview() {
   return (
     <>
       {/* make sure table is scrollable  */}
-      <ScrollArea className="h-[300px] rounded-md border border-border">
+      <ScrollArea className="h-[350px] shadow-md rounded-md border border-border">
         <Table>
           {/* columns  */}
           {/* stop header from being scrolled */}

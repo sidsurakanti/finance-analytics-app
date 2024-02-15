@@ -19,7 +19,7 @@ export function CashflowCard({
   insideText,
 }: Props) {
   return (
-    <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between  border border-border">
+    <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between shadow-md border border-border">
       <div className="flex flex-col gap-3 md:gap-6">
         <span className="flex gap-2 items-center">
           <p className="text-2xl text-secondary-foreground/70">{title}</p>

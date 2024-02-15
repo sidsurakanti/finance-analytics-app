@@ -21,7 +21,7 @@ export function RecentTransactions({ transactions }: Props) {
     <>
       <Table>
         {/* columns  */}
-        <TableHeader className="bg-primary/70">
+        <TableHeader className="bg-muted">
           <TableRow className="h-10">
             <TableHead>Name</TableHead>
             <TableHead className="text-center">Type</TableHead>

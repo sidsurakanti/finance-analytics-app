@@ -57,11 +57,11 @@ const config = {
         "dark-tremor": {
           brand: {
             faint: "#0B1229",
-            muted: colors.blue[950],
-            subtle: colors.blue[800],
-            DEFAULT: colors.blue[500],
-            emphasis: colors.blue[400],
-            inverted: colors.blue[950],
+            muted: colors.gray[950],
+            subtle: colors.gray[800],
+            DEFAULT: colors.gray[500],
+            emphasis: colors.gray[400],
+            inverted: colors.gray[950],
           },
           background: {
             muted: "#131A2B",
@@ -70,10 +70,10 @@ const config = {
             emphasis: colors.gray[300],
           },
           border: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: "#555",
           },
           ring: {
-            DEFAULT: colors.gray[800],
+            DEFAULT: "hsl(var(--border))",
           },
           content: {
             subtle: colors.gray[600],
