@@ -11,13 +11,19 @@ type Props = {
   insideText: boolean;
 };
 
-export function CashflowCard({ title, value, percentage, badge, insideText}: Props) {
+export function CashflowCard({
+  title,
+  value,
+  percentage,
+  badge,
+  insideText,
+}: Props) {
   return (
     <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between  border border-border">
       <div className="flex flex-col gap-3 md:gap-6">
         <span className="flex gap-2 items-center">
           <p className="text-2xl text-secondary-foreground/70">{title}</p>
-          {badge && <Badge className="bg-emerald-900">{badge}</Badge>}
+          {badge && <Badge className="bg-indigo-800">{badge}</Badge>}
         </span>
 
         <span
@@ -30,7 +36,10 @@ export function CashflowCard({ title, value, percentage, badge, insideText}: Pro
           <p>{cashFormatter(Number(value))}</p>
         </span>
       </div>
-      <ProgressCircleWrapper value={percentage ? percentage : 0} insideText={insideText}/>
+      <ProgressCircleWrapper
+        value={percentage ? percentage : 0}
+        insideText={insideText}
+      />
     </div>
   );
 }

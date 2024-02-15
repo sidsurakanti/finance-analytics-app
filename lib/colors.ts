@@ -17,7 +17,7 @@ export const badgeColors = {
 // transaction type badge colors
 export const transactionTypeColors = {
   paycheck: "bg-lime-500",
-  expense: "bg-rose-700",
+  expense: "bg-rose-500",
   deposit: "bg-sky-500",
   withdrawl: "bg-orange-500",
   reoccuring: "bg-blue-500",
