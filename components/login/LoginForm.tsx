@@ -1,28 +1,30 @@
 "use client";
 
-import { CardWrapper } from "@/components/login/CardWrapper";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { FormError } from "@/components/login/FormError";
-
+import { CardWrapper } from "@components/login/CardWrapper";
+import { Input } from "@components/ui/input";
+import { Button } from "@components/ui/button";
+import { FormError } from "@components/login/FormError";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
+} from "@components/ui/form";
 
 import { z } from "zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "@/schemas/login";
-import { authenticate } from "@lib/actions";
-import { useState } from "react";
+import { login } from "@lib/actions";
 
 export function LoginForm() {
+  // state to display server error messages
   const [formError, setFormError] = useState<string | undefined>("");
+  // form hook
   const form = useForm<z.infer<typeof formSchema>>({
+    // form validation w/ zod
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -30,14 +32,16 @@ export function LoginForm() {
     },
   });
 
+  // submit handler
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // call server action
-    const message = await authenticate(data);
+    // calls login server action
+    const message = await login(data);
+    // sets form error message
     setFormError(message);
   };
 
   return (
-    <div>
+    <>
       <CardWrapper
         headerLabel="Login"
         description="Welcome back!"
@@ -47,7 +51,7 @@ export function LoginForm() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="w-full space-y-2 flex flex-col"
+            className="w-full flex flex-col gap-2"
           >
             <FormField
               control={form.control}
@@ -68,27 +72,20 @@ export function LoginForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      placeholder="Password"
-                      type="password"
-                      {...field}
-                    ></Input>
+                    <Input placeholder="Password" type="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+
             <FormError message={formError} />
-            <Button
-              variant="outline"
-              type="submit"
-              className="hover:bg-blue-500"
-            >
+            <Button type="submit" className="hover:bg-blue-500">
               Go
             </Button>
           </form>
         </Form>
       </CardWrapper>
-    </div>
+    </>
   );
 }

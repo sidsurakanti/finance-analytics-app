@@ -9,31 +9,32 @@ interface Props {
   user: User;
 }
 
-export async function TransactionSection({ user }: Props) {
+export async function TransactionsPreview({ user }: Props) {
   const transactions = await fetchTransactions(user);
   const recentTotal = transactions
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);
 
   return (
-    <section className="bg-accent/70 text-secondary-foreground border border-border rounded-lg p-5 flex flex-col gap-5">
-      <div className="flex flex-row justify-between">
+    <section className="bg-accent/75 text-foreground border border-border rounded-lg p-5 flex flex-col gap-5">
+      <header className="flex justify-between">
         <div className="flex flex-col gap-2">
-          <p className="text-secondary-foreground/65">Recent</p>
-          <span className="text-4xl flex flex-row gap-[2px]">
-            <div className="text-muted-foreground">$</div>
+          <p className="text-muted-foreground">Recent</p>
+          <span className="text-4xl font-medium flex gap-0.5">
+            <p className="text-muted-foreground">$</p>
             {recentTotal}
           </span>
         </div>
-        <Link href="/transactions">
-          <Button className="hidden md:block">
-            <p>view all</p>
-          </Button>
-          <Button className="md:hidden" size="icon">
-            <ViewMore height={17} width={17} />
-          </Button>
-        </Link>
-      </div>
+
+        <span>
+          <Link href="/transactions">
+            <Button>
+              <p className="hidden md:block">view all</p>
+              <ViewMore className="md:hidden" height={17} width={17} />
+            </Button>
+          </Link>
+        </span>
+      </header>
 
       <RecentTransactions transactions={transactions} />
     </section>

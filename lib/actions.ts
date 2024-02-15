@@ -1,11 +1,13 @@
 "use server";
 
-import type { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
 import { sql } from "@vercel/postgres";
-import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
+import type { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
+
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
@@ -19,6 +21,8 @@ export async function setCashflows(cashflows: Cashflow) {
     `;
     console.log("Created new cashflows", cashflows, res);
     revalidatePath("/cashflows");
+
+    return res.rows;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Database error");
@@ -34,6 +38,7 @@ export async function updateCashflows(newCashflow: Cashflow) {
         `;
     console.log("Updated cashflow:", newCashflow);
     revalidatePath("/cashflows");
+
     return res.rows;
   } catch (error) {
     console.log("Database error", error);
@@ -41,6 +46,7 @@ export async function updateCashflows(newCashflow: Cashflow) {
   }
 }
 
+// update savings when user adds a new paycheck
 export async function paycheckUpdate(newIncome: string, user_id: string) {
   try {
     const res = await sql`
@@ -50,6 +56,7 @@ export async function paycheckUpdate(newIncome: string, user_id: string) {
         `;
     console.log("Updated paycheck:", newIncome);
     revalidatePath("/cashflows");
+
     return res.rows;
   } catch (error) {
     console.log("Database error", error);
@@ -57,6 +64,7 @@ export async function paycheckUpdate(newIncome: string, user_id: string) {
   }
 }
 
+// update savings
 export async function savingsUpdate(newSavings: string, user_id: string) {
   try {
     const res = await sql`
@@ -66,6 +74,7 @@ export async function savingsUpdate(newSavings: string, user_id: string) {
         `;
     console.log("Updated savings:", newSavings);
     revalidatePath("/cashflows");
+
     return res.rows;
   } catch (error) {
     console.log("Database error", error);
@@ -73,7 +82,7 @@ export async function savingsUpdate(newSavings: string, user_id: string) {
   }
 }
 
-// transaction actions
+// add a new transaction to db
 export async function createTransaction(transaction: Transaction) {
   const { name, amount, type, user_id } = transaction;
   try {
@@ -104,13 +113,21 @@ export async function createReoccuring(reoccuring: Reoccuring) {
       VALUES 
           (${name}, ${amount.toString()}, ${timeperiod}, ${category}, ${user_id.toString()});
     `;
-    createTransaction({
-      name,
-      amount,
-      type: "reoccuring",
-      created_at: new Date(),
-      user_id,
-    });
+
+    // if reoccuring monthly, add the reoccuring transaction to the transactions table
+    // don't add bi-annual or annual reoccuring transactions to the transactions table
+    // this is to not add on to this month's expenses
+    // TODO: find a more efficent way to do this
+    if (timeperiod === "monthly") {
+      createTransaction({
+        name,
+        amount,
+        type: "reoccuring",
+        created_at: new Date(),
+        user_id,
+      });
+    }
+
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
   } catch (error) {
@@ -120,7 +137,7 @@ export async function createReoccuring(reoccuring: Reoccuring) {
 }
 
 // auth actions
-export async function authenticate(data: z.infer<typeof formSchema>) {
+export async function login(data: z.infer<typeof formSchema>) {
   try {
     await signIn("credentials", data);
   } catch (error) {
@@ -139,33 +156,37 @@ export async function authenticate(data: z.infer<typeof formSchema>) {
 export async function logout() {
   try {
     // call sign out method
-    await signOut({});
+    await signOut();
   } catch (error) {
     throw error;
   }
 }
 
+// create a new user
 export async function createUser(user: User) {
-  // encrypt password and destructure data
+  // destructure data and encrypt password
   const { name, email, password } = {
     ...user,
     password: await bcrypt.hash(user.password, 10),
   };
 
+  // * duplicate users are not allowed by db columns bc of unique email contrainsts
   try {
-    // * duplicate users are not allowed by db columns bc of unique email contrainsts
     const res = await sql`
       INSERT INTO users (name, email, password) 
       VALUES (${name}, ${email}, ${password})
     `;
     console.log("Created new user", res);
   } catch (error) {
+    // handle non unique column email error
     if ((error as any).code === "23505") {
       console.log("Error: user with that email already exists");
       return "User with that email already exists";
     }
+
     console.log("Database error", error);
     throw new Error("Database error");
   }
+
   redirect("/login");
 }

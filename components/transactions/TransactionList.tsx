@@ -10,8 +10,8 @@ import { Badge } from "@components/ui/badge";
 
 import { type User, type Transaction } from "@lib/definitions";
 import { fetchAllTransactions } from "@lib/data";
-import { cn, cashFormatter } from "@lib/utils";
-import { transactionTypeColors } from "@/lib/colors";
+import { cn, cashFormatter, dateFormatter } from "@lib/utils";
+import { transactionTypeColors } from "@lib/colors";
 
 interface Props {
   user: User;
@@ -20,20 +20,6 @@ interface Props {
 // Server component
 export default async function TransactionList({ user }: Props) {
   const transactions: Transaction[] = await fetchAllTransactions(user);
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
 
   return (
     <>
@@ -55,7 +41,7 @@ export default async function TransactionList({ user }: Props) {
               <TableCell>{transaction.name}</TableCell>
 
               <TableCell>
-                {`${months[transaction.created_at.getMonth()]} ${transaction.created_at.getDate()}, ${transaction.created_at.getFullYear()}`}
+                {dateFormatter(transaction.created_at, true)}
               </TableCell>
 
               <TableCell>

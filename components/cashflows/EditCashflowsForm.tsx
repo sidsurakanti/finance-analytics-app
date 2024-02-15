@@ -1,12 +1,14 @@
 "use client";
 
-import { Input } from "@components/ui/input";
+import { SheetClose } from "@components/ui/sheet";
 import { Label } from "@components/ui/label";
 import { Button } from "@components/ui/button";
+import { EditCashflowsInput } from "@components/cashflows/EditCashflowsInput";
+
 import { useReducer, useState } from "react";
 import { cashflowReducer } from "@lib/reducers";
-import type { Cashflow } from "@/lib/definitions";
-import { CheckIcon, CloseIcon } from "@components/ui/icons";
+import { type Cashflow } from "@lib/definitions";
+
 import Link from "next/link";
 
 type Props = {
@@ -14,10 +16,13 @@ type Props = {
 };
 
 export function EditCashflowsForm({ initialCashflows }: Props) {
+  // local state to handle editing state
   const [isEditingSavings, setIsEditingSavings] = useState(false);
   const [isEditingIncome, setIsEditingIncome] = useState(false);
+  // create a reducer to handle input states and submit actions
   const [cashflows, dispatch] = useReducer(cashflowReducer, initialCashflows);
 
+  // handlers for reducer
   const handleSavingsChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({ type: "update_savings", savings: e.target.value });
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -27,89 +32,30 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
   };
 
   return (
-    <section className="flex flex-col gap-3">
+    <section className="flex flex-col gap-3 pt-4">
       <div className="flex flex-col gap-3">
         <Label htmlFor="income">Income</Label>
-        <div className="flex gap-2">
-          <div className="relative rounded-md w-full shadow-sm">
-            <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <span className="text-secondary-foreground/50 sm:text-md">$</span>
-            </div>
-            <Input
-              type="number"
-              id="income"
-              placeholder="0.00"
-              // prevent user from submitting form with invalid data by setting value to 0.00
-              value={cashflows.income ? cashflows.income : "0.00"}
-              onFocus={() => setIsEditingIncome(true)}
-              onChange={handleIncomeChange}
-              className="p-5 pl-7 text-lg"
-            />
-          </div>
-          {isEditingIncome && (
-            <>
-              <Button
-                variant="secondary"
-                className="hover:bg-green-400/70"
-                onClick={() => {
-                  setIsEditingIncome(false);
-                  handleSubmit();
-                }}
-              >
-                <CheckIcon width={20} height={20} />
-              </Button>
-              <Button
-                variant="secondary"
-                className="hover:bg-red-400/70"
-                onClick={() => setIsEditingIncome(false)}
-              >
-                <CloseIcon width={20} height={20} />
-              </Button>
-            </>
-          )}
-        </div>
+        <EditCashflowsInput
+          value={cashflows.income}
+          isEditing={isEditingIncome}
+          setIsEditing={setIsEditingIncome}
+          handleSubmit={handleSubmit}
+          handleChange={handleIncomeChange}
+        />
       </div>
+
       <div className="flex flex-col gap-3">
         <Label htmlFor="savings">Savings</Label>
-        <div className="flex gap-2">
-          <div className="relative w-full rounded-md shadow-sm">
-            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-              <p className="text-secondary-foreground/50 sm:text-md">$</p>
-            </span>
-            <Input
-              type="number"
-              id="savings"
-              placeholder="0.00"
-              // prevent user from submitting form with invalid data by setting value to 0.00
-              value={cashflows.savings ? cashflows.savings : "0.00"}
-              onClick={() => setIsEditingSavings(true)}
-              onChange={handleSavingsChange}
-              className="p-5 pl-7 text-lg"
-            />
-          </div>
-          {isEditingSavings && (
-            <>
-              <Button
-                variant="secondary"
-                className="hover:bg-green-400/70"
-                onClick={() => {
-                  setIsEditingSavings(false);
-                  handleSubmit();
-                }}
-              >
-                <CheckIcon width={20} height={20} />
-              </Button>
-              <Button
-                variant="secondary"
-                className="hover:bg-red-400/70"
-                onClick={() => setIsEditingSavings(false)}
-              >
-                <CloseIcon width={20} height={20} />
-              </Button>
-            </>
-          )}
-        </div>
+        <EditCashflowsInput
+          value={cashflows.savings}
+          isEditing={isEditingSavings}
+          setIsEditing={setIsEditingSavings}
+          handleSubmit={handleSubmit}
+          handleChange={handleSavingsChange}
+        />
       </div>
+
+      {/* save all button (only show when editing input fields) */}
       {(isEditingIncome || isEditingSavings) && (
         <Link href="/cashflows">
           <Button
@@ -125,6 +71,12 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
           </Button>
         </Link>
       )}
+
+      <SheetClose>
+        <Button className="w-full hover:bg-rose-500" variant="secondary">
+          Close
+        </Button>
+      </SheetClose>
     </section>
   );
 }

@@ -39,7 +39,7 @@
     --background: 0 0% 5%;
     --foreground: 210 40% 98%;
 
-    --card: 231 16% 23%;
+    --card: 231 16% 35%;
     --card-foreground: 210 40% 98%;
 
     --popover: 231 16% 17%;
@@ -51,18 +51,18 @@
     --secondary: 0 0% 7%;
     --secondary-foreground: 210 40% 98%;
 
-    --muted: 231 16% 23%;
+    --muted: 231 16% 13%;
     --muted-foreground: 0 0% 75%;
 
-    --accent: 0 0% 12%;
+    --accent: 0 0% 9%;
     --accent-foreground: 210 40% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 217.2 32.6% 17.5%;
+    --ring: 0 0% 20%;
+    --border: 0 0% 15%;
     --input: 0 0% 5%;
-    --ring: 217.2 32.6% 17.5%;
   }
 }
 
@@ -81,6 +81,7 @@ input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
@@ -90,6 +91,7 @@ input[type="number"]::-webkit-outer-spin-button {
 ::-webkit-scrollbar {
   width: 12px;
 }
+
 ::-webkit-scrollbar-track {
   background: rgba(255, 255, 255, 0.15);
 }

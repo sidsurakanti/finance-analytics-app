@@ -1,8 +1,18 @@
-import { CardWrapper } from "@components/login/CardWrapper";
 import { EditCashflowsForm } from "@components/cashflows/EditCashflowsForm";
-import type { Cashflow, User } from "@/lib/definitions";
+import { fetchCashflows } from "@lib/data";
+import { type User } from "@lib/definitions";
 import { auth } from "@/auth";
-import { fetchCashflows } from "@/lib/data";
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Button } from "@components/ui/button";
+import { EditIcon } from "@components/ui/icons";
 
 export async function EditCashflows() {
   const session = await auth();
@@ -10,14 +20,27 @@ export async function EditCashflows() {
   const cashflows = await fetchCashflows(user);
 
   return (
-    <CardWrapper
-      headerLabel="Edit cashflows"
-      description="Make changes to your cashflows here"
-      backButtonHref="/cashflows"
-      backButtonLabel="Go back"
-      showBackIcon
-    >
-      <EditCashflowsForm initialCashflows={cashflows} />
-    </CardWrapper>
+    <>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button className="flex flex-row gap-2" variant="ghost">
+            <EditIcon width={20} height={20} />
+            <p className="text-lg text-foreground/70 hidden md:block">change</p>
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent side={"left"}>
+          <SheetHeader>
+            <SheetTitle>Edit cashflows</SheetTitle>
+            <SheetDescription>
+              Make changes to your current income and savings here. Click close
+              when you&apos;re done.
+            </SheetDescription>
+          </SheetHeader>
+
+          <EditCashflowsForm initialCashflows={cashflows} />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }

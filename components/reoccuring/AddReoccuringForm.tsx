@@ -41,7 +41,7 @@ export function AddReoccuringForm({ user }: { user: User }) {
   const onSubmit: SubmitHandler<z.infer<typeof newReoccuringSchema>> = (
     data: z.infer<typeof newReoccuringSchema>,
   ) => {
-    // update transactions list too if user gets paid
+    // update cashflows if user gets paid
     if (data.category === "paycheck") {
       paycheckUpdate(data.amount, user.id);
     }
@@ -54,6 +54,7 @@ export function AddReoccuringForm({ user }: { user: User }) {
       category: data.category,
       user_id: user.id,
     };
+
     // add reoccuring transc. to db
     createReoccuring(newReoccuring);
   };

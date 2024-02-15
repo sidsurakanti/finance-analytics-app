@@ -35,7 +35,7 @@ export function ReoccuringSheet({ user }: { user: User }) {
               Add a new reoccuring transaction to your account
             </SheetDescription>
           </SheetHeader>
-          
+
           <AddReoccuringForm user={user} />
         </SheetContent>
       </Sheet>

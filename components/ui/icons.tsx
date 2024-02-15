@@ -35,7 +35,7 @@ export function GithubLogo(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export function WarningLogo(props: SVGProps<SVGSVGElement>) {
+export function WarningIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

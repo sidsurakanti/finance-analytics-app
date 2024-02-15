@@ -13,7 +13,7 @@ export const registerSchema = z
       message: "Password is required",
     }),
   })
-  // check if passwords match 
+  // check if passwords match
   .refine((data) => data.password === data.confirm, {
     message: "Passwords do not match",
     path: ["confirm"],

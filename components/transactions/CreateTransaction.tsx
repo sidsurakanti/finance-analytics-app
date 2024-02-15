@@ -35,6 +35,7 @@ export function TransactionSheet({ user }: { user: User }) {
               reoccuring, you can set it up in the Reoccuring tab.
             </SheetDescription>
           </SheetHeader>
+
           <CreateTransactionForm user={user} />
         </SheetContent>
       </Sheet>
