@@ -28,8 +28,8 @@ export async function ReoccuringList() {
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Name</TableHead>
-            <TableHead>Frequency</TableHead>
-            <TableHead>Category</TableHead>
+            <TableHead className="text-center">Frequency</TableHead>
+            <TableHead className="text-right">Category</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -39,11 +39,11 @@ export async function ReoccuringList() {
             <TableRow key={index} className="h-20 text-md xl:text-lg">
               <TableCell>{transaction.name}</TableCell>
 
-              <TableCell>
+              <TableCell className="text-center">
                 <Badge className="bg-sky-900">{transaction.timeperiod}</Badge>
               </TableCell>
 
-              <TableCell>
+              <TableCell className="text-right">
                 <Badge className={cn(badgeColors[transaction.category])}>
                   {transaction.category}
                 </Badge>

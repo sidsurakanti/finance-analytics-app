@@ -28,14 +28,14 @@ export async function ReoccuringPreview() {
       <ScrollArea className="h-[350px] shadow-md rounded-md border border-border">
         <Table>
           <TableCaption>Reoccuring transactions</TableCaption>
-          
+
           {/* columns  */}
           {/* stop header from being scrolled */}
           <TableHeader className="sticky top-0 bg-accent">
             <TableRow className="h-10">
               <TableHead>Name</TableHead>
-              <TableHead>Frequency</TableHead>
-              <TableHead>Category</TableHead>
+              <TableHead className="text-center">Frequency</TableHead>
+              <TableHead className="text-right">Category</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -45,11 +45,11 @@ export async function ReoccuringPreview() {
               <TableRow key={index} className="h-20 text-md xl:text-lg">
                 <TableCell>{transaction.name}</TableCell>
 
-                <TableCell>
+                <TableCell className="text-center">
                   <Badge className="bg-sky-900">{transaction.timeperiod}</Badge>
                 </TableCell>
 
-                <TableCell>
+                <TableCell className="text-right">
                   <Badge className={cn(badgeColors[transaction.category])}>
                     {transaction.category}
                   </Badge>

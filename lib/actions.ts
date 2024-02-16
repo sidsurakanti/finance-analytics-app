@@ -102,6 +102,11 @@ export async function createReoccuring(reoccuring: Reoccuring) {
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
   } catch (error) {
+    if ((error as any).code === "23505") {
+      console.log("Error: duplicate reoccuring transaction");
+      return "A reoccuring transaction with that name already exists";
+    }
+
     console.log("Database error", error);
     throw new Error("Failed to create a reoccuring transaction");
   }

@@ -5,7 +5,7 @@ import { newReoccuringSchema } from "@/schemas/new-reoccuring";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { createReoccuring, paycheckUpdate } from "@lib/actions";
+import { createReoccuring } from "@lib/actions";
 import { type User, type Reoccuring } from "@lib/definitions";
 
 import {

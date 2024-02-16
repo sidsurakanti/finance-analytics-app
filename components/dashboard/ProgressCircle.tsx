@@ -11,7 +11,7 @@ export function ProgressCircleWrapper({
   insideText?: boolean;
 }) {
   return (
-    <ProgressCircle value={value} size="lg" color="sky-700">
+    <ProgressCircle value={value} radius={42} color="sky-600">
       {insideText && (
         <span className={inter.className}>{value.toFixed()}%</span>
       )}
