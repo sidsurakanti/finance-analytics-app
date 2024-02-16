@@ -57,19 +57,19 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
             <span>Income</span>
           </div>
 
-          <p className="font-medium text-xl text-accent-foreground/70">
+          <p className="font-medium text-xl text-accent-foreground/70 tracking-wide">
             {cashFormatter(Number(income))}
           </p>
         </ListItem>
 
         {cashflows.map((cashflow, index) => (
           <ListItem key={index} className="p-4">
-            <div className="flex gap-2 items-center text-xl text-accent-foreground">
+            <div className="flex gap-3 items-center text-xl text-accent-foreground">
               <span className={`${cashflow.color} h-3 w-3 rounded-full`} />
               <span>{cashflow.name}</span>
             </div>
 
-            <p className="font-medium text-xl text-accent-foreground/70">
+            <p className="font-medium text-xl text-accent-foreground/70 tracking-wide">
               {cashFormatter(Number(cashflow.amount))}
             </p>
           </ListItem>

@@ -63,11 +63,13 @@ export async function CashflowList() {
   const balance = await fetchBalance(user.id);
 
   return (
-    <>
+    <section>
       {/* open a sheet that shows a form to edit cashflows */}
-      <EditCashflows />
+      <span className="flex justify-end pb-3">
+        <EditCashflows />
+      </span>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Income"
@@ -100,7 +102,13 @@ export async function CashflowList() {
           />
         </div>
 
-        <div>
+        <div className="flex flex-col md:flex-row md:col-span-2 xl:col-span-1 xl:flex-col gap-3">
+          <CashflowCard
+            title="This month"
+            percentage={reoccuringPercentage + expensesPercentage}
+            value={(Number(reoccuringTotal) + Number(expensesTotal)).toString()}
+            insideText={true}
+          />
           <BalanceCard
             title="Balance"
             value={balance.amount}
@@ -108,6 +116,6 @@ export async function CashflowList() {
           />
         </div>
       </div>
-    </>
+    </section>
   );
 }
