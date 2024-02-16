@@ -31,7 +31,6 @@ export function AddReoccuringForm({ user }: { user: User }) {
     // default values for the components
     defaultValues: {
       name: "",
-      amount: "",
       timeperiod: "monthly",
       category: "misc",
     },
@@ -41,15 +40,10 @@ export function AddReoccuringForm({ user }: { user: User }) {
   const onSubmit: SubmitHandler<z.infer<typeof newReoccuringSchema>> = (
     data: z.infer<typeof newReoccuringSchema>,
   ) => {
-    // update cashflows if user gets paid
-    if (data.category === "paycheck") {
-      paycheckUpdate(data.amount, user.id);
-    }
 
     // create a new reoccuring transaction object
     const newReoccuring: Reoccuring = {
       name: data.name,
-      amount: data.amount.toString(),
       timeperiod: data.timeperiod,
       category: data.category,
       user_id: user.id,
@@ -78,33 +72,6 @@ export function AddReoccuringForm({ user }: { user: User }) {
                     placeholder="Rent #1"
                     className="text-md  border border-border"
                   />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Amount</FormLabel>
-                <FormControl>
-                  {/* add a dollar sign to the input field  */}
-                  <div className="relative rounded-md w-full shadow-sm border border-border">
-                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                      <span className="text-secondary-foreground/50 sm:text-md">
-                        $
-                      </span>
-                    </div>
-                    <Input
-                      {...field}
-                      type="number"
-                      placeholder="0.00"
-                      className="p-5 pl-7 text-lg"
-                    />
-                  </div>
                 </FormControl>
                 <FormMessage />
               </FormItem>

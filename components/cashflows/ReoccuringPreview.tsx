@@ -1,21 +1,21 @@
 import { auth } from "@/auth";
-import { inter } from "@/styles/fonts";
 
-import { type User, type Reoccuring } from "@lib/definitions";
+import type { User, Reoccuring } from "@lib/definitions";
 import { fetchReoccuring } from "@lib/data";
-import { cn, cashFormatter } from "@lib/utils";
+import { cn } from "@lib/utils";
 import { badgeColors } from "@lib/colors";
 
 import {
   Table,
   TableBody,
+  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
-import { ScrollArea } from "../ui/scroll-area";
+import { ScrollArea } from "@components/ui/scroll-area";
 
 export async function ReoccuringPreview() {
   const session = await auth();
@@ -27,6 +27,8 @@ export async function ReoccuringPreview() {
       {/* make sure table is scrollable  */}
       <ScrollArea className="h-[350px] shadow-md rounded-md border border-border">
         <Table>
+          <TableCaption>Reoccuring transactions</TableCaption>
+          
           {/* columns  */}
           {/* stop header from being scrolled */}
           <TableHeader className="sticky top-0 bg-accent">
@@ -34,7 +36,6 @@ export async function ReoccuringPreview() {
               <TableHead>Name</TableHead>
               <TableHead>Frequency</TableHead>
               <TableHead>Category</TableHead>
-              <TableHead className="text-right">Amount</TableHead>
             </TableRow>
           </TableHeader>
 
@@ -52,12 +53,6 @@ export async function ReoccuringPreview() {
                   <Badge className={cn(badgeColors[transaction.category])}>
                     {transaction.category}
                   </Badge>
-                </TableCell>
-
-                <TableCell
-                  className={cn("text-right font-medium", inter.className)}
-                >
-                  ${cashFormatter(Number(transaction.amount))}
                 </TableCell>
               </TableRow>
             ))}

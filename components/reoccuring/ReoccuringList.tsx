@@ -30,7 +30,6 @@ export async function ReoccuringList() {
             <TableHead>Name</TableHead>
             <TableHead>Frequency</TableHead>
             <TableHead>Category</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
           </TableRow>
         </TableHeader>
 
@@ -48,12 +47,6 @@ export async function ReoccuringList() {
                 <Badge className={cn(badgeColors[transaction.category])}>
                   {transaction.category}
                 </Badge>
-              </TableCell>
-
-              <TableCell
-                className={cn("text-right font-medium", inter.className)}
-              >
-                ${cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>
           ))}

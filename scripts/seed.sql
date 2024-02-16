@@ -24,10 +24,9 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 CREATE TABLE IF NOT EXISTS reoccuring (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    amount NUMERIC NOT NULL,
-    timeperiod VARCHAR(255),
-    category VARCHAR(255),
+    name VARCHAR(255) UNIQUE NOT NULL,
+    timeperiod VARCHAR(255) NOT NULL,
+    category VARCHAR(255) NOT NULL,
     user_id INTEGER REFERENCES users
 )
 
@@ -55,10 +54,10 @@ VALUES
 INSERT INTO reoccuring 
 (name, amount, timeperiod, user_id)
 VALUES 
-    ('Mortgage', 2400, 'monthly', 'housing', 2),
-    ('Netflix', 15, 'monthly', 'subscriptions', 2),
-    ('Gym', 50, 'monthly', 'health' 2),
-    ('Electricity', 100, 'monthly', 'bills' 2);
+    ('Mortgage', 'monthly', 'housing', 2),
+    ('Netflix', 'monthly', 'subscriptions', 2),
+    ('Gym', 'monthly', 'health' 2),
+    ('Electricity', 'monthly', 'bills' 2);
 
 INSERT INTO transactions
 (name, amount, type, user_id)

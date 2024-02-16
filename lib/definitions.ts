@@ -24,7 +24,6 @@ export type Transaction = {
 export type Reoccuring = {
   id?: Number;
   name: string;
-  amount: string | Number;
   timeperiod: "weekly" | "monthly" | "yearly" | "bi-annually";
   category:
     | "bills"

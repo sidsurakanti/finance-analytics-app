@@ -16,7 +16,7 @@ interface Props {
   transactions: Transaction[];
 }
 
-export function RecentTransactions({ transactions }: Props) {
+export function RecentTransactionsList({ transactions }: Props) {
   return (
     <>
       <Table>

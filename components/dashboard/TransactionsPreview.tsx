@@ -1,6 +1,6 @@
 import type { User } from "@lib/definitions";
 import { fetchTransactions } from "@lib/data";
-import { RecentTransactions } from "@components/dashboard/RecentTransactions";
+import { RecentTransactionsList } from "@components/dashboard/RecentTransactionsList";
 import Link from "next/link";
 import { Button } from "@components/ui/button";
 import { ViewMore } from "@components/ui/icons";
@@ -20,7 +20,7 @@ export async function TransactionsPreview({ user }: Props) {
     <section className="bg-accent/75 text-foreground border border-border rounded-lg p-5 flex flex-col gap-5 shadow-md">
       <header className="flex justify-between">
         <div className="flex flex-col gap-2">
-          <p className="text-muted-foreground">Recent</p>
+          <p className="text-muted-foreground">Recent transactions</p>
           <span className="text-4xl font-medium flex gap-0.5">
             <p className="text-muted-foreground">$</p>
             {recentTotal}
@@ -37,7 +37,7 @@ export async function TransactionsPreview({ user }: Props) {
         </span>
       </header>
 
-      <RecentTransactions transactions={transactions} />
+      <RecentTransactionsList transactions={transactions} />
     </section>
   );
 }

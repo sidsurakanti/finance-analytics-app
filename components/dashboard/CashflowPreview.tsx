@@ -58,31 +58,32 @@ export async function CashflowPreview({ user }: { user: User }) {
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Expenses"
-            percentage={expensesPercentage}
             value={expensesTotal}
             badge={"this month"}
+            percentage={expensesPercentage}
             insideText={true}
           />
           <CashflowCard
             title="Reoccuring"
             value={reoccuringTotal}
+            badge={"this month"}
             percentage={reoccuringPercentage}
             insideText={true}
           />
         </div>
 
         <div className="flex flex-col gap-3">
-          <BalanceCard
-            title="Balance"
-            value={balance.amount}
-            user_id={user.id}
-          />
           <CashflowCard
             title="Income"
             percentage={100}
             value={cashflows.income}
             badge={"monthly"}
             insideText={false}
+          />
+          <BalanceCard
+            title="Balance"
+            value={balance.amount}
+            user_id={user.id}
           />
         </div>
       </div>

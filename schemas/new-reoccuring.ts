@@ -24,7 +24,6 @@ const categoriesSchema = z.union([
 
 export const newReoccuringSchema = z.object({
   name: z.string(),
-  amount: z.string(),
   timeperiod: timeperiodSchema,
   category: categoriesSchema,
 });

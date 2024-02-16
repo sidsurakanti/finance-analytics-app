@@ -1,8 +1,8 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { type User, type Transaction, type Reoccuring } from "@lib/definitions";
-import { createTransaction, paycheckUpdate, savingsUpdate } from "@lib/actions";
+import type { User, Transaction, Reoccuring } from "@lib/definitions";
+import { createTransaction, updateBalance, paycheckUpdate } from "@lib/actions";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -26,7 +26,6 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@components/ui/button";
 import { SheetClose, SheetFooter } from "@/components/ui/sheet";
 
-import { ReoccuingSelect } from "@components/transactions/ReoccuringSelect";
 import { TypeSelect } from "@components/transactions/TypeSelect";
 
 // * this is a client component bc of the useForm hook
@@ -56,7 +55,7 @@ export function CreateTransactionForm({
     // console.log(data);
 
     // tranform data into a new transaction object
-    const newTransaction: Transaction = {
+    const transaction: Transaction = {
       name: data.name,
       // if type of transaction is a not a paycheck or deposit
       // change the value to negative
@@ -71,11 +70,13 @@ export function CreateTransactionForm({
 
     // update income if user adds a new paycheck
     if (data.type === "paycheck") {
-      paycheckUpdate(data.amount, user.id);
+      paycheckUpdate(transaction.amount.toString(), user.id);
     }
 
-    // add new transaction to db
-    createTransaction(newTransaction);
+    // add transaction to db
+    createTransaction(transaction);
+    // update user balance
+    updateBalance(Number(transaction.amount), user.id);
   };
 
   return (

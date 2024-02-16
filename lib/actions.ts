@@ -90,14 +90,14 @@ export async function createTransaction(transaction: Transaction) {
 
 // reoccuring actions
 export async function createReoccuring(reoccuring: Reoccuring) {
-  const { name, amount, timeperiod, category, user_id } = reoccuring;
+  const { name, timeperiod, category, user_id } = reoccuring;
 
   try {
     await sql`
       INSERT INTO reoccuring
-      (name, amount, timeperiod, category, user_id)
+      (name, timeperiod, category, user_id)
       VALUES 
-          (${name}, ${amount.toString()}, ${timeperiod}, ${category}, ${user_id.toString()});
+          (${name}, ${timeperiod}, ${category}, ${user_id.toString()});
     `;
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
