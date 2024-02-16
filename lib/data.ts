@@ -1,4 +1,4 @@
-"use server"
+"use server";
 
 import { sql } from "@vercel/postgres";
 import type {
@@ -52,7 +52,7 @@ export async function fetchTransactions(user: User) {
       SELECT * FROM transactions
       WHERE user_id=${id}
       ORDER BY created_at DESC
-      LIMIT 5;
+      LIMIT 4;
     `;
     const transactions = res.rows;
 

@@ -32,7 +32,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
   };
 
   return (
-    <section className="flex flex-col gap-3 pt-4">
+    <section className="flex flex-col gap-5 pt-5">
       <div className="flex flex-col gap-3">
         <Label htmlFor="income">Income</Label>
         <EditCashflowsInput
@@ -55,28 +55,29 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
         />
       </div>
 
-      {/* save all button (only show when editing input fields) */}
-      {(isEditingIncome || isEditingSavings) && (
-        <Link href="/cashflows">
-          <Button
-            variant="secondary"
-            className="hover:bg-blue-500 w-full"
-            onClick={() => {
-              setIsEditingSavings(false);
-              setIsEditingIncome(false);
-              handleSubmit();
-            }}
-          >
-            Save all
-          </Button>
-        </Link>
-      )}
+      <footer className="flex flex-col gap-3">
+        {/* save all button (only show when editing input fields) */}
+        {(isEditingIncome || isEditingSavings) && (
+          <Link href="/cashflows">
+            <Button
+              className="hover:bg-blue-500 w-full"
+              onClick={() => {
+                setIsEditingSavings(false);
+                setIsEditingIncome(false);
+                handleSubmit();
+              }}
+            >
+              Save all
+            </Button>
+          </Link>
+        )}
 
-      <SheetClose>
-        <Button className="w-full hover:bg-rose-500" variant="secondary">
-          Close
-        </Button>
-      </SheetClose>
+        <SheetClose>
+          <Button className="w-full hover:bg-red-500" variant="destructive">
+            Close
+          </Button>
+        </SheetClose>
+      </footer>
     </section>
   );
 }

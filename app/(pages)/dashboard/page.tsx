@@ -1,37 +1,32 @@
-import { auth } from "@/auth";
+import { CashflowChart } from "@/components/cashflows/CashflowChart";
+import { CashflowList } from "@/components/cashflows/CashflowList";
+import { ReoccuringPreview } from "@/components/cashflows/ReoccuringPreview";
+import { TransactionsPreview } from "@/components/dashboard/TransactionsPreview";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
 
-import { Skeleton } from "@components/ui/skeleton";
-import { type User } from "@lib/definitions";
-import { TransactionsPreview } from "@components/dashboard/TransactionsPreview";
-import { CashflowPreview } from "@components/dashboard/CashflowPreview";
-
-export default async function Dashboard() {
-  const session = await auth();
-  // we know that session.user is a user type since
-  // they would have been redirected to the login page if they weren't logged in
-  const user = session?.user as User;
-
+export default async function Cashflows() {
   return (
-    <main className="w-[90%] md:w-5/6 lg:w-4/5 xl:w-2/3 h-[90%] mx-auto flex flex-col py-5">
-      <section className="grid xl:grid-cols-8 gap-5">
-        <section className="xl:col-span-3">
-          <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
-            <CashflowPreview user={user} />
+    <main className="w-[90%] md:w-5/6 lg:w-4/5 xl:w-2/3 h-[90%] mx-auto">
+      <section className="grid grid-cols-1 xl:grid-cols-2 gap-5 pb-10">
+        <div className="col-span-2 space-y-4 ">
+          <Suspense fallback={<Skeleton className="w-full" />}>
+            <CashflowList />
           </Suspense>
-        </section>
+        </div>
 
-        <section className="xl:col-span-5">
-          <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
-            <TransactionsPreview user={user} />
+        <div className="grid grid-cols-1 xl:grid-cols-2 col-span-2 gap-5">
+          <div className="flex flex-col gap-5">
+            <Suspense fallback={<Skeleton className="w-full" />}>
+              <TransactionsPreview />
+              <ReoccuringPreview />
+            </Suspense>
+          </div>
+
+          <Suspense fallback={<Skeleton className="w-full" />}>
+            <CashflowChart />
           </Suspense>
-        </section>
-
-        {/* <section className="xl:col-span-2">
-        <Suspense fallback={<Skeleton className="w-full h-[400px]" />}>
-          <CashflowChart />
-        </Suspense>
-      </section> */}
+        </div>
       </section>
     </main>
   );

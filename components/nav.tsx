@@ -43,12 +43,6 @@ export default async function Nav() {
             <p className="hidden lg:block">Reoccuring</p>
           </Button>
         </Link>
-        <Link href="/cashflows">
-          <Button className="gap-1" size="lg">
-            <CashflowsIcon width={18} height={18} />
-            <p className="hidden lg:block">Cashflows</p>
-          </Button>
-        </Link>
       </ul>
 
       <div className="flex items-center gap-4">

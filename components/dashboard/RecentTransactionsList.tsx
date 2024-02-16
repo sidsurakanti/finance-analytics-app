@@ -22,7 +22,7 @@ export function RecentTransactionsList({ transactions }: Props) {
     <>
       <Table>
         {/* columns  */}
-        <TableHeader className="bg-muted">
+        <TableHeader className="bg-secondary">
           <TableRow className="h-10">
             <TableHead>Name</TableHead>
             <TableHead className="text-center">Type</TableHead>
@@ -37,11 +37,7 @@ export function RecentTransactionsList({ transactions }: Props) {
               <TableCell>{transaction.name}</TableCell>
 
               <TableCell className="text-center">
-                <Badge
-                  className={cn(
-                    transactionTypeColors[transaction.type],
-                  )}
-                >
+                <Badge className={cn(transactionTypeColors[transaction.type])}>
                   {transaction.type}
                 </Badge>
               </TableCell>
