@@ -30,9 +30,10 @@ export function ReoccuringSheet({ user }: { user: User }) {
 
         <SheetContent>
           <SheetHeader>
-            <SheetTitle>Create reoccuring</SheetTitle>
+            <SheetTitle>New reoccuring</SheetTitle>
             <SheetDescription>
-              Add a new reoccuring transaction to your account
+              This will help track your reoccuring expenses and make it easier
+              to add them to transactions.
             </SheetDescription>
           </SheetHeader>
 

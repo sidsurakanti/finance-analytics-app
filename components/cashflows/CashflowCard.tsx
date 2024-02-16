@@ -33,7 +33,7 @@ export function CashflowCard({
           )}
         >
           <p className="text-muted-foreground">$</p>
-          <p>{cashFormatter(Number(value))}</p>
+          <p>{cashFormatter(Number(value), false)}</p>
         </span>
       </div>
 

@@ -45,7 +45,7 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
         variant="donut"
         className="text-3xl h-72" // change size of the label text inside the donut
         colors={["yellow-500", "indigo-500", "green-500"]}
-        valueFormatter={valueFormatter}
+        valueFormatter={cashFormatter}
         customTooltip={customTooltip}
         showAnimation
       />
@@ -57,7 +57,7 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
           </div>
 
           <p className="font-medium text-xl text-accent-foreground/70">
-            {valueFormatter(Number(income))}
+            {cashFormatter(Number(income))}
           </p>
         </ListItem>
 
@@ -69,7 +69,7 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
             </div>
 
             <p className="font-medium text-xl text-accent-foreground/70">
-              {valueFormatter(Number(cashflow.amount))}
+              {cashFormatter(Number(cashflow.amount))}
             </p>
           </ListItem>
         ))}
@@ -77,9 +77,6 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
     </Card>
   );
 }
-
-// format value into usd and add a $ sign
-const valueFormatter = (number: number) => "$" + cashFormatter(number);
 
 // custom tooltip
 // appears everytime you hover over a part of the donut

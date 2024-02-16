@@ -51,7 +51,7 @@ export default async function TransactionList({ user }: Props) {
               </TableCell>
 
               <TableCell className="text-right">
-                ${cashFormatter(Number(transaction.amount))}
+                {cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>
           ))}

@@ -25,7 +25,7 @@ export function BalanceCard({ title, value, badge, user_id }: Props) {
             "text-4xl md:text-5xl 2xl:text-[55px] flex flex-row items-end gap-[3px] font-medium",
           )}
         >
-          <p className="text-muted-foreground">$</p>
+          {/* <p className="text-muted-foreground">$</p> */}
           <p>{cashFormatter(Number(value))}</p>
         </span>
       </div>

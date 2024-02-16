@@ -1,5 +1,5 @@
 import { type Transaction } from "@lib/definitions";
-import { cn, dateFormatter, cashFormatter } from "@lib/utils";
+import { cn, cashFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
 
 import { Badge } from "@components/ui/badge";
@@ -47,7 +47,7 @@ export function RecentTransactionsList({ transactions }: Props) {
               </TableCell>
 
               <TableCell className="text-right">
-                ${cashFormatter(Number(transaction.amount))}
+                {cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>
           ))}

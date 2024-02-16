@@ -1,9 +1,8 @@
 import { auth } from "@/auth";
-import { inter } from "@/styles/fonts";
 
 import { type User, type Reoccuring } from "@lib/definitions";
 import { fetchReoccuring } from "@lib/data";
-import { cn, cashFormatter } from "@lib/utils";
+import { cn } from "@lib/utils";
 import { badgeColors } from "@lib/colors";
 
 import {

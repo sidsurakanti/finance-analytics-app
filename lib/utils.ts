@@ -5,8 +5,10 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function cashFormatter(number: number) {
-  return Intl.NumberFormat("us").format(number).toString();
+export function cashFormatter(number: number, dollarSign: boolean = true) {
+  const formatted = Intl.NumberFormat("us").format(number).toString();
+  if (dollarSign) return addDollarSign(formatted);
+  return formatted;
 }
 
 export function dateFormatter(date: Date, showfullYear: boolean = false) {
@@ -28,4 +30,12 @@ export function dateFormatter(date: Date, showfullYear: boolean = false) {
   if (showfullYear)
     return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
   return `${months[date.getMonth()]} ${date.getDate()}`;
+}
+
+export function addDollarSign(value: string) {
+  if (value.charAt(0) === "-") {
+    return `-$${value.substring(1)}`;
+  } else {
+    return `$${value}`;
+  }
 }
