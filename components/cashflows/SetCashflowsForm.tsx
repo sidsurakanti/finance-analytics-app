@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { setCashflowsSchema } from "@/schemas/set-cashflows";
 
 import { type User, type Cashflow } from "@lib/definitions";
-import { setCashflows } from "@lib/actions";
+import { setCashflows, updateBalance } from "@lib/actions";
 
 import {
   Form,
@@ -29,6 +29,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
     defaultValues: {
       income: "",
       savings: "",
+      balance: "",
     },
   });
 
@@ -43,6 +44,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
       user_id: user.id,
     };
     setCashflows(newCashflows);
+    updateBalance(Number(data.balance), user.id);
   };
 
   return (
@@ -92,6 +94,34 @@ export function SetCashflowsForm({ user }: { user: User }) {
                       $
                     </span>
                   </div>
+
+                  <Input
+                    {...field}
+                    placeholder="0.00"
+                    className="p-5 pl-7 text-lg"
+                  />
+                </div>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="balance"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Current balance</FormLabel>
+              <FormControl>
+                {/* use a neat trick to add a dollar sign to the input  */}
+                <div className="relative rounded-md w-full shadow-sm border border-border">
+                  <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                    <span className="text-secondary-foreground/50 sm:text-md">
+                      $
+                    </span>
+                  </div>
+
                   <Input
                     {...field}
                     placeholder="0.00"

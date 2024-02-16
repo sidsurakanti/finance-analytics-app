@@ -1,7 +1,13 @@
 "use server";
 
 import { sql } from "@vercel/postgres";
-import type { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
+import type {
+  User,
+  Cashflow,
+  Transaction,
+  Reoccuring,
+  Balance,
+} from "@lib/definitions";
 
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
@@ -11,6 +17,7 @@ import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
+import { fetchBalance } from "./data";
 
 // cashflow actions
 export async function setCashflows(cashflows: Cashflow) {
@@ -85,6 +92,15 @@ export async function savingsUpdate(newSavings: string, user_id: string) {
 // add a new transaction to db
 export async function createTransaction(transaction: Transaction) {
   const { name, amount, type, user_id } = transaction;
+
+  // if transaction is not a paycheck convert amount to neagtive
+  if (type !== "paycheck") {
+    await updateBalance(Number(amount) * -1, user_id);
+  } else {
+    // update current balance
+    await updateBalance(Number(amount), user_id);
+  }
+
   try {
     await sql`
       INSERT INTO transactions
@@ -114,25 +130,59 @@ export async function createReoccuring(reoccuring: Reoccuring) {
           (${name}, ${amount.toString()}, ${timeperiod}, ${category}, ${user_id.toString()});
     `;
 
-    // if reoccuring monthly, add the reoccuring transaction to the transactions table
-    // don't add bi-annual or annual reoccuring transactions to the transactions table
-    // this is to not add on to this month's expenses
-    // TODO: find a more efficent way to do this
-    if (timeperiod === "monthly") {
-      createTransaction({
-        name,
-        amount,
-        type: "reoccuring",
-        created_at: new Date(),
-        user_id,
-      });
-    }
-
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to create a reoccuring transaction");
+  }
+}
+
+// update balance
+export async function updateBalance(change: number, user_id: string) {
+  // get the current balance
+  const balance = await fetchBalance(user_id);
+
+  // if there's no previous balance, set the balance to the change
+  const updatedBalance = balance ? Number(balance.amount) + change : change;
+
+  // update balance by adding the change to the current balance
+  try {
+    const res = await sql`
+      INSERT INTO balance
+      (amount, user_id) 
+      VALUES (${updatedBalance}, ${user_id});
+    `;
+    // delete balances older than 5 latest balances
+    deleteOldBalances(user_id);
+
+    console.log("Updated balance", res);
+    revalidatePath("/dashboard");
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to update balance");
+  }
+}
+
+// delete balances older than 5 latest balances
+// this is to keep the balance table from getting too large
+export async function deleteOldBalances(user_id: string) {
+  try {
+    const res = await sql`
+      DELETE FROM balance
+      WHERE id NOT IN (
+        SELECT id
+        FROM balance
+        WHERE user_id = ${user_id}
+        ORDER BY id DESC
+        LIMIT 5
+      );
+    `;
+    console.log("Deleted old balances", res);
+    return res.rows[0];
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to delete old balances");
   }
 }
 

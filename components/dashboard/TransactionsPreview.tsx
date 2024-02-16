@@ -11,6 +11,7 @@ interface Props {
 
 export async function TransactionsPreview({ user }: Props) {
   const transactions = await fetchTransactions(user);
+
   const recentTotal = transactions
     .reduce((a, b) => a + Number(b.amount), 0)
     .toFixed(2);

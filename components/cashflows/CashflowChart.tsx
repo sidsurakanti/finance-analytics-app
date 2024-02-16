@@ -26,10 +26,10 @@ export async function CashflowChart() {
 
   // calculate totals
   const reoccuringTotal: string = reoccuring
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
   const expensesTotal: string = expenses
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
 
   // calculate balance

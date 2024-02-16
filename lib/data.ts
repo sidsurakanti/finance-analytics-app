@@ -1,5 +1,13 @@
+"use server"
+
 import { sql } from "@vercel/postgres";
-import { User, Cashflow, Transaction, Reoccuring } from "@lib/definitions";
+import type {
+  User,
+  Cashflow,
+  Transaction,
+  Reoccuring,
+  Balance,
+} from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
 export async function fetchUser(email: string) {
@@ -102,5 +110,42 @@ export async function fetchAllTransactions(user: User) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to fetch all transactions.");
+  }
+}
+
+export async function fetchBalance(user_id: string) {
+  noStore();
+
+  try {
+    const res = await sql<Balance>`
+        SELECT * FROM balance
+        WHERE user_id=${user_id}
+        ORDER BY id DESC
+        LIMIT 1;
+      `;
+    const balance = res.rows[0];
+    return balance;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch balance.");
+  }
+}
+
+export async function fetchRecentBalances(user_id: string) {
+  noStore();
+
+  try {
+    const res = await sql<Balance>`
+        SELECT * FROM balance
+        WHERE user_id=${user_id}
+        ORDER BY id DESC
+        LIMIT 5;
+      `;
+    const balance = res.rows;
+    // flip the array so the most recent balance is last
+    return balance.reverse();
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch balance.");
   }
 }

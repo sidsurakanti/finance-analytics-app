@@ -1,7 +1,7 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import { type User, type Transaction } from "@lib/definitions";
+import { type User, type Transaction, type Reoccuring } from "@lib/definitions";
 import { createTransaction, paycheckUpdate, savingsUpdate } from "@lib/actions";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 import { z } from "zod";
@@ -15,14 +15,28 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@components/ui/button";
 import { SheetClose, SheetFooter } from "@/components/ui/sheet";
 
+import { ReoccuingSelect } from "@components/transactions/ReoccuringSelect";
 import { TypeSelect } from "@components/transactions/TypeSelect";
 
 // * this is a client component bc of the useForm hook
-export function CreateTransactionForm({ user }: { user: User }) {
+export function CreateTransactionForm({
+  user,
+  reoccuring,
+}: {
+  user: User;
+  reoccuring: Reoccuring[];
+}) {
   // form hook
   const form = useForm<z.infer<typeof createTransactionSchema>>({
     // form validation
@@ -41,24 +55,22 @@ export function CreateTransactionForm({ user }: { user: User }) {
   ) => {
     // console.log(data);
 
-    // update savings if user withdrawls or deposits
-    if (data.type === "withdrawl") {
-      // remove amount form savings
-      savingsUpdate(`-${data.amount}`, user.id);
-    } else if (data.type === "deposit") {
-      savingsUpdate(data.amount, user.id);
-    } else if (data.type === "paycheck") {
-      paycheckUpdate(data.amount, user.id);
-    }
-
     // tranform data into a new transaction object
     const newTransaction: Transaction = {
       name: data.name,
-      amount: data.amount,
+      // if type of transaction is a not a paycheck or deposit
+      // change the value to negative
+      amount: data.type === "paycheck" || data.type === "deposit" ? data.amount : -data.amount,
       type: data.type,
       user_id: user.id,
       created_at: new Date(),
     };
+
+    // update income if user adds a new paycheck
+    if (data.type === "paycheck") {
+      paycheckUpdate(data.amount, user.id);
+    }
+
     // add new transaction to db
     createTransaction(newTransaction);
   };
@@ -72,34 +84,6 @@ export function CreateTransactionForm({ user }: { user: User }) {
         >
           <FormField
             control={form.control}
-            name="name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Romeo and Juliet" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="amount"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Amount</FormLabel>
-                <FormControl>
-                  <Input type="number" placeholder="888.88" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
             name="type"
             render={({ field }) => (
               <FormItem>
@@ -109,6 +93,73 @@ export function CreateTransactionForm({ user }: { user: User }) {
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {form.watch("type") !== "reoccuring" && (
+            <>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Romeo and Juliet" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
+
+          {form.watch("type") === "reoccuring" && (
+            <>
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select reoccuring transaction"></SelectValue>
+                        </SelectTrigger>
+
+                        <SelectContent>
+                          {reoccuring.map((item) => {
+                            return (
+                              <SelectItem value={item.name} key={item.name}>
+                                {item.name}
+                              </SelectItem>
+                            );
+                          })}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
+          )}
+
+          <FormField
+            control={form.control}
+            name="amount"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Amount</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="888.88" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

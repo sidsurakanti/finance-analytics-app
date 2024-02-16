@@ -31,6 +31,14 @@ CREATE TABLE IF NOT EXISTS reoccuring (
     user_id INTEGER REFERENCES users
 )
 
+CREATE TABLE IF NOT EXISTS balance (
+    id SERIAL PRIMARY KEY,
+    amount NUMERIC NOT NULL,
+    user_id INTEGER REFERENCES users
+)
+
+
+
 -- insert placeholder data into tables
 INSERT INTO users 
 (email, password, name)
@@ -60,6 +68,10 @@ VALUES
     ('Spotify', 16.99, 'expense', 2),
     ('T-Mobile', 400.24 'expense', 2),
     ('Tesla', 11.99, 'expense', 2);
+
+INSERT INTO balance 
+(amount, user_id) 
+VALUES (3018.63, 2);
 
 -- fetch user by email
 SELECT * FROM users

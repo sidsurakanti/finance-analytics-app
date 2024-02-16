@@ -32,17 +32,18 @@ export async function CashflowList() {
   // filter transactions into reoccuring and one-time expenses
   const reoccuring: Transaction[] = transactionsThisMonth.filter(
     (t) => t.type === "reoccuring",
-  );
+  )
   const expenses: Transaction[] = transactionsThisMonth.filter(
     (t) => t.type !== "reoccuring",
   );
 
   // calculate totals
+  // * abs these values because they're negative because expense transactions are negative
   const reoccuringTotal: string = reoccuring
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
   const expensesTotal: string = expenses
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
 
   // calculate remaining balance

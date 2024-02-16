@@ -1,5 +1,9 @@
 import type { Cashflow, Transaction, User } from "@lib/definitions";
-import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
+import {
+  fetchBalance,
+  fetchCashflows,
+  fetchTransactionsThisMonth,
+} from "@lib/data";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { ViewMoreButton } from "@/components/dashboard/ViewMoreButton";
@@ -39,19 +43,13 @@ export async function CashflowPreview({ user }: { user: User }) {
     .toFixed(2);
 
   // calculate remaining balance
-  const remainingBalance: string = (
-    Number(cashflows.income) -
-    Number(expensesTotal) -
-    Number(reoccuringTotal)
-  ).toFixed(2);
+  const balance = await fetchBalance(user.id);
 
   // calculate percentages of expenses, reoccuring, and balance
   const expensesPercentage: number =
     (Number(expensesTotal) / Number(cashflows.income)) * 100;
   const reoccuringPercentage: number =
     (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
-  const remainingBalancePercentage: number =
-    (Number(remainingBalance) / Number(cashflows.income)) * 100;
 
   return (
     <>
@@ -77,13 +75,13 @@ export async function CashflowPreview({ user }: { user: User }) {
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Balance"
-            value={remainingBalance}
-            percentage={remainingBalancePercentage}
-            insideText={true}
+            value={balance.amount}
+            percentage={0}
+            insideText={false}
           />
           <CashflowCard
             title="Income"
-            percentage={100}
+            percentage={0}
             value={cashflows.income}
             badge={"monthly"}
             insideText={false}

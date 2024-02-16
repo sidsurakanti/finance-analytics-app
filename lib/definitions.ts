@@ -41,3 +41,10 @@ export type Reoccuring = {
     | "misc";
   user_id: string;
 };
+
+export type Balance = {
+  id?: Number;
+  amount: string;
+  change: string;
+  user_id: string;
+}

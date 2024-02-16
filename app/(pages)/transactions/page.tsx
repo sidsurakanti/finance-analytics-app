@@ -1,21 +1,24 @@
 import { auth } from "@/auth";
 import { User } from "@/lib/definitions";
 import TransactionList from "@components/transactions/TransactionList";
-import Link from "next/link";
 import { Suspense } from "react";
-import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
-import { TransactionSheet } from "@/components/transactions/CreateTransaction";
+import { Skeleton } from "@components/ui/skeleton";
+import { TransactionSheet } from "@components/transactions/CreateTransaction";
+import { Reoccuring } from "@lib/definitions";
+import { fetchReoccuring } from "@lib/data";
 
 // Server component
 export default async function Transactions() {
   const session = await auth();
   const user = session?.user as User;
 
+  // fetch reoccuring transactions to pass to the CreateTransactionForm
+  const reoccuring = await fetchReoccuring(user);
+
   return (
     <main className="w-[90%] md:w-5/6 mx-auto flex flex-col gap-2">
       <div className="flex justify-end">
-        <TransactionSheet user={user} />
+        <TransactionSheet user={user} reoccuring={reoccuring} />
       </div>
       <div className="mb-4">
         <Suspense

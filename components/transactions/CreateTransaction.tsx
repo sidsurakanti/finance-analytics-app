@@ -1,4 +1,4 @@
-import { type User } from "@lib/definitions";
+import { Reoccuring, type User } from "@lib/definitions";
 
 import {
   Sheet,
@@ -12,7 +12,7 @@ import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
 import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
 
-export function TransactionSheet({ user }: { user: User }) {
+export function TransactionSheet({ user, reoccuring }: { user: User, reoccuring: Reoccuring[] }) {
   return (
     <>
       <Sheet>
@@ -36,7 +36,7 @@ export function TransactionSheet({ user }: { user: User }) {
             </SheetDescription>
           </SheetHeader>
 
-          <CreateTransactionForm user={user} />
+          <CreateTransactionForm user={user} reoccuring={reoccuring}/>
         </SheetContent>
       </Sheet>
     </>

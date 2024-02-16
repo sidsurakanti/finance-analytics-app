@@ -19,6 +19,7 @@ export function TypeSelect({ ...props }) {
           <SelectItem value="expense">Expense</SelectItem>
           <SelectItem value="deposit">Deposit</SelectItem>
           <SelectItem value="withdrawl">Withdrawl</SelectItem>
+          <SelectItem value="reoccuring">Reoccuring</SelectItem>
         </SelectContent>
       </Select>
     </>
