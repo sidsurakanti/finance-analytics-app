@@ -100,7 +100,7 @@ const customTooltip = (props: CustomTooltip) => {
           {categoryPayload.name}
         </p>
         <p className="whitespace-nowrap text-right font-medium text-secondary-foreground/75">
-          {categoryPayload.value}
+          {cashFormatter(categoryPayload.value)}
         </p>
       </span>
     </div>

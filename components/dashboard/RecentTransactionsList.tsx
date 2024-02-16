@@ -1,6 +1,7 @@
 import { type Transaction } from "@lib/definitions";
 import { cn, cashFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
+import { inter } from "@/styles/fonts";
 
 import { Badge } from "@components/ui/badge";
 import {
@@ -46,7 +47,12 @@ export function RecentTransactionsList({ transactions }: Props) {
                 </Badge>
               </TableCell>
 
-              <TableCell className="text-right">
+              <TableCell
+                className={cn(
+                  inter.className,
+                  "text-right tracking-wide font-medium",
+                )}
+              >
                 {cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>

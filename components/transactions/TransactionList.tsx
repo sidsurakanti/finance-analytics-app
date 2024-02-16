@@ -12,6 +12,7 @@ import { type User, type Transaction } from "@lib/definitions";
 import { fetchAllTransactions } from "@lib/data";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
+import { inter } from "@/styles/fonts";
 
 interface Props {
   user: User;
@@ -50,7 +51,12 @@ export default async function TransactionList({ user }: Props) {
                 </Badge>
               </TableCell>
 
-              <TableCell className="text-right">
+              <TableCell
+                className={cn(
+                  inter.className,
+                  "text-right tracking-wide font-medium",
+                )}
+              >
                 {cashFormatter(Number(transaction.amount))}
               </TableCell>
             </TableRow>

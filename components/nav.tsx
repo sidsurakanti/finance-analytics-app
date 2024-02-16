@@ -24,32 +24,32 @@ export default async function Nav() {
   return (
     <header className="flex flex-row w-[90%] md:w-5/6 mx-auto justify-between h-[10%] min-h-16 items-center">
       {/* <div className="flex items-center gap-8"> */}
-        <ul className="flex gap-2 text-white">
-          <Link href="/dashboard">
-            <Button className="gap-1" size="lg">
-              <DashboardIcon width={20} height={20} />
-              <p className="hidden lg:block">Dashboard</p>
-            </Button>
-          </Link>
-          <Link href="/transactions">
-            <Button className="gap-1" size="lg">
-              <TransactionsIcon width={20} height={20} />
-              <p className="hidden lg:block">Transactions</p>
-            </Button>
-          </Link>
-          <Link href="/cashflows">
-            <Button className="gap-1" size="lg">
-              <CashflowsIcon width={18} height={18} />
-              <p className="hidden lg:block">Cashflows</p>
-            </Button>
-          </Link>
-          <Link href="/reoccuring">
-            <Button className="gap-1" size="lg">
-              <ReoccuringSymbol width={18} height={18} />
-              <p className="hidden lg:block">Reoccuring</p>
-            </Button>
-          </Link>
-        </ul>
+      <ul className="flex gap-2 text-white">
+        <Link href="/dashboard">
+          <Button className="gap-1" size="lg">
+            <DashboardIcon width={20} height={20} />
+            <p className="hidden lg:block">Dashboard</p>
+          </Button>
+        </Link>
+        <Link href="/transactions">
+          <Button className="gap-1" size="lg">
+            <TransactionsIcon width={20} height={20} />
+            <p className="hidden lg:block">Transactions</p>
+          </Button>
+        </Link>
+        <Link href="/reoccuring">
+          <Button className="gap-1" size="lg">
+            <ReoccuringSymbol width={18} height={18} />
+            <p className="hidden lg:block">Reoccuring</p>
+          </Button>
+        </Link>
+        <Link href="/cashflows">
+          <Button className="gap-1" size="lg">
+            <CashflowsIcon width={18} height={18} />
+            <p className="hidden lg:block">Cashflows</p>
+          </Button>
+        </Link>
+      </ul>
 
       <div className="flex items-center gap-4">
         <div className="hidden md:block">

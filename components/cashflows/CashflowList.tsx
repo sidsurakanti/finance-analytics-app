@@ -1,9 +1,14 @@
-import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
+import {
+  fetchCashflows,
+  fetchTransactionsThisMonth,
+  fetchBalance,
+} from "@lib/data";
 import type { User, Cashflow, Transaction } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { EditCashflows } from "@components/cashflows/EditCashflows";
 import { auth } from "@/auth";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
+import { BalanceCard } from "@components/cashflows/BalanceCard";
 
 export async function CashflowList() {
   const session = await auth();
@@ -32,7 +37,7 @@ export async function CashflowList() {
   // filter transactions into reoccuring and one-time expenses
   const reoccuring: Transaction[] = transactionsThisMonth.filter(
     (t) => t.type === "reoccuring",
-  )
+  );
   const expenses: Transaction[] = transactionsThisMonth.filter(
     (t) => t.type !== "reoccuring",
   );
@@ -47,27 +52,21 @@ export async function CashflowList() {
     .toFixed(2);
 
   // calculate remaining balance
-  const remainingBalance: string = (
-    Number(cashflows.income) -
-    Number(expensesTotal) -
-    Number(reoccuringTotal)
-  ).toFixed(2);
 
   // calculate percentages of expenses, reoccuring, and balance
   const expensesPercentage: number =
     (Number(expensesTotal) / Number(cashflows.income)) * 100;
   const reoccuringPercentage: number =
     (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
-  // TODO: add a card to show remaining balance
-  const remainingBalancePercentage: number =
-    (Number(remainingBalance) / Number(cashflows.income)) * 100;
+
+  const balance = await fetchBalance(user.id);
 
   return (
     <>
       {/* open a sheet that shows a form to edit cashflows */}
       <EditCashflows />
 
-      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 justify-between gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 justify-between gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Income"
@@ -96,6 +95,13 @@ export async function CashflowList() {
             percentage={reoccuringPercentage}
             value={reoccuringTotal}
             insideText={true}
+          />
+        </div>
+        <div>
+          <BalanceCard
+            title="Balance"
+            value={balance.amount}
+            user_id={user.id}
           />
         </div>
       </div>
