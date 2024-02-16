@@ -1,14 +1,37 @@
-import { fetchRecentBalances } from "@lib/data";
-import { Balance } from "@lib/definitions";
-import { SparkAreaChart } from "@tremor/react";
+import { inter } from "@/styles/fonts";
+import { cn, cashFormatter } from "@lib/utils";
+import { Badge } from "@components/ui/badge";
+import { BalanceChart } from "@components/cashflows/BalanceChart";
 
-export async function BalanceCard({ user_id }: { user_id: string }) {
-  const balances: Balance[] = await fetchRecentBalances(user_id);
-  console.log(balances);
+type Props = {
+  title: string;
+  value: string;
+  badge?: string;
+  user_id: string;
+};
 
+export function BalanceCard({ title, value, badge, user_id }: Props) {
   return (
-    <>
-      <SparkAreaChart data={balances} categories={["amount"]} index={"id"} />
-    </>
+    <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between items-center shadow-md border border-border">
+      <div className="flex flex-col gap-3 md:gap-6">
+        <span className="flex gap-2 items-center">
+          <p className="text-2xl text-secondary-foreground/70">{title}</p>
+          {badge && <Badge className="bg-indigo-800">{badge}</Badge>}
+        </span>
+
+        <span
+          className={cn(
+            inter.className,
+            "text-4xl md:text-5xl 2xl:text-[55px] flex flex-row items-end gap-[3px] font-medium",
+          )}
+        >
+          <p className="text-muted-foreground">$</p>
+          <p>{cashFormatter(Number(value))}</p>
+        </span>
+      </div>
+      <div>
+        <BalanceChart user_id={user_id} />
+      </div>
+    </div>
   );
 }

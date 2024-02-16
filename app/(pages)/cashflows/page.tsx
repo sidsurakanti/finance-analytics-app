@@ -3,7 +3,6 @@ import { CashflowList } from "@/components/cashflows/CashflowList";
 import { ReoccuringPreview } from "@/components/cashflows/ReoccuringPreview";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Suspense } from "react";
-import { BalanceCard } from "@components/cashflows/BalanceCard";
 
 export default async function Cashflows() {
   return (
@@ -14,7 +13,6 @@ export default async function Cashflows() {
             <CashflowList />
           </Suspense>
           <ReoccuringPreview />
-          <BalanceCard user_id={'2'}></BalanceCard>
         </div>
 
         <div className="gap-4">

@@ -8,6 +8,7 @@ import type {
   Reoccuring,
   Balance,
 } from "@lib/definitions";
+import { fetchBalance } from "@lib/data";
 
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
@@ -17,72 +18,49 @@ import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
-import { fetchBalance } from "./data";
 
-// cashflow actions
+// set cashflows during cashflows onboarding
 export async function setCashflows(cashflows: Cashflow) {
   try {
-    const res = await sql`
+    await sql`
       INSERT INTO cashflows (income, savings, user_id) 
       VALUES (${cashflows.income.toString()}, ${cashflows.savings.toString()}, ${cashflows.user_id.toString()})
     `;
-    console.log("Created new cashflows", cashflows, res);
+    console.log("INITIALIZED CASHFLOWS:", cashflows);
     revalidatePath("/cashflows");
-
-    return res.rows;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Database error");
   }
 }
 
+// update cashflows table when user makes changes to their income or savings
+// this is called only when the change is made manually
 export async function updateCashflows(newCashflow: Cashflow) {
   try {
-    const res = await sql`
+    await sql`
             UPDATE cashflows 
             SET income = ${newCashflow.income.toString()}, savings = ${newCashflow.savings.toString()}
             WHERE user_id = ${newCashflow.user_id.toString()};
         `;
-    console.log("Updated cashflow:", newCashflow);
+    console.log("UPDATED CASHFLOWS:", newCashflow);
     revalidatePath("/cashflows");
-
-    return res.rows;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update cashflows");
   }
 }
 
-// update savings when user adds a new paycheck
+// update income cashflow when user adds a new paycheck transaction
 export async function paycheckUpdate(newIncome: string, user_id: string) {
   try {
-    const res = await sql`
+    await sql`
             UPDATE cashflows 
             SET income = ${newIncome}
             WHERE user_id = ${user_id};
         `;
-    console.log("Updated paycheck:", newIncome);
+    console.log("UPDATED PAYCHECK:", newIncome);
     revalidatePath("/cashflows");
-
-    return res.rows;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failted to update paycheck");
-  }
-}
-
-// update savings
-export async function savingsUpdate(newSavings: string, user_id: string) {
-  try {
-    const res = await sql`
-            UPDATE cashflows 
-            SET savings = savings + ${newSavings}
-            WHERE user_id = ${user_id};
-        `;
-    console.log("Updated savings:", newSavings);
-    revalidatePath("/cashflows");
-
-    return res.rows;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update paycheck");
@@ -91,15 +69,8 @@ export async function savingsUpdate(newSavings: string, user_id: string) {
 
 // add a new transaction to db
 export async function createTransaction(transaction: Transaction) {
+  // destructure data for cleaner code
   const { name, amount, type, user_id } = transaction;
-
-  // if transaction is not a paycheck convert amount to neagtive
-  if (type !== "paycheck") {
-    await updateBalance(Number(amount) * -1, user_id);
-  } else {
-    // update current balance
-    await updateBalance(Number(amount), user_id);
-  }
 
   try {
     await sql`
@@ -108,8 +79,7 @@ export async function createTransaction(transaction: Transaction) {
       VALUES 
           (${name}, ${amount.toString()}, ${type}, ${user_id.toString()});
     `;
-
-    console.log("Created transaction", transaction);
+    console.log("CREATED TRANSACTION:", transaction);
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to create transaction");
@@ -129,7 +99,6 @@ export async function createReoccuring(reoccuring: Reoccuring) {
       VALUES 
           (${name}, ${amount.toString()}, ${timeperiod}, ${category}, ${user_id.toString()});
     `;
-
     revalidatePath("/reoccuring");
     console.log("Created reoccuring", reoccuring);
   } catch (error) {
@@ -140,23 +109,26 @@ export async function createReoccuring(reoccuring: Reoccuring) {
 
 // update balance
 export async function updateBalance(change: number, user_id: string) {
-  // get the current balance
-  const balance = await fetchBalance(user_id);
+  // get the current balance so we can increment it
+  const balance: Balance = await fetchBalance(user_id);
 
   // if there's no previous balance, set the balance to the change
   const updatedBalance = balance ? Number(balance.amount) + change : change;
 
   // update balance by adding the change to the current balance
   try {
-    const res = await sql`
+    // here we're inserting instead of updating
+    // because we want to keep a history of the user's balance
+    await sql`
       INSERT INTO balance
       (amount, user_id) 
       VALUES (${updatedBalance}, ${user_id});
     `;
-    // delete balances older than 5 latest balances
+
+    // delete older balances to keep balance table from getting too large
     deleteOldBalances(user_id);
 
-    console.log("Updated balance", res);
+    console.log("UPDATED BALANCE:", updatedBalance);
     revalidatePath("/dashboard");
   } catch (error) {
     console.log("Database error", error);
@@ -168,7 +140,7 @@ export async function updateBalance(change: number, user_id: string) {
 // this is to keep the balance table from getting too large
 export async function deleteOldBalances(user_id: string) {
   try {
-    const res = await sql`
+    await sql`
       DELETE FROM balance
       WHERE id NOT IN (
         SELECT id
@@ -178,8 +150,7 @@ export async function deleteOldBalances(user_id: string) {
         LIMIT 5
       );
     `;
-    console.log("Deleted old balances", res);
-    return res.rows[0];
+    console.log("DELETED OLD BALANCES");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to delete old balances");
@@ -189,6 +160,7 @@ export async function deleteOldBalances(user_id: string) {
 // auth actions
 export async function login(data: z.infer<typeof formSchema>) {
   try {
+    // call signIn from next-auth
     await signIn("credentials", data);
   } catch (error) {
     if (error instanceof AuthError) {
@@ -199,13 +171,13 @@ export async function login(data: z.infer<typeof formSchema>) {
           return "Something went wrong";
       }
     }
+
     throw error;
   }
 }
 
 export async function logout() {
   try {
-    // call sign out method
     await signOut();
   } catch (error) {
     throw error;
@@ -220,7 +192,8 @@ export async function createUser(user: User) {
     password: await bcrypt.hash(user.password, 10),
   };
 
-  // * duplicate users are not allowed by db columns bc of unique email contrainsts
+  // no need to check for duplicate users here
+  // duplicate users are not allowed by db columns bc of unique email contrainsts
   try {
     const res = await sql`
       INSERT INTO users (name, email, password) 
@@ -228,7 +201,7 @@ export async function createUser(user: User) {
     `;
     console.log("Created new user", res);
   } catch (error) {
-    // handle non unique column email error
+    // handle non unique email error
     if ((error as any).code === "23505") {
       console.log("Error: user with that email already exists");
       return "User with that email already exists";

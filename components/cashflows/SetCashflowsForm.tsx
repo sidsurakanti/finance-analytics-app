@@ -39,10 +39,12 @@ export function SetCashflowsForm({ user }: { user: User }) {
   ) => {
     // convert data into a cashflow obj
     const newCashflows: Cashflow = {
-      income: data.income.toString(),
-      savings: data.savings.toString(),
+      income: data.income,
+      savings: data.savings,
       user_id: user.id,
     };
+
+    // set initial cashflows and balance in db
     setCashflows(newCashflows);
     updateBalance(Number(data.balance), user.id);
   };
@@ -70,6 +72,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
 
                   <Input
                     {...field}
+                    type="number"
                     placeholder="0.00"
                     className="p-5 pl-7 text-lg"
                   />
@@ -97,6 +100,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
 
                   <Input
                     {...field}
+                    type="number"
                     placeholder="0.00"
                     className="p-5 pl-7 text-lg"
                   />
@@ -124,6 +128,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
 
                   <Input
                     {...field}
+                    type="number"
                     placeholder="0.00"
                     className="p-5 pl-7 text-lg"
                   />

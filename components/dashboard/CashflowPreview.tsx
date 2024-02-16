@@ -6,7 +6,7 @@ import {
 } from "@lib/data";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
-import { ViewMoreButton } from "@/components/dashboard/ViewMoreButton";
+import { BalanceCard } from "@components/cashflows/BalanceCard";
 
 export async function CashflowPreview({ user }: { user: User }) {
   const cashflows: Cashflow = await fetchCashflows(user);
@@ -35,11 +35,12 @@ export async function CashflowPreview({ user }: { user: User }) {
   );
 
   // calculate totals
+  // * abs because expense transactions are negative and we need these to be positive to make any sense
   const reoccuringTotal: string = reoccuring
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
   const expensesTotal: string = expenses
-    .reduce((a, b) => a + Number(b.amount), 0)
+    .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
 
   // calculate remaining balance
@@ -53,8 +54,6 @@ export async function CashflowPreview({ user }: { user: User }) {
 
   return (
     <>
-      {/* <ViewMoreButton /> */}
-
       <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 xl:grid-cols-1 xl:grid-rows-2 justify-between gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
@@ -73,15 +72,14 @@ export async function CashflowPreview({ user }: { user: User }) {
         </div>
 
         <div className="flex flex-col gap-3">
-          <CashflowCard
+          <BalanceCard
             title="Balance"
             value={balance.amount}
-            percentage={0}
-            insideText={false}
+            user_id={user.id}
           />
           <CashflowCard
             title="Income"
-            percentage={0}
+            percentage={100}
             value={cashflows.income}
             badge={"monthly"}
             insideText={false}

@@ -99,8 +99,8 @@ export function AddReoccuringForm({ user }: { user: User }) {
                       </span>
                     </div>
                     <Input
-                      type="number"
                       {...field}
+                      type="number"
                       placeholder="0.00"
                       className="p-5 pl-7 text-lg"
                     />

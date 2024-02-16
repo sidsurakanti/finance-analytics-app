@@ -60,7 +60,10 @@ export function CreateTransactionForm({
       name: data.name,
       // if type of transaction is a not a paycheck or deposit
       // change the value to negative
-      amount: data.type === "paycheck" || data.type === "deposit" ? data.amount : -data.amount,
+      amount:
+        data.type === "paycheck" || data.type === "deposit"
+          ? data.amount
+          : -data.amount,
       type: data.type,
       user_id: user.id,
       created_at: new Date(),
@@ -159,7 +162,7 @@ export function CreateTransactionForm({
               <FormItem>
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="888.88" {...field} />
+                  <Input {...field} type="number" placeholder="888.88" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
