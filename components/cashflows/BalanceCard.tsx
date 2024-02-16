@@ -26,7 +26,7 @@ export function BalanceCard({ title, value, badge, user_id }: Props) {
           )}
         >
           {/* <p className="text-muted-foreground">$</p> */}
-          <p>{cashFormatter(Number(value))}</p>
+          <p className="tracking-medium">{cashFormatter(Number(value))}</p>
         </span>
       </div>
       <div>

@@ -39,7 +39,7 @@ export default async function TransactionList({ user }: Props) {
         <TableBody>
           {transactions.map((transaction, index) => (
             <TableRow key={index} className="h-20 text-lg">
-              <TableCell>{transaction.name}</TableCell>
+              <TableCell className="font-medium">{transaction.name}</TableCell>
 
               <TableCell>
                 {dateFormatter(transaction.created_at, true)}

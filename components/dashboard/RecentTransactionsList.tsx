@@ -33,14 +33,13 @@ export function RecentTransactionsList({ transactions }: Props) {
         {/* rows  */}
         <TableBody>
           {transactions.map((transaction, index) => (
-            <TableRow key={index} className="h-20 md:text-xl">
+            <TableRow key={index} className="h-20 text-lg md:text-xl">
               <TableCell>{transaction.name}</TableCell>
 
               <TableCell className="text-center">
                 <Badge
                   className={cn(
                     transactionTypeColors[transaction.type],
-                    "text-[10px] px-2 py-[1px]  md:px-2.5 md:text-xs md:py-0.5",
                   )}
                 >
                   {transaction.type}

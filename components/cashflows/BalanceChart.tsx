@@ -8,7 +8,12 @@ export async function BalanceChart({ user_id }: { user_id: string }) {
 
   return (
     <>
-      <SparkAreaChart data={balances} categories={["amount"]} index={"id"} />
+      <SparkAreaChart
+        data={balances}
+        categories={["amount"]}
+        index={"id"}
+        colors={["sky"]}
+      />
     </>
   );
 }

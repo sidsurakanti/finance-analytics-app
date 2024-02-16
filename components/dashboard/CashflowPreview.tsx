@@ -7,6 +7,7 @@ import {
 import { CashflowCard } from "@components/cashflows/CashflowCard";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { BalanceCard } from "@components/cashflows/BalanceCard";
+import { months } from "@/lib/utils";
 
 export async function CashflowPreview({ user }: { user: User }) {
   const cashflows: Cashflow = await fetchCashflows(user);
@@ -54,19 +55,19 @@ export async function CashflowPreview({ user }: { user: User }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-2 md:grid-rows-1 xl:grid-cols-1 xl:grid-rows-2 justify-between gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-1 xl:grid-cols-1 xl:grid-rows-2 justify-between gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Expenses"
             value={expensesTotal}
-            badge={"this month"}
+            badge={months[new Date().getMonth()].toLowerCase()}
             percentage={expensesPercentage}
             insideText={true}
           />
           <CashflowCard
             title="Reoccuring"
             value={reoccuringTotal}
-            badge={"this month"}
+            badge={months[new Date().getMonth()].toLowerCase()}
             percentage={reoccuringPercentage}
             insideText={true}
           />

@@ -1,7 +1,8 @@
 "use client";
 
+import { inter } from "@/styles/fonts";
 import { DonutChart, Card, List, ListItem } from "@tremor/react";
-import { cashFormatter } from "@lib/utils";
+import { cn, cashFormatter } from "@lib/utils";
 
 interface Props {
   income: string;
@@ -22,17 +23,17 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
     {
       name: "Reoccuring",
       amount: Number(reoccuring),
-      color: "bg-yellow-500",
+      color: "bg-indigo-500",
     },
     {
       name: "Expenses",
       amount: Number(expenses),
-      color: "bg-indigo-500",
+      color: "bg-rose-300",
     },
     {
       name: "Remaining",
       amount: Number(balance),
-      color: "bg-green-500",
+      color: "bg-emerald-500",
     },
   ];
 
@@ -43,8 +44,8 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
         category="amount"
         index="name"
         variant="donut"
-        className="text-3xl h-72" // change size of the label text inside the donut
-        colors={["yellow-500", "indigo-500", "green-500"]}
+        className={cn("text-3xl h-72 tracking-medium", inter.className)} // change size of the label text inside the donut
+        colors={["indigo-500", "rose-300", "emerald-500"]}
         valueFormatter={cashFormatter}
         customTooltip={customTooltip}
         showAnimation

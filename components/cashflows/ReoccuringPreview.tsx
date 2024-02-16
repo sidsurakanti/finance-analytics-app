@@ -25,7 +25,7 @@ export async function ReoccuringPreview() {
   return (
     <>
       {/* make sure table is scrollable  */}
-      <ScrollArea className="h-[350px] shadow-md rounded-md border border-border">
+      <ScrollArea className="h-[400px] shadow-md rounded-md border border-border">
         <Table>
           <TableCaption>Reoccuring transactions</TableCaption>
 
@@ -43,10 +43,12 @@ export async function ReoccuringPreview() {
           <TableBody>
             {reoccuring.map((transaction, index) => (
               <TableRow key={index} className="h-20 text-md xl:text-lg">
-                <TableCell>{transaction.name}</TableCell>
+                <TableCell className="font-medium text-lg xl:text-xl">
+                  {transaction.name}
+                </TableCell>
 
                 <TableCell className="text-center">
-                  <Badge className="bg-sky-900">{transaction.timeperiod}</Badge>
+                  <Badge className="bg-sky-700">{transaction.timeperiod}</Badge>
                 </TableCell>
 
                 <TableCell className="text-right">

@@ -12,21 +12,6 @@ export function cashFormatter(number: number, dollarSign: boolean = true) {
 }
 
 export function dateFormatter(date: Date, showfullYear: boolean = false) {
-  const months = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-
   if (showfullYear)
     return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`;
   return `${months[date.getMonth()]} ${date.getDate()}`;
@@ -39,3 +24,18 @@ export function addDollarSign(value: string) {
     return `$${value}`;
   }
 }
+
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];

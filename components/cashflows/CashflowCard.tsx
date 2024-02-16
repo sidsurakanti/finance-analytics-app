@@ -21,9 +21,9 @@ export function CashflowCard({
   return (
     <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between shadow-md border border-border">
       <div className="flex flex-col justify-between gap-3 md:gap-6">
-        <span className="flex gap-2 items-center">
+        <span className="flex gap-3 items-center">
           <p className="text-2xl text-secondary-foreground/70">{title}</p>
-          {badge && <Badge className="bg-indigo-800">{badge}</Badge>}
+          {badge && <Badge className="bg-sky-700">{badge}</Badge>}
         </span>
 
         <span
@@ -33,7 +33,9 @@ export function CashflowCard({
           )}
         >
           <p className="text-muted-foreground">$</p>
-          <p>{cashFormatter(Number(value), false)}</p>
+          <p className="tracking-medium">
+            {cashFormatter(Number(value), false)}
+          </p>
         </span>
       </div>
 

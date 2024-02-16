@@ -9,6 +9,7 @@ import { EditCashflows } from "@components/cashflows/EditCashflows";
 import { auth } from "@/auth";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { BalanceCard } from "@components/cashflows/BalanceCard";
+import { months } from "@lib/utils";
 
 export async function CashflowList() {
   const session = await auth();
@@ -66,7 +67,7 @@ export async function CashflowList() {
       {/* open a sheet that shows a form to edit cashflows */}
       <EditCashflows />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 justify-between gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-rows-1 xl:grid-cols-3 gap-3">
         <div className="flex flex-col gap-3">
           <CashflowCard
             title="Income"
@@ -86,17 +87,19 @@ export async function CashflowList() {
           <CashflowCard
             title="Expenses"
             value={expensesTotal}
-            badge={"this month"}
+            badge={months[new Date().getMonth()].toLowerCase()}
             percentage={expensesPercentage}
             insideText={true}
           />
           <CashflowCard
             title="Reoccuring"
+            badge={months[new Date().getMonth()].toLowerCase()}
             percentage={reoccuringPercentage}
             value={reoccuringTotal}
             insideText={true}
           />
         </div>
+
         <div>
           <BalanceCard
             title="Balance"
