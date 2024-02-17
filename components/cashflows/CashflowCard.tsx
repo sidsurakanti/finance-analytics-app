@@ -32,10 +32,10 @@ export function CashflowCard({
             "text-3xl md:text-5xl 2xl:text-[55px] flex items-end gap-0.5 font-medium",
           )}
         >
-          <p className="text-muted-foreground">$</p>
-          <p className="tracking-medium">
-            {cashFormatter(Number(value), false)}
+          <p className="text-muted-foreground">
+            {cashFormatter(Number(value)).split("$")[0]}$
           </p>
+          {cashFormatter(Number(value)).split("$")[1]}
         </span>
       </div>
 

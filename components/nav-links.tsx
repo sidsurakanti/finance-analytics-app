@@ -46,7 +46,7 @@ export function NavLinks() {
                   variant={isActive ? "default" : "secondary"}
                 >
                   <p>{<Icon width={18} height={18} />}</p>
-                  <p>{link.text}</p>
+                  <p className="hidden lg:block">{link.text}</p>
                 </Button>
               </Link>
             </li>

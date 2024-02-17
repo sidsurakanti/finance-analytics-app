@@ -25,10 +25,13 @@ export function BalanceCard({ title, value, badge, user_id }: Props) {
             "text-4xl md:text-5xl 2xl:text-[55px] flex flex-row items-end gap-[3px] font-medium",
           )}
         >
-          <p className="tracking-medium">{cashFormatter(Number(value))}</p>
+          <p className="text-muted-foreground">
+            {cashFormatter(Number(value)).split("$")[0]}$
+          </p>
+          {cashFormatter(Number(value)).split("$")[1]}
         </span>
       </div>
-      
+
       <div>
         <BalanceChart user_id={user_id} />
       </div>
