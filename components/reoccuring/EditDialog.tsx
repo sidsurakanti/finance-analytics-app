@@ -15,7 +15,7 @@ export async function EditDialog({ reoccuring }: { reoccuring: Reoccuring }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="hover:bg-sky-700">
           <EditIcon width={20} height={20} />
         </Button>
       </DialogTrigger>

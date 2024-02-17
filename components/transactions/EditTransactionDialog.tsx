@@ -15,14 +15,14 @@ export async function EditDialog({ transaction, reoccuring }: { transaction: Tra
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="hover:bg-sky-700">
           <EditIcon width={20} height={20} />
         </Button>
       </DialogTrigger>
 
       <DialogContent className="p-8">
         <DialogHeader>
-          <DialogTitle className="tracking-medium">Edit reoccuring</DialogTitle>
+          <DialogTitle className="tracking-medium">Edit transaction</DialogTitle>
           <DialogDescription>
             Make changes to this transaction here. Click save when you&apos;re
             done.
