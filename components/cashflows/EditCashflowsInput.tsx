@@ -42,7 +42,7 @@ export function EditCashflowsInput({
         <>
           <Button
             variant="secondary"
-            className="hover:bg-emerald-500"
+            className="hover:bg-emerald-600"
             onClick={() => {
               setIsEditing(false);
               handleSubmit();
@@ -53,7 +53,7 @@ export function EditCashflowsInput({
 
           <Button
             variant="secondary"
-            className="hover:bg-rose-500"
+            className="hover:bg-rose-600"
             onClick={() => setIsEditing(false)}
           >
             <CloseIcon width={20} height={20} />

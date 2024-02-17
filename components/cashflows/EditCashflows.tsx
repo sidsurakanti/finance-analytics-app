@@ -29,7 +29,7 @@ export async function EditCashflows() {
           </Button>
         </SheetTrigger>
 
-        <SheetContent side={"left"}>
+        <SheetContent side={"right"}>
           <SheetHeader>
             <SheetTitle>Edit cashflows</SheetTitle>
             <SheetDescription>

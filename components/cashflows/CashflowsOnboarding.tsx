@@ -5,7 +5,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { SetCashflowsForm } from "@components/cashflows/SetCashflowsForm";
 import { type User } from "@lib/definitions";
@@ -15,6 +15,7 @@ export function CashflowsOnboarding({ user }: { user: User }) {
     <>
       <Sheet>
         <SheetTrigger asChild>
+          {/* there's some bug where we can't just put an apostrophe in the button so we use &apos; */}
           <Button size="lg">Let&apos;s go!</Button>
         </SheetTrigger>
 

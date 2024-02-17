@@ -1,12 +1,11 @@
 import type { Cashflow, Transaction, User } from "@lib/definitions";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
-import { auth } from "@/auth";
 import { Chart } from "@components/cashflows/Chart";
+import { auth } from "@/auth";
 
 export async function CashflowChart() {
   const session = await auth();
   const user = session?.user as User;
-
   const cashflows: Cashflow = await fetchCashflows(user);
 
   // return nothing if there are no cashflows
@@ -32,8 +31,9 @@ export async function CashflowChart() {
     .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
 
-  // calculate balance
-  const balance = (
+  // this is different from fetching balance bc
+  // we just want this months leftovers instead of the whole bank balance
+  const remainingBalance = (
     Number(cashflows.income) -
     Number(expensesTotal) -
     Number(reoccuringTotal)
@@ -46,7 +46,7 @@ export async function CashflowChart() {
           income={cashflows.income}
           expenses={expensesTotal}
           reoccuring={reoccuringTotal}
-          balance={balance}
+          balance={remainingBalance}
         />
       )}
     </div>

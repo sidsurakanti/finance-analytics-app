@@ -81,6 +81,22 @@ export async function fetchReoccuring(user: User) {
   }
 }
 
+// get reoccuring transaction by id
+export async function fetchReoccuringById(reoccuringId: Number) {
+  try {
+    const res = await sql<Reoccuring>`
+      SELECT * FROM reoccuring
+      WHERE id = ${reoccuringId.toString()};
+    `;
+    const reoccuring = res.rows[0];
+    console.log("FETCHED REOCCURING WITH ID:", reoccuringId);
+    return reoccuring;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch reoccuring transaction");
+  }
+}
+
 export async function fetchTransactionsThisMonth(user: User) {
   const id = user.id?.toString();
   try {

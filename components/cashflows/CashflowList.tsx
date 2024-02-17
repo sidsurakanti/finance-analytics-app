@@ -14,7 +14,6 @@ import { months } from "@lib/utils";
 export async function CashflowList() {
   const session = await auth();
   const user = session?.user as User;
-
   const cashflows: Cashflow = await fetchCashflows(user);
 
   // show onboarding component if user has no existing cashflows
@@ -29,11 +28,13 @@ export async function CashflowList() {
     );
   }
 
-  // TODO: add a card to show remaining balance
-  // ? maybe add an option to add this balance to savings
-  // * fetch data for cashflow cards
+  // --- fetch data for cashflow cards ---
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);
+
+  // get bank account balance from the database
+  // ? maybe add an option to add this balance to savings
+  const balance = await fetchBalance(user.id);
 
   // filter transactions into reoccuring and one-time expenses
   const reoccuring: Transaction[] = transactionsThisMonth.filter(
@@ -52,30 +53,27 @@ export async function CashflowList() {
     .reduce((a, b) => a + Math.abs(Number(b.amount)), 0)
     .toFixed(2);
 
-  // calculate remaining balance
-
-  // calculate percentages of expenses, reoccuring, and balance
+  // calculate percentages of expenses, reoccuring so we can use it in the progress circle
   const expensesPercentage: number =
     (Number(expensesTotal) / Number(cashflows.income)) * 100;
   const reoccuringPercentage: number =
     (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
 
-  const balance = await fetchBalance(user.id);
-
   return (
     <section>
-      {/* open a sheet that shows a form to edit cashflows */}
       <span className="flex justify-end pb-3">
+        {/* opens a sheet that shows a form to edit cashflows */}
         <EditCashflows />
       </span>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         <div className="flex flex-col gap-3">
+          {/* default this card to 100% of the progress bar  */}
           <CashflowCard
             title="Income"
             value={cashflows.income}
-            percentage={100}
             badge={"monthly"}
+            percentage={100}
             insideText={true}
           />
           <CashflowCard
@@ -95,9 +93,9 @@ export async function CashflowList() {
           />
           <CashflowCard
             title="Reoccuring"
+            value={reoccuringTotal}
             badge={months[new Date().getMonth()].toLowerCase()}
             percentage={reoccuringPercentage}
-            value={reoccuringTotal}
             insideText={true}
           />
         </div>
@@ -105,8 +103,8 @@ export async function CashflowList() {
         <div className="flex flex-col md:flex-row md:col-span-2 xl:col-span-1 xl:flex-col gap-3">
           <CashflowCard
             title="This month"
-            percentage={reoccuringPercentage + expensesPercentage}
             value={(Number(reoccuringTotal) + Number(expensesTotal)).toString()}
+            percentage={reoccuringPercentage + expensesPercentage}
             insideText={true}
           />
           <BalanceCard

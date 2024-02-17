@@ -18,7 +18,8 @@ type CustomTooltip = {
 };
 
 export function Chart({ income, expenses, reoccuring, balance }: Props) {
-  // format props to be used in the chart
+  // format props
+  // * cashflows.color is only used for the list item color
   const cashflows = [
     {
       name: "Reoccuring",
@@ -41,16 +42,17 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
     <Card className="dark:bg-accent dark:text-accent-foreground outline outline-none">
       <DonutChart
         data={cashflows}
+        variant="donut"
         category="amount"
         index="name"
-        variant="donut"
         className={cn("text-3xl h-72 tracking-medium", inter.className)} // change size of the label text inside the donut
-        colors={["indigo-500", "rose-300", "emerald-500"]}
+        colors={["indigo-500", "rose-300", "emerald-500"]} // change this if you want the donut colors to be different
         valueFormatter={cashFormatter}
         customTooltip={customTooltip}
         showAnimation
       />
 
+      {/* chart key and details */}
       <List className="mt-4">
         <ListItem className="p-4">
           <div className="flex gap-2 items-center text-xl text-accent-foreground">

@@ -19,8 +19,8 @@ export function CashflowCard({
   insideText,
 }: Props) {
   return (
-    <div className="h-min-fit w-full bg-accent rounded-lg p-4 flex flex-row justify-between shadow-md border border-border">
-      <div className="flex flex-col justify-between gap-3 md:gap-6">
+    <div className="w-full bg-accent rounded-lg p-4 flex justify-between shadow-md border border-border">
+      <div className="flex flex-col justify-between gap-3 md:gap-5">
         <span className="flex gap-3 items-center">
           <p className="text-2xl text-secondary-foreground/70">{title}</p>
           {badge && <Badge className="bg-sky-700">{badge}</Badge>}
@@ -29,7 +29,7 @@ export function CashflowCard({
         <span
           className={cn(
             inter.className,
-            "text-4xl md:text-5xl 2xl:text-[55px] flex flex-row items-end gap-[3px] font-medium",
+            "text-3xl md:text-5xl 2xl:text-[55px] flex items-end gap-0.5 font-medium",
           )}
         >
           <p className="text-muted-foreground">$</p>

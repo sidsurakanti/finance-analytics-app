@@ -14,6 +14,9 @@ import {
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
+import { Button } from "@components/ui/button";
+import { EditDialog } from "@components/reoccuring/EditDialog";
+import { DeleteButtonWrapper } from "@components/reoccuring/DeleteButtonWrapper";
 
 export async function ReoccuringList() {
   const session = await auth();
@@ -27,8 +30,9 @@ export async function ReoccuringList() {
         <TableHeader>
           <TableRow className="h-14">
             <TableHead>Name</TableHead>
-            <TableHead className="text-center">Frequency</TableHead>
-            <TableHead className="text-right">Category</TableHead>
+            <TableHead>Frequency</TableHead>
+            <TableHead>Category</TableHead>
+            <TableHead className="text-right"></TableHead>
           </TableRow>
         </TableHeader>
 
@@ -38,14 +42,23 @@ export async function ReoccuringList() {
             <TableRow key={index} className="h-20 text-md xl:text-lg">
               <TableCell className="font-medium">{transaction.name}</TableCell>
 
-              <TableCell className="text-center">
+              <TableCell>
                 <Badge className="bg-sky-700">{transaction.timeperiod}</Badge>
               </TableCell>
 
-              <TableCell className="text-right">
+              <TableCell>
                 <Badge className={cn(badgeColors[transaction.category])}>
                   {transaction.category}
                 </Badge>
+              </TableCell>
+
+              <TableCell className="text-right">
+                <span className="space-x-2">
+                  <EditDialog reoccuring={transaction}/>
+                  <DeleteButtonWrapper
+                    reoccuringId={transaction.id as Number}
+                  />
+                </span>
               </TableCell>
             </TableRow>
           ))}

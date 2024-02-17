@@ -31,6 +31,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
     dispatch({ type: "submit" });
   };
 
+  // TODO: convert this into a form... maybe
   return (
     <section className="flex flex-col gap-5 pt-5">
       <div className="flex flex-col gap-3">

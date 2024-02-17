@@ -4,7 +4,6 @@ import { SparkAreaChart } from "@tremor/react";
 
 export async function BalanceChart({ user_id }: { user_id: string }) {
   const balances: Balance[] = await fetchRecentBalances(user_id);
-  console.log(balances);
 
   return (
     <>
@@ -13,6 +12,7 @@ export async function BalanceChart({ user_id }: { user_id: string }) {
         categories={["amount"]}
         index={"id"}
         colors={["sky"]}
+        curveType="monotone"
       />
     </>
   );

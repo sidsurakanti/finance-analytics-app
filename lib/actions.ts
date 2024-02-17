@@ -112,6 +112,39 @@ export async function createReoccuring(reoccuring: Reoccuring) {
   }
 }
 
+// update reoccuring transaction
+export async function updateReoccuring(reoccuring: Reoccuring) {
+  const { id, name, timeperiod, category } = reoccuring;
+
+  try {
+    await sql`
+      UPDATE reoccuring
+      SET name = ${name}, timeperiod = ${timeperiod}, category = ${category}
+      WHERE id = ${id?.toString()};
+    `;
+    revalidatePath("/reoccuring");
+    console.log("UPDATED REOCCURING:", reoccuring);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to update reoccuring transaction");
+  }
+}
+
+
+export async function deleteReoccuringById(reoccuringId: Number) {
+  try {
+    await sql`
+      DELETE FROM reoccuring
+      WHERE id = ${reoccuringId.toString()};
+    `;
+    revalidatePath("/reoccuring");
+    console.log("DELETED REOCCURING", reoccuringId);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to delete reoccuring transaction");
+  }
+}
+
 // update balance
 export async function updateBalance(change: number, user_id: string) {
   // get the current balance so we can increment it
