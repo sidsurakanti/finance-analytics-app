@@ -1,49 +1,23 @@
 import Image from "next/image";
-import Link from "next/link";
 import { Button } from "@components/ui/button";
 import { auth } from "@/auth";
 import { LogoutButton } from "@/components/login/LogoutButton";
-import {
-  DashboardIcon,
-  TransactionsIcon,
-  CashflowsIcon,
-  BackArrow,
-  ReoccuringSymbol,
-} from "@components/ui/icons";
+import { BackArrow } from "@components/ui/icons";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { ModeToggle, ModeSwitch } from "@components/ui/themes";
+import { NavLinks } from "@components/nav-links";
 
 export default async function Nav() {
   const session = await auth();
   const user = session?.user;
 
   return (
-    <header className="flex flex-row w-[90%] md:w-5/6 lg:w-4/5 xl:w-2/3 mx-auto justify-between h-[10%] min-h-16 items-center">
-      {/* <div className="flex items-center gap-8"> */}
-      <ul className="flex gap-2 text-white">
-        <Link href="/dashboard">
-          <Button className="gap-1" size="lg">
-            <DashboardIcon width={20} height={20} />
-            <p className="hidden lg:block">Dashboard</p>
-          </Button>
-        </Link>
-        <Link href="/transactions">
-          <Button className="gap-1" size="lg">
-            <TransactionsIcon width={20} height={20} />
-            <p className="hidden lg:block">Transactions</p>
-          </Button>
-        </Link>
-        <Link href="/reoccuring">
-          <Button className="gap-1" size="lg">
-            <ReoccuringSymbol width={18} height={18} />
-            <p className="hidden lg:block">Reoccuring</p>
-          </Button>
-        </Link>
-      </ul>
+    <header className="flex flex-row w-[90%] md:w-5/6 lg:w-4/5 xl:w-3/4 mx-auto justify-between h-[10%] min-h-16 items-center">
+      <NavLinks />
 
       <div className="flex items-center gap-4">
         <div className="hidden md:block">

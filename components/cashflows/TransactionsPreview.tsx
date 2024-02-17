@@ -1,6 +1,6 @@
 import type { User } from "@lib/definitions";
 import { fetchTransactions } from "@lib/data";
-import { RecentTransactionsList } from "@components/dashboard/RecentTransactionsList";
+import { RecentTransactionsList } from "@components/cashflows/RecentTransactionsList";
 import Link from "next/link";
 import { Button } from "@components/ui/button";
 import { ViewMore } from "@components/ui/icons";

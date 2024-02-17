@@ -39,7 +39,9 @@ export async function ReoccuringList() {
         <TableBody>
           {reoccuring.map((transaction, index) => (
             <TableRow key={index} className="h-20 text-md xl:text-lg">
-              <TableCell className="font-medium">{transaction.name}</TableCell>
+              <TableCell className="font-medium text-lg">
+                {transaction.name}
+              </TableCell>
 
               <TableCell>
                 <Badge className="bg-sky-700">{transaction.timeperiod}</Badge>
