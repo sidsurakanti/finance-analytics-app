@@ -59,18 +59,16 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
       <footer className="flex flex-col gap-3">
         {/* save all button (only show when editing input fields) */}
         {(isEditingIncome || isEditingSavings) && (
-          <Link href="/cashflows">
-            <Button
-              className="hover:bg-blue-500 w-full"
-              onClick={() => {
-                setIsEditingSavings(false);
-                setIsEditingIncome(false);
-                handleSubmit();
-              }}
-            >
-              Save all
-            </Button>
-          </Link>
+          <Button
+            className="hover:bg-blue-500 w-full"
+            onClick={() => {
+              setIsEditingSavings(false);
+              setIsEditingIncome(false);
+              handleSubmit();
+            }}
+          >
+            Save all
+          </Button>
         )}
 
         <SheetClose>
