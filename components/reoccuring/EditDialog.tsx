@@ -22,7 +22,7 @@ export async function EditDialog({ reoccuring }: { reoccuring: Reoccuring }) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent>
+      <DialogContent className="p-8">
         <DialogHeader>
           <DialogTitle className="tracking-medium">Edit reoccuring</DialogTitle>
           <DialogDescription>

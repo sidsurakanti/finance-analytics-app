@@ -53,8 +53,8 @@ export async function ReoccuringList() {
               </TableCell>
 
               <TableCell className="text-right">
-                <span className="space-x-2">
-                  <EditDialog reoccuring={transaction}/>
+                <span className="flex gap-2 justify-end">
+                  <EditDialog reoccuring={transaction} />
                   <DeleteButtonWrapper
                     reoccuringId={transaction.id as Number}
                   />
