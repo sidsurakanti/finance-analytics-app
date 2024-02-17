@@ -88,6 +88,47 @@ export async function createTransaction(transaction: Transaction) {
   revalidatePath("/transactions");
 }
 
+// update transaction
+export async function updateTransaction(transaction: Transaction) {
+  const { id, name, amount, type } = transaction;
+
+  try {
+    await sql`
+      UPDATE transactions
+      SET name = ${name}, amount = ${amount.toString()}, type = ${type}
+      WHERE id = ${id?.toString()};
+    `;
+    revalidatePath("/transactions");
+    console.log("UPDATED TRANSACTION:", transaction);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to update  transaction");
+  }
+}
+
+export async function deleteTransaction(transaction: Transaction) {
+  const { id, amount } = transaction;
+
+  try {
+    await sql`
+      DELETE FROM transactions
+      WHERE id = ${id?.toString()};
+    `;
+    
+    // counteract balance change from deleted transaction
+    // get the transaction amount and user_id
+    updateBalance(Number(amount) * -1, transaction.user_id);
+    
+    // TODO: update paycheck amount too once there's a way to track prev paychecks
+
+    revalidatePath("/transactions");
+    console.log("DELETED TRANSACTION", transaction);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to delete reoccuring transaction");
+  }
+}
+
 // reoccuring actions
 export async function createReoccuring(reoccuring: Reoccuring) {
   const { name, timeperiod, category, user_id } = reoccuring;
@@ -129,7 +170,6 @@ export async function updateReoccuring(reoccuring: Reoccuring) {
     throw new Error("Failed to update reoccuring transaction");
   }
 }
-
 
 export async function deleteReoccuringById(reoccuringId: Number) {
   try {

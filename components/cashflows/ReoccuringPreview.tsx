@@ -43,7 +43,7 @@ export async function ReoccuringPreview() {
           <TableBody className="bg-accent">
             {reoccuring.map((transaction, index) => (
               <TableRow key={index} className="h-20 text-md xl:text-lg">
-                <TableCell className="font-medium text-lg xl:text-xl">
+                <TableCell className="font-medium text-lg">
                   {transaction.name}
                 </TableCell>
 

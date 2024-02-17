@@ -109,7 +109,7 @@ export async function CashflowList() {
           />
           <BalanceCard
             title="Balance"
-            value={balance.amount}
+            value={balance ? balance.amount : "0"}
             user_id={user.id}
           />
         </div>

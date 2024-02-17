@@ -8,11 +8,15 @@ import {
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
 
-import { type User, type Transaction } from "@lib/definitions";
-import { fetchAllTransactions } from "@lib/data";
+import { type User, type Transaction, type Reoccuring } from "@lib/definitions";
+import { fetchAllTransactions, fetchReoccuring } from "@lib/data";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
 import { inter } from "@/styles/fonts";
+
+import { DeleteButtonWrapper } from "@components/transactions/DeleteTransactionWrapper";
+import { EditDialog } from "@components/transactions/EditTransactionDialog";
+
 
 interface Props {
   user: User;
@@ -21,6 +25,7 @@ interface Props {
 // Server component
 export default async function TransactionList({ user }: Props) {
   const transactions: Transaction[] = await fetchAllTransactions(user);
+  const reoccuring: Reoccuring[] =  await fetchReoccuring(user);
 
   return (
     <>
@@ -31,7 +36,8 @@ export default async function TransactionList({ user }: Props) {
             <TableHead>Name</TableHead>
             <TableHead>Date</TableHead>
             <TableHead>Type</TableHead>
-            <TableHead className="text-right">Amount</TableHead>
+            <TableHead>Amount</TableHead>
+            <TableHead className="text-right"></TableHead>
           </TableRow>
         </TableHeader>
 
@@ -41,8 +47,8 @@ export default async function TransactionList({ user }: Props) {
             <TableRow key={index} className="h-20 text-lg">
               <TableCell className="font-medium">{transaction.name}</TableCell>
 
-              <TableCell>
-                {dateFormatter(transaction.created_at, true)}
+              <TableCell className="text-sm">
+                {dateFormatter(transaction.created_at)}
               </TableCell>
 
               <TableCell>
@@ -52,12 +58,18 @@ export default async function TransactionList({ user }: Props) {
               </TableCell>
 
               <TableCell
-                className={cn(
-                  inter.className,
-                  "text-right tracking-wide font-medium",
-                )}
+                className={cn(inter.className, "tracking-wide font-medium")}
               >
                 {cashFormatter(Number(transaction.amount))}
+              </TableCell>
+
+              <TableCell className="text-right">
+                <span className="flex gap-2 justify-end">
+                  <EditDialog transaction={transaction} reoccuring={reoccuring} />
+                  <DeleteButtonWrapper
+                    transaction={transaction}
+                  />
+                </span>
               </TableCell>
             </TableRow>
           ))}

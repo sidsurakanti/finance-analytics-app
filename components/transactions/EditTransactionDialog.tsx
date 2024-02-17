@@ -8,10 +8,10 @@ import {
 } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
-import { EditReoccuringForm } from "@components/reoccuring/EditReoccuringForm";
-import { Reoccuring } from "@lib/definitions";
+import { EditTransactionForm } from "@components/transactions/EditTransactionForm";
+import type { Transaction, Reoccuring } from "@lib/definitions";
 
-export async function EditDialog({ reoccuring }: { reoccuring: Reoccuring }) {
+export async function EditDialog({ transaction, reoccuring }: { transaction: Transaction, reoccuring: Reoccuring[] }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -29,7 +29,7 @@ export async function EditDialog({ reoccuring }: { reoccuring: Reoccuring }) {
           </DialogDescription>
         </DialogHeader>
 
-        <EditReoccuringForm reoccuring={reoccuring} />
+        <EditTransactionForm transaction={transaction} reoccuring={reoccuring} />
       </DialogContent>
     </Dialog>
   );
