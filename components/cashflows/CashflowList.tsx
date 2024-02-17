@@ -5,7 +5,6 @@ import {
 } from "@lib/data";
 import type { User, Cashflow, Transaction } from "@lib/definitions";
 import { CashflowCard } from "@components/cashflows/CashflowCard";
-import { EditCashflows } from "@components/cashflows/EditCashflows";
 import { auth } from "@/auth";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { BalanceCard } from "@components/cashflows/BalanceCard";
@@ -61,11 +60,6 @@ export async function CashflowList() {
 
   return (
     <section>
-      <span className="flex justify-end pb-3">
-        {/* opens a sheet that shows a form to edit cashflows */}
-        <EditCashflows />
-      </span>
-
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         <div className="flex flex-col gap-3">
           {/* default this card to 100% of the progress bar  */}
