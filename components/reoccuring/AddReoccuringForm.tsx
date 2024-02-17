@@ -32,7 +32,7 @@ export function AddReoccuringForm({ user }: { user: User }) {
     defaultValues: {
       name: "",
       timeperiod: "monthly",
-      category: "misc",
+      category: "bills",
     },
   });
 

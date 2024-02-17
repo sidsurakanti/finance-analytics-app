@@ -27,7 +27,6 @@ export type Reoccuring = {
   timeperiod: "weekly" | "monthly" | "yearly" | "bi-annually";
   category:
     | "bills"
-    | "paycheck"
     | "entertainment"
     | "food"
     | "health"

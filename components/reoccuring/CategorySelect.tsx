@@ -17,7 +17,6 @@ export function CategorySelect({ ...props }) {
 
         <SelectContent>
           <SelectItem value="housing">Housing</SelectItem>
-          <SelectItem value="paycheck">Paycheck</SelectItem>
           <SelectItem value="bills">Bills</SelectItem>
           <SelectItem value="entertainment">Entertainment</SelectItem>
           <SelectItem value="food">Food</SelectItem>

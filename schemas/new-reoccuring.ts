@@ -9,7 +9,6 @@ const timeperiodSchema = z.union([
 
 const categoriesSchema = z.union([
   z.literal("bills"),
-  z.literal("paycheck"),
   z.literal("entertainment"),
   z.literal("food"),
   z.literal("health"),
