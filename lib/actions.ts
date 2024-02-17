@@ -114,11 +114,11 @@ export async function deleteTransaction(transaction: Transaction) {
       DELETE FROM transactions
       WHERE id = ${id?.toString()};
     `;
-    
+
     // counteract balance change from deleted transaction
     // get the transaction amount and user_id
     updateBalance(Number(amount) * -1, transaction.user_id);
-    
+
     // TODO: update paycheck amount too once there's a way to track prev paychecks
 
     revalidatePath("/transactions");
@@ -226,7 +226,8 @@ export async function deleteOldBalances(user_id: string) {
         WHERE user_id = ${user_id}
         ORDER BY id DESC
         LIMIT 5
-      );
+      )
+      AND user_id = ${user_id};
     `;
     console.log("DELETED OLD BALANCES");
   } catch (error) {
