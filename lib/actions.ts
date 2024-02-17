@@ -107,7 +107,7 @@ export async function updateTransaction(transaction: Transaction) {
 }
 
 export async function deleteTransaction(transaction: Transaction) {
-  const { id, amount } = transaction;
+  const { id, amount, user_id } = transaction;
 
   try {
     await sql`
@@ -118,6 +118,9 @@ export async function deleteTransaction(transaction: Transaction) {
     // counteract balance change from deleted transaction
     // get the transaction amount and user_id
     updateBalance(Number(amount) * -1, transaction.user_id);
+
+    // delete older transactions to keep table from getting too large
+    deleteOldTransactions(user_id);
 
     // TODO: update paycheck amount too once there's a way to track prev paychecks
 
@@ -233,6 +236,29 @@ export async function deleteOldBalances(user_id: string) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to delete old balances");
+  }
+}
+
+// delete old transactions
+// keep transactions from getting too large and to also stop brute force db attacks
+// might be resource intensive, try to find a better way
+export async function deleteOldTransactions(user_id: string) {
+  try {
+    await sql`
+      DELETE FROM transactions
+      WHERE id NOT IN (
+        SELECT id
+        FROM transactions
+        WHERE user_id = ${user_id}
+        ORDER BY id DESC
+        LIMIT 50
+      )
+      AND user_id = ${user_id};
+    `;
+    console.log("DELETED OLD TRANSACTIONS");
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to delete old transactions");
   }
 }
 
