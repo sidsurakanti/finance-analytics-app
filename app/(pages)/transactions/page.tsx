@@ -19,7 +19,7 @@ export default async function Transactions() {
   const reoccuring = await fetchReoccuring(user);
 
   return (
-    <main className="w-[90%] md:w-5/6 lg:w-4/5 xl:w-3/4 h-[90%] mx-auto flex flex-col gap-3">
+    <main className="h-[90%] w-[90%] md:w-5/6 xl:w-4/5 mx-auto flex flex-col gap-3">
       <span>
         <TransactionSheet user={user} reoccuring={reoccuring} />
       </span>

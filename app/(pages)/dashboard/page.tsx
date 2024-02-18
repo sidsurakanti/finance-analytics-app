@@ -9,7 +9,7 @@ import { Suspense } from "react";
 
 export default async function Dashboard() {
   return (
-    <main className="h-[90%] w-[90%] md:w-5/6 lg:w-4/5 xl:w-3/4 mx-auto">
+    <main className="h-[90%] w-[90%] md:w-5/6 xl:w-4/5 mx-auto">
       <span className="flex justify-between py-6 items-end">
         <h1 className="text-5xl md:text-6xl font-bold">Dashboard</h1>
 

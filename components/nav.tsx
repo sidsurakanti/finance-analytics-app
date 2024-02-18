@@ -17,7 +17,7 @@ export async function Nav() {
   const user = session?.user;
 
   return (
-    <header className="flex w-[90%] md:w-5/6 lg:w-4/5 xl:w-3/4 mx-auto justify-between h-[10%] min-h-16 items-center">
+    <header className="flex h-[10%] w-[90%] md:w-5/6 xl:w-4/5 mx-auto justify-between min-h-16 items-center">
       <NavLinks />
 
       <div className="flex items-center gap-4">
