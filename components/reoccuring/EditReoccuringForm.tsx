@@ -1,12 +1,12 @@
 "use client";
 
-import { type User, type Reoccuring } from "@lib/definitions";
+import { type Reoccuring } from "@lib/definitions";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { newReoccuringSchema } from "@/schemas/new-reoccuring";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { updateReoccuring } from "@/lib/actions";
+import { updateReoccuring } from "@lib/actions";
 
 import {
   Form,
@@ -26,6 +26,7 @@ import { CategorySelect } from "@components/reoccuring/CategorySelect";
 export function EditReoccuringForm({ reoccuring }: { reoccuring: Reoccuring }) {
   const { name, timeperiod, category } = reoccuring;
 
+  // create new form using default values from current reoccuring transaction
   const form = useForm<z.infer<typeof newReoccuringSchema>>({
     resolver: zodResolver(newReoccuringSchema),
     defaultValues: {
@@ -35,9 +36,11 @@ export function EditReoccuringForm({ reoccuring }: { reoccuring: Reoccuring }) {
     },
   });
 
+  // form submit handler
   const onSubmit: SubmitHandler<z.infer<typeof newReoccuringSchema>> = (
     data: z.infer<typeof newReoccuringSchema>,
   ) => {
+    // create new reoccuring object with updated values
     const updatedReoccuring: Reoccuring = {
       id: reoccuring.id,
       name: data.name,
@@ -46,6 +49,7 @@ export function EditReoccuringForm({ reoccuring }: { reoccuring: Reoccuring }) {
       user_id: reoccuring.user_id,
     };
 
+    // call update action
     updateReoccuring(updatedReoccuring);
   };
 

@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@components/ui/button";
 import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="h-screen flex justify-center items-center">
-      <section>
-        <Link href="/login">
-          <Button size="lg">Get started</Button>
-        </Link>
-      </section>
+      <Link href="/login">
+        <Button size="lg" className="hover:bg-sky-600">
+          Get started
+        </Button>
+      </Link>
     </main>
   );
 }

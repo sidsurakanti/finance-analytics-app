@@ -9,8 +9,6 @@ import { useReducer, useState } from "react";
 import { cashflowReducer } from "@lib/reducers";
 import { type Cashflow } from "@lib/definitions";
 
-import Link from "next/link";
-
 type Props = {
   initialCashflows: Cashflow;
 };

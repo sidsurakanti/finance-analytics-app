@@ -3,12 +3,15 @@ import {
   fetchTransactionsThisMonth,
   fetchBalance,
 } from "@lib/data";
+import { months } from "@lib/utils";
 import type { User, Cashflow, Transaction } from "@lib/definitions";
+
 import { CashflowCard } from "@components/cashflows/CashflowCard";
-import { auth } from "@/auth";
 import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
 import { BalanceCard } from "@components/cashflows/BalanceCard";
-import { months } from "@lib/utils";
+
+import { auth } from "@/auth";
+
 
 export async function CashflowList() {
   const session = await auth();
@@ -59,8 +62,8 @@ export async function CashflowList() {
     (Number(reoccuringTotal) / Number(cashflows.income)) * 100;
 
   return (
-    <section>
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
+    <>
+      <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
         <div className="flex flex-col gap-3">
           {/* default this card to 100% of the progress bar  */}
           <CashflowCard
@@ -107,7 +110,7 @@ export async function CashflowList() {
             user_id={user.id}
           />
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

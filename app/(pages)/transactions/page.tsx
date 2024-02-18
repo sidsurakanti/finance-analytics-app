@@ -1,12 +1,15 @@
-import { auth } from "@/auth";
-import { User } from "@/lib/definitions";
-import TransactionList from "@components/transactions/TransactionList";
 import { Suspense } from "react";
+import { auth } from "@/auth";
+
+import { fetchReoccuring } from "@lib/data";
+import { type User } from "@lib/definitions";
+
+import TransactionList from "@components/transactions/TransactionList";
 import { Skeleton } from "@components/ui/skeleton";
 import { TransactionSheet } from "@components/transactions/CreateTransaction";
-import { fetchReoccuring } from "@lib/data";
 
-// Server component
+
+// server component
 export default async function Transactions() {
   const session = await auth();
   const user = session?.user as User;
@@ -17,16 +20,17 @@ export default async function Transactions() {
 
   return (
     <main className="w-[90%] md:w-5/6 lg:w-4/5 xl:w-3/4 h-[90%] mx-auto flex flex-col gap-3">
-      <div>
+      <span>
         <TransactionSheet user={user} reoccuring={reoccuring} />
-      </div>
-      <div className="mb-4">
+      </span>
+
+      <section className="mb-5">
         <Suspense
           fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
         >
           <TransactionList user={user} />
         </Suspense>
-      </div>
+      </section>
     </main>
   );
 }

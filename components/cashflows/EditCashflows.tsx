@@ -1,7 +1,6 @@
-import { EditCashflowsForm } from "@components/cashflows/EditCashflowsForm";
 import { fetchCashflows } from "@lib/data";
 import { type User } from "@lib/definitions";
-import { auth } from "@/auth";
+import { cn } from "@lib/utils";
 
 import {
   Sheet,
@@ -10,21 +9,27 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
+} from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
-import { cn } from "@/lib/utils";
+import { EditCashflowsForm } from "@components/cashflows/EditCashflowsForm";
+
+import { auth } from "@/auth";
+
 
 export async function EditCashflows() {
   const session = await auth();
   const user = session?.user as User;
   const cashflows = await fetchCashflows(user);
-
+  
   return (
     <>
       <Sheet>
         <SheetTrigger asChild>
-          <Button className={cn(cashflows ? "flex" : "hidden", "gap-2")} variant="ghost">
+          <Button
+            className={cn(cashflows ? "flex" : "hidden", "gap-2")}
+            variant="ghost"
+          >
             <EditIcon width={20} height={20} />
             <p className="text-lg text-foreground/70 hidden md:block">change</p>
           </Button>

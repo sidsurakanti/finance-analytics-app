@@ -1,11 +1,11 @@
 "use client";
 
-import { type Transaction, type Reoccuring } from "@lib/definitions";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { createTransactionSchema } from "@/schemas/new-transaction";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { createTransactionSchema } from "@/schemas/new-transaction";
 
+import { type Transaction, type Reoccuring } from "@lib/definitions";
 import { updateTransaction, paycheckUpdate, updateBalance } from "@lib/actions";
 
 import {
@@ -35,8 +35,7 @@ export function EditTransactionForm({
   transaction: Transaction;
   reoccuring: Reoccuring[];
 }) {
-  const { name, amount, type } = transaction;
-
+  // create form using the current transactions values
   const form = useForm<z.infer<typeof createTransactionSchema>>({
     // form validation
     resolver: zodResolver(createTransactionSchema),
@@ -69,7 +68,7 @@ export function EditTransactionForm({
       created_at: new Date(),
     };
     
-    // update income if user adds a new paycheck
+    // update the user's income cashflow if user adds a new paycheck
     if (data.type === "paycheck") {
       paycheckUpdate(updatedTransaction.amount.toString(), transaction.user_id);
     }

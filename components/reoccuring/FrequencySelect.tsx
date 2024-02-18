@@ -6,6 +6,7 @@ import {
   SelectValue,
 } from "@components/ui/select";
 
+// select frequency of reoccuring transactions
 export function FrequencySelect({ ...props }) {
   return (
     <>

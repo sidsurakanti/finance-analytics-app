@@ -65,3 +65,5 @@ const transactions: Transaction[] = [
     user_id: "2",
   },
 ];
+
+export { users, cashflows, transactions}

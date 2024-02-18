@@ -1,4 +1,4 @@
-import { Reoccuring, type User } from "@lib/definitions";
+import { type Reoccuring, type User } from "@lib/definitions";
 
 import {
   Sheet,
@@ -12,7 +12,13 @@ import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
 import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
 
-export function TransactionSheet({ user, reoccuring }: { user: User, reoccuring: Reoccuring[] }) {
+export function TransactionSheet({
+  user,
+  reoccuring,
+}: {
+  user: User;
+  reoccuring: Reoccuring[];
+}) {
   return (
     <>
       <Sheet>
@@ -21,6 +27,7 @@ export function TransactionSheet({ user, reoccuring }: { user: User, reoccuring:
             <Button className="hidden md:block">
               <p>+ transaction</p>
             </Button>
+
             <Button className="md:hidden" size="icon">
               <PlusIcon height={17} width={17} />
             </Button>
@@ -36,7 +43,11 @@ export function TransactionSheet({ user, reoccuring }: { user: User, reoccuring:
             </SheetDescription>
           </SheetHeader>
 
-          <CreateTransactionForm user={user} reoccuring={reoccuring}/>
+          {/* 
+            we need to pass reoccuring transactions too 
+            bc if their transaction is reoccuring they can just pick from their reoccuring list 
+          */}
+          <CreateTransactionForm user={user} reoccuring={reoccuring} />
         </SheetContent>
       </Sheet>
     </>

@@ -38,13 +38,7 @@ CREATE TABLE IF NOT EXISTS balance (
 
 
 
--- insert placeholder data into tables
-INSERT INTO users 
-(email, password, name)
-VALUES 
-    ('janedoe@gmail.com', 'abc456', 'Jane Doe'),
-    ('johndoe@gmail.com', 'abc123', 'John Doe');
-
+-- some placeholder data if needed
 INSERT INTO cashflows
 (savings, income, user_id)
 VALUES 

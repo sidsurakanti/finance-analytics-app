@@ -1,11 +1,12 @@
 "use client";
 
 import { useForm, SubmitHandler } from "react-hook-form";
-import type { User, Transaction, Reoccuring } from "@lib/definitions";
-import { createTransaction, updateBalance, paycheckUpdate } from "@lib/actions";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import type { User, Transaction, Reoccuring } from "@lib/definitions";
+import { createTransaction, updateBalance, paycheckUpdate } from "@lib/actions";
 
 import {
   Form,
@@ -14,7 +15,7 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
+} from "@components/ui/form";
 import {
   Select,
   SelectContent,
@@ -22,10 +23,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@components/ui/select";
-import { Input } from "@/components/ui/input";
+import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
-import { SheetClose, SheetFooter } from "@/components/ui/sheet";
-
+import { SheetClose, SheetFooter } from "@components/ui/sheet";
 import { TypeSelect } from "@components/transactions/TypeSelect";
 
 // * this is a client component bc of the useForm hook
@@ -57,7 +57,7 @@ export function CreateTransactionForm({
     // tranform data into a new transaction object
     const transaction: Transaction = {
       name: data.name,
-      // if type of transaction is a not a paycheck or deposit
+      // if type of transaction is a not a paycheck nor a deposit
       // change the value to negative
       amount:
         data.type === "paycheck" || data.type === "deposit"
@@ -103,6 +103,7 @@ export function CreateTransactionForm({
             )}
           />
 
+          {/* only show name input when type isnt reoccuring, otherwise show the select reoccuring component */}
           {form.watch("type") !== "reoccuring" && (
             <>
               <FormField

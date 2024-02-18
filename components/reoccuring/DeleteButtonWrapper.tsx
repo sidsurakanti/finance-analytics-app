@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteReoccuringById } from "@/lib/actions";
+import { deleteReoccuringById } from "@lib/actions";
 import { Button } from "@components/ui/button";
 import { TrashIcon } from "@components/ui/icons";
 
@@ -19,6 +19,7 @@ export function DeleteButtonWrapper({
 }: {
   reoccuringId: Number;
 }) {
+  // on click handler
   const deleteReoccuring = async () => {
     await deleteReoccuringById(reoccuringId);
   };

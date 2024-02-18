@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 
-import "@/styles/globals.css";
 import { poppins } from "@/styles/fonts";
+import "@/styles/globals.css";
+
 import { ThemeProvider } from "@components/ui/themes";
 
 export const metadata: Metadata = {
   title: "Dashboard",
-  description: "A simple dashboard to manage your personal expenses",
+  description: "A simple, clean dashboard to manage your personal finances.",
   metadataBase: new URL("https://pbd.vercel.app"),
   keywords: [
     "dashboard",
@@ -16,7 +17,6 @@ export const metadata: Metadata = {
     "budgeting",
     "money",
   ],
-  openGraph: { images: "/hero.svg" },
 };
 
 export default function RootLayout({

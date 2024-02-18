@@ -10,6 +10,7 @@ import type {
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
+// fetch user
 export async function fetchUser(email: string) {
   try {
     const data = await sql<User>`
@@ -17,8 +18,8 @@ export async function fetchUser(email: string) {
         WHERE email=${email};
         `;
     const user = data.rows[0];
+    console.log("FETCHED USER:", email);
 
-    console.log("Fetched user with email:", email);
     return user;
   } catch (error) {
     console.log("Database error", error);
@@ -26,17 +27,19 @@ export async function fetchUser(email: string) {
   }
 }
 
+// fetching cashflows table
 export async function fetchCashflows(user: User) {
   noStore();
   const id = user.id?.toString();
+
   try {
     const res = await sql<Cashflow>`
           SELECT * FROM cashflows
           WHERE user_id=${id};
         `;
     const cashflows = res.rows[0];
+    console.log("FETCHED CASHFLOWS FOR ID:", id);
 
-    console.log("Fetched cashflows for user with id:", id);
     return cashflows;
   } catch (error) {
     console.log("Database error", error);
@@ -44,9 +47,32 @@ export async function fetchCashflows(user: User) {
   }
 }
 
+// fetching reoccuring table
+export async function fetchReoccuring(user: User) {
+  noStore();
+  const id = user.id?.toString();
+  
+  try {
+    const res = await sql<Reoccuring>`
+    SELECT * FROM reoccuring
+    WHERE user_id=${id}
+    ORDER BY id DESC;
+    `;
+    const reoccuring = res.rows;
+    console.log("FETCHED REOCCURING TRANSACTIONS FOR:", id);
+    
+    return reoccuring;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch reoccuring recoccuring transactions");
+  }
+}
+
+// fetching transactions table
 export async function fetchTransactions(user: User) {
   noStore();
   const id = user.id?.toString();
+
   try {
     const res = await sql<Transaction>`
       SELECT * FROM transactions
@@ -55,45 +81,12 @@ export async function fetchTransactions(user: User) {
       LIMIT 4;
     `;
     const transactions = res.rows;
+    console.log("FETCHED TRANSACTIONS FOR", id);
 
-    console.log("Fetched transactions for user with id:", id);
     return transactions;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to fetch transactions");
-  }
-}
-
-export async function fetchReoccuring(user: User) {
-  noStore();
-  const id = user.id?.toString();
-  try {
-    const res = await sql<Reoccuring>`
-      SELECT * FROM reoccuring
-      WHERE user_id=${id}
-      ORDER BY id DESC;
-    `;
-    const reoccuring = res.rows;
-    return reoccuring;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch reoccuring recoccuring transactions");
-  }
-}
-
-// get reoccuring transaction by id
-export async function fetchReoccuringById(reoccuringId: Number) {
-  try {
-    const res = await sql<Reoccuring>`
-      SELECT * FROM reoccuring
-      WHERE id = ${reoccuringId.toString()};
-    `;
-    const reoccuring = res.rows[0];
-    console.log("FETCHED REOCCURING WITH ID:", reoccuringId);
-    return reoccuring;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch reoccuring transaction");
   }
 }
 
@@ -105,6 +98,8 @@ export async function fetchTransactionsThisMonth(user: User) {
         WHERE (user_id=${id} AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE) AND type in ('expense', 'reoccuring', 'withdrawl'));
       `;
     const transactions = res.rows;
+    console.log("FETCHED TRANSACTIONS FOR THIS MONTH:", id);
+
     return transactions;
   } catch (error) {
     console.log("Database error", error);
@@ -122,6 +117,8 @@ export async function fetchAllTransactions(user: User) {
         ORDER BY created_at DESC
       `;
     const data = res.rows;
+    console.log("FETCHED ALL TRANSACTIONS FOR:", id);
+
     return data;
   } catch (error) {
     console.log("Database error", error);
@@ -129,6 +126,7 @@ export async function fetchAllTransactions(user: User) {
   }
 }
 
+// fetching balance table
 export async function fetchBalance(user_id: string) {
   noStore();
 
@@ -140,6 +138,8 @@ export async function fetchBalance(user_id: string) {
         LIMIT 1;
       `;
     const balance = res.rows[0];
+    console.log("FETCHED BALANCE FOR:", user_id);
+
     return balance;
   } catch (error) {
     console.log("Database error", error);
@@ -158,6 +158,8 @@ export async function fetchRecentBalances(user_id: string) {
         LIMIT 5;
       `;
     const balance = res.rows;
+    console.log("FETCHED RECENT BALANCES FOR:", user_id);
+
     // flip the array so the most recent balance is last
     return balance.reverse();
   } catch (error) {

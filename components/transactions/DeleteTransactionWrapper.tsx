@@ -1,9 +1,10 @@
 "use client";
 
-import { deleteTransaction } from "@/lib/actions";
+import { deleteTransaction } from "@lib/actions";
+import { type Transaction } from "@lib/definitions";
+
 import { Button } from "@components/ui/button";
 import { TrashIcon } from "@components/ui/icons";
-
 import {
   Dialog,
   DialogContent,
@@ -13,13 +14,13 @@ import {
   DialogDescription,
   DialogClose,
 } from "@components/ui/dialog";
-import { Transaction } from "@/lib/definitions";
 
 export function DeleteButtonWrapper({
   transaction,
 }: {
   transaction: Transaction;
 }) {
+  // on click handler
   const onClickHandler = async () => {
     await deleteTransaction(transaction);
   };

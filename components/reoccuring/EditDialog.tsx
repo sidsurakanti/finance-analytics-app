@@ -9,7 +9,7 @@ import {
 import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
 import { EditReoccuringForm } from "@components/reoccuring/EditReoccuringForm";
-import { Reoccuring } from "@lib/definitions";
+import { type Reoccuring } from "@lib/definitions";
 
 export async function EditDialog({ reoccuring }: { reoccuring: Reoccuring }) {
   return (

@@ -6,9 +6,11 @@ import {
   ReoccuringSymbol,
 } from "@components/ui/icons";
 import { Button } from "@components/ui/button";
-import Link from "next/link";
+
 import { usePathname } from "next/navigation";
 import { cn } from "@lib/utils";
+
+import Link from "next/link";
 
 const links = [
   {
@@ -33,10 +35,11 @@ export function NavLinks() {
 
   return (
     <>
-      <ul className="group flex gap-2 text-white">
+      <ul className="flex gap-2">
         {links.map((link, index) => {
           const isActive = activeLink === link.href;
           const Icon = link.icon;
+
           return (
             <li key={index}>
               <Link href={link.href}>
@@ -45,7 +48,9 @@ export function NavLinks() {
                   size="lg"
                   variant={isActive ? "default" : "secondary"}
                 >
-                  <p>{<Icon width={18} height={18} />}</p>
+                  <p>
+                    <Icon width={18} height={18} />
+                  </p>
                   <p className="hidden lg:block">{link.text}</p>
                 </Button>
               </Link>

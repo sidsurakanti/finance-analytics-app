@@ -5,6 +5,13 @@ export type User = {
   name: string;
 };
 
+export type Balance = {
+  id?: Number;
+  amount: string;
+  change: string;
+  user_id: string;
+};
+
 export type Cashflow = {
   id?: Number;
   savings: string;
@@ -39,10 +46,3 @@ export type Reoccuring = {
     | "misc";
   user_id: string;
 };
-
-export type Balance = {
-  id?: Number;
-  amount: string;
-  change: string;
-  user_id: string;
-}

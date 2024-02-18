@@ -6,6 +6,7 @@ type Actions =
   | { type: "update_income"; income: string }
   | { type: "submit" };
 
+// reducer for when user wants to update their cashflows
 export function cashflowReducer(state: Cashflow, action: Actions) {
   switch (action.type) {
     case "update_savings": {

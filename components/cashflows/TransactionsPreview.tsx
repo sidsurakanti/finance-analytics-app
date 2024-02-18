@@ -1,11 +1,14 @@
 import type { User } from "@lib/definitions";
 import { cashFormatter } from "@lib/utils";
 import { fetchTransactions } from "@lib/data";
+
 import { RecentTransactionsList } from "@components/cashflows/RecentTransactionsList";
-import Link from "next/link";
 import { Button } from "@components/ui/button";
 import { ViewMore } from "@components/ui/icons";
+
 import { auth } from "@/auth";
+import Link from "next/link";
+
 
 export async function TransactionsPreview() {
   const session = await auth();

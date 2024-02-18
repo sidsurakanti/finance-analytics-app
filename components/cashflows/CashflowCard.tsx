@@ -1,7 +1,7 @@
 import { inter } from "@/styles/fonts";
 import { cn, cashFormatter } from "@lib/utils";
 import { Badge } from "@components/ui/badge";
-import { ProgressCircleWrapper } from "@/components/cashflows/ProgressCircle";
+import { ProgressCircleWrapper } from "@components/cashflows/ProgressCircle";
 
 type Props = {
   title: string;

@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { setCashflowsSchema } from "@/schemas/set-cashflows";
 
-import { type User, type Cashflow } from "@lib/definitions";
+import type { User, Cashflow } from "@lib/definitions";
 import { setCashflows, updateBalance } from "@lib/actions";
 
 import {

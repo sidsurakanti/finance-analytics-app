@@ -8,6 +8,7 @@ import {
 } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { SetCashflowsForm } from "@components/cashflows/SetCashflowsForm";
+
 import { type User } from "@lib/definitions";
 
 export function CashflowsOnboarding({ user }: { user: User }) {

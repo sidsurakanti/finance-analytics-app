@@ -13,11 +13,8 @@ import {
   TableRow,
 } from "@components/ui/table";
 
-interface Props {
-  transactions: Transaction[];
-}
 
-export function RecentTransactionsList({ transactions }: Props) {
+export function RecentTransactionsList({ transactions }: { transactions: Transaction[] }) {
   return (
     <>
       <Table>

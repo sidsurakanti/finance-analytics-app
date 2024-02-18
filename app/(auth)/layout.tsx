@@ -4,6 +4,8 @@ export default async function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex justify-center items-center h-screen">{children}</div>
+    <main className="flex justify-center items-center h-screen">
+      {children}
+    </main>
   );
 }

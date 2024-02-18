@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/schemas/register";
 import { User } from "@lib/definitions";
-import { createUser } from "@/lib/actions";
+import { createUser } from "@lib/actions";
 
 export function RegisterForm() {
   // to display error messages from the server
@@ -120,6 +120,7 @@ export function RegisterForm() {
               )}
             />
 
+            {/* display if user entered invalid creds */}
             <FormError message={formError} />
             <Button type="submit" className="hover:bg-blue-500">
               Go

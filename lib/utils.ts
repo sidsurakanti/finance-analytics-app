@@ -5,6 +5,21 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+export const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+];
+
 export function cashFormatter(number: number, dollarSign: boolean = true) {
   const formatted = Intl.NumberFormat("us").format(number).toString();
   if (dollarSign) return addDollarSign(formatted);
@@ -24,18 +39,3 @@ export function addDollarSign(value: string) {
     return `$${value}`;
   }
 }
-
-export const months = [
-  "Jan",
-  "Feb",
-  "Mar",
-  "Apr",
-  "May",
-  "Jun",
-  "Jul",
-  "Aug",
-  "Sep",
-  "Oct",
-  "Nov",
-  "Dec",
-];

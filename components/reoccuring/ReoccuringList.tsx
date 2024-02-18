@@ -18,6 +18,7 @@ import { EditDialog } from "@components/reoccuring/EditDialog";
 import { DeleteButtonWrapper } from "@components/reoccuring/DeleteButtonWrapper";
 
 export async function ReoccuringList() {
+  // fetch reoccuing transactions
   const session = await auth();
   const user: User = session?.user as User;
   const reoccuring: Reoccuring[] = await fetchReoccuring(user);

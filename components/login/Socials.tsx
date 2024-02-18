@@ -1,8 +1,9 @@
 "use client";
 
-import { GoogleLogo, GithubLogo } from "@/components/ui/icons";
-import { Button } from "@/components/ui/button";
+import { GoogleLogo, GithubLogo } from "@components/ui/icons";
+import { Button } from "@components/ui/button";
 
+// for future use
 export function Socials() {
   return (
     <>
