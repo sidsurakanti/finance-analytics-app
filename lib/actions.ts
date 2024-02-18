@@ -21,10 +21,14 @@ import bcrypt from "bcrypt";
 
 // set cashflows during cashflows onboarding
 export async function setCashflows(cashflows: Cashflow) {
+  let { income, savings, user_id } = cashflows;
+  if (Number(income) > 1000000) income = "1000000";
+  if (Number(savings) > 1000000) savings = "1000000";
+
   try {
     await sql`
       INSERT INTO cashflows (income, savings, user_id) 
-      VALUES (${cashflows.income.toString()}, ${cashflows.savings.toString()}, ${cashflows.user_id.toString()})
+      VALUES (${income.toString()}, ${savings.toString()}, ${user_id.toString()})
     `;
     console.log("INITIALIZED CASHFLOWS:", cashflows);
     revalidatePath("/cashflows");
@@ -37,11 +41,15 @@ export async function setCashflows(cashflows: Cashflow) {
 // update cashflows table when user makes changes to their income or savings
 // this is called only when the change is made manually
 export async function updateCashflows(newCashflow: Cashflow) {
+  let { income, savings, user_id } = newCashflow;
+  if (Number(income) > 1000000) income = "1000000";
+  if (Number(savings) > 1000000) savings = "1000000";
+
   try {
     await sql`
             UPDATE cashflows 
-            SET income = ${newCashflow.income.toString()}, savings = ${newCashflow.savings.toString()}
-            WHERE user_id = ${newCashflow.user_id.toString()};
+            SET income = ${income.toString()}, savings = ${savings.toString()}
+            WHERE user_id = ${user_id.toString()};
         `;
     console.log("UPDATED CASHFLOWS:", newCashflow);
     revalidatePath("/cashflows");
@@ -53,10 +61,13 @@ export async function updateCashflows(newCashflow: Cashflow) {
 
 // update income cashflow when user adds a new paycheck transaction
 export async function paycheckUpdate(newIncome: string, user_id: string) {
+  let income = newIncome;
+  if (Number(income) > 1000000) income = "1000000";
+
   try {
     await sql`
             UPDATE cashflows 
-            SET income = ${newIncome}
+            SET income = ${income}
             WHERE user_id = ${user_id};
         `;
     console.log("UPDATED PAYCHECK:", newIncome);
