@@ -73,6 +73,7 @@ Refer to [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 ## Roadmap
 
 - [x] Clean up code
+- [ ] Write a better README
 - [ ] Track previous paychecks
 - [ ] Find APIs from banking or credit card companies to use to automatically get transactions
 - [ ] Add other sign in options
