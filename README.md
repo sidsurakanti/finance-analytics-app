@@ -1,7 +1,24 @@
 ## Overview
-Track where your money goes with a simple, clean dashboard.
+
+Keep track of where your money goes with a clean, minimal dashboard.
 
 <img src="./docs/overview.png">
+
+## Features
+
+- Add current cashflows (income, savings, balance)
+- Manage reoccuring transactions
+- Create and manage transactions
+- View cashflows
+- Chart containing an overview of your monthly cashflow
+- Responsive layout
+- Dark and light themes
+
+  <img src="./docs/new-reoccuring1.png" width=220 height=400>
+  <img src="./docs/new-transaction1.gif" height=400>
+  <img src="./docs/chart.png" width=320px>
+  <img src="./docs/balance.png" height=90px>
+  <img src="./docs/reoccuring.png" width=620px>
 
 ## Stack
 
@@ -9,8 +26,11 @@ Track where your money goes with a simple, clean dashboard.
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 
 ## Getting started
+
+You can either use this project on it's [website](https://pbd.vercel.app) or by spinning up your own server.
 
 ### Prerequisites
 
@@ -40,7 +60,7 @@ npm install
 Create a new .env.local file and populate it
 
 ```bash
-# next auth secret
+# auth secret used for jwt encoding
 # run: openssl rand -base64 32
 AUTH_SECRET=""
 # refer to @vercel/postgres docs: https://vercel.com/docs/storage/vercel-postgres/quickstart
@@ -60,11 +80,7 @@ Start up the server
 npm run dev
 ```
 
-Your application should now be running on `http://localhost:3000`.
-
-## Usage
-
-You can either use this project on it's [website](https://pbd.vercel.app) or by spinning up your own dev server.
+Your app should now be running on `http://localhost:3000`.
 
 ## Contributing
 
@@ -79,7 +95,9 @@ Refer to [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 - [ ] Add other sign in options
 
 ## Support
+
 If you need help with anything or want to request new features, you can reach me on [discord](https://discord.com/users/521872289231273994) 👍
 
 ## Acknowledgements
-Special thanks to all the amazing people in my life who have assisted me in making this ❤️
+
+Thanks to everyone who assisted me on this project ❤️
