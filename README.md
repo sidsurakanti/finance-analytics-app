@@ -14,11 +14,11 @@ Keep track of where your money goes with a clean, minimal dashboard.
 - Responsive layout
 - Dark and light themes
 
-  <img src="./docs/new-reoccuring1.png" width=220 height=400>
+  <!-- <img src="./docs/new-reoccuring1.png" width=220 height=400>
   <img src="./docs/new-transaction1.gif" height=400>
   <img src="./docs/chart.png" width=320px>
   <img src="./docs/balance.png" height=90px>
-  <img src="./docs/reoccuring.png" width=620px>
+  <img src="./docs/reoccuring.png" width=620px> -->
 
 ## Stack
 
