@@ -57,15 +57,14 @@ schemas
 
 ```
 
-| Path                | Description                                                   |
-| ------------------- | --------------------------------------------------------------|
-| `/app`              | The Next.js application for the website.                      |
-| `/components`       | The react components for the website.                         |
-| `/components/[path]`| Components for that specific path of the app                  |
-| `/lib`              | Database operations, type defintions, and other utility files |
-| `/components/ui`    | Reusuable UI components                                       |
-| `.schemas`          | Form schemas                                                  |
-
+| Path                 | Description                                                   |
+| -------------------- | ------------------------------------------------------------- |
+| `/app`               | The Next.js application for the website.                      |
+| `/components`        | The react components for the website.                         |
+| `/components/[path]` | Components for that specific path of the app                  |
+| `/lib`               | Database operations, type defintions, and other utility files |
+| `/components/ui`     | Reusuable UI components                                       |
+| `.schemas`           | Form schemas                                                  |
 
 ## Development
 
@@ -76,7 +75,7 @@ You can fork this repo by clicking the fork button in the top right corner of th
 ### Clone on your local machine
 
 ```bash
-git clone https://github.com/your-username/ui.git
+git clone https://github.com/your-username/budgeting-app.git
 ```
 
 ### Navigate to project directory
@@ -98,8 +97,9 @@ npm install
 ```
 
 ### Create a new .env.local file and populate it
+
 ```bash
-# next auth secret 
+# next auth secret
 # run: openssl rand -base64 32
 AUTH_SECRET=""
 # refer to @vercel/postgres docs: https://vercel.com/docs/storage/vercel-postgres/quickstart
@@ -112,8 +112,7 @@ POSTGRES_PASSWORD=""
 POSTGRES_DATABASE=""
 ```
 
-
-## Commit Convention
+## Commit Conventions
 
 Before you create a Pull Request, please check whether your commits comply with
 the commit conventions used in this repository.
@@ -145,4 +144,5 @@ https://www.conventionalcommits.org/ or check out the
 [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines).
 
 ## Requests for new features
+
 If you have a request for a new feature, please open a discussion on GitHub or contact me. I'll be happy to help you out.
