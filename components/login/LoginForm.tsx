@@ -23,8 +23,9 @@ export function LoginForm() {
   // state to display server error messages
   const [formError, setFormError] = useState<string | undefined>("");
   // form hook
-  const form = useForm<z.infer<typeof formSchema>>({
-    // form validation w/ zod
+  const zodFormHandler = useForm<z.infer<typeof formSchema>>({
+    // use zod resolver to validate form data against schema
+    // @see /schemas/login
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
@@ -32,11 +33,11 @@ export function LoginForm() {
     },
   });
 
-  // submit handler
+  // submit handler, runs after passing form validation
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
-    // calls login server action
+    // calls login server action (@see /lib/actions)
     const message = await login(data);
-    // sets form error message
+    // show a form error message if login fails
     setFormError(message);
   };
 
@@ -45,16 +46,16 @@ export function LoginForm() {
       <CardWrapper
         headerLabel="Login"
         description="Welcome back!"
-        backButtonHref="/register"
         backButtonLabel="Don't have an account?"
+        backButtonHref="/register"
       >
-        <Form {...form}>
+        <Form {...zodFormHandler}>
           <form
-            onSubmit={form.handleSubmit(onSubmit)}
+            onSubmit={zodFormHandler.handleSubmit(onSubmit)}
             className="w-full flex flex-col gap-2"
           >
             <FormField
-              control={form.control}
+              control={zodFormHandler.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
@@ -67,7 +68,7 @@ export function LoginForm() {
             />
 
             <FormField
-              control={form.control}
+              control={zodFormHandler.control}
               name="password"
               render={({ field }) => (
                 <FormItem>

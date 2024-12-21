@@ -8,8 +8,9 @@ import { fetchUser } from "@lib/data";
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig, // unpack config
   callbacks: {
-    // add user's id to session.user so we can access it later on
-    // token is jwt token passed down from the jwt callback
+    // add user's id to session.user so we can access it later on for db queries
+    // @params token is jwt token passed down from the jwt callback
+    // called whenever checking for an active session
     async session({ session, token }) {
       // console.log(token)
       // here, the default value for the jwt.sub is always the users id

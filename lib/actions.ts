@@ -277,6 +277,7 @@ export async function deleteOldTransactions(user_id: string) {
 export async function login(data: z.infer<typeof formSchema>) {
   try {
     // call signIn from next-auth
+    // @see auth.ts
     await signIn("credentials", data);
   } catch (error) {
     if (error instanceof AuthError) {
