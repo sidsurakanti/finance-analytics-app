@@ -221,7 +221,7 @@ export async function updateBalance(change: number, user_id: string) {
     deleteOldBalances(user_id);
 
     console.log("UPDATED BALANCE:", updatedBalance);
-    revalidatePath("/dashboard");
+    // revalidatePath("/dashboard");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to update balance");
