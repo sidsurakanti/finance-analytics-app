@@ -70,9 +70,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
         )}
 
         <SheetClose>
-          <Button className="w-full hover:bg-red-500" variant="destructive">
-            Close
-          </Button>
+          <p className="hover:underline hover:underline-offset-4">Close</p>
         </SheetClose>
       </footer>
     </section>
