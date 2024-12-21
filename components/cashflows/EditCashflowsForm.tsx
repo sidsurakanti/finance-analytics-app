@@ -8,6 +8,7 @@ import { EditCashflowsInput } from "@components/cashflows/EditCashflowsInput";
 import { useReducer, useState } from "react";
 import { cashflowReducer } from "@lib/reducers";
 import { type Cashflow } from "@lib/definitions";
+import { updateCashflows } from "@/lib/actions";
 
 type Props = {
   initialCashflows: Cashflow;
@@ -18,6 +19,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
   const [isEditingSavings, setIsEditingSavings] = useState(false);
   const [isEditingIncome, setIsEditingIncome] = useState(false);
   // create a reducer to handle input states and submit actions
+  // @see lib/reducers
   const [cashflows, dispatch] = useReducer(cashflowReducer, initialCashflows);
 
   // handlers for reducer
@@ -26,7 +28,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
   const handleIncomeChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     dispatch({ type: "update_income", income: e.target.value });
   const handleSubmit = () => {
-    dispatch({ type: "submit" });
+    updateCashflows(cashflows);
   };
 
   // TODO: convert this into a form... maybe
@@ -63,6 +65,7 @@ export function EditCashflowsForm({ initialCashflows }: Props) {
               setIsEditingSavings(false);
               setIsEditingIncome(false);
               handleSubmit();
+              // console.log(cashflows);
             }}
           >
             Save all

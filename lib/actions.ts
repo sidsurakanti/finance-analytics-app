@@ -1,5 +1,4 @@
 "use server";
-
 import { sql } from "@vercel/postgres";
 import type {
   User,
@@ -18,6 +17,7 @@ import { redirect } from "next/navigation";
 import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
+
 
 // set cashflows during cashflows onboarding
 export async function setCashflows(cashflows: Cashflow) {
@@ -39,7 +39,7 @@ export async function setCashflows(cashflows: Cashflow) {
 }
 
 // update cashflows table when user makes changes to their income or savings
-// this is called only when the change is made manually
+// this is called only when the change is made manually by the user
 export async function updateCashflows(newCashflow: Cashflow) {
   let { income, savings, user_id } = newCashflow;
   if (Number(income) > 1000000) income = "1000000";
@@ -96,7 +96,7 @@ export async function createTransaction(transaction: Transaction) {
     throw new Error("Failted to create transaction");
   }
 
-  revalidatePath("/transactions");
+  // revalidatePath("/transactions");
 }
 
 // update transaction
