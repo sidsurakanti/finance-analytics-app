@@ -1,4 +1,5 @@
 "use server";
+
 import { sql } from "@vercel/postgres";
 import type {
   User,
@@ -18,9 +19,13 @@ import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 
+// --------- cashflows actions
+
 // set cashflows during cashflows onboarding
 export async function setCashflows(cashflows: Cashflow) {
   let { income, savings, user_id } = cashflows;
+
+  // make sure they're not just inputing large numbers
   if (Number(income) > 1000000) income = "1000000";
   if (Number(savings) > 1000000) savings = "1000000";
 
@@ -30,6 +35,7 @@ export async function setCashflows(cashflows: Cashflow) {
       VALUES (${income.toString()}, ${savings.toString()}, ${user_id.toString()})
     `;
     console.log("INITIALIZED CASHFLOWS:", cashflows);
+    // refetch related data so the changes show up
     revalidatePath("/cashflows");
   } catch (error) {
     console.log("Database error", error);
@@ -38,7 +44,8 @@ export async function setCashflows(cashflows: Cashflow) {
 }
 
 // update cashflows table when user makes changes to their income or savings
-// this is called only when the change is made manually by the user
+// function called only when the change is made manually by the user
+// not when the user adds a paycheck transaction
 export async function updateCashflows(newCashflow: Cashflow) {
   let { income, savings, user_id } = newCashflow;
   if (Number(income) > 1000000) income = "1000000";
@@ -58,7 +65,9 @@ export async function updateCashflows(newCashflow: Cashflow) {
   }
 }
 
-// update income cashflow when user adds a new paycheck transaction
+// --------- transactions actions
+
+// update income cashflow also when user adds a new paycheck transaction
 export async function paycheckUpdate(newIncome: string, user_id: string) {
   let income = newIncome;
   // be fr bruh youre not making over a mil a month
@@ -71,7 +80,7 @@ export async function paycheckUpdate(newIncome: string, user_id: string) {
             WHERE user_id = ${user_id};
         `;
     console.log("UPDATED PAYCHECK:", newIncome);
-    revalidatePath("/transactions");
+    revalidatePath("/dashboard");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update paycheck");
@@ -91,12 +100,11 @@ export async function createTransaction(transaction: Transaction) {
           (${name}, ${amount.toString()}, ${type}, ${user_id.toString()});
     `;
     console.log("CREATED TRANSACTION:", transaction);
+    revalidatePath("/transactions");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to create transaction");
   }
-
-  // revalidatePath("/transactions");
 }
 
 // update transaction
@@ -127,23 +135,20 @@ export async function deleteTransaction(transaction: Transaction) {
     `;
 
     // counteract balance change from deleted transaction
-    // get the transaction amount and user_id
     updateBalance(Number(amount) * -1, transaction.user_id);
-
     // delete older transactions to keep table from getting too large
     deleteOldTransactions(user_id);
 
     // TODO: update paycheck amount too once there's a way to track prev paychecks
-
-    revalidatePath("/transactions");
     console.log("DELETED TRANSACTION", transaction);
+    revalidatePath("/transactions");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to delete reoccuring transaction");
   }
 }
 
-// reoccuring actions
+// ------------ reoccuring actions
 export async function createReoccuring(reoccuring: Reoccuring) {
   const { name, timeperiod, category, user_id } = reoccuring;
 
@@ -199,6 +204,8 @@ export async function deleteReoccuringById(reoccuringId: Number) {
   }
 }
 
+
+// --------- balance actions
 // update balance
 export async function updateBalance(change: number, user_id: string) {
   // get the current balance so we can increment it
@@ -221,7 +228,7 @@ export async function updateBalance(change: number, user_id: string) {
     deleteOldBalances(user_id);
 
     console.log("UPDATED BALANCE:", updatedBalance);
-    // revalidatePath("/dashboard");
+    revalidatePath("/dashboard");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to update balance");
@@ -273,7 +280,7 @@ export async function deleteOldTransactions(user_id: string) {
   }
 }
 
-// auth actions
+// ------------ auth actions
 export async function login(data: z.infer<typeof formSchema>) {
   try {
     // call signIn from next-auth
@@ -301,16 +308,16 @@ export async function logout() {
   }
 }
 
-// create a new user
+// when user first registers
 export async function createUser(user: User) {
-  // destructure data and encrypt password
+  // destructure data and replace password with a hashed version
   const { name, email, password } = {
     ...user,
     password: await bcrypt.hash(user.password, 10),
   };
 
   // no need to check for duplicate users here
-  // duplicate users are not allowed by db columns bc of unique email contrainsts
+  // since duplicate users are not allowed by db columns bc of unique email contrainsts
   try {
     const res = await sql`
       INSERT INTO users (name, email, password) 
