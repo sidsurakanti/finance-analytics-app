@@ -18,15 +18,16 @@ export function ModeToggle({}) {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div>
+    <>
       <Button
         onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
         variant="ghost"
-        className="hidden md:block"
+        className="rounded-full"
+        size="icon"
       >
-        <ThemeIcons width={20} height={20} />
+        <ThemeIcons width={22} height={22} />
       </Button>
-    </div>
+    </>
   );
 }
 
@@ -34,7 +35,7 @@ export function ModeSwitch({}) {
   const { theme, setTheme } = useTheme();
 
   return (
-    <div className="flex flex-row gap-2 justify-center items-center md:hidden">
+    <div className="flex gap-2 justify-between items-center md:hidden">
       <Label htmlFor="dark-mode">Dark mode</Label>
       <Switch
         checked={theme == "dark"}

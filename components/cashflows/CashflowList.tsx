@@ -30,12 +30,12 @@ export async function CashflowList() {
     );
   }
 
-  // --- fetch data for cashflow cards ---
+  // --- fetch transaction data to calculate cashflow cards ---
   const transactionsThisMonth: Transaction[] =
     await fetchTransactionsThisMonth(user);
 
   // get bank account balance from the database
-  // ? maybe add an option to add this balance to savings
+  // * add an option to add this balance to savings or investments
   const balance = await fetchBalance(user.id);
 
   // filter transactions into reoccuring and one-time expenses
@@ -64,7 +64,7 @@ export async function CashflowList() {
   return (
     <>
       <section className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
-        <div className="flex flex-col gap-3">
+        {/* <div className="flex flex-col gap-3"> */}
           {/* default this card to 100% of the progress bar  */}
           <CashflowCard
             title="Income"
@@ -78,9 +78,9 @@ export async function CashflowList() {
             value={cashflows.savings}
             insideText={false}
           />
-        </div>
+        {/* </div> */}
 
-        <div className="flex flex-col gap-3">
+        {/* <div className="flex flex-col gap-3"> */}
           <CashflowCard
             title="Expenses"
             value={expensesTotal}
@@ -95,9 +95,9 @@ export async function CashflowList() {
             percentage={reoccuringPercentage}
             insideText={true}
           />
-        </div>
+        {/* </div> */}
 
-        <div className="flex flex-col md:flex-row md:col-span-2 xl:col-span-1 xl:flex-col gap-3">
+        {/* <div className="flex flex-col md:flex-row md:col-span-2 xl:col-span-1 xl:flex-col gap-3"> */}
           <CashflowCard
             title="This month"
             value={(Number(reoccuringTotal) + Number(expensesTotal)).toString()}
@@ -109,7 +109,7 @@ export async function CashflowList() {
             value={balance ? balance.amount : "0"}
             user_id={user.id}
           />
-        </div>
+        {/* </div> */}
       </section>
     </>
   );

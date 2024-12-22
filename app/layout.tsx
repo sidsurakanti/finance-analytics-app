@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`h-screen w-full ${poppins.className} overflow-y-auto antialiased`}
+        className={`min-h-screen w-full ${poppins.className} overflow-x-hidden antialiased`}
       >
         <ThemeProvider
           attribute="class"

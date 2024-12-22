@@ -18,7 +18,6 @@ import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 
-
 // set cashflows during cashflows onboarding
 export async function setCashflows(cashflows: Cashflow) {
   let { income, savings, user_id } = cashflows;
@@ -62,6 +61,7 @@ export async function updateCashflows(newCashflow: Cashflow) {
 // update income cashflow when user adds a new paycheck transaction
 export async function paycheckUpdate(newIncome: string, user_id: string) {
   let income = newIncome;
+  // be fr bruh youre not making over a mil a month
   if (Number(income) > 1000000) income = "1000000";
 
   try {
@@ -71,7 +71,7 @@ export async function paycheckUpdate(newIncome: string, user_id: string) {
             WHERE user_id = ${user_id};
         `;
     console.log("UPDATED PAYCHECK:", newIncome);
-    revalidatePath("/cashflows");
+    revalidatePath("/transactions");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update paycheck");

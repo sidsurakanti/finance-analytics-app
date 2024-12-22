@@ -16,17 +16,17 @@ const links = [
   {
     href: "/dashboard",
     icon: DashboardIcon,
-    text: "Dashboard",
+    text: "dashboard",
   },
   {
     href: "/transactions",
     icon: TransactionsIcon,
-    text: "Transactions",
+    text: "transactions",
   },
   {
     href: "/reoccuring",
     icon: ReoccuringSymbol,
-    text: "Reoccuring",
+    text: "reoccuring",
   },
 ];
 
