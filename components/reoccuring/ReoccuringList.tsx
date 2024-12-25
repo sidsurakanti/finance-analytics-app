@@ -39,7 +39,7 @@ export async function ReoccuringList() {
         {/* rows  */}
         <TableBody>
           {reoccuring.map((transaction, index) => (
-            <TableRow key={index} className="h-20 text-md xl:text-lg">
+            <TableRow key={index} className="group h-20 text-md xl:text-lg">
               <TableCell className="font-medium text-lg">
                 {transaction.name}
               </TableCell>
@@ -54,7 +54,7 @@ export async function ReoccuringList() {
                 </Badge>
               </TableCell>
 
-              <TableCell className="text-right">
+              <TableCell className="md:opacity-0 md:group-hover:opacity-100 text-right">
                 <span className="flex gap-2 justify-end">
                   <EditDialog reoccuring={transaction} />
                   <DeleteButtonWrapper

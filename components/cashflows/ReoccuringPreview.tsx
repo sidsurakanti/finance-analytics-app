@@ -23,9 +23,17 @@ export async function ReoccuringPreview() {
   const reoccuring: Reoccuring[] = await fetchReoccuring(user);
 
   return (
-    <>
+    <section className="bg-accent/75 text-foreground border border-border rounded-lg p-5 flex flex-col gap-5 shadow-md">
+      <header className="flex justify-between">
+        <div className="flex flex-col gap-2">
+          <p className="text-muted-foreground text-md xl:text-lg tracking-wide">
+            Reoccuring transactions
+          </p>
+        </div>
+      </header>
+
       {/* make sure table is scrollable  */}
-      <ScrollArea className="h-[380px] shadow-md rounded-lg border border-border">
+      <ScrollArea className="h-[380px]">
         <Table>
           <TableCaption>Reoccuring transactions</TableCaption>
 
@@ -40,10 +48,10 @@ export async function ReoccuringPreview() {
           </TableHeader>
 
           {/* rows  */}
-          <TableBody className="bg-accent">
+          <TableBody>
             {reoccuring.map((transaction, index) => (
               <TableRow key={index} className="h-20 text-md xl:text-lg">
-                <TableCell className="font-medium text-lg">
+                <TableCell className="text-lg">
                   {transaction.name}
                 </TableCell>
 
@@ -61,6 +69,6 @@ export async function ReoccuringPreview() {
           </TableBody>
         </Table>
       </ScrollArea>
-    </>
+    </section>
   );
 }
