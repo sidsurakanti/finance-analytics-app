@@ -83,3 +83,31 @@ LIMIT 5;
 -- find all the the transactions that happened this month
 SELECT * FROM transactions
 WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));
+
+---
+ALTER TABLE cashflows
+ADD COLUMN IF NOT EXISTS income_sources text[];
+
+ALTER TABLE cashflows
+ADD COLUMN IF NOT EXISTS frequency VARCHAR(255);
+
+ALTER TABLE cashflows
+ADD COLUMN IF NOT EXISTS pay_dates text[];
+
+ALTER TABLE cashflows
+ADD COLUMN IF NOT EXISTS last_updated date;
+
+ALTER TABLE cashflows
+ALTER COLUMN income TYPE int[]
+
+
+UPDATE cashflows
+SET 
+    income_sources = '{"job1", "job2"}',
+    frequency = 'bi-weekly',
+    pay_dates = '{1, 15}',
+    last_updated = '2024-12-05'
+WHERE user_id = 2;
+
+SELECT * FROM cashflows
+WHERE user_id = 2;
