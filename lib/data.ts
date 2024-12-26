@@ -39,6 +39,7 @@ export async function fetchCashflows(user: User) {
         `;
     const cashflows = res.rows[0];
     console.log("FETCHED CASHFLOWS FOR ID:", id);
+    console.log(cashflows)
 
     return cashflows;
   } catch (error) {

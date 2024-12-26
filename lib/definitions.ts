@@ -17,6 +17,10 @@ export type Cashflow = {
   savings: string;
   income: string;
   user_id: string;
+  income_sources: string[],
+  frequency: string;
+  pay_dates: string[];
+  last_updated: Date;
 };
 
 export type Transaction = {
