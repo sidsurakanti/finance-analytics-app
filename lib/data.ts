@@ -8,6 +8,7 @@ import type {
   Reoccuring,
   Balance,
 } from "@lib/definitions";
+import { calculateLastPaidDiff } from "@/lib/utils";
 import { unstable_noStore as noStore } from "next/cache";
 
 // fetch user
@@ -39,8 +40,10 @@ export async function fetchCashflows(user: User) {
         `;
     const cashflows = res.rows[0];
     console.log("FETCHED CASHFLOWS FOR ID:", id);
-    console.log(cashflows)
-
+    // console.log(cashflows);
+    const diff = calculateLastPaidDiff(cashflows.last_updated, cashflows.pay_dates);
+    // console.log(cashflows.last_updated)
+    console.log("DIFF", diff);
     return cashflows;
   } catch (error) {
     console.log("Database error", error);
@@ -52,7 +55,7 @@ export async function fetchCashflows(user: User) {
 export async function fetchReoccuring(user: User) {
   noStore();
   const id = user.id?.toString();
-  
+
   try {
     const res = await sql<Reoccuring>`
     SELECT * FROM reoccuring
@@ -61,7 +64,7 @@ export async function fetchReoccuring(user: User) {
     `;
     const reoccuring = res.rows;
     console.log("FETCHED REOCCURING TRANSACTIONS FOR:", id);
-    
+
     return reoccuring;
   } catch (error) {
     console.log("Database error", error);

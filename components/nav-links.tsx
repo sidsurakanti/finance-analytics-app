@@ -28,6 +28,11 @@ const links = [
     icon: ReoccuringSymbol,
     text: "reoccuring",
   },
+  {
+    href: "/cashflows",
+    icon: ReoccuringSymbol,
+    text: "cashflows",
+  }
 ];
 
 export function NavLinks() {

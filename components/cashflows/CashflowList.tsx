@@ -17,6 +17,7 @@ export async function CashflowList() {
   const session = await auth();
   const user = session?.user as User;
   const cashflows: Cashflow = await fetchCashflows(user);
+  
 
   // show onboarding component if user has no existing cashflows
   if (!cashflows) {
