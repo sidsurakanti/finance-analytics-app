@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx";
+import { count } from "console";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -38,4 +39,31 @@ export function addDollarSign(value: string) {
   } else {
     return `$${value}`;
   }
+}
+
+export function calculateLastPaidDiff(date: Date, offset: string[]) {
+  const today = new Date();
+  // const lastPaid = new Date(date);
+  // const diff = today.getTime() - lastPaid.getTime();
+  // const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  let count: number = 0;
+  // console.log(offset);
+  for (let d = new Date(date); d <= today; d.setDate(d.getDate() + 1)) {
+    // console.log(d.getDate().toString());
+    if (offset.includes(d.getDate().toString())) {
+      // console.log(d);
+      count++;
+    }
+  }
+  return count;
+}
+
+export function findNextPayDate(offset: string[]): Date {
+  let count = 0;
+  for (let d: Date = new Date(); count < 1; d.setDate(d.getDate() + 1)) {
+    if (offset.includes(d.getDate().toString())) {
+      return d;
+    }
+  }
+  return new Date();
 }
