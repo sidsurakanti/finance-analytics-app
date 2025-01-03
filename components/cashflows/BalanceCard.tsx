@@ -32,7 +32,7 @@ export function BalanceCard({ title, value, badge, user_id }: Props) {
         </span>
       </div>
 
-      <BalanceChart user_id={user_id} />
+      <BalanceChart user_id={user_id} color={"sky"}/>
     </div>
   );
 }

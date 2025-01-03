@@ -246,7 +246,7 @@ export async function deleteOldBalances(user_id: string) {
         FROM balance
         WHERE user_id = ${user_id}
         ORDER BY id DESC
-        LIMIT 5
+        LIMIT 50
       )
       AND user_id = ${user_id};
     `;

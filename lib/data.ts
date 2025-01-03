@@ -41,7 +41,10 @@ export async function fetchCashflows(user: User) {
     const cashflows = res.rows[0];
     console.log("FETCHED CASHFLOWS FOR ID:", id);
     // console.log(cashflows);
-    const diff = calculateLastPaidDiff(cashflows.last_updated, cashflows.pay_dates);
+    const diff = calculateLastPaidDiff(
+      cashflows.last_updated,
+      cashflows.pay_dates,
+    );
     // console.log(cashflows.last_updated)
     console.log("DIFF", diff);
     return cashflows;
@@ -58,9 +61,9 @@ export async function fetchReoccuring(user: User) {
 
   try {
     const res = await sql<Reoccuring>`
-    SELECT * FROM reoccuring
-    WHERE user_id=${id}
-    ORDER BY id DESC;
+      SELECT * FROM reoccuring
+      WHERE user_id=${id}
+      ORDER BY id DESC;
     `;
     const reoccuring = res.rows;
     console.log("FETCHED REOCCURING TRANSACTIONS FOR:", id);
@@ -151,7 +154,7 @@ export async function fetchBalance(user_id: string) {
   }
 }
 
-export async function fetchRecentBalances(user_id: string) {
+export async function fetchRecentBalances(user_id: string, limit: number = 5) {
   noStore();
 
   try {
@@ -159,10 +162,10 @@ export async function fetchRecentBalances(user_id: string) {
         SELECT * FROM balance
         WHERE user_id=${user_id}
         ORDER BY id DESC
-        LIMIT 5;
+        LIMIT ${limit};
       `;
     const balance = res.rows;
-    console.log("FETCHED RECENT BALANCES FOR:", user_id);
+    console.log("FETCHED RECENT BALANCES FOR:", user_id, "WITH LIMIT:", limit);
 
     // flip the array so the most recent balance is last
     return balance.reverse();
