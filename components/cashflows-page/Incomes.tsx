@@ -35,7 +35,7 @@ export default function Incomes({
         </thead>
         <tbody>
           {incomeSources.map((job) => (
-            <tr className="">
+            <tr key={job.id.toString()}>
               <th className="text-left text-lg" scope="row">
                 {job.name}
               </th>
