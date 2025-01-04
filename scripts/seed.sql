@@ -36,9 +36,23 @@ CREATE TABLE IF NOT EXISTS balance (
     user_id INTEGER REFERENCES users
 )
 
-
+CREATE TABLE IF NOT EXISTS income_sources (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users(id),
+    name VARCHAR(255) UNIQUE NOT NULL,
+    income_amt NUMERIC(10, 2) NOT NULL,
+    frequency VARCHAR(255) NOT NULL,
+    pay_dates text[]
+)
 
 -- some placeholder data if needed
+INSERT INTO income_sources
+(user_id, name, income_amt, frequency, pay_dates)
+VALUES 
+    (2, 'job1', 6200, 'bi-weekly', '{1, 15}'),
+    (2, 'job2', 9000, 'bi-weekly', '{1, 15}');
+
+
 INSERT INTO cashflows
 (savings, income, user_id)
 VALUES 
@@ -111,3 +125,15 @@ WHERE user_id = 2;
 
 SELECT * FROM cashflows
 WHERE user_id = 2;
+
+UPDATE income_sources
+SET pay_dates = '{1, 18}',
+WHERE name = 'job1';
+
+UPDATE income_sources
+SET name = "Job 1"
+WHERE name = 'job1';
+
+UPDATE income_sources
+SET name = "Job 2"
+WHERE name = 'job2';

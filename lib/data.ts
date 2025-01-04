@@ -7,9 +7,27 @@ import type {
   Transaction,
   Reoccuring,
   Balance,
+  IncomeSources,
 } from "@lib/definitions";
 import { calculateLastPaidDiff } from "@/lib/utils";
 import { unstable_noStore as noStore } from "next/cache";
+
+export async function fetchIncomeSources(user: User) {
+  const { id } = user;
+  try {
+    const res = await sql<IncomeSources>`
+      SELECT * FROM income_sources
+      WHERE user_id=${id};
+    `
+    const incomeSources = res.rows;
+    console.log("FETCHED INCOME SOURCES FOR:", id);
+    return incomeSources;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch income sources");
+  }
+}
+
 
 // fetch user
 export async function fetchUser(email: string) {
