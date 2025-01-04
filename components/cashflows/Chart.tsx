@@ -38,7 +38,7 @@ export function Chart({ income, expenses, reoccuring, balance }: Props) {
   ];
 
   return (
-    <Card className="dark:bg-accent dark:text-accent-foreground outline outline-none">
+    <Card className="bg-accent dark:bg-accent dark:text-accent-foreground outline outline-none">
       <DonutChart
         data={cashflows}
         variant="donut"
