@@ -8,7 +8,6 @@ import TransactionList from "@components/transactions/TransactionList";
 import { Skeleton } from "@components/ui/skeleton";
 import { TransactionSheet } from "@components/transactions/CreateTransaction";
 
-
 // server component
 export default async function Transactions() {
   const session = await auth();
@@ -19,7 +18,7 @@ export default async function Transactions() {
   const reoccuring = await fetchReoccuring(user);
 
   return (
-    <main className="h-[90%] w-[90%] md:w-5/6 xl:w-4/5 mx-auto flex flex-col gap-3">
+    <main className="h-full w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto flex flex-col gap-5">
       <span>
         <TransactionSheet user={user} reoccuring={reoccuring} />
       </span>

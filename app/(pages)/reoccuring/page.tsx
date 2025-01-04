@@ -7,7 +7,7 @@ export default async function Reoccuring() {
   const session = await auth();
   const user = session?.user as User;
   return (
-    <main className="h-[90%] w-[90%] md:w-5/6 xl:w-4/5 mx-auto flex flex-col gap-3">
+    <main className="h-full w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto flex flex-col gap-5">
       <section>
         <ReoccuringSheet user={user} />
       </section>
