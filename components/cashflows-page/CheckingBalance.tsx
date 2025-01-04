@@ -15,7 +15,7 @@ export default function CheckingBalance({
   paycheckAmt,
 }: CheckingBalanceProps) {
   return (
-    <section className="w-1/2 flex justify-between items-center gap-3 rounded-xl p-6 bg-transparent shadow-md outline outline-gray-100">
+    <section className="flex justify-between items-center gap-3 rounded-xl p-6 bg-transparent shadow-md border border-border">
       <div className="flex flex-col gap-5">
         <h1 className="text-lg">Checking balance</h1>
         <span className="flex flex-col gap-3">
@@ -27,13 +27,21 @@ export default function CheckingBalance({
           >
             {cashFormatter(Number(balance.amount))}
           </p>
-          <div className="bg-[#BAEBC7] w-fit py-2 px-4 rounded-xl">
-            <span className="font-medium">{cashFormatter(Number(paycheckAmt))}</span> landing on {nextPayCheck}
+          <div className="bg-[#BAEBC7] dark:bg-[#0a7551] w-fit py-2 px-4 rounded-xl">
+            <span className="font-medium">
+              {cashFormatter(Number(paycheckAmt))}
+            </span>{" "}
+            landing on {nextPayCheck}
           </div>
         </span>
       </div>
 
-      <BalanceChart user_id={balance.user_id} color={"emerald"} chartLimit={15} className="h-32 w-64"/>
+      <BalanceChart
+        user_id={balance.user_id}
+        color={"emerald"}
+        chartLimit={15}
+        className="h-32 w-64"
+      />
     </section>
   );
 }
