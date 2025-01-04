@@ -4,6 +4,7 @@ import {
   DashboardIcon,
   TransactionsIcon,
   ReoccuringSymbol,
+  CashflowsNavIcon
 } from "@components/ui/icons";
 import { Button } from "@components/ui/button";
 
@@ -30,7 +31,7 @@ const links = [
   },
   {
     href: "/cashflows",
-    icon: ReoccuringSymbol,
+    icon: CashflowsNavIcon,
     text: "cashflows",
   }
 ];
