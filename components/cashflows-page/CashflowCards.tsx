@@ -5,6 +5,7 @@ import { dateFormatter, cashFormatter, findNextPayDate } from "@/lib/utils";
 
 import CheckingBalance from "@/components/cashflows-page/CheckingBalance";
 import Incomes from "@/components/cashflows-page/Incomes";
+import Savings from "@/components/cashflows-page/Savings";
 
 export default async function BalanceShow() {
   const session = await auth();
@@ -24,12 +25,13 @@ export default async function BalanceShow() {
   const nextPayCheckDate = dateFormatter(new Date(paycheckDates.sort((a, b) => a - b)[0]))
 
   return (
-    <section className="flex flex-row gap-5">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
       <CheckingBalance
         balance={balance}
         nextPayCheck={nextPayCheckDate}
         paycheckAmt={cashflows.income}
       />
+      <Savings cashflows={cashflows} />
       <Incomes incomeSources={incomeSources}/>
     </section>
   );
