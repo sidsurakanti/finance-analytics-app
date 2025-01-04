@@ -43,7 +43,7 @@ export default function Incomes({
                 {cashFormatter(Number(job.income_amt))}
               </td>
               <td className="text-center">
-                <Badge className="bg-sky-500">{job.frequency}</Badge>{" "}
+                <Badge className="bg-emerald-700">{job.frequency}</Badge>{" "}
               </td>
               <td className="text-center">
                 {job.pay_dates
