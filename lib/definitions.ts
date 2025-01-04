@@ -12,6 +12,15 @@ export type Balance = {
   user_id: string;
 };
 
+export type IncomeSources = {
+  id: Number;
+  user_id: string;
+  name: string;
+  income_amt: string;
+  frequency: string;
+  pay_dates: string[];
+}
+
 export type Cashflow = {
   id?: Number;
   savings: string;

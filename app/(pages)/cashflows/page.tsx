@@ -1,4 +1,4 @@
-import BalanceShow from "@/components/cashflows-page/All";
+import BalanceShow from "@/components/cashflows-page/CashflowCards";
 
 export default function CashflowsPage() {
   return (
