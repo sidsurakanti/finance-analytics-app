@@ -21,9 +21,14 @@ import bcrypt from "bcrypt";
 
 
 // --------- cashflows actions
+interface RequiredCashflows {
+  income: string;
+  savings: string;
+  user_id: string;
+}
 
 // set cashflows during cashflows onboarding
-export async function setCashflows(cashflows: Cashflow) {
+export async function setCashflows(cashflows: RequiredCashflows) {
   let { income, savings, user_id } = cashflows;
 
   // make sure they're not just inputing large numbers

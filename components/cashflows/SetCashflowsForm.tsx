@@ -38,7 +38,7 @@ export function SetCashflowsForm({ user }: { user: User }) {
     data: z.infer<typeof setCashflowsSchema>,
   ) => {
     // convert data into a cashflow obj
-    const newCashflows: Cashflow = {
+    const newCashflows = {
       income: data.income,
       savings: data.savings,
       user_id: user.id,
