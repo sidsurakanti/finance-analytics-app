@@ -1,18 +1,17 @@
 import { Balance } from "@/lib/definitions";
-import { cashFormatter, cn } from "@/lib/utils";
+import { cashFormatter, dateFormatter, cn } from "@/lib/utils";
 import { BalanceChart } from "@/components/cashflows/BalanceChart";
 import { inter } from "@/styles/fonts";
+import { nextPaycheckDetailsT } from "@/components/cashflows-page/CashflowCards";
 
 interface CheckingBalanceProps {
   balance: Balance;
-  nextPayCheck: string;
-  paycheckAmt: string;
+  paycheckDetails: nextPaycheckDetailsT;
 }
 
 export default function CheckingBalance({
   balance,
-  nextPayCheck,
-  paycheckAmt,
+  paycheckDetails
 }: CheckingBalanceProps) {
   return (
     <section className="flex justify-between items-center gap-3 rounded-xl p-6 bg-accent shadow-md border border-border">
@@ -29,9 +28,9 @@ export default function CheckingBalance({
           </p>
           <div className="bg-[#BAEBC7] dark:bg-[#0a7551] w-fit py-2 px-4 rounded-xl">
             <span className="font-medium">
-              {cashFormatter(Number(paycheckAmt))}
+              {cashFormatter(Number(paycheckDetails.income_amt))}
             </span>{" "}
-            landing on {nextPayCheck}
+            landing on {dateFormatter(paycheckDetails.nextPayDate)} ({paycheckDetails.name})
           </div>
         </span>
       </div>
