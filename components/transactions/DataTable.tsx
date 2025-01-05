@@ -75,6 +75,8 @@ export function DataTable<TData, TValue>({
           <ToggleGroupItem value="reoccuring">reoccuring</ToggleGroupItem>
           <ToggleGroupItem value="expense">expenses</ToggleGroupItem>
           <ToggleGroupItem value="paycheck">paychecks</ToggleGroupItem>
+          <ToggleGroupItem value="deposit">deposit</ToggleGroupItem>
+          <ToggleGroupItem value="withdrawl">withdrawl</ToggleGroupItem>
         </ToggleGroup>
       </div>
 
