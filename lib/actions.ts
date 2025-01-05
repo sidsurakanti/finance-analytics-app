@@ -19,7 +19,6 @@ import { signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 
-
 // --------- cashflows actions
 interface RequiredCashflows {
   income: string;
@@ -68,6 +67,24 @@ export async function updateCashflows(newCashflow: Cashflow) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to update cashflows");
+  }
+}
+
+export async function updateSavings(newSavings: number, user_id: number) {
+  let savings = Number(newSavings);
+  if (savings > 1000000) savings = 1000000;
+
+  try {
+    await sql`
+    INSERT INTO savings
+    (amount, user_id)
+    VALUES (${savings}, ${user_id})
+  `;
+    console.log("UPDATED SAVINGS:", newSavings);
+    revalidatePath("/cashflows")
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to add new savings");
   }
 }
 
@@ -209,7 +226,6 @@ export async function deleteReoccuringById(reoccuringId: Number) {
     throw new Error("Failed to delete reoccuring transaction");
   }
 }
-
 
 // --------- balance actions
 // update balance

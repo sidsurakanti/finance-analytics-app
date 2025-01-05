@@ -8,9 +8,46 @@ import type {
   Reoccuring,
   Balance,
   IncomeSources,
+  Savings,
 } from "@lib/definitions";
 import { calculateLastPaidDiff } from "@/lib/utils";
 import { unstable_noStore as noStore } from "next/cache";
+import { error } from "console";
+
+export async function fetchCurrSavings(user: User) {
+  const { id } = user;
+  try {
+    const res = await sql<Savings>`
+      SELECT * FROM savings
+      WHERE user_id=${id}
+      ORDER BY created_at DESC
+      LIMIT 1
+    `;
+    const savings = res.rows[0];
+    console.log("FETCHED SAVINGS FOR USER:", user.id);
+    return savings;
+  } catch (error) {
+    console.log("DATABASE ERROR", error);
+    throw new Error("Failed to fetch savings");
+  }
+}
+
+export async function fetchRecentSavings(user_id: number) {
+  try {
+    const res = await sql<Savings>`
+      SELECT * FROM savings
+      WHERE user_id=${user_id}
+      ORDER BY created_at
+      LIMIT 15
+    `;
+    const savings = res.rows;
+    console.log("FETCHED RECENT SAVINGS FOR USER: ", user_id);
+    return savings;
+  } catch (error) {
+    console.log("ERROR FETCHING RECENT SAVINGS: ", error);
+    throw new Error("Failed to fetch recent savings");
+  }
+}
 
 export async function fetchIncomeSources(user: User) {
   const { id } = user;
@@ -18,8 +55,9 @@ export async function fetchIncomeSources(user: User) {
     const res = await sql<IncomeSources>`
       SELECT * FROM income_sources
       WHERE user_id=${id};
-    `
+    `;
     const incomeSources = res.rows;
+    // console.log(incomeSources);
     console.log("FETCHED INCOME SOURCES FOR:", id);
     return incomeSources;
   } catch (error) {
@@ -27,7 +65,6 @@ export async function fetchIncomeSources(user: User) {
     throw new Error("Failed to fetch income sources");
   }
 }
-
 
 // fetch user
 export async function fetchUser(email: string) {
@@ -59,12 +96,7 @@ export async function fetchCashflows(user: User) {
     const cashflows = res.rows[0];
     console.log("FETCHED CASHFLOWS FOR ID:", id);
     // console.log(cashflows);
-    const diff = calculateLastPaidDiff(
-      cashflows.last_updated,
-      cashflows.pay_dates,
-    );
     // console.log(cashflows.last_updated)
-    console.log("DIFF", diff);
     return cashflows;
   } catch (error) {
     console.log("Database error", error);

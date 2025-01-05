@@ -1,22 +1,25 @@
-import { fetchCashflows, fetchBalance, fetchIncomeSources } from "@/lib/data";
+import { fetchCashflows, fetchBalance, fetchIncomeSources, fetchCurrSavings } from "@/lib/data";
 import { auth } from "@/auth";
-import { User, Cashflow, Balance, IncomeSources } from "@/lib/definitions";
+import { User, Cashflow, Balance, IncomeSources, Savings } from "@/lib/definitions";
 import { dateFormatter, cashFormatter, findNextPayDate } from "@/lib/utils";
 
 import CheckingBalance from "@/components/cashflows-page/CheckingBalance";
 import Incomes from "@/components/cashflows-page/Incomes";
-import Savings from "@/components/cashflows-page/Savings";
+import SavingsCard from "@/components/cashflows-page/Savings";
 
 export default async function BalanceShow() {
   const session = await auth();
   const user = session?.user as User;
+
   const cashflows: Cashflow = await fetchCashflows(user);
   const balance: Balance = await fetchBalance(user.id);
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
+  const savings: Savings = await fetchCurrSavings(user);
+  // console.log(savings)
 
   // console.log(cashflows);
   // console.log(balance);
-  console.log(incomeSources);
+  // console.log(incomeSources);
 
   // TODO: calculate next pay better
   // doesn't work when two paychecks are on the same day and doesn't use the new income_sources table
@@ -31,7 +34,7 @@ export default async function BalanceShow() {
         nextPayCheck={nextPayCheckDate}
         paycheckAmt={cashflows.income}
       />
-      <Savings cashflows={cashflows} />
+      <SavingsCard cashflows={cashflows} savings={savings} />
       <Incomes incomeSources={incomeSources}/>
     </section>
   );
