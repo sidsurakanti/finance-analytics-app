@@ -2,7 +2,8 @@
 
 import { deleteReoccuringById } from "@lib/actions";
 import { Button } from "@components/ui/button";
-import { TrashIcon } from "@components/ui/icons";
+// import { TrashIcon } from "@components/ui/icons";
+import { CircleX } from "lucide-react";
 
 import {
   Dialog,
@@ -28,8 +29,8 @@ export function DeleteButtonWrapper({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="hover:bg-destructive">
-            <TrashIcon width={20} height={20} />
+          <Button variant={"ghost"} className="hover:bg-destructive/90">
+            <CircleX size={20} strokeWidth={1} />
           </Button>
         </DialogTrigger>
 

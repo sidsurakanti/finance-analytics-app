@@ -13,7 +13,7 @@ export default function SavingsCard({
   const { savings, change } = savingsDetails;
 
   return (
-    <section className="flex justify-between gap-3 rounded-xl p-6 bg-accent shadow-md border broder-border">
+    <section className="flex justify-between gap-3 rounded-xl px-6 py-4 bg-accent shadow-md border broder-border">
       <div className="flex flex-col justify-between gap-5">
         <span>
           <h1 className="text-lg">Savings</h1>

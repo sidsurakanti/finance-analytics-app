@@ -4,8 +4,9 @@ import { auth } from "@/auth";
 import { fetchReoccuring } from "@lib/data";
 import { type User } from "@lib/definitions";
 
-import TransactionList from "@components/transactions/TransactionList";
 import { Skeleton } from "@components/ui/skeleton";
+// import TransactionList from "@components/transactions/TransactionList";
+import TransactionList from "@/components/transactions/TransactionsList2";
 import { TransactionSheet } from "@components/transactions/CreateTransaction";
 
 // server component

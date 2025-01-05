@@ -7,7 +7,7 @@ import {
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
-import { DeleteButtonWrapper } from "@components/transactions/DeleteTransactionWrapper";
+import { DeleteTransactionWrapper } from "@components/transactions/DeleteTransactionWrapper";
 import { EditDialog } from "@components/transactions/EditTransactionDialog";
 
 import type { User, Transaction, Reoccuring } from "@lib/definitions";
@@ -64,7 +64,7 @@ export default async function TransactionList({ user }: { user: User }) {
                     transaction={transaction}
                     reoccuring={reoccuring}
                   />
-                  <DeleteButtonWrapper transaction={transaction} />
+                  <DeleteTransactionWrapper transaction={transaction} />
                 </span>
               </TableCell>
             </TableRow>
