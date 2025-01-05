@@ -9,6 +9,6 @@ export default function UpdateSavingsButton({
   savings: Savings;
 }) {
   return (
-    <button onClick={() => updateSavings(Number(savings.amount) + 300, savings.user_id)}>add 300</button>
+    <button onClick={() => updateSavings(Number(savings.amount) + 300, savings.user_id)}>add more</button>
   );
 }

@@ -14,9 +14,10 @@ export default function CheckingBalance({
   paycheckDetails
 }: CheckingBalanceProps) {
   return (
-    <section className="flex justify-between items-center gap-3 rounded-xl p-6 bg-accent shadow-md border border-border">
+    <section className="flex justify-between items-center gap-3 rounded-xl p-4 bg-accent shadow-md border border-border">
       <div className="flex flex-col gap-5">
         <h1 className="text-lg">Checking balance</h1>
+        
         <span className="flex flex-col gap-3">
           <p
             className={cn(

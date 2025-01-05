@@ -14,8 +14,9 @@ import {
   DialogDescription,
   DialogClose,
 } from "@components/ui/dialog";
+import { CircleX } from "lucide-react";
 
-export function DeleteButtonWrapper({
+export function DeleteTransactionWrapper({
   transaction,
 }: {
   transaction: Transaction;
@@ -29,8 +30,8 @@ export function DeleteButtonWrapper({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button className="hover:bg-destructive">
-            <TrashIcon width={20} height={20} />
+          <Button variant={"ghost"} size="icon" className="rounded-full p-2 hover:text-white hover:bg-destructive/95">
+            <CircleX size={20} />
           </Button>
         </DialogTrigger>
 

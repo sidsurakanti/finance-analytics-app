@@ -16,8 +16,8 @@ export default function Incomes({
     <section className="bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
       <h1 className="text-lg">Income</h1>
       <table className="w-full table-auto">
-        <thead>
-          <tr className="text-left">
+        <thead className="h-10 px-2">
+          <tr className="text-left bg-gray-100/90 dark:bg-gray-950 hover:bg-secondary border-b">
             <th scope="col"></th>
             <th className="text-center" scope="col">
               Amount
@@ -36,21 +36,21 @@ export default function Incomes({
         <tbody>
           {incomeSources.map((job) => (
             <tr key={job.id.toString()}>
-              <th className="text-left text-lg" scope="row">
+              <th className="h-12 text-left text-lg" scope="row">
                 {job.name}
               </th>
-              <td className="text-lg text-center">
+              <td className="h-12 text-lg text-center">
                 {cashFormatter(Number(job.income_amt))}
               </td>
-              <td className="text-center">
+              <td className="h-12 text-center">
                 <Badge className="bg-emerald-700">{job.frequency}</Badge>{" "}
               </td>
-              <td className="text-center">
+              <td className="h-12 text-center">
                 {job.pay_dates
                   .map((date) => ordinalDateFormatter(Number(date)))
                   .join(", ")}
               </td>
-              <td className="text-right">
+              <td className="h-12 text-right">
                 {dateFormatter(findNextPayDate(job.pay_dates))}
               </td>
             </tr>
