@@ -45,6 +45,13 @@ CREATE TABLE IF NOT EXISTS income_sources (
     pay_dates text[]
 )
 
+CREATE TABLE IF NOT EXISTS savings (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    amount NUMERIC(10, 2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
 -- some placeholder data if needed
 INSERT INTO income_sources
 (user_id, name, income_amt, frequency, pay_dates)
@@ -98,21 +105,12 @@ LIMIT 5;
 SELECT * FROM transactions
 WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));
 
----
-ALTER TABLE cashflows
-ADD COLUMN IF NOT EXISTS income_sources text[];
-
-ALTER TABLE cashflows
-ADD COLUMN IF NOT EXISTS frequency VARCHAR(255);
-
-ALTER TABLE cashflows
-ADD COLUMN IF NOT EXISTS pay_dates text[];
-
+--
 ALTER TABLE cashflows
 ADD COLUMN IF NOT EXISTS last_updated date;
 
 ALTER TABLE cashflows
-ALTER COLUMN income TYPE int[]
+ALTER COLUMN income TYPE int
 
 
 UPDATE cashflows
@@ -135,5 +133,9 @@ SET name = "Job 1"
 WHERE name = 'job1';
 
 UPDATE income_sources
-SET name = "Job 2"
-WHERE name = 'job2';
+SET 
+    frequency = "monthly"
+    pay_dates = '{1}'
+WHERE name = 'Job 2';
+
+CREATE INDEX idx_transactions_ ON transactions(created_at, amount);

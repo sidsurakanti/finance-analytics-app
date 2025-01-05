@@ -19,6 +19,13 @@ export type IncomeSources = {
   income_amt: string;
   frequency: string;
   pay_dates: string[];
+};
+
+export type Savings = {
+  id: number,
+  user_id: number,
+  amount: string,
+  created_at: Date;
 }
 
 export type Cashflow = {
@@ -26,9 +33,6 @@ export type Cashflow = {
   savings: string;
   income: string;
   user_id: string;
-  income_sources: string[],
-  frequency: string;
-  pay_dates: string[];
   last_updated: Date;
 };
 
