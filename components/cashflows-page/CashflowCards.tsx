@@ -25,7 +25,7 @@ export default async function CashflowCards() {
   const cashflows: Cashflow = await fetchCashflows(user);
   const balance: Balance = await fetchBalance(user.id);
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
-  const savings: Savings = await fetchCurrSavings(user);
+  const savingsDetails: { savings: Savings, change: number } = await fetchCurrSavings(user);
 
   // console.log(savings)
   // console.log(cashflows);
@@ -40,12 +40,12 @@ export default async function CashflowCards() {
   const nextPaycheckDetails: nextPaycheckDetailsT = incomeSourcesWNextPay.sort((a, b) => a.nextPayDate.getTime() - b.nextPayDate.getTime())[0]
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-5">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-2">
       <CheckingBalance
         balance={balance}
         paycheckDetails={nextPaycheckDetails}
       />
-      <SavingsCard cashflows={cashflows} savings={savings} />
+      <SavingsCard savingsDetails={savingsDetails} />
       <Incomes incomeSources={incomeSources} />
     </section>
   );

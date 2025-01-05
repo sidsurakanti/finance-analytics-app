@@ -10,9 +10,7 @@ import type {
   IncomeSources,
   Savings,
 } from "@lib/definitions";
-import { calculateLastPaidDiff } from "@/lib/utils";
 import { unstable_noStore as noStore } from "next/cache";
-import { error } from "console";
 
 export async function fetchCurrSavings(user: User) {
   const { id } = user;
@@ -21,11 +19,15 @@ export async function fetchCurrSavings(user: User) {
       SELECT * FROM savings
       WHERE user_id=${id}
       ORDER BY created_at DESC
-      LIMIT 1
+      LIMIT 2
     `;
-    const savings = res.rows[0];
+    const curr_savings = res.rows[0];
+    const prev_savings = res.rows[1];
+    const savings_change =
+      Number(curr_savings.amount) - Number(prev_savings.amount);
     console.log("FETCHED SAVINGS FOR USER:", user.id);
-    return savings;
+
+    return { savings: curr_savings, change: savings_change };
   } catch (error) {
     console.log("DATABASE ERROR", error);
     throw new Error("Failed to fetch savings");

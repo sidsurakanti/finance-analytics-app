@@ -1,4 +1,3 @@
-
 import { Cashflow, Savings } from "@/lib/definitions";
 import { inter } from "@/styles/fonts";
 import { cn, cashFormatter } from "@/lib/utils";
@@ -6,7 +5,13 @@ import { cn, cashFormatter } from "@/lib/utils";
 import { SavingsChart } from "@/components/cashflows-page/SavingsChart";
 import UpdateSavingsButton from "@/components/cashflows-page/UpdateSavings";
 
-export default function SavingsCard({ cashflows, savings }: { cashflows: Cashflow, savings: Savings}) {
+export default function SavingsCard({
+  savingsDetails,
+}: {
+  savingsDetails: { savings: Savings; change: number };
+}) {
+  const { savings, change } = savingsDetails;
+
   return (
     <section className="flex justify-between gap-3 rounded-xl p-6 bg-accent shadow-md border broder-border">
       <div className="flex flex-col justify-between gap-5">
@@ -23,6 +28,9 @@ export default function SavingsCard({ cashflows, savings }: { cashflows: Cashflo
           >
             {/* {cashFormatter(Number(cashflows.savings))} */}
             {cashFormatter(Number(savings.amount))}
+          </p>
+          <p className={cn(change > 0 ? "text-emerald-600" : "text-red-500", "text-lg")}>
+            {change > 0 ? "+" : ""}{cashFormatter(change)}
           </p>
         </span>
       </div>
