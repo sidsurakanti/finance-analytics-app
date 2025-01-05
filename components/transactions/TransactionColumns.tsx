@@ -42,6 +42,7 @@ export const columns: ColumnDef<Transaction>[] = [
   {
     accessorKey: "type",
     header: "Type",
+    filterFn: "arrIncludesSome",
     cell: ({ row }) => {
       const type: Transaction["type"] = row.getValue("type");
       return <Badge className={cn(transactionTypeColors[type])}>{type}</Badge>;

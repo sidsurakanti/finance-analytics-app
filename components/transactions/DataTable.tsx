@@ -24,6 +24,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 
 interface DataTableProps<TData, TValue> {
@@ -55,14 +56,28 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-2 items-start rounded-md">
-      <Input
-        placeholder="Filter transactions..."
-        value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-          table.getColumn("name")?.setFilterValue(event.target.value)
-        }
-        className="max-w-sm"
-      />
+      <div className="flex gap-x-4">
+        <Input
+          placeholder="Search transactions"
+          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+            table.getColumn("name")?.setFilterValue(event.target.value)
+          }
+          className="w-64 max-w-sm"
+        />
+
+        <ToggleGroup
+          type="multiple"
+          onValueChange={(value) => {
+            table.getColumn("type")?.setFilterValue(value);
+          }}
+        >
+          <ToggleGroupItem value="reoccuring">reoccuring</ToggleGroupItem>
+          <ToggleGroupItem value="expense">expenses</ToggleGroupItem>
+          <ToggleGroupItem value="paycheck">paychecks</ToggleGroupItem>
+        </ToggleGroup>
+      </div>
+
       <Table className="border">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
