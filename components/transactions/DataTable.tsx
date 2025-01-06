@@ -30,11 +30,13 @@ import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  children?: React.ReactNode;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  children,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -56,28 +58,32 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-2 items-start rounded-md">
-      <div className="flex gap-x-4">
-        <Input
-          placeholder="Search transactions"
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
-          }
-          className="w-64 max-w-sm"
-        />
+      <div className="w-full flex justify-between mb-1">
+        <div className="flex gap-x-4">
+          <Input
+            placeholder="Search transactions"
+            value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              table.getColumn("name")?.setFilterValue(event.target.value)
+            }
+            className="w-64 max-w-sm"
+          />
 
-        <ToggleGroup
-          type="multiple"
-          onValueChange={(value) => {
-            table.getColumn("type")?.setFilterValue(value);
-          }}
-        >
-          <ToggleGroupItem value="reoccuring">reoccuring</ToggleGroupItem>
-          <ToggleGroupItem value="expense">expenses</ToggleGroupItem>
-          <ToggleGroupItem value="paycheck">paychecks</ToggleGroupItem>
-          <ToggleGroupItem value="deposit">deposit</ToggleGroupItem>
-          <ToggleGroupItem value="withdrawl">withdrawl</ToggleGroupItem>
-        </ToggleGroup>
+          <ToggleGroup
+            type="multiple"
+            onValueChange={(value) => {
+              table.getColumn("type")?.setFilterValue(value);
+            }}
+          >
+            <ToggleGroupItem value="reoccuring">reoccuring</ToggleGroupItem>
+            <ToggleGroupItem value="expense">expenses</ToggleGroupItem>
+            <ToggleGroupItem value="paycheck">paychecks</ToggleGroupItem>
+            <ToggleGroupItem value="deposit">deposit</ToggleGroupItem>
+            <ToggleGroupItem value="withdrawl">withdrawl</ToggleGroupItem>
+          </ToggleGroup>
+        </div>
+
+        {children}
       </div>
 
       <Table className="border">
@@ -124,7 +130,7 @@ export function DataTable<TData, TValue>({
         </TableBody>
       </Table>
 
-      <div className="flex items-center gap-3">
+      <div className="w-full flex items-center justify-end gap-4">
         <span className="text-base">
           Page {table.getState().pagination.pageIndex + 1}
         </span>

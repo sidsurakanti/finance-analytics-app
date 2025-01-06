@@ -8,7 +8,6 @@ export type User = {
 export type Balance = {
   id?: Number;
   amount: string;
-  change: string;
   user_id: string;
 };
 
