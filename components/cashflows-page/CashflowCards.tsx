@@ -3,6 +3,8 @@ import {
   fetchBalance,
   fetchIncomeSources,
   fetchCurrSavings,
+  fetchTransactionsSorted,
+  SortedData,
 } from "@/lib/data";
 import { auth } from "@/auth";
 import {
@@ -11,12 +13,14 @@ import {
   Balance,
   IncomeSources,
   Savings,
+  Transaction,
 } from "@/lib/definitions";
-import { dateFormatter, cashFormatter, findNextPayDate } from "@/lib/utils";
+import { findNextPayDate } from "@/lib/utils";
 
 import CheckingBalance from "@/components/cashflows-page/CheckingBalance";
 import Incomes from "@/components/cashflows-page/Incomes";
 import SavingsCard from "@/components/cashflows-page/Savings";
+import { ExpensesChart } from "@/components/cashflows-page/ExpensesChart";
 
 export default async function CashflowCards() {
   const session = await auth();
@@ -25,12 +29,15 @@ export default async function CashflowCards() {
   const cashflows: Cashflow = await fetchCashflows(user);
   const balance: Balance = await fetchBalance(user.id);
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
+  const expenses: SortedData[] = await fetchTransactionsSorted(user, "expense");
+  const reoccuring: SortedData[] = await fetchTransactionsSorted(user, "reoccuring")
   const savingsDetails: { savings: Savings, change: number } = await fetchCurrSavings(user);
 
   // console.log(savings)
   // console.log(cashflows);
   // console.log(balance);
   // console.log(incomeSources);
+  // console.log(transactions)
 
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map((job) => ({
     ...job,
@@ -47,6 +54,7 @@ export default async function CashflowCards() {
       />
       <SavingsCard savingsDetails={savingsDetails} />
       <Incomes incomeSources={incomeSources} />
+      <ExpensesChart expenses={expenses} reoccuring={reoccuring}/>
     </section>
   );
 }
