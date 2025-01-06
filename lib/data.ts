@@ -11,6 +11,7 @@ import type {
   Savings,
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
+import { Console } from "console";
 
 export async function fetchCurrSavings(user: User) {
   const { id } = user;
@@ -163,6 +164,45 @@ export async function fetchTransactionsThisMonth(user: User) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to fetch this month's transactions");
+  }
+}
+
+
+export type SortedData = {
+  month: Date,
+  total_amount: string,
+}
+
+export async function fetchTransactionsSorted(
+  user: User,
+  type: Transaction["type"],
+) {
+  try {
+    const res = await sql<SortedData>`
+      WITH date_series AS (
+        SELECT
+          generate_series(
+            DATE_TRUNC('month', NOW() - INTERVAL '1 year'),
+            DATE_TRUNC('month', NOW()),
+            '1 month'::interval
+          ) AS month
+      )
+      SELECT d.month,
+        COALESCE(SUM(t.amount), 0) AS total_amount
+      FROM date_series d
+      LEFT JOIN transactions t
+        ON DATE_TRUNC('month', t.created_at) = d.month
+        AND t.user_id = ${user.id}
+        AND type=${type}
+      GROUP BY d.month
+      ORDER BY d.month
+    `;
+    const transactions: SortedData[] = res.rows;
+    console.log("FETCHED GROUPED TRANSACTIONS FOR USER", user.id);
+    return transactions;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch this sorted transactions");
   }
 }
 

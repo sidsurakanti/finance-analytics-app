@@ -13,7 +13,7 @@ export default function Incomes({
   incomeSources: IncomeSources[];
 }) {
   return (
-    <section className="bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
+    <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
       <h1 className="text-lg">Income</h1>
       <table className="w-full table-auto">
         <thead className="h-10 px-2">
