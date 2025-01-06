@@ -291,8 +291,9 @@ export async function deleteOldTransactions(user_id: string) {
         FROM transactions
         WHERE user_id = ${user_id}
         ORDER BY id DESC
-        LIMIT 50
+        LIMIT 1000
       )
+      AND created_at < NOW() -  INTERVAL '1 YEAR'
       AND user_id = ${user_id};
     `;
     console.log("DELETED OLD TRANSACTIONS");

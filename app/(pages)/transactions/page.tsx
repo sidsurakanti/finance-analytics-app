@@ -1,34 +1,17 @@
 import { Suspense } from "react";
-import { auth } from "@/auth";
-
-import { fetchReoccuring } from "@lib/data";
-import { type User } from "@lib/definitions";
-
 import { Skeleton } from "@components/ui/skeleton";
 // import TransactionList from "@components/transactions/TransactionList";
 import TransactionList from "@/components/transactions/TransactionsList2";
-import { TransactionSheet } from "@components/transactions/CreateTransaction";
 
 // server component
-export default async function Transactions() {
-  const session = await auth();
-  const user = session?.user as User;
-
-  // fetch reoccuring transactions to pass to the CreateTransactionForm
-  // we need this for when the user is creating a transactions thats also a reoccuring transaction
-  const reoccuring = await fetchReoccuring(user);
-
+export default function Transactions() {
   return (
-    <main className="h-full w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto flex flex-col gap-5">
-      <span>
-        <TransactionSheet user={user} reoccuring={reoccuring} />
-      </span>
-
+    <main className="h-full w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto">
       <section className="mb-5">
         <Suspense
           fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
         >
-          <TransactionList user={user} />
+          <TransactionList />
         </Suspense>
       </section>
     </main>

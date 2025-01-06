@@ -68,7 +68,7 @@ export function CreateTransactionForm({
       created_at: new Date(),
     };
 
-    // update income if user adds a new paycheck
+    // update income in cashflows table if user adds a new paycheck
     if (data.type === "paycheck") {
       paycheckUpdate(transaction.amount.toString(), user.id);
     }
