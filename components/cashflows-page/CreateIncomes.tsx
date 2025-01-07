@@ -5,7 +5,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newIncomesSchema } from "@/schemas/new-incomes";
 
-
 import {
   Sheet,
   SheetContent,
@@ -32,7 +31,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
 import { createIncomeSource } from "@/lib/actions";
 
@@ -65,13 +64,17 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
     };
 
     createIncomeSource(user_id, constructedData);
-    console.log(constructedData)
+    console.log(constructedData);
   };
 
   return (
     <>
       <Sheet>
-        <SheetTrigger>add source</SheetTrigger>
+        <SheetTrigger asChild>
+          <Button variant={"outline"} size={"sm"}>
+            + source
+          </Button>
+        </SheetTrigger>
         <SheetContent side={"right"}>
           <SheetHeader>
             <SheetTitle>New Income</SheetTitle>

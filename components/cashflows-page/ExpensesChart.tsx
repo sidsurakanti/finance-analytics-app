@@ -29,12 +29,12 @@ export function ExpensesChart({
     total_amount: Math.abs(Number(reoccuring.total_amount)),
   }));
 
-  let data: Array<{ month: Date; reoccuring: number; expenses: number }> = [];
+  let data: Array<{ month: Date; reoccuring: number; oneTime: number }> = [];
 
   for (let i = 0; i < expensesF.length; i++) {
     data.push({
       month: new Date(expensesF[i].month.getTime() + 86400000), // add one day in milliseconds
-      expenses: Math.floor(expensesF[i].total_amount),
+      oneTime: Math.floor(expensesF[i].total_amount),
       reoccuring: Math.floor(reoccuringF[i].total_amount),
     });
   }
@@ -61,16 +61,16 @@ export function ExpensesChart({
           />
           <ChartLegend content={<ChartLegendContent />} />
           <Bar
-            dataKey="expenses"
+            dataKey="oneTime"
             stackId="a"
-            fill="var(--color-expenses)"
-            radius={4}
+            fill="var(--color-oneTime)"
+            radius={[0, 0, 4, 4]}
           />
           <Bar
             dataKey="reoccuring"
-            stackId="b"
+            stackId="a"
             fill="var(--color-reoccuring)"
-            radius={4}
+            radius={[4, 4, 0, 0]}
           />
         </BarChart>
       </ChartContainer>
@@ -79,12 +79,12 @@ export function ExpensesChart({
 }
 
 const chartConfig = {
-  expenses: {
-    label: "Expenses",
+  oneTime: {
+    label: "One time",
     color: "hsl(var(--chart-1))",
   },
   reoccuring: {
-    label: "Reoccuring",
+    label: "Recurring",
     color: "hsl(var(--chart-3))",
   },
 } satisfies ChartConfig;
