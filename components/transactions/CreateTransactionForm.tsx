@@ -172,9 +172,13 @@ export function CreateTransactionForm({
           />
 
           <SheetFooter>
+            <Button type="submit" className="w-full hover:bg-blue-500">
+              Add
+            </Button>
+            
             <SheetClose asChild>
-              <Button type="submit" className="w-full hover:bg-blue-500">
-                Add
+              <Button className="w-full hover:bg-rose-500">
+                Close
               </Button>
             </SheetClose>
           </SheetFooter>

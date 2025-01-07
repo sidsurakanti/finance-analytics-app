@@ -29,12 +29,9 @@ export function ExpensesChart({
     total_amount: Math.abs(Number(reoccuring.total_amount)),
   }));
 
-  // console.log("hrrr", formattedData);
-  // console.log("GEEEEEEEEEE", formattedReoccuring)
   let data: Array<{ month: Date; reoccuring: number; expenses: number }> = [];
 
-  for (let i = 0; i < 13; i++) {
-    console.log(i);
+  for (let i = 0; i < expensesF.length; i++) {
     data.push({
       month: new Date(expensesF[i].month.getTime() + 86400000), // add one day in milliseconds
       expenses: Math.floor(expensesF[i].total_amount),
@@ -44,7 +41,10 @@ export function ExpensesChart({
 
   return (
     <div className="bg-accent flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
-      <h1 className="text-lg">Last 12 months</h1>
+      <span>
+        <h1 className="text-lg">Expenses</h1>
+        <h1 className="text-accent-foreground/80">Last 6 months</h1>
+      </span>
 
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">
         <BarChart accessibilityLayer data={data}>
@@ -57,9 +57,7 @@ export function ExpensesChart({
             tickFormatter={(value) => dateFormatter(value).slice(0, 3)}
           />
           <ChartTooltip
-            content={
-              <ChartTooltipContent indicator="dashed" hideLabel />
-            }
+            content={<ChartTooltipContent indicator="dashed" hideLabel />}
           />
           <ChartLegend content={<ChartLegendContent />} />
           <Bar
