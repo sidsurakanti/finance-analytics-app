@@ -26,17 +26,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
+import { Reoccuring } from "@/lib/definitions";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   children?: React.ReactNode;
+  reoccuring: Reoccuring[];
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
   children,
+  reoccuring
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -53,6 +56,9 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnFilters,
+    },
+    meta: {
+      reoccuring: reoccuring
     },
   });
 

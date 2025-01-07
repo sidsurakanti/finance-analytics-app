@@ -128,6 +128,25 @@ export async function fetchReoccuring(user: User) {
   }
 }
 
+export async function fetchReoccuringWUserId(user_id: User["id"]) {
+  noStore();
+
+  try {
+    const res = await sql<Reoccuring>`
+      SELECT * FROM reoccuring
+      WHERE user_id=${user_id}
+      ORDER BY id DESC;
+    `;
+    const reoccuring = res.rows;
+    console.log("FETCHED REOCCURING TRANSACTIONS FOR:", user_id);
+
+    return reoccuring;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch reoccuring recoccuring transactions");
+  }
+}
+
 // fetching transactions table
 export async function fetchTransactions(user: User) {
   noStore();

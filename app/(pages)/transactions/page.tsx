@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { Skeleton } from "@components/ui/skeleton";
 // import TransactionList from "@components/transactions/TransactionList";
-import TransactionList from "@/components/transactions/TransactionsList2";
+import TransactionList from "@/components/transactions/TransactionsList";
 
 // server component
 export default function Transactions() {
