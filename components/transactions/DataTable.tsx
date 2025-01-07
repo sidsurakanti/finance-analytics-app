@@ -26,20 +26,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
-import { Reoccuring } from "@/lib/definitions";
+import { Reoccuring, User } from "@/lib/definitions";
+
+import { TransactionSheet } from "@/components/transactions/CreateTransaction";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  children?: React.ReactNode;
   reoccuring: Reoccuring[];
+  user: User;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  children,
-  reoccuring
+  reoccuring,
+  user,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -58,7 +60,7 @@ export function DataTable<TData, TValue>({
       columnFilters,
     },
     meta: {
-      reoccuring: reoccuring
+      reoccuring: reoccuring,
     },
   });
 
@@ -89,7 +91,7 @@ export function DataTable<TData, TValue>({
           </ToggleGroup>
         </div>
 
-        {children}
+        <TransactionSheet user={user} reoccuring={reoccuring} />
       </div>
 
       <Table className="border">
