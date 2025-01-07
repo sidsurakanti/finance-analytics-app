@@ -182,7 +182,7 @@ export async function fetchTransactionsSorted(
       WITH date_series AS (
         SELECT
           generate_series(
-            DATE_TRUNC('month', NOW() - INTERVAL '1 year'),
+            DATE_TRUNC('month', NOW() - INTERVAL '6 months'),
             DATE_TRUNC('month', NOW()),
             '1 month'::interval
           ) AS month

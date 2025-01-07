@@ -5,7 +5,8 @@ import {
   findNextPayDate,
   ordinalDateFormatter,
 } from "@/lib/utils";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
+import EditIncomes from "@/components/cashflows-page/CreateIncomes";
 
 export default function Incomes({
   incomeSources,
@@ -14,7 +15,11 @@ export default function Incomes({
 }) {
   return (
     <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
-      <h1 className="text-lg">Income</h1>
+      <span className="w-full flex justify-between">
+        <h1 className="text-lg">Income</h1>
+        <EditIncomes user_id={incomeSources[0].user_id}/>
+      </span>
+
       <table className="w-full table-auto">
         <thead className="h-10 px-2">
           <tr className="text-left bg-gray-100/90 dark:bg-gray-950 hover:bg-secondary border-b">
@@ -56,14 +61,6 @@ export default function Incomes({
             </tr>
           ))}
         </tbody>
-        {/* <thead>
-          <tr className="font-normal">
-            <th scope="col"></th>
-            <th scope="col">amount</th>
-            <th scope="col">frequency</th>
-            <th scope="col">next pay</th>
-          </tr>
-        </thead> */}
       </table>
     </section>
   );

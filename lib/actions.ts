@@ -7,6 +7,7 @@ import type {
   Transaction,
   Reoccuring,
   Balance,
+  IncomeSources,
 } from "@lib/definitions";
 import { fetchBalance } from "@lib/data";
 
@@ -24,6 +25,32 @@ interface RequiredCashflows {
   income: string;
   savings: string;
   user_id: string;
+}
+
+// add new income source
+export async function createIncomeSource(
+  user_id: string,
+  incomeSource: {
+    name: string;
+    income_amt: string;
+    frequency: "semi-monthly" | "monthly";
+    pay_dates: Date[] | number[];
+  },
+) {
+  const { name, income_amt, frequency, pay_dates } = incomeSource;
+  const formattedPayDates = `{${pay_dates!.map((date) => `${date}`).join(",")}}`;
+  console.log(formattedPayDates);
+  try {
+    await sql`
+      INSERT INTO income_sources
+      (user_id, name, income_amt, frequency, pay_dates)
+      VALUES (${user_id}, ${name}, ${income_amt}, ${frequency}, ${formattedPayDates})
+    `;
+    revalidatePath("/cashflows")
+  } catch (error) {
+    console.log("ERROR CREATING NEW INCOME SOURCE: ", error);
+    throw new Error("Database error");
+  }
 }
 
 // set cashflows during cashflows onboarding
@@ -81,7 +108,7 @@ export async function updateSavings(newSavings: number, user_id: number) {
     VALUES (${savings}, ${user_id})
   `;
     console.log("UPDATED SAVINGS:", newSavings);
-    revalidatePath("/cashflows")
+    revalidatePath("/cashflows");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to add new savings");

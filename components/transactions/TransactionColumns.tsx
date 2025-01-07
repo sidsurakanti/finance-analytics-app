@@ -23,7 +23,7 @@ export const columns: ColumnDef<Transaction>[] = [
           Amount
           <Button
             variant={"ghost"}
-            className="rounded-full"
+            className="rounded-full hover:bg-transparent"
             size={"icon"}
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >

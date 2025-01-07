@@ -35,7 +35,6 @@ export default function SavingsCard({
         </span>
       </div>
 
-      {/* // TODO: replace w savings chart once we have a savings table in db */}
       <SavingsChart
         user_id={savings.user_id}
         color={"emerald"}
