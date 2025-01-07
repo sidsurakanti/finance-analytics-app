@@ -133,6 +133,10 @@ SET name = "Job 1"
 WHERE name = 'job1';
 
 UPDATE income_sources
+SET frequency = "semi-monthly"
+WHERE name = 'Job 1';
+
+UPDATE income_sources
 SET 
     frequency = "monthly"
     pay_dates = '{1}'

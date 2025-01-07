@@ -1,7 +1,7 @@
 "use client";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { Transaction } from "@/lib/definitions";
+import { Reoccuring, Transaction } from "@/lib/definitions";
 import { DeleteTransactionWrapper } from "@components/transactions/DeleteTransactionWrapper";
 import { Button } from "../ui/button";
 import { ArrowUpDown } from "lucide-react";
@@ -50,7 +50,21 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "created_at",
-    header: "Date",
+    header: ({ column }) => {
+      return (
+        <span>
+          Date
+          <Button
+            variant={"ghost"}
+            className="rounded-full hover:bg-transparent"
+            size={"icon"}
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            <ArrowUpDown size={12} />
+          </Button>
+        </span>
+      );
+    },
     cell: ({ row }) => {
       const date: Date = row.getValue("created_at");
       const formatted = dateFormatter(date, true);

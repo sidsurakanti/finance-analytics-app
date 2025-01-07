@@ -2,13 +2,19 @@
 
 import { updateSavings } from "@/lib/actions";
 import { Savings } from "@/lib/definitions";
+import { Button } from "@/components/ui/button";
 
-export default function UpdateSavingsButton({
-  savings,
-}: {
-  savings: Savings;
-}) {
+export default function UpdateSavingsButton({ savings, className }: { savings: Savings, className?: string}) {
   return (
-    <button onClick={() => updateSavings(Number(savings.amount) + 300, savings.user_id)}>add more</button>
+    <Button
+      variant={"outline"}
+      size={"sm"}
+      onClick={() =>
+        updateSavings(Number(savings.amount) + 300, savings.user_id)
+      }
+      className={className}
+    >
+      add more
+    </Button>
   );
 }

@@ -6,18 +6,28 @@ import {
   ordinalDateFormatter,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import EditIncomes from "@/components/cashflows-page/CreateIncomes";
+import CreateIncomeSource from "@/components/cashflows-page/CreateIncomes";
 
 export default function Incomes({
   incomeSources,
 }: {
   incomeSources: IncomeSources[];
 }) {
+  const matches = {
+    monthly: 1,
+    "semi-monthly": 2,
+  };
+  const totalIncome = incomeSources.map(
+    (source) =>
+      Number(source.income_amt) *
+      matches[source.frequency as keyof typeof matches],
+  ).reduce((acc, num) => acc + num, 0);
+
   return (
     <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
       <span className="w-full flex justify-between">
         <h1 className="text-lg">Income</h1>
-        <EditIncomes user_id={incomeSources[0].user_id}/>
+        <CreateIncomeSource user_id={incomeSources[0].user_id} />
       </span>
 
       <table className="w-full table-auto">
@@ -38,6 +48,7 @@ export default function Incomes({
             </th>
           </tr>
         </thead>
+
         <tbody>
           {incomeSources.map((job) => (
             <tr key={job.id.toString()}>
@@ -52,7 +63,8 @@ export default function Incomes({
               </td>
               <td className="h-12 text-center">
                 {job.pay_dates
-                  .map((date) => ordinalDateFormatter(Number(date)))
+                  .map((date) => 
+                    ordinalDateFormatter(Number(date)))
                   .join(", ")}
               </td>
               <td className="h-12 text-right">
@@ -60,6 +72,18 @@ export default function Incomes({
               </td>
             </tr>
           ))}
+
+          <tr className="border-t">
+            <th className="h-12 text-left text-lg" scope="row">
+              Total
+            </th>
+            <td className="h-12 font-medium text-lg text-center">
+              {cashFormatter(totalIncome)}
+            </td>
+            <td className="h-12 text-center">
+              <Badge className="bg-black">per month</Badge>{" "}
+            </td>
+          </tr>
         </tbody>
       </table>
     </section>

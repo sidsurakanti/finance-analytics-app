@@ -17,7 +17,7 @@ export default function CheckingBalance({
     <section className="flex justify-between items-center gap-3 rounded-xl p-4 bg-accent shadow-md border border-border">
       <div className="flex flex-col gap-5">
         <h1 className="text-lg">Checking balance</h1>
-        
+
         <span className="flex flex-col gap-3">
           <p
             className={cn(
@@ -27,11 +27,12 @@ export default function CheckingBalance({
           >
             {cashFormatter(Number(balance.amount))}
           </p>
-          <div className="bg-[#BAEBC7] dark:bg-[#0a7551] w-fit py-2 px-4 rounded-xl">
+          <div className="text-sm bg-[#BAEBC7] text-[#0a7551] dark:bg-[#0a7551] dark:text-[#c2ebcd] w-fit py-2 px-4 rounded-xl">
             <span className="font-medium">
               {cashFormatter(Number(paycheckDetails.income_amt))}
-            </span>{" "}
-            landing on {dateFormatter(paycheckDetails.nextPayDate)} ({paycheckDetails.name})
+            </span> {" "}
+            landing on {dateFormatter(paycheckDetails.nextPayDate)} (
+            {paycheckDetails.name})
           </div>
         </span>
       </div>
