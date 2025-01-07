@@ -4,7 +4,6 @@ import { User, Transaction, Reoccuring } from "@/lib/definitions";
 import { columns } from "@/components/transactions/TransactionColumns";
 import { TransactionSheet } from "@/components/transactions/CreateTransaction";
 import { auth } from "@/auth";
-import { EditDialog } from "./EditTransactionDialog";
 
 export default async function TransactionList() {
   const session = await auth();
@@ -14,11 +13,10 @@ export default async function TransactionList() {
   // we need this for when the user is creating a transactions thats also a reoccuring transaction
   const reoccuring: Reoccuring[] = await fetchReoccuring(user);
   // console.log(transactions);
-  
 
   return (
     <section>
-      <DataTable columns={columns} data={transactions}>
+      <DataTable columns={columns} data={transactions} reoccuring={reoccuring}>
         <TransactionSheet user={user} reoccuring={reoccuring} />
       </DataTable>
     </section>
