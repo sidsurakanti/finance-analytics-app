@@ -1,9 +1,9 @@
-import { Cashflow, Savings } from "@/lib/definitions";
+import { Savings } from "@/lib/definitions";
 import { inter } from "@/styles/fonts";
 import { cn, cashFormatter } from "@/lib/utils";
-// import { Savings } from "@/components/cashflows/BalaChart";
 import { SavingsChart } from "@/components/cashflows-page/SavingsChart";
 import UpdateSavingsButton from "@/components/cashflows-page/UpdateSavings";
+import { ArrowUp, ArrowDown } from "lucide-react";
 
 export default function SavingsCard({
   savingsDetails,
@@ -34,11 +34,11 @@ export default function SavingsCard({
           </p>
           <p
             className={cn(
-              change > 0 ? "text-emerald-600" : "text-red-500",
-              "text-lg",
+              change > 0 ? "text-emerald-800 bg-emerald-200" : "text-red-500 bg-red-100",
+              "flex w-fit items-center gap-1 text-sm font-medium rounded-xl p-2 text",
             )}
           >
-            {change > 0 ? "+" : ""}
+            {change > 0 ? <ArrowUp size={15}/> : <ArrowDown size={15}/>}
             {cashFormatter(change)}
           </p>
         </span>
