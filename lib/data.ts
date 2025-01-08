@@ -186,36 +186,59 @@ export async function fetchTransactionsThisMonth(user: User) {
   }
 }
 
-
 export type SortedData = {
-  month: Date,
-  total_amount: string,
-}
+  month: Date;
+  total_amount: string;
+};
 
 export async function fetchTransactionsSorted(
   user: User,
   type: Transaction["type"],
+  timespan: string = "6 months",
 ) {
+  let res;
   try {
-    const res = await sql<SortedData>`
-      WITH date_series AS (
-        SELECT
-          generate_series(
-            DATE_TRUNC('month', NOW() - INTERVAL '6 months'),
-            DATE_TRUNC('month', NOW()),
-            '1 month'::interval
-          ) AS month
-      )
-      SELECT d.month,
-        COALESCE(SUM(t.amount), 0) AS total_amount
-      FROM date_series d
-      LEFT JOIN transactions t
-        ON DATE_TRUNC('month', t.created_at) = d.month
-        AND t.user_id = ${user.id}
-        AND type=${type}
-      GROUP BY d.month
-      ORDER BY d.month
-    `;
+    if (timespan === "1 year") {
+      res = await sql<SortedData>`
+        WITH date_series AS (
+          SELECT
+            generate_series(
+              DATE_TRUNC('month', NOW() - INTERVAL '1 year'),
+              DATE_TRUNC('month', NOW()),
+              '1 month'::interval
+            ) AS month
+        )
+        SELECT d.month,
+          COALESCE(SUM(t.amount), 0) AS total_amount
+        FROM date_series d
+        LEFT JOIN transactions t
+          ON DATE_TRUNC('month', t.created_at) = d.month
+          AND t.user_id = ${user.id}
+          AND type=${type}
+        GROUP BY d.month
+        ORDER BY d.month
+      `;
+    } else {
+      res = await sql<SortedData>`
+          WITH date_series AS (
+            SELECT
+              generate_series(
+                DATE_TRUNC('month', NOW() - INTERVAL '6 months'),
+                DATE_TRUNC('month', NOW()),
+                '1 month'::interval
+              ) AS month
+          )
+          SELECT d.month,
+            COALESCE(SUM(t.amount), 0) AS total_amount
+          FROM date_series d
+          LEFT JOIN transactions t
+            ON DATE_TRUNC('month', t.created_at) = d.month
+            AND t.user_id = ${user.id}
+            AND type=${type}
+          GROUP BY d.month
+          ORDER BY d.month
+        `;
+    }
     const transactions: SortedData[] = res.rows;
     console.log("FETCHED GROUPED TRANSACTIONS FOR USER", user.id);
     return transactions;

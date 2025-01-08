@@ -50,8 +50,8 @@ export function NavLinks() {
             <li key={index}>
               <Link href={link.href}>
                 <Button
-                  className={cn("gap-2")}
-                  size="lg"
+                  className={cn("gap-2 hover:bg-primary/90 hover:text-secondary transition-colors" )}
+                  size={"default"}
                   variant={isActive ? "default" : "secondary"}
                 >
                   <p>

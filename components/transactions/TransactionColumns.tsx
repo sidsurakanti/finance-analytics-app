@@ -2,13 +2,13 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Reoccuring, Transaction } from "@/lib/definitions";
-import { DeleteTransactionWrapper } from "@components/transactions/DeleteTransactionWrapper";
+import { DeleteTransactionWrapper } from "@/components/transactions/edit/DeleteTransactionWrapper";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Edit } from "lucide-react";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
 import { Badge } from "@components/ui/badge";
-import { EditTransaction } from "@/components/transactions/EditTransaction";
+import { EditTransaction } from "@/components/transactions/edit/EditTransaction";
 
 export const columns: ColumnDef<Transaction>[] = [
   {

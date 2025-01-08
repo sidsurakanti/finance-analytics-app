@@ -28,7 +28,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronRightIcon, ChevronLeftIcon } from "@radix-ui/react-icons";
 import { Reoccuring, User } from "@/lib/definitions";
 
-import { TransactionSheet } from "@/components/transactions/CreateTransaction";
+import { TransactionSheet } from "@/components/transactions/create/CreateTransaction";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

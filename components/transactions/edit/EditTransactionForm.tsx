@@ -26,7 +26,7 @@ import {
 import { DialogFooter, DialogClose } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { TypeSelect } from "@components/transactions/TypeSelect";
+import { TypeSelect } from "@/components/transactions/edit/TypeSelect";
 
 export function EditTransactionForm({
   transaction,
@@ -60,22 +60,22 @@ export function EditTransactionForm({
       // if type of transaction is a not a paycheck or deposit
       // change the value to negative
       amount:
-      data.type === "paycheck" || data.type === "deposit"
-      ? data.amount
-      : -data.amount,
+        data.type === "paycheck" || data.type === "deposit"
+          ? data.amount
+          : -data.amount,
       type: data.type,
       user_id: transaction.user_id,
       created_at: new Date(),
     };
-    
+
     // update the user's income cashflow if user adds a new paycheck
     if (data.type === "paycheck") {
       paycheckUpdate(updatedTransaction.amount.toString(), transaction.user_id);
     }
-    
+
     // cancel out old transaction amount from user balance and then update balance
     updateBalance(
-      (Number(transaction.amount)*-1) + (Number(updatedTransaction.amount)),
+      Number(transaction.amount) * -1 + Number(updatedTransaction.amount),
       transaction.user_id,
     );
     // add transaction to db

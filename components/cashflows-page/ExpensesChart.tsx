@@ -9,17 +9,30 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-
+import {
+  Select,
+  SelectContent,
+  SelectTrigger,
+  SelectItem,
+  SelectValue,
+} from "@/components/ui/select";
 import { dateFormatter } from "@/lib/utils";
 import { SortedData } from "@/lib/data";
+import { Dispatch, SetStateAction } from "react";
 
 export function ExpensesChart({
   expenses,
   reoccuring,
+  handleTimespanChange,
 }: {
-  expenses: SortedData[];
-  reoccuring: SortedData[];
+  expenses: SortedData[] | undefined;
+  reoccuring: SortedData[] | undefined;
+  handleTimespanChange: Dispatch<SetStateAction<"6 months" | "1 year">>;
 }) {
+  if (!expenses || !reoccuring) {
+    return <>Loading...</>;
+  }
+
   const expensesF = expenses.map((expense) => ({
     ...expense,
     total_amount: Math.abs(Number(expense.total_amount)),
@@ -41,9 +54,23 @@ export function ExpensesChart({
 
   return (
     <div className="bg-accent flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
-      <span>
-        <h1 className="text-lg">Expenses</h1>
-        <h1 className="text-accent-foreground/80">Last 6 months</h1>
+      <span className="flex justify-between items-center gap-5">
+        <h1 className="text-lg">Spending</h1>
+        {/* <h3 className="text-accent-foreground/80">Last 6 months</h3> */}
+
+        <Select
+          onValueChange={(value: "6 months" | "1 year") =>
+            handleTimespanChange(value)
+          }
+        >
+          <SelectTrigger className="max-w-36">
+            <SelectValue placeholder="6 months" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="6 months">6 months</SelectItem>
+            <SelectItem value="1 year">1 year</SelectItem>
+          </SelectContent>
+        </Select>
       </span>
 
       <ChartContainer config={chartConfig} className="min-h-[200px] w-full">

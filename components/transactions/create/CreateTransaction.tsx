@@ -10,7 +10,7 @@ import {
 } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
-import { CreateTransactionForm } from "@components/transactions/CreateTransactionForm";
+import { CreateTransactionForm } from "@/components/transactions/create/CreateTransactionForm";
 
 export function TransactionSheet({
   user,
