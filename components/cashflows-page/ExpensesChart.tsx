@@ -27,7 +27,9 @@ export function ExpensesChart({
 }: {
   expenses: SortedData[] | undefined;
   reoccuring: SortedData[] | undefined;
-  handleTimespanChange: Dispatch<SetStateAction<"6 months" | "1 year">>;
+  handleTimespanChange: Dispatch<
+    SetStateAction<"6 months" | "1 year" | "3 months">
+  >;
 }) {
   if (!expenses || !reoccuring) {
     return <>Loading...</>;
@@ -59,14 +61,15 @@ export function ExpensesChart({
         {/* <h3 className="text-accent-foreground/80">Last 6 months</h3> */}
 
         <Select
-          onValueChange={(value: "6 months" | "1 year") =>
+          onValueChange={(value: "6 months" | "1 year" | "3 months") =>
             handleTimespanChange(value)
           }
         >
           <SelectTrigger className="max-w-36">
-            <SelectValue placeholder="6 months" />
+            <SelectValue placeholder="3 months" />
           </SelectTrigger>
           <SelectContent>
+            <SelectItem value="3 months">3 months</SelectItem>
             <SelectItem value="6 months">6 months</SelectItem>
             <SelectItem value="1 year">1 year</SelectItem>
           </SelectContent>
