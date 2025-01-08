@@ -17,7 +17,7 @@ export async function Nav() {
   const user = session?.user;
 
   return (
-    <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto justify-between items-center my-6">
+    <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto justify-between items-center my-2">
       <NavLinks />
 
       {/* profile section + dark mode toggle (desktop only) */}
@@ -30,7 +30,21 @@ export async function Nav() {
         {/* profile */}
         <Popover>
           <PopoverTrigger>
-            <Image src="/logo.svg" alt="logo" height={40} width={40} />
+            {/* logo */}
+            <svg
+              width="26"
+              height="26"
+              viewBox="0 0 200 200"
+              className="fill-black dark:fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle cx="151.793" cy="151.793" r="48.2072" />
+              <circle cx="48.2072" cy="48.2077" r="48.2072" />
+              <path d="M103.586 50.9965C103.586 22.8322 126.417 0.000488281 154.582 0.000488281H200V96.4148H103.586V50.9965Z" />
+              <path d="M0 103.586H96.4143V149.004C96.4143 177.169 73.5826 200.001 45.4183 200.001H0V103.586Z" />
+            </svg>
+
+            {/* <Image src="/logo.svg" alt="logo" height={26} width={26} className="dark:fill-white"/> */}
           </PopoverTrigger>
 
           <PopoverContent className="p-3 flex flex-col justify-start gap-3 w-fit divide-slate-400">

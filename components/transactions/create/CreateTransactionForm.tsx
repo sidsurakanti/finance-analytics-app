@@ -26,7 +26,7 @@ import {
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { SheetClose, SheetFooter } from "@components/ui/sheet";
-import { TypeSelect } from "@components/transactions/TypeSelect";
+import { TypeSelect } from "@/components/transactions/edit/TypeSelect";
 
 // * this is a client component bc of the useForm hook
 export function CreateTransactionForm({
@@ -175,11 +175,9 @@ export function CreateTransactionForm({
             <Button type="submit" className="w-full hover:bg-blue-500">
               Add
             </Button>
-            
+
             <SheetClose asChild>
-              <Button className="w-full hover:bg-rose-500">
-                Close
-              </Button>
+              <Button className="w-full hover:bg-rose-500">Close</Button>
             </SheetClose>
           </SheetFooter>
         </form>

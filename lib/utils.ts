@@ -59,11 +59,12 @@ export function calculateLastPaidDiff(date: Date, offset: string[]) {
 }
 
 export function findNextPayDate(offset: string[]): Date {
-  let count = 0;
-  for (let d: Date = new Date(); count < 1; d.setDate(d.getDate() + 1)) {
+  let counter = 0; // next pay date has to be within 31 days anyway 
+  for (let d: Date = new Date(); counter < 32; d.setDate(d.getDate() + 1)) {
     if (offset.includes(d.getDate().toString())) {
       return d;
     }
+    counter += 1
   }
   return new Date();
 }

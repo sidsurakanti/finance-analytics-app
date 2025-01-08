@@ -8,7 +8,7 @@ import {
 } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
-import { EditTransactionForm } from "@components/transactions/EditTransactionForm";
+import { EditTransactionForm } from "@/components/transactions/edit/EditTransactionForm";
 import type { Transaction, Reoccuring } from "@lib/definitions";
 
 export function EditTransaction({
