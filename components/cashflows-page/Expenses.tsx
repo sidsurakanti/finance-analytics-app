@@ -7,7 +7,9 @@ import { useState, useEffect } from "react";
 import { ExpensesChart } from "@/components/cashflows-page/ExpensesChart";
 
 export function Expenses({ user }: { user: User }) {
-  const [timespan, setTimespan] = useState<"6 months" | "1 year">("6 months");
+  const [timespan, setTimespan] = useState<"3 months" | "6 months" | "1 year">(
+    "3 months",
+  );
   const [expenses, setExpenses] = useState<SortedData[] | undefined>();
   const [reoccuring, setReoccuring] = useState<SortedData[] | undefined>();
 
@@ -29,9 +31,8 @@ export function Expenses({ user }: { user: User }) {
     };
 
     fetchData();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timespan]);
-  
 
   return (
     <div>
