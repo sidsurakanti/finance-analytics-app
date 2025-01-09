@@ -1,8 +1,8 @@
 // badge colors for reoccuring categories
 export const badgeColors = {
   bills: "bg-sky-600",
-  paycheck: "bg-green-700",
-  entertainment: "bg-purple-500",
+  paycheck: "bg-emerald-700",
+  entertainment: "bg-indigo-500",
   food: "bg-red-700",
   health: "bg-blue-900",
   housing: "bg-teal-900",
@@ -16,9 +16,9 @@ export const badgeColors = {
 
 // transaction type badge colors
 export const transactionTypeColors = {
-  paycheck: "bg-green-700",
+  paycheck: "bg-emerald-700",
   expense: "bg-rose-700",
-  deposit: "bg-emerald-700",
-  withdrawl: "bg-indigo-500",
+  deposit: "bg-neutral-700",
+  withdrawl: "bg-indigo-600",
   reoccuring: "bg-sky-600",
 };

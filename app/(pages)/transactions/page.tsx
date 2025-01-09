@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import { Skeleton } from "@components/ui/skeleton";
-// import TransactionList from "@components/transactions/TransactionList";
 import TransactionList from "@/components/transactions/TransactionsList";
 
 // server component

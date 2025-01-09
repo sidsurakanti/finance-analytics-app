@@ -6,11 +6,10 @@ import {
 import { ModeToggle, ModeSwitch } from "@components/ui/themes";
 import { LogoutButton } from "@components/login/LogoutButton";
 import { NavLinks } from "@components/nav-links";
-import { BackArrow } from "@components/ui/icons";
+import { ChevronLeft } from "lucide-react";
 import { Button } from "@components/ui/button";
 
 import { auth } from "@/auth";
-import Image from "next/image";
 
 export async function Nav() {
   const session = await auth();
@@ -57,9 +56,9 @@ export async function Nav() {
             <ModeSwitch />
 
             <LogoutButton>
-              <Button variant="outline" className="w-full">
-                <BackArrow />
-                Sign out
+              <Button variant="outline" className="w-full flex items-center gap-0.5">
+                <ChevronLeft size={17} strokeWidth={1.5}/>
+                sign out
               </Button>
             </LogoutButton>
           </PopoverContent>

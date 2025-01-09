@@ -14,23 +14,23 @@ export default function CheckingBalance({
   paycheckDetails
 }: CheckingBalanceProps) {
   return (
-    <section className="flex justify-between items-center gap-3 rounded-xl p-4 bg-accent shadow-md border border-border">
-      <div className="flex flex-col gap-5">
-        <h1 className="text-lg">Checking balance</h1>
+    <section className="h-48 flex justify-between items-center p-4 gap-3 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#f3f3f3] dark:from-[#171717] shadow-md border border-border">
+      <div className="h-full flex flex-col justify-between gap-5">
+        <h1 className="">Checking balance</h1>
 
         <span className="flex flex-col gap-3">
           <p
             className={cn(
               inter.className,
-              "text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5 font-medium",
+              "font-medium text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5",
             )}
           >
             {cashFormatter(Number(balance.amount))}
           </p>
-          <div className="text-sm bg-[#BAEBC7] text-[#0a7551] dark:bg-[#0a7551] dark:text-[#c2ebcd] w-fit py-2 px-4 rounded-xl">
+          <div className="text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 px-3 rounded-xl">
             <span className="font-medium">
               {cashFormatter(Number(paycheckDetails.income_amt))}
-            </span> {" "}
+            </span>{" "}
             landing on {dateFormatter(paycheckDetails.nextPayDate)} (
             {paycheckDetails.name})
           </div>

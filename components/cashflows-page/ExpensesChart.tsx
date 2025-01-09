@@ -16,7 +16,8 @@ import {
   SelectItem,
   SelectValue,
 } from "@/components/ui/select";
-import { dateFormatter } from "@/lib/utils";
+import { dateFormatter, cashFormatter, cn } from "@/lib/utils";
+import { inter } from "@/styles/fonts";
 import { SortedData } from "@/lib/data";
 import { Dispatch, SetStateAction } from "react";
 
@@ -49,17 +50,28 @@ export function ExpensesChart({
   for (let i = 0; i < expensesF.length; i++) {
     data.push({
       month: new Date(expensesF[i].month.getTime() + 86400000), // add one day in milliseconds
-      oneTime: Math.floor(expensesF[i].total_amount),
-      reoccuring: Math.floor(reoccuringF[i].total_amount),
+      oneTime: expensesF[i].total_amount,
+      reoccuring: reoccuringF[i].total_amount,
     });
   }
 
-  return (
-    <div className="bg-accent flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
-      <span className="flex justify-between items-center gap-5">
-        <h1 className="text-lg">Spending</h1>
-        {/* <h3 className="text-accent-foreground/80">Last 6 months</h3> */}
+  const totalSpending: number = data.reduce(
+    (acc, curr) => acc + curr.oneTime + curr.reoccuring,
+    0,
+  );
 
+  return (
+    <div className="bg-gradient-to-b from-[#FAFAFA] to-[#f1f1f1] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
+      <h1 className="">Spending</h1>
+      <span className="flex justify-between items-end gap-5">
+        <p
+          className={cn(
+            inter.className,
+            "text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5 font-medium",
+          )}
+        >
+          {cashFormatter(Number(totalSpending))}
+        </p>
         <Select
           onValueChange={(value: "6 months" | "1 year" | "3 months") =>
             handleTimespanChange(value)
