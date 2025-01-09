@@ -1,8 +1,7 @@
 "use client";
 
-import type { SortedData } from "@/lib/data";
+import { type SortedData, fetchTransactionsSorted } from "@/lib/data";
 import type { User } from "@/lib/definitions";
-import { fetchTransactionsSorted } from "@/lib/data";
 import { useState, useEffect } from "react";
 import { ExpensesChart } from "@/components/cashflows-page/ExpensesChart";
 

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 export default function UpdateSavingsButton({ savings, className }: { savings: Savings, className?: string}) {
   return (
     <Button
-      variant={"outline"}
+      variant={"link"}
       size={"sm"}
       onClick={() =>
         updateSavings(Number(savings.amount) + 300, savings.user_id)

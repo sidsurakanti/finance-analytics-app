@@ -1,3 +1,5 @@
+"use client";
+
 import { IncomeSources } from "@/lib/definitions";
 import {
   dateFormatter,
@@ -9,6 +11,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import CreateIncomeSource from "@/components/cashflows-page/CreateIncomes";
 import { inter } from "@/styles/fonts";
+import { useState } from "react";
 
 export default function Incomes({
   incomeSources,
@@ -26,11 +29,13 @@ export default function Incomes({
         matches[source.frequency as keyof typeof matches],
     )
     .reduce((acc, num) => acc + num, 0);
+  const [toggleSalaryTimeframe, setToggleSalaryTimeframe] = useState<number>(0);
+  const togglerST = ["per month", "per year"];
 
   return (
-    <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-6 shadow-md">
+    <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-4 shadow-md">
       <span className="w-full flex justify-between">
-        <h1 className="text-lg">Income</h1>
+        <h1 className="text">Income</h1>
         <CreateIncomeSource user_id={incomeSources[0].user_id} />
       </span>
 
@@ -41,12 +46,25 @@ export default function Incomes({
             "text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5 font-medium",
           )}
         >
-          {cashFormatter(Number(totalIncome))}
+          {cashFormatter(
+            [Number(totalIncome), Number(totalIncome) * 12][
+              toggleSalaryTimeframe
+            ],
+          )}
         </p>
-        <Badge className="bg-black w-fit h-fit">per month</Badge>{" "}
+        <button
+          className="bg-neutral-700 w-fit h-fit font-medium rounded-lg text-white px-3 py-1.5 text-xs"
+          onClick={() => {
+            toggleSalaryTimeframe > 0
+              ? setToggleSalaryTimeframe(0)
+              : setToggleSalaryTimeframe(1);
+          }}
+        >
+          {togglerST[toggleSalaryTimeframe]}
+        </button>
       </span>
 
-      <div className="bg-gradient-to-b from-[#f4f5f6] dark:from-emerald-950 dark:to-emerald-900 to-[#edf5ef] rounded-xl py-2 px-6 shadow-md">
+      <div className="bg-gradient-to-b from-[#f2f2f2] to-[#efefef] dark:from-emerald-950 dark:to-emerald-900  rounded-xl py-2 px-6 shadow-md">
         <table className="w-full table-auto rounded-xl p-2">
           <thead className="h-10 px-2">
             <tr className="text-left rounded-xl">
