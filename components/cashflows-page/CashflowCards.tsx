@@ -15,6 +15,7 @@ import CheckingBalance from "@/components/cashflows-page/CheckingBalance";
 import Incomes from "@/components/cashflows-page/Incomes";
 import SavingsCard from "@/components/cashflows-page/Savings";
 import { Expenses } from "@/components/cashflows-page/Expenses";
+import QuickAdd from "@/components/cashflows-page/QuickAdd";
 
 export default async function CashflowCards() {
   const session = await auth();
@@ -48,7 +49,7 @@ export default async function CashflowCards() {
   )[0];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 gap-2">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-10">
       <Suspense fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}>
         <CheckingBalance
           balance={balance}
@@ -58,11 +59,16 @@ export default async function CashflowCards() {
       <Suspense fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}>
         <SavingsCard savingsDetails={savingsDetails} />
       </Suspense>
-      <Suspense fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}>
-        <Incomes incomeSources={incomeSources} />
-      </Suspense>
+      <div className="flex flex-col gap-2">
+        <Suspense
+          fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
+        >
+          <Incomes incomeSources={incomeSources} />
+          <QuickAdd user={user}/>
+        </Suspense>
+      </div>
       <Suspense fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}>
-        <Expenses user={user}/>
+        <Expenses user={user} />
       </Suspense>
     </section>
   );

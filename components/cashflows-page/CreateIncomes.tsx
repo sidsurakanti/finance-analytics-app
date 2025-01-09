@@ -54,8 +54,11 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
     const { name, income_amt, frequency, pay_date1, pay_date2 } = data;
     const payDates =
       frequency === "monthly"
-        ? [new Date(pay_date1).getDate()]
-        : [new Date(pay_date1).getDate(), new Date(pay_date2).getDate()];
+        ? [new Date(pay_date1).getDate() + 1]
+        : [
+            new Date(pay_date1).getDate() + 1,
+            new Date(pay_date2).getDate() + 1,
+          ];
     const constructedData = {
       name,
       income_amt,
