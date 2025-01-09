@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { deleteIncomeSource } from "@/lib/actions";
-import EditIncomeSource from "@/components/cashflows-page/EditIncomeSourceForm";
+import EditIncomeSource from "@/components/cashflows/income/EditIncomeSourceForm";
 import {
   Sheet,
   SheetContent,

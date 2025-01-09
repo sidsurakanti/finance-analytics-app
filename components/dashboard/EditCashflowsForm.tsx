@@ -3,7 +3,7 @@
 import { SheetClose } from "@components/ui/sheet";
 import { Label } from "@components/ui/label";
 import { Button } from "@components/ui/button";
-import { EditCashflowsInput } from "@components/cashflows/EditCashflowsInput";
+import { EditCashflowsInput } from "@components/dashboard/EditCashflowsInput";
 
 import { useReducer, useState } from "react";
 import { cashflowReducer } from "@lib/reducers";

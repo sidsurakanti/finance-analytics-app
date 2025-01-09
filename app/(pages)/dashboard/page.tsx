@@ -1,8 +1,8 @@
-import { CashflowChart } from "@components/cashflows/CashflowChart";
-import { CashflowList } from "@components/cashflows/CashflowList";
-import { ReoccuringPreview } from "@components/cashflows/ReoccuringPreview";
-import { TransactionsPreview } from "@components/cashflows/TransactionsPreview";
-import { EditCashflows } from "@components/cashflows/EditCashflows";
+import { CashflowChart } from "@components/dashboard/CashflowChart";
+import { CashflowList } from "@components/dashboard/CashflowList";
+import { ReoccuringPreview } from "@components/dashboard/ReoccuringPreview";
+import { TransactionsPreview } from "@components/dashboard/TransactionsPreview";
+import { EditCashflows } from "@components/dashboard/EditCashflows";
 import { Skeleton } from "@components/ui/skeleton";
 
 import { Suspense } from "react";

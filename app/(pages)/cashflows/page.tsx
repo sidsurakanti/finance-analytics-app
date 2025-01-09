@@ -1,4 +1,4 @@
-import CashflowCards from "@/components/cashflows-page/CashflowCards";
+import CashflowCards from "@/components/cashflows/CashflowCards";
 
 export default function CashflowsPage() {
   return (

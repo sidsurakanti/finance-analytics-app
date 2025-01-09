@@ -1,9 +1,9 @@
-import { Savings } from "@/lib/definitions";
+import type { Savings } from "@/lib/definitions";
 import { inter } from "@/styles/fonts";
 import { cn, cashFormatter } from "@/lib/utils";
-import { SavingsChart } from "@/components/cashflows-page/SavingsChart";
-import UpdateSavingsButton from "@/components/cashflows-page/UpdateSavings";
-import { ArrowUp, ArrowDown, TrendingUp, TrendingDown } from "lucide-react";
+import { SavingsChart } from "@/components/cashflows/savings/SavingsChart";
+import UpdateSavingsButton from "@/components/cashflows/savings/UpdateSavings";
+import { TrendingUp, TrendingDown } from "lucide-react";
 
 export default function SavingsCard({
   savingsDetails,
@@ -34,11 +34,13 @@ export default function SavingsCard({
           </p>
           <p
             className={cn(
-              change > 0 ? "text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65" : "text-red-500 hover:bg-red-200/75 bg-red-100",
+              change > 0
+                ? "text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65"
+                : "text-red-500 hover:bg-red-200/75 bg-red-100",
               "flex w-fit items-center gap-1.5 text-sm font-medium rounded-xl py-2 px-3 transition-colors cursor-pointer",
             )}
           >
-            {change > 0 ? <TrendingUp size={15}/> : <TrendingDown size={15}/>}
+            {change > 0 ? <TrendingUp size={15} /> : <TrendingDown size={15} />}
             {cashFormatter(change)}
           </p>
         </span>

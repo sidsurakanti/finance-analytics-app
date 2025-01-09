@@ -62,7 +62,7 @@ export function ExpensesChart({
 
   return (
     <div className="bg-gradient-to-b from-[#FAFAFA] to-[#f1f1f1] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
-      <h1 className="">Spending</h1>
+      <h1 className="">Total spending</h1>
       <span className="flex justify-between items-end gap-5">
         <p
           className={cn(

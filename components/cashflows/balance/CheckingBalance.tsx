@@ -1,8 +1,8 @@
-import { Balance } from "@/lib/definitions";
+import type { Balance } from "@/lib/definitions";
 import { cashFormatter, dateFormatter, cn } from "@/lib/utils";
-import { BalanceChart } from "@/components/cashflows/BalanceChart";
+import { BalanceChart } from "@/components/dashboard/BalanceChart";
 import { inter } from "@/styles/fonts";
-import { nextPaycheckDetailsT } from "@/components/cashflows-page/CashflowCards";
+import { nextPaycheckDetailsT } from "@/components/cashflows/CashflowCards";
 
 interface CheckingBalanceProps {
   balance: Balance;
@@ -11,7 +11,7 @@ interface CheckingBalanceProps {
 
 export default function CheckingBalance({
   balance,
-  paycheckDetails
+  paycheckDetails,
 }: CheckingBalanceProps) {
   return (
     <section className="h-48 flex justify-between items-center p-4 gap-3 rounded-xl bg-gradient-to-b from-[#FAFAFA] to-[#f3f3f3] dark:from-[#171717] shadow-md border border-border">

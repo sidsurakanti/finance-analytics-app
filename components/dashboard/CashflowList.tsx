@@ -6,9 +6,9 @@ import {
 import { months } from "@lib/utils";
 import type { User, Cashflow, Transaction } from "@lib/definitions";
 
-import { CashflowCard } from "@components/cashflows/CashflowCard";
-import { CashflowsOnboarding } from "@components/cashflows/CashflowsOnboarding";
-import { BalanceCard } from "@components/cashflows/BalanceCard";
+import { CashflowCard } from "@components/dashboard/CashflowCard";
+import { CashflowsOnboarding } from "@components/dashboard/CashflowsOnboarding";
+import { BalanceCard } from "@components/dashboard/BalanceCard";
 
 import { auth } from "@/auth";
 
