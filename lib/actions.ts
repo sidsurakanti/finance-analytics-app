@@ -46,9 +46,49 @@ export async function createIncomeSource(
       (user_id, name, income_amt, frequency, pay_dates)
       VALUES (${user_id}, ${name}, ${income_amt}, ${frequency}, ${formattedPayDates})
     `;
-    revalidatePath("/cashflows")
+    revalidatePath("/cashflows");
+    console.log("CREATED NEW INCOME SOURCE: ", name);
   } catch (error) {
     console.log("ERROR CREATING NEW INCOME SOURCE: ", error);
+    throw new Error("Database error");
+  }
+}
+
+export async function deleteIncomeSource(incomeSource: IncomeSources) {
+  const id = incomeSource.id.toString();
+  try {
+    await sql`
+      DELETE FROM income_sources
+      WHERE id = ${id};
+    `;
+    revalidatePath("/cashflows");
+    console.log("DELETED INCOME SOURCE WITH ID: ", id);
+    return;
+  } catch (error) {
+    console.log("ERROR DELETING INCOME SOURCE: ", error);
+    throw new Error("Database error");
+  }
+}
+
+export async function updateIncomeSource(incomeSource: IncomeSources) {
+  const { id, user_id, name, income_amt, frequency, pay_dates } = incomeSource;
+  const formattedPayDates = `{${pay_dates!.map((date) => `${date}`).join(",")}}`;
+
+  try {
+    await sql`
+      UPDATE income_sources
+      SET 
+        user_id = ${user_id},
+        name = ${name},
+        income_amt = ${income_amt},
+        frequency = ${frequency},
+        pay_dates = ${formattedPayDates}
+      WHERE id = ${id.toString()}
+    `;
+    console.log("UPDATED INCOME SOURCE WITH ID: ", id);
+    revalidatePath("/cashflows")
+  } catch (error) {
+    console.log("ERROR EDITING INCOME SOURCE: ", error);
     throw new Error("Database error");
   }
 }
