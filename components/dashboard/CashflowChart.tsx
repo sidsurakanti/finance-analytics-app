@@ -1,6 +1,6 @@
 import type { Cashflow, Transaction, User } from "@lib/definitions";
 import { fetchCashflows, fetchTransactionsThisMonth } from "@lib/data";
-import { Chart } from "@components/cashflows/Chart";
+import { Chart } from "@components/dashboard/Chart";
 import { auth } from "@/auth";
 
 export async function CashflowChart() {

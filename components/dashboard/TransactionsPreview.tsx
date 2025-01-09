@@ -1,8 +1,7 @@
 import type { User } from "@lib/definitions";
-import { cashFormatter } from "@lib/utils";
 import { fetchTransactions } from "@lib/data";
 
-import { RecentTransactionsList } from "@components/cashflows/RecentTransactionsList";
+import { RecentTransactionsList } from "@components/dashboard/RecentTransactionsList";
 import { Button } from "@components/ui/button";
 import { ViewMore } from "@components/ui/icons";
 

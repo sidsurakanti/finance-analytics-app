@@ -12,7 +12,7 @@ import {
 } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { EditIcon } from "@components/ui/icons";
-import { EditCashflowsForm } from "@components/cashflows/EditCashflowsForm";
+import { EditCashflowsForm } from "@components/dashboard/EditCashflowsForm";
 
 import { auth } from "@/auth";
 

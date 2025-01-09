@@ -6,9 +6,9 @@ import {
   ordinalDateFormatter,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
-import CreateIncomeSource from "@/components/cashflows-page/CreateIncomes";
-import IncomeTotals from "@/components/cashflows-page/IncomeTotals";
-import IncomeSourceActions from "@/components/cashflows-page/IncomeSourceActions";
+import CreateIncomeSource from "@/components/cashflows/income/CreateIncomes";
+import IncomeTotals from "@/components/cashflows/income/IncomeTotals";
+import IncomeSourceActions from "@/components/cashflows/income/IncomeSourceActions";
 
 export default function Incomes({
   incomeSources,
@@ -53,17 +53,17 @@ export default function Incomes({
               <th className="text-center font-medium" scope="col">
                 next pay
               </th>
-              <th></th>
+              <th className="text-right"></th>
             </tr>
           </thead>
 
           <tbody>
             {incomeSources.map((job) => (
               <tr key={job.id.toString()} className="">
-                <td className="h-12 text-left text-lg" scope="row">
+                <td className="h-12 text-left" scope="row">
                   {job.name}
                 </td>
-                <td className="h-12 text-lg text-center">
+                <td className="h-12 text-[17px] text-center">
                   {cashFormatter(Number(job.income_amt))}
                 </td>
                 <td className="h-12 text-center">
