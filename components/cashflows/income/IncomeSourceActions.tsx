@@ -30,14 +30,14 @@ export default function IncomeSourceActions({
       <Sheet>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant={"ghost"} className="">
+            <Button variant={"ghost"} size="icon" className="">
               <MoreHorizontal size={16} />
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="rounded-xl w-20">
             <DropdownMenuItem>
               <SheetTrigger asChild>
-                <Button variant={"ghost"} size={"sm"}>
+                <Button variant={"ghost"} size="sm" className="w-full h-6 flex">
                   edit
                 </Button>
               </SheetTrigger>
