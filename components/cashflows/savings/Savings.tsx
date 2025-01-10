@@ -35,7 +35,7 @@ export default function SavingsCard({
           <p
             className={cn(
               change > 0
-                ? "text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65"
+                ? "text-sky-800 bg-sky-200 hover:bg-sky-300/65"
                 : "text-red-500 hover:bg-red-200/75 bg-red-100",
               "flex w-fit items-center gap-1.5 text-sm font-medium rounded-xl py-2 px-3 transition-colors cursor-pointer",
             )}
@@ -48,7 +48,7 @@ export default function SavingsCard({
 
       <SavingsChart
         user_id={savings.user_id}
-        color={"emerald"}
+        color={"sky"}
         className="h-32 w-64"
       />
     </section>

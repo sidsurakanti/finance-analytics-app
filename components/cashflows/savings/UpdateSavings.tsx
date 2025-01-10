@@ -19,6 +19,7 @@ export default function UpdateSavingsButton({
   savings: Savings;
   className?: string;
 }) {
+  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,7 +34,7 @@ export default function UpdateSavingsButton({
           manage
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-accent">
+      <DialogContent className="w-[425px] bg-accent">
         <DialogHeader>
           <DialogTitle>Manage savings</DialogTitle>
           <DialogDescription>

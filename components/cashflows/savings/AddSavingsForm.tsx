@@ -14,6 +14,10 @@ export default function AddSavings({ savings }: { savings: Savings }) {
   const [fromBalance, setFromBalance] = useState<boolean>(true);
 
   const handleSubmit = () => {
+    if (newSavings == "") {
+      return;
+    }
+
     const newSavingsTotal = Number(savings.amount) + Number(newSavings);
     updateSavings(newSavingsTotal, savings.user_id);
     if (fromBalance) {
@@ -22,34 +26,55 @@ export default function AddSavings({ savings }: { savings: Savings }) {
   };
 
   return (
-    <div className="flex flex-col gap-5">
-      <span className="flex flex-col gap-2">
-        <Label>Amount</Label>
-        <Input
-          type="number"
-          placeholder="99.2"
-          onChange={(event) => setNewSavings(event.target.value)}
-        />
-      </span>
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-2">
+        <span className="flex flex-col gap-2">
+          <Label>Amount</Label>
+          <div className="relative w-full rounded-md shadow-sm">
+            {/* attach a dollar sign to input */}
+            <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 font-light text-sm">
+              <p className="">$</p>
+            </span>
 
-      <span className="flex items-center gap-2">
-        <Switch
-          checked={fromBalance}
-          onCheckedChange={() => setFromBalance(!fromBalance)}
-          id="from-balance"
-        />
-        <Label htmlFor="from-balance">move from checking</Label>
-      </span>
+            <Input
+              type="number"
+              placeholder="0.00"
+              onChange={(event) => setNewSavings(event.target.value)}
+              className="pl-6"
+            />
+          </div>
+        </span>
 
-      <div className="w-full flex justify-center gap-2">
-        <Button
-          onClick={() => handleSubmit()}
-          className="bg-sky-500 hover:bg-sky-600"
-        >
-          make changes
-        </Button>
+        <span className="flex items-center justify-between gap-2 p-2 border border-b shadow-sm   rounded-md">
+          <span>
+            <Label htmlFor="from-balance" className="font-medium">
+              Transfer from checking
+            </Label>
+            <h3 className="text-xs text-gray-700">
+              Move money from checking balance to savings.
+            </h3>
+          </span>
+          <Switch
+            checked={fromBalance}
+            onCheckedChange={() => setFromBalance(!fromBalance)}
+            id="from-balance"
+          />
+        </span>
+      </div>
+
+      <div className="w-full flex justify-center gap-2 mt-2">
         <DialogClose asChild>
-          <Button variant={"outline"} className="hover:bg-red-400">close</Button>
+          <Button
+            onClick={() => handleSubmit()}
+            className="bg-primary hover:bg-neutral-500"
+          >
+            make changes
+          </Button>
+        </DialogClose>
+        <DialogClose asChild>
+          <Button variant={"outline"} className="hover:bg-gray-400">
+            close
+          </Button>
         </DialogClose>
       </div>
     </div>
