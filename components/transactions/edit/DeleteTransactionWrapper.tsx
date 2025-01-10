@@ -30,8 +30,8 @@ export function DeleteTransactionWrapper({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={"ghost"} size="icon" className="rounded-full p-2 hover:text-white hover:bg-destructive/95">
-            <CircleX size={20} strokeWidth={1.5} />
+          <Button variant={"ghost"} size="icon" className="rounded-full p-1 hover:text-white hover:bg-rose-600/95">
+            <CircleX size={20} strokeWidth={1.2} />
           </Button>
         </DialogTrigger>
 

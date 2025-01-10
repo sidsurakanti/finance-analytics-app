@@ -9,6 +9,7 @@ import { cn, cashFormatter, dateFormatter } from "@lib/utils";
 import { transactionTypeColors } from "@lib/colors";
 import { Badge } from "@components/ui/badge";
 import { EditTransaction } from "@/components/transactions/edit/EditTransaction";
+import { mono } from "@/styles/fonts";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -42,7 +43,7 @@ export const columns: ColumnDef<Transaction>[] = [
       // }
 
       return (
-        <div className={"text-right text-base tracking-wider pr-8"}>
+        <div className={cn(mono.className, "text-right text-base tracking-wider pr-8")}>
           {formatted}
         </div>
       );
@@ -94,8 +95,8 @@ export const columns: ColumnDef<Transaction>[] = [
 
       return (
         <div className="flex opacity-0 group-hover:opacity-100 gap-0.5 justify-end pr-4">
-          <DeleteTransactionWrapper transaction={transaction} />
           <EditTransaction transaction={transaction} reoccuring={reoccuring} />
+          <DeleteTransactionWrapper transaction={transaction} />
         </div>
       );
     },

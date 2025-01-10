@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import type { Savings } from "@/lib/definitions";
 import { Input } from "@/components/ui/input";
 import { updateBalance, updateSavings } from "@/lib/actions";
@@ -45,12 +45,12 @@ export default function AddSavings({ savings }: { savings: Savings }) {
           </div>
         </span>
 
-        <span className="flex items-center justify-between gap-2 p-2 border border-b shadow-sm   rounded-md">
-          <span>
+        <span className="flex items-center justify-between gap-2 px-2 py-3 border border-border shadow-sm rounded-md">
+          <span className="flex flex-col justify-between gap-0.5">
             <Label htmlFor="from-balance" className="font-medium">
               Transfer from checking
             </Label>
-            <h3 className="text-xs text-gray-700">
+            <h3 className="text-xs text-neutral-600">
               Move money from checking balance to savings.
             </h3>
           </span>
@@ -66,13 +66,17 @@ export default function AddSavings({ savings }: { savings: Savings }) {
         <DialogClose asChild>
           <Button
             onClick={() => handleSubmit()}
-            className="bg-primary hover:bg-neutral-500"
+            variant={"ghost"}
+            className="bg-lime-200 hover:bg-lime-400 border border-lime-400 text-lime-900"
           >
             make changes
           </Button>
         </DialogClose>
         <DialogClose asChild>
-          <Button variant={"outline"} className="hover:bg-gray-400">
+          <Button
+            variant={"ghost"}
+            className="hover:bg-neutral-300 border border-neutral-300"
+          >
             close
           </Button>
         </DialogClose>

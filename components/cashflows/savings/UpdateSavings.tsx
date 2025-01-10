@@ -38,13 +38,13 @@ export default function UpdateSavingsButton({
         <DialogHeader>
           <DialogTitle>Manage savings</DialogTitle>
           <DialogDescription>
-            Edit and add to your savings here!
+            Let&apos;s edit your savings!
           </DialogDescription>
         </DialogHeader>
 
-        <Tabs defaultValue="add">
+        <Tabs defaultValue="add" className="mt-2">
           <TabsList className="flex justify-center bg-transparent">
-            <div className="w-fit rounded-md bg-secondary p-1">
+            <div className="w-fit rounded-lg bg-secondary p-1">
               <TabsTrigger value="add">add</TabsTrigger>
               <TabsTrigger value="manage">manage</TabsTrigger>
             </div>

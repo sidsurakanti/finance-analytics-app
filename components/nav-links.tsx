@@ -4,10 +4,10 @@ import {
   DashboardIcon,
   TransactionsIcon,
   ReoccuringSymbol,
-  CashflowsNavIcon
+  CashflowsNavIcon,
 } from "@components/ui/icons";
 import { Button } from "@components/ui/button";
-
+import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { cn } from "@lib/utils";
 
@@ -33,7 +33,7 @@ const links = [
     href: "/cashflows",
     icon: CashflowsNavIcon,
     text: "cashflows",
-  }
+  },
 ];
 
 export function NavLinks() {
@@ -41,21 +41,36 @@ export function NavLinks() {
 
   return (
     <>
-      <ul className="flex gap-2">
+      <motion.ul
+        whileHover={{ scale: 1.02 }}
+        className="bg-accent flex gap-1 rounded-full border border-gray-300/70 dark:border-border shadow-sm p-1"
+      >
         {links.map((link, index) => {
           const isActive = activeLink === link.href;
           const Icon = link.icon;
+          console.log(link.text);
 
           return (
             <li key={index}>
               <Link href={link.href}>
                 <Button
-                  className={cn("gap-2 hover:bg-primary/90 hover:text-secondary transition-colors" )}
+                  className={cn(
+                    isActive
+                      ? "bg-violet-100 dark:bg-violet-200 text-violet-950 hover:bg-violet-300/70 border border-violet-300 shadow-sm"
+                      : "hover:bg-neutral-200 hover:text-neutral-900 text-neutral-600 dark:text-neutral-200",
+                    isActive && link.text == "transactions"
+                      ? "bg-green-100 dark:bg-green-200 text-green-950 hover:bg-green-300/70 border border-green-300 shadow-sm"
+                      : "",
+                    isActive && link.text == "reoccuring"
+                      ? "bg-rose-100 dark:bg-rose-200 text-rose-950 hover:bg-rose-300/70 border border-rose-300 shadow-sm"
+                      : "",
+                    "gap-1 transition-colors rounded-full font-normal",
+                  )}
                   size={"default"}
-                  variant={isActive ? "default" : "secondary"}
+                  variant={"ghost"}
                 >
                   <p>
-                    <Icon width={18} height={18} />
+                    <Icon width={18} height={18} className="block lg:hidden" />
                   </p>
                   <p className="hidden lg:block">{link.text}</p>
                 </Button>
@@ -63,7 +78,7 @@ export function NavLinks() {
             </li>
           );
         })}
-      </ul>
+      </motion.ul>
     </>
   );
 }

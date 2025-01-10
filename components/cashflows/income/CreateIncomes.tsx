@@ -80,7 +80,7 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
         </SheetTrigger>
         <SheetContent side={"right"}>
           <SheetHeader>
-            <SheetTitle>New Income</SheetTitle>
+            <SheetTitle>Create Income</SheetTitle>
             <SheetDescription>
               Let&apos;s add a new income source!
             </SheetDescription>
@@ -88,17 +88,17 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
 
           <Form {...form}>
             <form
-              className="w-full flex flex-col gap-2 mt-4"
+              className="w-full flex flex-col gap-4 mt-5"
               onSubmit={form.handleSubmit(onSubmit)}
             >
               <FormField
                 control={form.control}
                 name="name"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="job 88" {...field}></Input>
+                      <Input placeholder="Job 88" {...field}></Input>
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -109,13 +109,13 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
                 control={form.control}
                 name="income_amt"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Amount</FormLabel>
                     <FormControl>
                       <Input
                         type="number"
                         {...field}
-                        placeholder="88888"
+                        placeholder="8888.88"
                       ></Input>
                     </FormControl>
                     <FormMessage />
@@ -127,7 +127,7 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
                 control={form.control}
                 name="frequency"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>Frequency</FormLabel>
                     <FormControl>
                       <Select
@@ -155,7 +155,7 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
                 control={form.control}
                 name="pay_date1"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="flex flex-col">
                     <FormLabel>
                       Pay Date{" "}
                       {form.watch("frequency") == "semi-monthly" ? "#1" : ""}
@@ -173,7 +173,7 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
                   control={form.control}
                   name="pay_date2"
                   render={({ field }) => (
-                    <FormItem>
+                    <FormItem className="flex flex-col">
                       <FormLabel>Pay Date #2</FormLabel>
                       <FormControl>
                         <Input type="date" {...field} required></Input>
@@ -184,13 +184,22 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
                 />
               )}
 
-              <SheetFooter>
-                <Button type="submit" className="w-full hover:bg-blue-500">
-                  Add
+              <SheetFooter className="mt-2">
+                <Button
+                  variant={"outline"}
+                  type="submit"
+                  className="w-full bg-orange-200 border border-orange-300 hover:bg-orange-300 transition-colors"
+                >
+                  add
                 </Button>
 
                 <SheetClose asChild>
-                  <Button className="w-full hover:bg-rose-500">Close</Button>
+                  <Button
+                    variant="outline"
+                    className="w-full border border-neutral-300 hover:bg-neutral-300"
+                  >
+                    close
+                  </Button>
                 </SheetClose>
               </SheetFooter>
             </form>

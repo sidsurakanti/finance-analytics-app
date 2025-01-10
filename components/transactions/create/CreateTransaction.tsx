@@ -12,7 +12,7 @@ import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
 import { CreateTransactionForm } from "@/components/transactions/create/CreateTransactionForm";
 
-export function TransactionSheet({
+export function CreateTransactionSheet({
   user,
   reoccuring,
 }: {
@@ -24,7 +24,7 @@ export function TransactionSheet({
       <Sheet>
         <SheetTrigger asChild>
           <span>
-            <Button className="hidden md:block">
+            <Button className="hidden md:block bg-amber-100 hover:bg-amber-200 border border-amber-200 text-blue-950 font-medium" variant={"ghost"}>
               <p>+ transaction</p>
             </Button>
 

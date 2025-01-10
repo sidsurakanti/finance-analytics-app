@@ -21,8 +21,17 @@ export const months = [
   "Dec",
 ];
 
-export function cashFormatter(number: number, dollarSign: boolean = true) {
-  const formatted = Intl.NumberFormat("us").format(number).toString();
+export function cashFormatter(
+  number: number,
+  dollarSign: boolean = true,
+  minimumFractionDigits: number = 2,
+) {
+  const formatted = Intl.NumberFormat("en-US", {
+    minimumFractionDigits: minimumFractionDigits,
+    maximumFractionDigits: 2,
+  })
+    .format(number)
+    .toString();
   if (dollarSign) return addDollarSign(formatted);
   return formatted;
 }
@@ -59,21 +68,25 @@ export function calculateLastPaidDiff(date: Date, offset: string[]) {
 }
 
 export function findNextPayDate(offset: string[]): Date {
-  let counter = 0; // next pay date has to be within 31 days anyway 
+  let counter = 0; // next pay date has to be within 31 days anyway
   for (let d: Date = new Date(); counter < 32; d.setDate(d.getDate() + 1)) {
     if (offset.includes(d.getDate().toString())) {
       return d;
     }
-    counter += 1
+    counter += 1;
   }
   return new Date();
 }
 
 export function ordinalDateFormatter(day: number) {
   const suffix =
-    day % 10 === 1 && day !== 11 ? "st" : 
-    day % 10 === 2 && day !== 12 ? "nd" : 
-    day % 10 === 3 && day !== 13 ? "rd" : "th";
+    day % 10 === 1 && day !== 11
+      ? "st"
+      : day % 10 === 2 && day !== 12
+        ? "nd"
+        : day % 10 === 3 && day !== 13
+          ? "rd"
+          : "th";
 
   return `${day}${suffix}`;
 }

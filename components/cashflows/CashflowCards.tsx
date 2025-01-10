@@ -36,7 +36,7 @@ export default async function CashflowCards() {
   )[0];
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-10 gap-2 mb-10">
+    <section className="grid grid-cols-1 lg:grid-cols-10 gap-2 mb-10">
       <div className="col-span-5">
         <Suspense
           fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}

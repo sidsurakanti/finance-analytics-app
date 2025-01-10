@@ -29,7 +29,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Reoccuring, User } from "@/lib/definitions";
 
-import { TransactionSheet } from "@/components/transactions/create/CreateTransaction";
+import { CreateTransactionSheet } from "@/components/transactions/create/CreateTransaction";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -67,8 +67,8 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-2 items-start rounded-md">
-      <div className="w-full flex justify-between mb-1">
-        <div className="flex gap-x-4">
+      <div className="w-full flex justify-between items-end mb-1">
+        <div className="flex gap-x-4 items-end">
           <Input
             placeholder="Search transactions"
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -84,26 +84,59 @@ export function DataTable<TData, TValue>({
               table.getColumn("type")?.setFilterValue(value);
             }}
           >
-            <ToggleGroupItem value="reoccuring">reoccuring</ToggleGroupItem>
-            <ToggleGroupItem value="expense">expenses</ToggleGroupItem>
-            <ToggleGroupItem value="paycheck">paychecks</ToggleGroupItem>
-            <ToggleGroupItem value="deposit">deposit</ToggleGroupItem>
-            <ToggleGroupItem value="withdrawl">withdrawl</ToggleGroupItem>
+            <ToggleGroupItem
+              value="reoccuring"
+              size={"sm"}
+              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5 rounded-lg"
+            >
+              reoccuring
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="expense"
+              size={"sm"}
+              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5 rounded-lg"
+            >
+              expenses
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="paycheck"
+              size={"sm"}
+              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5 rounded-lg"
+            >
+              paychecks
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="deposit"
+              size={"sm"}
+              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5x rounded-lg"
+            >
+              deposit
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="withdrawl"
+              size={"sm"}
+              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5 rounded-lg"
+            >
+              withdrawl
+            </ToggleGroupItem>
           </ToggleGroup>
         </div>
 
-        <TransactionSheet user={user} reoccuring={reoccuring} />
+        <CreateTransactionSheet user={user} reoccuring={reoccuring} />
       </div>
 
       <div className="w-full rounded-xl border">
-        <Suspense fallback={<Skeleton className="h-96 rounded-xl w-full" />}>
+        <Suspense fallback={<Skeleton className="h-96 rounded-lg w-full" />}>
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
                     return (
-                      <TableHead className="first:rounded-tl-xl last:rounded-tr-xl rounded bg-transparent" key={header.id}>
+                      <TableHead
+                        className="first:rounded-tl-lg last:rounded-tr-lg rounded-lg bg-transparent"
+                        key={header.id}
+                      >
                         {header.isPlaceholder
                           ? null
                           : flexRender(
