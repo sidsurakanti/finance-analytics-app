@@ -4,11 +4,13 @@ import {
   cashFormatter,
   findNextPayDate,
   ordinalDateFormatter,
+  cn,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import CreateIncomeSource from "@/components/cashflows/income/CreateIncomes";
 import IncomeTotals from "@/components/cashflows/income/IncomeTotals";
 import IncomeSourceActions from "@/components/cashflows/income/IncomeSourceActions";
+import { mono } from "@/styles/fonts";
 
 export default function Incomes({
   incomeSources,
@@ -28,7 +30,7 @@ export default function Incomes({
     .reduce((acc, num) => acc + num, 0);
 
   return (
-    <section className="h-fit bg-accent flex flex-col gap-5 border border-border rounded-xl p-4 shadow-md">
+    <section className="h-fit bg-gradient-to-b from-[#FAFAFA] to-[#f3f3f3] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-5 border border-border rounded-xl p-4 shadow-md">
       <span className="w-full flex justify-between">
         <h1 className="">Income</h1>
         <CreateIncomeSource user_id={incomeSources[0].user_id} />
@@ -36,12 +38,12 @@ export default function Incomes({
 
       <IncomeTotals totalIncome={totalIncome} />
 
-      <div className="bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-emerald-950 dark:to-emerald-950/70 rounded-xl py-2 px-6 shadow-sm">
+      <div className="bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl py-2 px-6 shadow-sm">
         <table className="w-full table-auto rounded-xl p-2">
           <thead className="h-10 px-2">
             <tr className="text-left rounded-xl">
               <th scope="col"></th>
-              <th className="text-center font-medium" scope="col">
+              <th className="text-center font-medium text-md" scope="col">
                 amount
               </th>
               <th className="text-center font-medium" scope="col">
@@ -63,11 +65,15 @@ export default function Incomes({
                 <td className="h-12 text-left" scope="row">
                   {job.name}
                 </td>
-                <td className="h-12 text-[17px] text-center">
+                <td
+                  className={cn(mono.className, "h-12 text-[17px] text-center")}
+                >
                   {cashFormatter(Number(job.income_amt))}
                 </td>
                 <td className="h-12 text-center">
-                  <Badge className="bg-indigo-200 text-indigo-900">{job.frequency}</Badge>{" "}
+                  <Badge className="bg-indigo-200 text-indigo-900 hover:bg-indigo-300">
+                    {job.frequency}
+                  </Badge>{" "}
                 </td>
                 <td className="h-12 text-center">
                   {job.pay_dates

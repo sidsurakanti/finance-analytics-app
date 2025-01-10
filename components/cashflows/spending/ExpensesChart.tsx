@@ -17,9 +17,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { dateFormatter, cashFormatter, cn } from "@/lib/utils";
-import { inter } from "@/styles/fonts";
+import { mono } from "@/styles/fonts";
 import { SortedData } from "@/lib/data";
 import { Dispatch, SetStateAction } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export function ExpensesChart({
   expenses,
@@ -33,7 +34,7 @@ export function ExpensesChart({
   >;
 }) {
   if (!expenses || !reoccuring) {
-    return <>Loading...</>;
+    return <Skeleton className="h-96 w-full" />;
   }
 
   const expensesF = expenses.map((expense) => ({
@@ -61,13 +62,13 @@ export function ExpensesChart({
   );
 
   return (
-    <div className="bg-gradient-to-b from-[#FAFAFA] to-[#f1f1f1] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-5 rounded-xl p-4 shadow-md border border-border">
+    <div className="bg-gradient-to-b from-[#FAFAFA] to-[#f1f1f1] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-8 rounded-xl p-4 shadow-md border border-border">
       <h1 className="">Total spending</h1>
       <span className="flex justify-between items-end gap-5">
         <p
           className={cn(
-            inter.className,
-            "text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5 font-medium",
+            mono.className,
+            "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5",
           )}
         >
           {cashFormatter(Number(totalSpending))}

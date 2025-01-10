@@ -34,7 +34,7 @@ export default function IncomeSourceActions({
               <MoreHorizontal size={16} />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="rounded-xl w-20">
+          <DropdownMenuContent className="rounded-lg w-20">
             <DropdownMenuItem>
               <SheetTrigger asChild>
                 <Button variant={"ghost"} size="sm" className="w-full h-6 flex">
