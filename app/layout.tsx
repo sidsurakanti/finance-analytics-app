@@ -4,6 +4,7 @@ import { poppins } from "@/styles/fonts";
 import "@/styles/globals.css";
 
 import { ThemeProvider } from "@components/ui/themes";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -36,6 +37,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

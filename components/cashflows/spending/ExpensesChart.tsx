@@ -123,10 +123,10 @@ export function ExpensesChart({
 const chartConfig = {
   oneTime: {
     label: "One time",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--chart-4))",
   },
   reoccuring: {
     label: "Recurring",
-    color: "hsl(var(--chart-3))",
+    color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;

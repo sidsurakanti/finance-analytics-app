@@ -36,7 +36,7 @@ export default function Incomes({
 
       <IncomeTotals totalIncome={totalIncome} />
 
-      <div className="bg-gradient-to-b from-[#f2f2f2] to-[#efefef] dark:from-emerald-950 dark:to-emerald-900  rounded-xl py-2 px-6 shadow-md">
+      <div className="bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-emerald-950 dark:to-emerald-950/70 rounded-xl py-2 px-6 shadow-sm">
         <table className="w-full table-auto rounded-xl p-2">
           <thead className="h-10 px-2">
             <tr className="text-left rounded-xl">
@@ -67,7 +67,7 @@ export default function Incomes({
                   {cashFormatter(Number(job.income_amt))}
                 </td>
                 <td className="h-12 text-center">
-                  <Badge className="bg-emerald-700">{job.frequency}</Badge>{" "}
+                  <Badge className="bg-indigo-200 text-indigo-900">{job.frequency}</Badge>{" "}
                 </td>
                 <td className="h-12 text-center">
                   {job.pay_dates
