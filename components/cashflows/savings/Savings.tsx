@@ -51,7 +51,7 @@ export default function SavingsCard({
       <SavingsChart
         user_id={savings.user_id}
         color={"sky"}
-        className="h-32 w-64"
+        className="h-32 lg:w-52 xl:w-64"
       />
     </section>
   );

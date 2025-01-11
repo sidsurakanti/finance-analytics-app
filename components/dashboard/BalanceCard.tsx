@@ -1,7 +1,7 @@
 import { inter } from "@/styles/fonts";
 import { cn, cashFormatter } from "@lib/utils";
 import { Badge } from "@components/ui/badge";
-import { BalanceChart } from "@/components/dashboard/BalanceChart";
+import { BalanceChart } from "@/components/cashflows/balance/BalanceChart";
 
 type Props = {
   title: string;

@@ -60,7 +60,7 @@ export default function IncomeSourceActions({
           <SheetHeader>
             <SheetTitle>Edit Income</SheetTitle>
             <SheetDescription>
-              Edit your income source here Bruv! iNiit!
+              Make changes to your income source here!
             </SheetDescription>
           </SheetHeader>
 

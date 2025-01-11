@@ -38,21 +38,27 @@ export default function Incomes({
 
       <IncomeTotals totalIncome={totalIncome} />
 
-      <div className="bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl py-2 px-6 shadow-sm">
-        <table className="w-full table-auto rounded-xl p-2">
-          <thead className="h-10 px-2">
-            <tr className="text-left rounded-xl">
+      <div className="py-2 px-4 bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl shadow-sm overflow-auto">
+        <table className="w-full table-auto rounded-xl">
+          <thead className="h-10">
+            <tr className="text-left rounded-xl text-xs md:text-base">
               <th scope="col"></th>
-              <th className="text-center font-medium text-md" scope="col">
+              <th className="text-center font-medium px-2" scope="col">
                 amount
               </th>
-              <th className="text-center font-medium" scope="col">
+              <th className="text-center font-medium px-2" scope="col">
                 frequency
               </th>
-              <th className="text-center font-medium" scope="col">
+              <th
+                className="text-center font-medium whitespace-nowrap px-2"
+                scope="col"
+              >
                 pay dates
               </th>
-              <th className="text-center font-medium" scope="col">
+              <th
+                className="text-center font-medium whitespace-nowrap px-2"
+                scope="col"
+              >
                 next pay
               </th>
               <th className="text-right"></th>
@@ -61,17 +67,23 @@ export default function Incomes({
 
           <tbody>
             {incomeSources.map((job) => (
-              <tr key={job.id.toString()} className="">
+              <tr
+                key={job.id.toString()}
+                className="text-xs sm:text-sm md:text-base"
+              >
                 <td className="h-12 text-left" scope="row">
                   {job.name}
                 </td>
                 <td
-                  className={cn(mono.className, "h-12 text-[17px] text-center")}
+                  className={cn(
+                    mono.className,
+                    "h-12 text-xs sm:text-sm md:text-[17px] text-center",
+                  )}
                 >
-                  {cashFormatter(Number(job.income_amt))}
+                  {cashFormatter(Number(job.income_amt), true, 0)}
                 </td>
                 <td className="h-12 text-center">
-                  <Badge className="bg-indigo-200 text-indigo-900 hover:bg-indigo-300">
+                  <Badge className="bg-indigo-200 text-indigo-900 hover:bg-indigo-300 text-[10px] md:text-xs whitespace-nowrap">
                     {job.frequency}
                   </Badge>{" "}
                 </td>

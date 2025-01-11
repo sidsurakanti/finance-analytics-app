@@ -1,4 +1,4 @@
-import { Savings } from "@/lib/definitions";
+import type { Savings } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -19,7 +19,6 @@ export default function UpdateSavingsButton({
   savings: Savings;
   className?: string;
 }) {
-  
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -37,9 +36,7 @@ export default function UpdateSavingsButton({
       <DialogContent className="w-[425px] bg-accent">
         <DialogHeader>
           <DialogTitle>Manage savings</DialogTitle>
-          <DialogDescription>
-            Let&apos;s edit your savings!
-          </DialogDescription>
+          <DialogDescription>Let&apos;s edit your savings!</DialogDescription>
         </DialogHeader>
 
         <Tabs defaultValue="add" className="mt-2">
