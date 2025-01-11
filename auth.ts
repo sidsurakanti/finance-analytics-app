@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { authConfig } from "@/auth.config";
 import { formSchema } from "@/schemas/login";
 import { fetchUser } from "@lib/data";
+import { handleDbUpdatesOnLogin } from "@/lib/actions";
 
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig, // unpack config
@@ -34,6 +35,9 @@ export const { auth, signIn, signOut } = NextAuth({
 
           // check if user's password matches the one in db
           const passwordsMatch = await bcrypt.compare(password, user.password);
+
+          // increment login count and last login date
+          await handleDbUpdatesOnLogin(user.id);
           // console.log(user);
           if (passwordsMatch) return user;
         }

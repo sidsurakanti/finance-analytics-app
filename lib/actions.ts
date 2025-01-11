@@ -377,7 +377,6 @@ export async function login(data: z.infer<typeof formSchema>) {
     // call signIn from next-auth
     // @see auth.ts
     await signIn("credentials", data);
-
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -388,6 +387,22 @@ export async function login(data: z.infer<typeof formSchema>) {
       }
     }
 
+    throw error;
+  }
+}
+
+export async function handleDbUpdatesOnLogin(user_id: string) {
+  try {
+    await sql`
+      UPDATE users
+      SET 
+        last_logged_in = CURRENT_TIMESTAMP,
+        login_count = login_count + 1
+      WHERE id = ${user_id}
+    `;
+    console.log("UPDATED LAST LOGIN AND LOGIN COUNT FOR USER", user_id)
+  } catch (error) {
+    console.log("ERROR WHILE UPDATING DB ON LOGIN", error)
     throw error;
   }
 }

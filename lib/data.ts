@@ -102,7 +102,7 @@ export async function fetchUser(email: string) {
         `;
     const user = data.rows[0];
     console.log("FETCHED USER:", email);
-
+    
     return user;
   } catch (error) {
     console.log("Database error", error);
