@@ -7,7 +7,7 @@ import UpdateBalanceButton from "@/components/cashflows/balance/UpdateBalance";
 
 interface CheckingBalanceProps {
   balance: Balance;
-  paycheckDetails: nextPaycheckDetailsT;
+  paycheckDetails: nextPaycheckDetailsT | undefined;
 }
 
 export default function CheckingBalance({
@@ -35,13 +35,17 @@ export default function CheckingBalance({
             <p className="text-2xl">$</p>
             {cashFormatter(Number(balance.amount), false)}
           </span>
-          <div className="text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 px-3 rounded-xl">
-            <span className={cn(mono.className, "font-medium tracking-tight")}>
-              {cashFormatter(Number(paycheckDetails.income_amt))}
-            </span>{" "}
-            landing on {dateFormatter(paycheckDetails.nextPayDate)} (
-            {paycheckDetails.name})
-          </div>
+          {paycheckDetails && (
+            <div className="text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 px-3 rounded-xl">
+              <span
+                className={cn(mono.className, "font-medium tracking-tight")}
+              >
+                {cashFormatter(Number(paycheckDetails.income_amt))}
+              </span>{" "}
+              landing on {dateFormatter(paycheckDetails.nextPayDate)} (
+              {paycheckDetails.name})
+            </div>
+          )}
         </span>
       </div>
 

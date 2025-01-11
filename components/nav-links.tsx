@@ -48,7 +48,6 @@ export function NavLinks() {
         {links.map((link, index) => {
           const isActive = activeLink === link.href;
           const Icon = link.icon;
-          console.log(link.text);
 
           return (
             <li key={index}>
