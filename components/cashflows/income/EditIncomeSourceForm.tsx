@@ -89,14 +89,14 @@ export default function EditIncomeSource({
     <>
       <Form {...form}>
         <form
-          className="w-full flex flex-col gap-2 mt-4"
+          className="w-full flex flex-col gap-4 mt-4"
           onSubmit={form.handleSubmit(onSubmit)}
         >
           <FormField
             control={form.control}
             name="name"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>Name</FormLabel>
                 <FormControl>
                   <Input placeholder="job 88" {...field}></Input>
@@ -110,7 +110,7 @@ export default function EditIncomeSource({
             control={form.control}
             name="income_amt"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>Amount</FormLabel>
                 <FormControl>
                   <Input type="number" {...field} placeholder="88888"></Input>
@@ -124,7 +124,7 @@ export default function EditIncomeSource({
             control={form.control}
             name="frequency"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>Frequency</FormLabel>
                 <FormControl>
                   <Select
@@ -152,7 +152,7 @@ export default function EditIncomeSource({
             control={form.control}
             name="pay_date1"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex flex-col">
                 <FormLabel>
                   Pay Date{" "}
                   {form.watch("frequency") == "semi-monthly" ? "#1" : ""}
@@ -170,7 +170,7 @@ export default function EditIncomeSource({
               control={form.control}
               name="pay_date2"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormLabel>Pay Date #2</FormLabel>
                   <FormControl>
                     <Input type="date" {...field} required></Input>
@@ -181,13 +181,21 @@ export default function EditIncomeSource({
             />
           )}
 
-          <SheetFooter>
-            <Button type="submit" className="w-full hover:bg-blue-500">
-              Update
+          <SheetFooter className="">
+            <Button
+              type="submit"
+              className="w-full bg-violet-200 hover:bg-violet-400 border border-violet-400 text-violet-900"
+            >
+              update
             </Button>
 
             <SheetClose asChild>
-              <Button className="w-full hover:bg-rose-500">Close</Button>
+              <Button
+                variant={"ghost"}
+                className="w-full hover:bg-neutral-300 border border-neutral-300"
+              >
+                close
+              </Button>
             </SheetClose>
           </SheetFooter>
         </form>

@@ -17,7 +17,7 @@ export async function Nav() {
   const user = session?.user;
 
   return (
-    <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 mx-auto justify-between items-center my-2">
+    <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto justify-between items-center my-2">
       <NavLinks />
 
       {/* profile section + dark mode toggle (desktop only) */}

@@ -125,7 +125,7 @@ export function DataTable<TData, TValue>({
         <CreateTransactionSheet user={user} reoccuring={reoccuring} />
       </div>
 
-      <div className="w-full rounded-xl border">
+      <div className="w-full rounded-lg border">
         <Suspense fallback={<Skeleton className="h-96 rounded-lg w-full" />}>
           <Table>
             <TableHeader>

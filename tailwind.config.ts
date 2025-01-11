@@ -22,6 +22,9 @@ const config = {
       },
     },
     extend: {
+      screens: {
+        "3xl": "1900px",
+      },
       colors: {
         // tremor light mode
         tremor: {

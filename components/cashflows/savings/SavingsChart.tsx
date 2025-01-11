@@ -12,6 +12,9 @@ export async function SavingsChart({
   className?: string;
 }) {
   const savings: Savings[] = await fetchRecentSavings(user_id);
+  const savingsAmt: number[] = savings.map((item) => Number(item.amount));
+  const maxVal: number = Math.max(...savingsAmt);
+  const minVal: number = Math.min(...savingsAmt);
 
   return (
     <>
@@ -22,6 +25,8 @@ export async function SavingsChart({
         colors={[color]}
         curveType="monotone"
         className={className}
+        minValue={minVal - minVal / 5}
+        maxValue={maxVal + maxVal / 10}
       />
     </>
   );
