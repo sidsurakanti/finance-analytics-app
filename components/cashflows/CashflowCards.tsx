@@ -20,9 +20,9 @@ export default async function CashflowCards() {
   const savingsDetails: { savings: Savings; change: number } =
     await fetchCurrSavings(user.id);
 
-  console.log(savingsDetails);
-  console.log(balance);
-  console.log(incomeSources);
+  // console.log(savingsDetails);
+  // console.log(balance);
+  // console.log(incomeSources);
 
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
     (job) => ({

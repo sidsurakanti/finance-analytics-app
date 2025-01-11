@@ -16,7 +16,7 @@ import { formSchema } from "@/schemas/login";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-import { signIn, signOut } from "@/auth";
+import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 
@@ -377,6 +377,7 @@ export async function login(data: z.infer<typeof formSchema>) {
     // call signIn from next-auth
     // @see auth.ts
     await signIn("credentials", data);
+
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
@@ -414,7 +415,7 @@ export async function createUser(user: User) {
       INSERT INTO users (name, email, password) 
       VALUES (${name}, ${email}, ${password})
     `;
-    console.log("Created new user", res);
+    console.log("CREATED NEW USER", res);
 
     // add init values for db!
   } catch (error) {
