@@ -33,8 +33,9 @@ export function ExpensesChart({
     SetStateAction<"6 months" | "1 year" | "3 months">
   >;
 }) {
+
   if (!expenses || !reoccuring) {
-    return <Skeleton className="h-96 w-full" />;
+    return <Skeleton className="h-96 w-full bg-neutral-200" />;
   }
 
   const expensesF = expenses.map((expense) => ({
@@ -65,20 +66,21 @@ export function ExpensesChart({
     <div className="bg-gradient-to-b from-[#FAFAFA] to-[#f1f1f1] dark:from-[#171717] dark:to-[#121212] flex flex-col gap-8 rounded-xl p-4 shadow-md border border-border">
       <h1 className="">Total spending</h1>
       <span className="flex justify-between items-end gap-5">
-        <p
+        <span
           className={cn(
             mono.className,
-            "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5",
+            "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-start gap-0.5",
           )}
         >
-          {cashFormatter(Number(totalSpending))}
-        </p>
+          <p className="text-2xl">$</p>
+          {cashFormatter(Number(totalSpending), false)}
+        </span>
         <Select
           onValueChange={(value: "6 months" | "1 year" | "3 months") =>
             handleTimespanChange(value)
           }
         >
-          <SelectTrigger className="max-w-36">
+          <SelectTrigger className="max-w-fit space-x-2.5">
             <SelectValue placeholder="3 months" />
           </SelectTrigger>
           <SelectContent>

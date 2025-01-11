@@ -80,7 +80,7 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
         </SheetTrigger>
         <SheetContent side={"right"}>
           <SheetHeader>
-            <SheetTitle>Create Income</SheetTitle>
+            <SheetTitle>Create income</SheetTitle>
             <SheetDescription>
               Let&apos;s add a new income source!
             </SheetDescription>

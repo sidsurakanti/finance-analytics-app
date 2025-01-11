@@ -19,14 +19,14 @@ export default function CheckingBalance({
         <h1 className="">Checking balance</h1>
 
         <span className="flex flex-col gap-3">
-          <p
+          <span
             className={cn(
               mono.className,
-              "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5",
+              "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-start gap-0.5",
             )}
           >
-            {cashFormatter(Number(balance.amount))}
-          </p>
+            <p className="text-2xl">$</p>{cashFormatter(Number(balance.amount), false)}
+          </span>
           <div className="text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 px-3 rounded-xl">
             <span className={cn(mono.className, "font-medium tracking-tight")}>
               {cashFormatter(Number(paycheckDetails.income_amt))}
