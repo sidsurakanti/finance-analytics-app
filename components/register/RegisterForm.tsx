@@ -43,6 +43,9 @@ export function RegisterForm() {
       name: data.name,
       email: data.email,
       password: data.password,
+      login_count: 0,
+      last_logged_in: null,
+      created_at: new Date(),
     };
     // console.log(newUser)
 
