@@ -4,6 +4,15 @@ import { Reoccuring, User } from "@/lib/definitions";
 import { useEffect, useState } from "react";
 import { fetchReoccuring } from "@/lib/data";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { QuickAddForm } from "@/components/cashflows/QuickAddForm";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "../ui/dialog";
 
 export default function QuickAdd({ user }: { user: User }) {
   const [reoccuring, setReoccuring] = useState<Reoccuring[]>();
@@ -24,12 +33,23 @@ export default function QuickAdd({ user }: { user: User }) {
       <ScrollArea className="h-72 w-full">
         <div className="grid grid-cols-2 gap-2 ">
           {reoccuring?.map((item, index) => (
-            <div
-              key={index}
-              className="p-6 cursor-pointer rounded-xl flex justify-center items-center bg-[#f1f1f1] dark:bg-neutral-950 shadow-sm"
-            >
-              {item.name}
-            </div>
+            <Dialog key={index}>
+              <DialogTrigger>
+                <div className="p-6 cursor-pointer rounded-xl flex justify-center items-center bg-[#f1f1f1] dark:bg-neutral-950 shadow-sm">
+                  {item.name}
+                </div>
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Quick add</DialogTitle>
+                  <DialogDescription>
+                    Quickly add a new reoccuring transaction!
+                  </DialogDescription>
+                </DialogHeader>
+
+                <QuickAddForm reoccuring={item} />
+              </DialogContent>
+            </Dialog>
           ))}
         </div>
       </ScrollArea>

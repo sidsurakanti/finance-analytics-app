@@ -24,21 +24,22 @@ export default function SavingsCard({
         </span>
 
         <span className="flex flex-col gap-3">
-          <p
+          <span
             className={cn(
               mono.className,
-              "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5",
+              "tracking-tighter text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-start gap-0.5",
             )}
           >
-            {cashFormatter(Number(savings.amount))}
-          </p>
+            <p className="text-2xl">$</p>
+            {cashFormatter(Number(savings.amount), false)}
+          </span>
           <p
             className={cn(
               mono.className,
               change > 0
                 ? "text-sky-800 bg-sky-200 hover:bg-sky-300/65"
                 : "text-red-500 hover:bg-red-200/75 bg-red-100",
-              "tracking-tight flex w-fit items-center gap-1.5 text-sm font-medium rounded-xl py-2 px-3 transition-colors cursor-pointer",
+              "tracking-tight flex w-fit items-center gap-2 text-sm font-medium rounded-xl py-2 px-3 transition-colors cursor-pointer",
             )}
           >
             {change > 0 ? <TrendingUp size={15} /> : <TrendingDown size={15} />}

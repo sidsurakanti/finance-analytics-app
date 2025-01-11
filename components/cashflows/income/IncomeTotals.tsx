@@ -10,20 +10,21 @@ export default function IncomeTotals({ totalIncome }: { totalIncome: number }) {
 
   return (
     <span className="flex items-end gap-4">
-      <p
+      <span
         className={cn(
           mono.className,
-          "tracking-[-0.06em] text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-end gap-0.5 font-regular",
+          "tracking-[-0.06em] text-3xl md:text-4xl xl:text-[42px] 2xl:text-[55px] flex items-start gap-0.5 font-regular",
         )}
       >
+        <p className="text-2xl">$</p>
         {cashFormatter(
           [Number(totalIncome), Number(totalIncome) * 12][
             toggleSalaryTimeframe
           ],
-          true,
+          false,
           0,
         )}
-      </p>
+      </span>
 
       <ToggleGroup
         type="single"
