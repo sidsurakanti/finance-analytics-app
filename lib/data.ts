@@ -11,27 +11,51 @@ import type {
   Savings,
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
-import { Console } from "console";
+import { updateSavings } from "./actions";
 
-export async function fetchCurrSavings(user: User) {
-  const { id } = user;
+export async function fetchCurrSavings(user_id: string) {
   try {
     const res = await sql<Savings>`
       SELECT * FROM savings
-      WHERE user_id=${id}
+      WHERE user_id=${user_id}
       ORDER BY created_at DESC
       LIMIT 2
     `;
+    if (res.rows.length < 1) {
+      // no savings so set init savings
+      const initSavings = await setInitSavings(user_id);
+      return initSavings;
+    } else if (res.rows.length < 2) {
+      return { savings: res.rows[0], change: 0 };
+    }
+
     const curr_savings = res.rows[0];
     const prev_savings = res.rows[1];
     const savings_change =
       Number(curr_savings.amount) - Number(prev_savings.amount);
-    console.log("FETCHED SAVINGS FOR USER:", user.id);
+    console.log("FETCHED SAVINGS FOR USER:", user_id);
 
     return { savings: curr_savings, change: savings_change };
   } catch (error) {
     console.log("DATABASE ERROR", error);
     throw new Error("Failed to fetch savings");
+  }
+}
+
+export async function setInitSavings(user_id: string) {
+  try {
+    await sql`
+      INSERT INTO savings
+      (amount, user_id)
+      VALUES (0, ${user_id})
+    `;
+    console.log("SET INIT SAVINGS FOR USER:", user_id);
+    const savings: { savings: Savings; change: number } =
+      await fetchCurrSavings(user_id);
+    return savings;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to add new savings");
   }
 }
 
@@ -298,13 +322,33 @@ export async function fetchBalance(user_id: string) {
         ORDER BY id DESC
         LIMIT 1;
       `;
+    if (res.rows.length < 1) {
+      const balance = await setInitBalance(user_id);
+      console.log("FETCHED BALANCE FOR:", user_id);
+      return balance;
+    }
+
     const balance = res.rows[0];
     console.log("FETCHED BALANCE FOR:", user_id);
-
     return balance;
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to fetch balance.");
+  }
+}
+
+export async function setInitBalance(user_id: string) {
+  try {
+    await sql`
+      INSERT INTO balance
+      (amount, user_id)
+      VALUES (0, ${user_id})
+    `;
+    console.log("SET INIT BALANCE FOR USER:", user_id);
+    return { amount: "0", user_id: user_id } as Balance;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to set balance.");
   }
 }
 

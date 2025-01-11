@@ -18,11 +18,11 @@ export default async function CashflowCards() {
   const balance: Balance = await fetchBalance(user.id);
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
   const savingsDetails: { savings: Savings; change: number } =
-    await fetchCurrSavings(user);
+    await fetchCurrSavings(user.id);
 
-  // console.log(savings)
-  // console.log(balance);
-  // console.log(incomeSources);
+  console.log(savingsDetails);
+  console.log(balance);
+  console.log(incomeSources);
 
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
     (job) => ({
@@ -58,7 +58,7 @@ export default async function CashflowCards() {
         <Suspense
           fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
         >
-          <Incomes incomeSources={incomeSources} />
+          <Incomes incomeSources={incomeSources} user={user} />
           <QuickAdd user={user} />
         </Suspense>
       </div>

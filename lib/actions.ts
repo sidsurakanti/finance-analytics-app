@@ -9,7 +9,7 @@ import type {
   Balance,
   IncomeSources,
 } from "@lib/definitions";
-import { fetchBalance } from "@lib/data";
+import { fetchBalance, setInitBalance } from "@lib/data";
 
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
@@ -86,7 +86,7 @@ export async function updateIncomeSource(incomeSource: IncomeSources) {
       WHERE id = ${id.toString()}
     `;
     console.log("UPDATED INCOME SOURCE WITH ID: ", id);
-    revalidatePath("/cashflows")
+    revalidatePath("/cashflows");
   } catch (error) {
     console.log("ERROR EDITING INCOME SOURCE: ", error);
     throw new Error("Database error");
@@ -137,6 +137,7 @@ export async function updateCashflows(newCashflow: Cashflow) {
   }
 }
 
+// SAVINGS
 export async function updateSavings(newSavings: number, user_id: number) {
   let savings = Number(newSavings);
   if (savings > 1000000) savings = 1000000;
@@ -414,6 +415,8 @@ export async function createUser(user: User) {
       VALUES (${name}, ${email}, ${password})
     `;
     console.log("Created new user", res);
+
+    // add init values for db!
   } catch (error) {
     // handle non unique email error
     if ((error as any).code === "23505") {
