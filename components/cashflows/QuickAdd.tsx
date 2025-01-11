@@ -12,7 +12,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
+import { CreateTransactionSheet } from "@/components/transactions/create/CreateTransaction";
 
 export default function QuickAdd({ user }: { user: User }) {
   const [reoccuring, setReoccuring] = useState<Reoccuring[]>();
@@ -28,8 +29,12 @@ export default function QuickAdd({ user }: { user: User }) {
 
   return (
     <section className="bg-gradient-to-b from-[#FAFAFA] to-[#f3f3f3] dark:from-[#171717] dark:to-[#121212] h-fit group space-y-6 rounded-xl p-4 bg-accent shadow-md border border-border">
-      <h1>Quick add</h1>
-
+      <span className="flex justify-between">
+        <h1>Quick add</h1>
+        {reoccuring && (
+          <CreateTransactionSheet user={user} reoccuring={reoccuring} />
+        )}
+      </span>
       <ScrollArea className="h-72 w-full">
         <div className="grid grid-cols-2 gap-2">
           {reoccuring?.map((item, index) => (

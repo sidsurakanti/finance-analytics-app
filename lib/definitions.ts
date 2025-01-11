@@ -3,6 +3,9 @@ export type User = {
   email: string;
   password: string;
   name: string;
+  created_at: Date;
+  login_count: number;
+  last_logged_in: Date | null;
 };
 
 export type Balance = {
@@ -21,11 +24,11 @@ export type IncomeSources = {
 };
 
 export type Savings = {
-  id: number,
-  user_id: number,
-  amount: string,
+  id?: number;
+  user_id: number;
+  amount: string;
   created_at: Date;
-}
+};
 
 export type Cashflow = {
   id?: Number;
