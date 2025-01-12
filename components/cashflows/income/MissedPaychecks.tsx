@@ -1,6 +1,6 @@
 "use client";
 
-import { useToast } from "@/components/hooks/use-toast";
+import { useToast } from "@/components/ui/hooks/use-toast";
 import { addMissedPaychecks, checkForMissedPaychecks } from "@/lib/actions";
 import { IncomeSources, User } from "@/lib/definitions";
 import { cashFormatter } from "@/lib/utils";
