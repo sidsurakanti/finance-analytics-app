@@ -4,7 +4,7 @@ import { Reoccuring, User } from "@/lib/definitions";
 import { useEffect, useState } from "react";
 import { fetchReoccuring } from "@/lib/data";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { QuickAddForm } from "@/components/cashflows/QuickAddForm";
+import { QuickAddForm } from "@/components/cashflows/shortcuts/QuickAddForm";
 import {
   Dialog,
   DialogContent,
@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { CreateTransactionSheet } from "@/components/transactions/create/CreateTransaction";
 
-export default function QuickAdd({ user }: { user: User }) {
+export default function QuickAddList({ user }: { user: User }) {
   const [reoccuring, setReoccuring] = useState<Reoccuring[]>();
 
   useEffect(() => {

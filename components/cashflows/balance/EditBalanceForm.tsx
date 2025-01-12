@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import type { Balance } from "@/lib/definitions";
-import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import { updateBalance } from "@/lib/actions";
+
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";

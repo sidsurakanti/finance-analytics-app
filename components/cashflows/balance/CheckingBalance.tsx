@@ -1,8 +1,9 @@
 import type { Balance } from "@/lib/definitions";
+import type { nextPaycheckDetailsT } from "@/components/cashflows/CashflowCards";
 import { cashFormatter, dateFormatter, cn } from "@/lib/utils";
-import { BalanceChart } from "@/components/cashflows/balance/BalanceChart";
 import { mono } from "@/styles/fonts";
-import { nextPaycheckDetailsT } from "@/components/cashflows/CashflowCards";
+
+import BalanceChart from "@/components/cashflows/balance/BalanceChart";
 import UpdateBalanceButton from "@/components/cashflows/balance/UpdateBalance";
 
 interface CheckingBalanceProps {
@@ -10,7 +11,7 @@ interface CheckingBalanceProps {
   paycheckDetails: nextPaycheckDetailsT | undefined;
 }
 
-export default function CheckingBalance({
+export default function CheckingBalanceCard({
   balance,
   paycheckDetails,
 }: CheckingBalanceProps) {

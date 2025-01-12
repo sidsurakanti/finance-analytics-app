@@ -6,7 +6,7 @@ import { IncomeSources, User } from "@/lib/definitions";
 import { cashFormatter } from "@/lib/utils";
 import { useState, useEffect } from "react";
 
-export function DispatchToaster({
+export default function PaychecksSyncToaster({
   lastPaycheckSync,
   incomeSources,
   user,

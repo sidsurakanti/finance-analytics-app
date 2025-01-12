@@ -5,7 +5,7 @@ import type { User } from "@/lib/definitions";
 import { useState, useEffect } from "react";
 import { ExpensesChart } from "@/components/cashflows/spending/ExpensesChart";
 
-export function Expenses({ user }: { user: User }) {
+export default function ExpensesCard({ user }: { user: User }) {
   const [timespan, setTimespan] = useState<"3 months" | "6 months" | "1 year">(
     "3 months",
   );
