@@ -1,18 +1,19 @@
-import { fetchBalance, fetchIncomeSources, fetchCurrSavings } from "@/lib/data";
-import { findNextPayDate } from "@/lib/utils";
 import { auth } from "@/auth";
 import type { User, Balance, IncomeSources, Savings } from "@/lib/definitions";
+
+import { fetchBalance, fetchIncomeSources, fetchCurrSavings } from "@/lib/data";
+import { findNextPayDate } from "@/lib/utils";
+import { getLastPaycheckSyncDate } from "@/lib/actions";
+
 import { Suspense } from "react";
 import { Skeleton } from "@components/ui/skeleton";
 
-import CheckingBalance from "@/components/cashflows/balance/CheckingBalance";
+import CheckingBalanceCard from "@/components/cashflows/balance/CheckingBalance";
 import Incomes from "@/components/cashflows/income/Incomes";
 import SavingsCard from "@/components/cashflows/savings/Savings";
-import { Expenses } from "@/components/cashflows/spending/Expenses";
-import QuickAdd from "@/components/cashflows/QuickAdd";
-import { getLastPaycheckSyncDate } from "@/lib/actions";
-import { DispatchToaster } from "./income/MissedPaychecks";
-
+import ExpensesCard from "@/components/cashflows/spending/ExpensesCard";
+import QuickAddList from "@/components/cashflows/shortcuts/QuickAddList";
+import PaychecksSyncToaster from "@/components/cashflows/income/PaychecksSyncToaster";
 
 export default async function CashflowCards() {
   const session = await auth();
@@ -34,6 +35,7 @@ export default async function CashflowCards() {
   const balance: Balance = await fetchBalance(user.id);
   // console.log(balance);
 
+  // we're gonna use this to calculate when the next paycheck is for the balance component
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
     (job) => ({
       ...job,
@@ -41,17 +43,18 @@ export default async function CashflowCards() {
     }),
   );
 
+  // calculate next paycheck for bal component
   const nextPaycheckDetails: nextPaycheckDetailsT = incomeSourcesWNextPay.sort(
     (a, b) => a.nextPayDate.getTime() - b.nextPayDate.getTime(),
   )[0];
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-10 gap-2 mb-10">
-      <div className="col-span-5" id="checking-bal">
+    <section className="grid grid-cols-1 lg:grid-cols-10 gap-2">
+      <div className="col-span-5">
         <Suspense
           fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
         >
-          <CheckingBalance
+          <CheckingBalanceCard
             balance={balance}
             paycheckDetails={nextPaycheckDetails}
           />
@@ -64,23 +67,26 @@ export default async function CashflowCards() {
           <SavingsCard savingsDetails={savingsDetails} />
         </Suspense>
       </div>
-      <div className="col-span-6 flex flex-col gap-2">
+      <div className="col-span-6 space-y-2">
         <Suspense
           fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
         >
           <Incomes incomeSources={incomeSources} user={user} />
-          <QuickAdd user={user} />
+          <QuickAddList user={user} />
         </Suspense>
       </div>
       <div className="col-span-4">
         <Suspense
           fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
         >
-          <Expenses user={user} />
+          <ExpensesCard user={user} />
         </Suspense>
       </div>
+
+      {/* send out a toaster if any paychecks have landed 
+      or if we've added any missed paychecks since last paycheck sync  */}
       {isOutdated && (
-        <DispatchToaster
+        <PaychecksSyncToaster
           lastPaycheckSync={lastPaycheckSync}
           incomeSources={incomeSources}
           user={user}

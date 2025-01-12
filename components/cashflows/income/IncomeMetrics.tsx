@@ -2,10 +2,15 @@
 
 import { useState } from "react";
 import { cashFormatter, cn } from "@/lib/utils";
-import { inter, mono } from "@/styles/fonts";
+import { mono } from "@/styles/fonts";
+
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-export default function IncomeTotals({ totalIncome }: { totalIncome: number }) {
+export default function IncomeMetrics({
+  totalIncome,
+}: {
+  totalIncome: number;
+}) {
   const [toggleSalaryTimeframe, setToggleSalaryTimeframe] = useState<number>(0);
 
   return (

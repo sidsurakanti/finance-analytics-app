@@ -1,8 +1,8 @@
+import type { Balance } from "@/lib/definitions";
 import { fetchRecentBalances } from "@lib/data";
-import { Balance } from "@lib/definitions";
 import { SparkAreaChart } from "@tremor/react";
 
-export async function BalanceChart({
+export default async function BalanceChart({
   user_id,
   color,
   chartLimit,

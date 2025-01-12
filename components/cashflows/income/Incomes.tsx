@@ -6,11 +6,12 @@ import {
   ordinalDateFormatter,
   cn,
 } from "@/lib/utils";
+import { mono } from "@/styles/fonts";
+
 import { Badge } from "@/components/ui/badge";
 import CreateIncomeSource from "@/components/cashflows/income/CreateIncomes";
-import IncomeTotals from "@/components/cashflows/income/IncomeTotals";
-import IncomeSourceActions from "@/components/cashflows/income/IncomeSourceActions";
-import { mono } from "@/styles/fonts";
+import IncomeMetrics from "@/components/cashflows/income/IncomeMetrics";
+import IncomeSourceActions from "@/components/cashflows/income/IncomeActions";
 
 export default function Incomes({
   incomeSources,
@@ -38,7 +39,16 @@ export default function Incomes({
         <CreateIncomeSource user_id={user.id} />
       </span>
 
-      <IncomeTotals totalIncome={totalIncome} />
+      <IncomeMetrics totalIncome={totalIncome} />
+
+      {incomeSources.length < 1 && (
+        <>
+          <div className="flex justify-center items-center py-2 px-4 bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl shadow-sm overflow-auto">
+            Get started by adding income sources!
+          </div>
+        </>
+      )}
+
       {incomeSources.length > 0 && (
         <div className="py-2 px-4 bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl shadow-sm overflow-auto">
           <table className="w-full table-auto rounded-xl">
@@ -106,13 +116,6 @@ export default function Incomes({
             </tbody>
           </table>
         </div>
-      )}
-      {incomeSources.length < 1 && (
-        <>
-          <div className="flex justify-center items-center py-2 px-4 bg-gradient-to-b border border-border from-[#f2f2f2] to-[#efefef] dark:from-neutral-900 dark:to-neutral-900/70 rounded-xl shadow-sm overflow-auto">
-            Get started by adding income sources!
-          </div>
-        </>
       )}
     </section>
   );
