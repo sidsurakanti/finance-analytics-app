@@ -5,6 +5,7 @@ import "@/styles/globals.css";
 
 import { ThemeProvider } from "@components/ui/themes";
 import Footer from "@/components/footer";
+import { Analytics } from "@vercel/analytics/react";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body
         className={`min-h-screen w-full ${poppins.className} overflow-x-hidden antialiased`}
       >
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
