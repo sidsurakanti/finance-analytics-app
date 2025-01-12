@@ -4,12 +4,13 @@ import { poppins } from "@/styles/fonts";
 import "@/styles/globals.css";
 
 import { ThemeProvider } from "@components/ui/themes";
-import Footer from "@/components/footer";
 import { Analytics } from "@vercel/analytics/react";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "Dashboard",
-  description: "A simple, clean dashboard to manage your personal finances.",
+  title: "PBD",
+  description:
+    "A free, simple, clean dashboard to manage your personal finances.",
   metadataBase: new URL("https://pbd.vercel.app"),
   keywords: [
     "dashboard",
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     "management",
     "budgeting",
     "money",
+    "free",
   ],
 };
 
@@ -34,7 +36,7 @@ export default function RootLayout({
         <Analytics />
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
