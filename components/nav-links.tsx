@@ -30,9 +30,9 @@ const links = [
     text: "transactions",
   },
   {
-    href: "/reoccuring",
+    href: "/recurring",
     icon: ReoccuringSymbol,
-    text: "reoccuring",
+    text: "recurring",
   },
 ];
 

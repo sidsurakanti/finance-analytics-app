@@ -9,7 +9,12 @@ import type {
   Balance,
   IncomeSources,
 } from "@lib/definitions";
-import { fetchBalance, fetchIncomeSources, setInitBalance } from "@lib/data";
+import {
+  fetchBalance,
+  fetchIncomeSources,
+  fetchUser,
+  setInitBalance,
+} from "@lib/data";
 
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
@@ -485,12 +490,13 @@ export async function createUser(user: User) {
   // no need to check for duplicate users here
   // since duplicate users are not allowed by db columns bc of unique email contrainsts
   try {
-    const res = await sql`
+    await sql`
       INSERT INTO users (name, email, password) 
       VALUES (${name}, ${email}, ${password})
     `;
-    console.log("CREATED NEW USER", res);
-
+    console.log("CREATED NEW USER", email);
+    const { id } = await fetchUser(email);
+    await onUserCreate(id);
     // add init values for db!
   } catch (error) {
     // handle non unique email error
@@ -504,4 +510,106 @@ export async function createUser(user: User) {
   }
 
   redirect("/login");
+}
+
+export async function onUserCreate(user_id: string) {
+  try {
+    await sql`
+      INSERT INTO savings
+      (amount, user_id)
+      VALUES (0, ${user_id})
+    `;
+    console.log("SET INIT SAVINGS FOR USER");
+    await sql`
+      INSERT INTO balance
+      (amount, user_id)
+      VALUES (0, ${user_id})
+    `;
+    console.log("SET INIT BALANCE FOR USER");
+    await addDefaultRecurringTransactions(user_id);
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to add new savings");
+  }
+}
+
+export async function addDefaultRecurringTransactions(user_id: string) {
+  const defaultReoccuringSet = [
+    {
+      name: "Rent/Mortgage",
+      timeperiod: "monthly",
+      category: "housing",
+      user_id: user_id,
+    },
+    {
+      name: "Electricity Bill",
+      timeperiod: "monthly",
+      category: "bills",
+      user_id: user_id,
+    },
+    {
+      name: "Water Bill",
+      timeperiod: "monthly",
+      category: "bills",
+      user_id: user_id,
+    },
+    {
+      name: "Internet Bill",
+      timeperiod: "monthly",
+      category: "bills",
+      user_id: user_id,
+    },
+    {
+      name: "Gym Membership",
+      timeperiod: "monthly",
+      category: "health",
+      user_id: user_id,
+    },
+    {
+      name: "Groceries",
+      timeperiod: "weekly",
+      category: "food",
+      user_id: user_id,
+    },
+    {
+      name: "Gas",
+      timeperiod: "weekly",
+      category: "transportation",
+      user_id: user_id,
+    },
+    {
+      name: "Credit Card Bill",
+      timeperiod: "monthly",
+      category: "bills",
+      user_id: user_id,
+    },
+    {
+      name: "Phone Plan",
+      timeperiod: "monthly",
+      category: "bills",
+      user_id: user_id,
+    },
+    {
+      name: "Car Payment",
+      timeperiod: "monthly",
+      category: "transportation",
+      user_id: user_id,
+    },
+  ];
+
+  try {
+    const insertQueries = defaultReoccuringSet.map(
+      (transaction) =>
+        sql`
+          INSERT INTO reoccuring (name, timeperiod, category, user_id)
+          VALUES (${transaction.name}, ${transaction.timeperiod}, ${transaction.category}, ${transaction.user_id})
+        `,
+    );
+
+    await Promise.all(insertQueries);
+    console.log("ADDED INIT RECURRING SET");
+  } catch (error) {
+    console.error("Error adding default recurring transactions:", error);
+    throw error;
+  }
 }

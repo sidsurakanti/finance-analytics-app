@@ -11,7 +11,6 @@ import type {
   Savings,
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
-import { updateSavings } from "./actions";
 
 export async function fetchCurrSavings(user_id: string) {
   try {
