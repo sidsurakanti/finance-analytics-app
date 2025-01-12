@@ -10,13 +10,6 @@ CREATE TABLE IF NOT EXISTS users (
     login_count INTEGER DEFAULT 0
 )
 
-CREATE TABLE IF NOT EXISTS cashflows (
-    id SERIAL PRIMARY KEY, 
-    savings NUMERIC,
-    income NUMERIC,
-    user_id INTEGER REFERENCES users
-)
-
 CREATE TABLE IF NOT EXISTS transactions (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -60,15 +53,9 @@ CREATE TABLE IF NOT EXISTS savings (
 INSERT INTO income_sources
 (user_id, name, income_amt, frequency, pay_dates)
 VALUES 
-    (2, 'job1', 6200, 'semi-monthly', '{1, 15}'),
-    (2, 'job2', 9000, 'monthly', '{8, 24}');
+    (2, 'Job 1', 6200, 'semi-monthly', '{1, 15}'),
+    (2, 'Job 2', 9000, 'monthly', '{8, 24}');
 
-
-INSERT INTO cashflows
-(savings, income, user_id)
-VALUES 
-    (73000, 6200, 2),
-    (90000, 9000, 1);
 
 INSERT INTO reoccuring 
 (name, amount, timeperiod, user_id)
@@ -76,7 +63,7 @@ VALUES
     ('Mortgage', 'monthly', 'housing', 2),
     ('Netflix', 'monthly', 'subscriptions', 2),
     ('Gym', 'monthly', 'health' 2),
-    ('Electricity', 'monthly', 'bills' 2);
+    ('Electricity Bill', 'monthly', 'bills' 2);
 
 INSERT INTO transactions
 (name, amount, type, user_id)
@@ -93,7 +80,7 @@ VALUES (888.88, 2);
 
 INSERT INTO savings
 (amount, user_id)
-VALUES (888.88, 2)
+VALUES (888.88, 2);
 
 -- fetch user by email
 SELECT * FROM users
@@ -109,55 +96,6 @@ LIMIT 5;
 SELECT * FROM transactions
 WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));
 
---
-ALTER TABLE cashflows
-ADD COLUMN IF NOT EXISTS last_updated date;
-
-ALTER TABLE cashflows
-ALTER COLUMN income TYPE int
-
-ALTER TABLE users
-ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
-ALTER TABLE users
-ADD COLUMN IF NOT EXISTS login_count INTEGER DEFAULT 0;
-
-ALTER TABLE users
-ADD COLUMN IF NOT EXISTS last_logged_in TIMESTAMP;
-
-ALTER TABLE users
-ADD COLUMN IF NOT EXISTS last_paycheck_sync TIMESTAMP;
-
-
-
-UPDATE cashflows
-SET 
-    income_sources = '{"job1", "job2"}',
-    frequency = 'bi-weekly',
-    pay_dates = '{1, 15}',
-    last_updated = '2024-12-05'
-WHERE user_id = 2;
-
-SELECT * FROM cashflows
-WHERE user_id = 2;
-
-UPDATE income_sources
-SET pay_dates = '{1, 18}',
-WHERE name = 'job1';
-
-UPDATE income_sources
-SET name = "Job 1"
-WHERE name = 'job1';
-
-UPDATE income_sources
-SET frequency = "semi-monthly"
-WHERE name = 'Job 1';
-
-UPDATE income_sources
-SET 
-    frequency = "monthly"
-    pay_dates = '{1}'
-WHERE name = 'Job 2';
 
 UPDATE users
 SET 

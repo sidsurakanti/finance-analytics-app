@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 
 export default function Logo() {
   return (
-    <div>
+    <>
       <motion.svg
         animate={{ rotate: 360 }}
         transition={{ duration: 0.3 }}
@@ -21,6 +21,6 @@ export default function Logo() {
           d="M100 0H0L100 100H0L100 200H200L100 100H200L100 0Z"
         />
       </motion.svg>
-    </div>
+    </>
   );
 }

@@ -2,7 +2,7 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Reoccuring, Transaction } from "@/lib/definitions";
-import { DeleteTransactionWrapper } from "@/components/transactions/edit/DeleteTransactionWrapper";
+import { DeleteTransactionWrapper } from "@/components/transactions/delete/DeleteTransactionWrapper";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";

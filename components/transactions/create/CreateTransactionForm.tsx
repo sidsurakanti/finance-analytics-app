@@ -6,7 +6,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import type { User, Transaction, Reoccuring } from "@lib/definitions";
-import { createTransaction, updateBalance, paycheckUpdate } from "@lib/actions";
+import { createTransaction, updateBalance } from "@lib/actions";
 
 import {
   Form,
@@ -69,9 +69,6 @@ export function CreateTransactionForm({
     };
 
     // update income in cashflows table if user adds a new paycheck
-    if (data.type === "paycheck") {
-      paycheckUpdate(transaction.amount.toString(), user.id);
-    }
 
     // add transaction to db
     createTransaction(transaction);

@@ -3,7 +3,6 @@
 import { sql } from "@vercel/postgres";
 import type {
   User,
-  Cashflow,
   Transaction,
   Reoccuring,
   Balance,
@@ -12,7 +11,80 @@ import type {
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
-export async function fetchCurrSavings(user_id: string) {
+
+// BALANCE FETCH
+export async function fetchBalance(user_id: string): Promise<Balance> {
+  noStore();
+
+  try {
+    const res = await sql<Balance>`
+        SELECT * FROM balance
+        WHERE user_id=${user_id}
+        ORDER BY id DESC
+        LIMIT 1;
+      `;
+    
+    // if there's no init balance
+    // we already handle this in onboarding but i just left it here for backup
+    if (res.rows.length < 1) {
+      const balance = await setInitBalance(user_id);
+      console.log("FETCHED BALANCE FOR:", user_id);
+      return balance;
+    }
+
+    const balance = res.rows[0];
+    console.log("FETCHED BALANCE FOR:", user_id);
+    return balance;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch balance.");
+  }
+}
+
+export async function setInitBalance(user_id: string): Promise<Balance> {
+  try {
+    await sql`
+      INSERT INTO balance
+      (amount, user_id)
+      VALUES (0, ${user_id})
+    `;
+    console.log("SET INIT BALANCE FOR USER:", user_id);
+    return { amount: "0", user_id: user_id } as Balance;
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to set balance.");
+  }
+}
+
+export async function fetchRecentBalances(
+  user_id: string,
+  limit: number = 5,
+): Promise<Balance[]> {
+  noStore();
+
+  try {
+    const res = await sql<Balance>`
+        SELECT * FROM balance
+        WHERE user_id=${user_id}
+        ORDER BY id DESC
+        LIMIT ${limit};
+      `;
+    const balance = res.rows;
+    console.log("FETCHED RECENT BALANCES FOR:", user_id, "WITH LIMIT:", limit);
+
+    // flip the array so the most recent balance is last
+    return balance.reverse();
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to fetch balance.");
+  }
+}
+
+// SAVINGS FETCH
+export async function fetchCurrSavings(user_id: string): Promise<{
+  savings: Savings;
+  change: number;
+}> {
   try {
     const res = await sql<Savings>`
       SELECT * FROM savings
@@ -21,7 +93,7 @@ export async function fetchCurrSavings(user_id: string) {
       LIMIT 2
     `;
     if (res.rows.length < 1) {
-      // no savings so set init savings
+      // if no savings, set init savings
       const initSavings = await setInitSavings(user_id);
       return initSavings;
     } else if (res.rows.length < 2) {
@@ -32,8 +104,8 @@ export async function fetchCurrSavings(user_id: string) {
     const prev_savings = res.rows[1];
     const savings_change =
       Number(curr_savings.amount) - Number(prev_savings.amount);
-    console.log("FETCHED SAVINGS FOR USER:", user_id);
 
+    console.log("FETCHED SAVINGS FOR USER:", user_id);
     return { savings: curr_savings, change: savings_change };
   } catch (error) {
     console.log("DATABASE ERROR", error);
@@ -75,6 +147,7 @@ export async function fetchRecentSavings(user_id: number) {
   }
 }
 
+// INCOME SOURCES FETCH
 export async function fetchIncomeSources(user: User) {
   const { id } = user;
   try {
@@ -92,7 +165,7 @@ export async function fetchIncomeSources(user: User) {
   }
 }
 
-// fetch user
+// USER FETCH
 export async function fetchUser(email: string) {
   try {
     const data = await sql<User>`
@@ -101,7 +174,7 @@ export async function fetchUser(email: string) {
         `;
     const user = data.rows[0];
     console.log("FETCHED USER:", email);
-    
+
     return user;
   } catch (error) {
     console.log("Database error", error);
@@ -109,28 +182,7 @@ export async function fetchUser(email: string) {
   }
 }
 
-// fetching cashflows table
-export async function fetchCashflows(user: User) {
-  noStore();
-  const id = user.id?.toString();
-
-  try {
-    const res = await sql<Cashflow>`
-          SELECT * FROM cashflows
-          WHERE user_id=${id};
-        `;
-    const cashflows = res.rows[0];
-    console.log("FETCHED CASHFLOWS FOR ID:", id);
-    // console.log(cashflows);
-    // console.log(cashflows.last_updated)
-    return cashflows;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch cashflows.");
-  }
-}
-
-// fetching reoccuring table
+// RECURRING FETCH
 export async function fetchReoccuring(user: User) {
   noStore();
   const id = user.id?.toString();
@@ -151,75 +203,20 @@ export async function fetchReoccuring(user: User) {
   }
 }
 
-export async function fetchReoccuringWUserId(user_id: User["id"]) {
-  noStore();
-
-  try {
-    const res = await sql<Reoccuring>`
-      SELECT * FROM reoccuring
-      WHERE user_id=${user_id}
-      ORDER BY id DESC;
-    `;
-    const reoccuring = res.rows;
-    console.log("FETCHED REOCCURING TRANSACTIONS FOR:", user_id);
-
-    return reoccuring;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch reoccuring recoccuring transactions");
-  }
-}
-
-// fetching transactions table
-export async function fetchTransactions(user: User) {
-  noStore();
-  const id = user.id?.toString();
-
-  try {
-    const res = await sql<Transaction>`
-      SELECT * FROM transactions
-      WHERE user_id=${id}
-      ORDER BY created_at DESC
-      LIMIT 4;
-    `;
-    const transactions = res.rows;
-    console.log("FETCHED TRANSACTIONS FOR", id);
-
-    return transactions;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch transactions");
-  }
-}
-
-export async function fetchTransactionsThisMonth(user: User) {
-  const id = user.id?.toString();
-  try {
-    const res = await sql<Transaction>`
-        SELECT * FROM transactions
-        WHERE (user_id=${id} AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE) AND type in ('expense', 'reoccuring', 'withdrawl'));
-      `;
-    const transactions = res.rows;
-    console.log("FETCHED TRANSACTIONS FOR THIS MONTH:", id);
-
-    return transactions;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch this month's transactions");
-  }
-}
-
+// TRANSACTIONS FETCH
 export type SortedData = {
   month: Date;
   total_amount: string;
 };
 
+// sorted by monthly intervals for timespan
 export async function fetchTransactionsSorted(
   user: User,
   type: Transaction["type"],
   timespan: string = "6 months",
 ) {
   let res;
+
   try {
     if (timespan === "1 year") {
       res = await sql<SortedData>`
@@ -282,6 +279,7 @@ export async function fetchTransactionsSorted(
           ORDER BY d.month
         `;
     }
+
     const transactions: SortedData[] = res.rows;
     console.log("FETCHED GROUPED TRANSACTIONS FOR USER", user.id);
     return transactions;
@@ -291,7 +289,7 @@ export async function fetchTransactionsSorted(
   }
 }
 
-export async function fetchAllTransactions(user: User) {
+export async function fetchAllTransactions(user: User): Promise<Transaction[]> {
   noStore();
   const id = user.id?.toString();
   try {
@@ -310,64 +308,3 @@ export async function fetchAllTransactions(user: User) {
   }
 }
 
-// fetching balance table
-export async function fetchBalance(user_id: string) {
-  noStore();
-
-  try {
-    const res = await sql<Balance>`
-        SELECT * FROM balance
-        WHERE user_id=${user_id}
-        ORDER BY id DESC
-        LIMIT 1;
-      `;
-    if (res.rows.length < 1) {
-      const balance = await setInitBalance(user_id);
-      console.log("FETCHED BALANCE FOR:", user_id);
-      return balance;
-    }
-
-    const balance = res.rows[0];
-    console.log("FETCHED BALANCE FOR:", user_id);
-    return balance;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch balance.");
-  }
-}
-
-export async function setInitBalance(user_id: string) {
-  try {
-    await sql`
-      INSERT INTO balance
-      (amount, user_id)
-      VALUES (0, ${user_id})
-    `;
-    console.log("SET INIT BALANCE FOR USER:", user_id);
-    return { amount: "0", user_id: user_id } as Balance;
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to set balance.");
-  }
-}
-
-export async function fetchRecentBalances(user_id: string, limit: number = 5) {
-  noStore();
-
-  try {
-    const res = await sql<Balance>`
-        SELECT * FROM balance
-        WHERE user_id=${user_id}
-        ORDER BY id DESC
-        LIMIT ${limit};
-      `;
-    const balance = res.rows;
-    console.log("FETCHED RECENT BALANCES FOR:", user_id, "WITH LIMIT:", limit);
-
-    // flip the array so the most recent balance is last
-    return balance.reverse();
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to fetch balance.");
-  }
-}

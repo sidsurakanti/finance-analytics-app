@@ -5,8 +5,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 
-import { type Transaction, type Reoccuring } from "@lib/definitions";
-import { updateTransaction, paycheckUpdate, updateBalance } from "@lib/actions";
+import type { Transaction, Reoccuring } from "@lib/definitions";
+import { updateTransaction, updateBalance } from "@lib/actions";
 
 import {
   Form,
@@ -67,11 +67,6 @@ export function EditTransactionForm({
       user_id: transaction.user_id,
       created_at: new Date(),
     };
-
-    // update the user's income cashflow if user adds a new paycheck
-    if (data.type === "paycheck") {
-      paycheckUpdate(updatedTransaction.amount.toString(), transaction.user_id);
-    }
 
     // cancel out old transaction amount from user balance and then update balance
     updateBalance(

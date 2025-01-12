@@ -50,7 +50,7 @@ export function DeleteTransactionWrapper({
               className="bg-destructive"
               onClick={onClickHandler}
             >
-              Confirm
+              confirm
             </Button>
           </DialogClose>
         </DialogContent>
