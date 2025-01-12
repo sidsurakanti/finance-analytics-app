@@ -1,5 +1,3 @@
-"use client";
-
 import { deleteReoccuringById } from "@lib/actions";
 import { Button } from "@components/ui/button";
 // import { TrashIcon } from "@components/ui/icons";
@@ -15,7 +13,7 @@ import {
   DialogClose,
 } from "@components/ui/dialog";
 
-export function DeleteButtonWrapper({
+export function DeleteReoccuringButton({
   reoccuringId,
 }: {
   reoccuringId: Number;
@@ -29,8 +27,12 @@ export function DeleteButtonWrapper({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={"ghost"} className="hover:bg-destructive/90">
-            <CircleX size={20} strokeWidth={1} />
+          <Button
+            variant={"ghost"}
+            size="icon"
+            className="rounded-full p-1 hover:text-white hover:bg-rose-600/95"
+          >
+            <CircleX size={20} strokeWidth={1.2} />
           </Button>
         </DialogTrigger>
 
