@@ -28,6 +28,7 @@
     "@tanstack/react-table": "^8.20.6",
     "@tremor/react": "^3.14.0",
     "@types/bcrypt": "^5.0.2",
+    "@vercel/analytics": "^1.4.1",
     "@vercel/postgres": "^0.10.0",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
