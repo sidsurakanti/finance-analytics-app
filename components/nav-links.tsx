@@ -14,10 +14,15 @@ import { cn } from "@lib/utils";
 import Link from "next/link";
 
 const links = [
+  // {
+  //   href: "/dashboard",
+  //   icon: DashboardIcon,
+  //   text: "dashboard",
+  // },
   {
-    href: "/dashboard",
-    icon: DashboardIcon,
-    text: "dashboard",
+    href: "/cashflows",
+    icon: CashflowsNavIcon,
+    text: "cashflows",
   },
   {
     href: "/transactions",
@@ -28,11 +33,6 @@ const links = [
     href: "/reoccuring",
     icon: ReoccuringSymbol,
     text: "reoccuring",
-  },
-  {
-    href: "/cashflows",
-    icon: CashflowsNavIcon,
-    text: "cashflows",
   },
 ];
 

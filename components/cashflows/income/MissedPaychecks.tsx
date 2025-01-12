@@ -26,6 +26,15 @@ export function DispatchToaster({
           lastPaycheckSync,
         );
         // console.log(missedPaychecks);
+        if (
+          missedPaychecks.length === 2 &&
+          missedPaychecks.every(
+            (arr) => arr.length === 2 && arr[0] === 0 && arr[1] === 0,
+          )
+        ) {
+          setHasChecked(true);
+          return;
+        }
         await addMissedPaychecks(missedPaychecks, user.id);
 
         missedPaychecks.forEach(([missedPaychecks, missedIncome]) => {
