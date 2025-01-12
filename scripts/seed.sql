@@ -121,7 +121,8 @@ ADD COLUMN IF NOT EXISTS login_count INTEGER DEFAULT 0;
 ALTER TABLE users
 ADD COLUMN IF NOT EXISTS last_logged_in TIMESTAMP;
 
-
+ALTER TABLE users
+ADD COLUMN IF NOT EXISTS last_paycheck_sync TIMESTAMP;
 
 UPDATE cashflows
 SET 
@@ -151,5 +152,10 @@ SET
     frequency = "monthly"
     pay_dates = '{1}'
 WHERE name = 'Job 2';
+
+UPDATE users
+SET 
+    last_paycheck_sync = '2024-12-05'
+WHERE id = 2;
 
 CREATE INDEX idx_transactions_ ON transactions(created_at, amount);

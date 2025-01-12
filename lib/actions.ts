@@ -9,7 +9,7 @@ import type {
   Balance,
   IncomeSources,
 } from "@lib/definitions";
-import { fetchBalance, setInitBalance } from "@lib/data";
+import { fetchBalance, fetchIncomeSources, setInitBalance } from "@lib/data";
 
 import { z } from "zod";
 import { formSchema } from "@/schemas/login";
@@ -19,12 +19,80 @@ import { redirect } from "next/navigation";
 import { auth, signIn, signOut } from "@/auth";
 import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
+import { calculateLastPaidDiff } from "@/lib/utils";
 
 // --------- cashflows actions
 interface RequiredCashflows {
   income: string;
   savings: string;
   user_id: string;
+}
+
+export async function getLastPaycheckSyncDate(user_id: string) {
+  try {
+    const { rows } = await sql`
+      SELECT (last_paycheck_sync) FROM users
+      WHERE id=${user_id};
+    `;
+    const { last_paycheck_sync } = rows[0];
+    return last_paycheck_sync;
+  } catch (error) {
+    console.log("FAILED TO FETCH LAST PAYCHECK SYNC DATE", error);
+    throw new Error("Error while fetching last paycheck sync date");
+  }
+}
+
+export async function checkForMissedPaychecks(
+  incomeSources: IncomeSources[],
+  lastSyncedDate: Date,
+) {
+  const ret = incomeSources.map((job) => {
+    const missedPaychecksCount = calculateLastPaidDiff(
+      // new Date("2024-12-05"),
+      lastSyncedDate,
+      job.pay_dates,
+    );
+    const missedIncome = missedPaychecksCount * Number(job.income_amt);
+
+    return [missedPaychecksCount, missedIncome];
+  });
+
+  return ret;
+}
+
+export async function addMissedPaychecks(
+  missedPaychecksDetails: number[][],
+  user_id: string,
+) {
+  let totalIncomeMissed = 0;
+  missedPaychecksDetails.forEach((missedPaycheck) => {
+    const [paychecksMissed, incomeMissed] = missedPaycheck;
+    totalIncomeMissed += incomeMissed;
+  });
+
+  updateBalance(totalIncomeMissed, user_id, false);
+  // set lastPaycheckSyncDate to now
+  setPaycheckSyncDate(user_id);
+  revalidatePath("/cashflows");
+  console.log("ADD MISSED PAYCHECKS INTO CHECKING BALANCE");
+  return;
+}
+
+export async function setPaycheckSyncDate(user_id: string) {
+  const now = new Date();
+  const formattedDate = now.toISOString().split("T")[0]; // get date in YYYY-MM-DD
+
+  try {
+    await sql`
+    UPDATE users
+    SET 
+      last_paycheck_sync = ${formattedDate}
+    WHERE id = ${user_id};
+  `;
+  } catch (error) {
+    console.log("ERROR WHILE SETTING PAYCHECK SYNC DATE", error);
+    throw new Error("Failed to set paycheck sync date");
+  }
 }
 
 // add new income source
@@ -297,7 +365,11 @@ export async function deleteReoccuringById(reoccuringId: Number) {
 
 // --------- balance actions
 // update balance
-export async function updateBalance(change: number, user_id: string) {
+export async function updateBalance(
+  change: number,
+  user_id: string,
+  refreshPath: boolean = true,
+) {
   // get the current balance so we can increment it
   const balance: Balance = await fetchBalance(user_id);
 
@@ -318,7 +390,10 @@ export async function updateBalance(change: number, user_id: string) {
     deleteOldBalances(user_id);
 
     console.log("UPDATED BALANCE:", updatedBalance);
-    revalidatePath("/dashboard");
+
+    if (refreshPath) {
+      revalidatePath("/cashflows");
+    }
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to update balance");
@@ -387,22 +462,6 @@ export async function login(data: z.infer<typeof formSchema>) {
       }
     }
 
-    throw error;
-  }
-}
-
-export async function handleDbUpdatesOnLogin(user_id: string) {
-  try {
-    await sql`
-      UPDATE users
-      SET 
-        last_logged_in = CURRENT_TIMESTAMP,
-        login_count = login_count + 1
-      WHERE id = ${user_id}
-    `;
-    console.log("UPDATED LAST LOGIN AND LOGIN COUNT FOR USER", user_id)
-  } catch (error) {
-    console.log("ERROR WHILE UPDATING DB ON LOGIN", error)
     throw error;
   }
 }
