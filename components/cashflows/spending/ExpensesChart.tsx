@@ -33,7 +33,6 @@ export function ExpensesChart({
     SetStateAction<"6 months" | "1 year" | "3 months">
   >;
 }) {
-
   if (!expenses || !reoccuring) {
     return <Skeleton className="h-96 w-full bg-neutral-200" />;
   }

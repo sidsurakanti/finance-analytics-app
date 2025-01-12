@@ -10,8 +10,8 @@ import {
   reoccuringFrequencyColors,
 } from "@lib/colors";
 import { Badge } from "@components/ui/badge";
-import { EditRecurring } from "@/components/reoccuring/EditRecurringDialog";
-import { DeleteReoccuringButton } from "@/components/reoccuring/DeleteRecurringWrapper";
+import { EditRecurring } from "@/components/reoccuring/edit/EditRecurringDialog";
+import { DeleteReoccuringButton } from "@/components/reoccuring/delete/DeleteRecurringButton";
 
 export const columns: ColumnDef<Reoccuring>[] = [
   {

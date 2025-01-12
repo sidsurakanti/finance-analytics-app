@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { createTransactionSchema } from "@/schemas/new-transaction";
 
 import type { Transaction, Reoccuring } from "@lib/definitions";
-import { createTransaction, paycheckUpdate, updateBalance } from "@lib/actions";
+import { createTransaction, updateBalance } from "@lib/actions";
 
 import {
   Form,

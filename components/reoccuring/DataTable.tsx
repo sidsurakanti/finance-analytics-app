@@ -28,7 +28,7 @@ import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { User } from "@/lib/definitions";
-import { ReoccuringSheet } from "@/components/reoccuring/AddReoccuring";
+import { ReoccuringSheet } from "@/components/reoccuring/create/AddReoccuring";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

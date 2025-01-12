@@ -20,8 +20,8 @@ import { SheetClose, SheetFooter } from "@components/ui/sheet";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 
-import { FrequencySelect } from "@components/reoccuring/FrequencySelect";
-import { CategorySelect } from "@components/reoccuring/CategorySelect";
+import { FrequencySelect } from "@/components/reoccuring/create/FrequencySelect";
+import { CategorySelect } from "@/components/reoccuring/create/CategorySelect";
 
 // * client component bc of the useForm hook
 export function AddReoccuringForm({ user }: { user: User }) {
@@ -40,7 +40,6 @@ export function AddReoccuringForm({ user }: { user: User }) {
   const onSubmit: SubmitHandler<z.infer<typeof newReoccuringSchema>> = (
     data: z.infer<typeof newReoccuringSchema>,
   ) => {
-
     // create a new reoccuring transaction object
     const newReoccuring: Reoccuring = {
       name: data.name,

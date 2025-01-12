@@ -9,7 +9,7 @@ import {
 import { Button } from "@components/ui/button";
 import type { Reoccuring } from "@lib/definitions";
 import { Pencil } from "lucide-react";
-import { EditReoccuringForm } from "@/components/reoccuring/EditReoccuringForm";
+import { EditReoccuringForm } from "@/components/reoccuring/edit/EditReoccuringForm";
 
 export function EditRecurring({ reoccuring }: { reoccuring: Reoccuring }) {
   return (

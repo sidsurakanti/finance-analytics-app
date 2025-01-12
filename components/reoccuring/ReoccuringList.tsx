@@ -15,7 +15,7 @@ import {
   TableRow,
 } from "@components/ui/table";
 import { Badge } from "@components/ui/badge";
-import { EditRecurring } from "@/components/reoccuring/EditRecurringDialog";
+import { EditRecurring } from "@/components/reoccuring/edit/EditRecurringDialog";
 import { DataTable } from "@/components/reoccuring/DataTable";
 
 export async function ReoccuringList() {

@@ -20,8 +20,8 @@ import { DialogFooter, DialogClose } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 
-import { FrequencySelect } from "@components/reoccuring/FrequencySelect";
-import { CategorySelect } from "@components/reoccuring/CategorySelect";
+import { FrequencySelect } from "@/components/reoccuring/create/FrequencySelect";
+import { CategorySelect } from "@/components/reoccuring/create/CategorySelect";
 
 export function EditReoccuringForm({ reoccuring }: { reoccuring: Reoccuring }) {
   const { name, timeperiod, category } = reoccuring;

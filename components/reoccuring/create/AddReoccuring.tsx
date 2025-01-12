@@ -10,7 +10,7 @@ import { Button } from "@components/ui/button";
 import { PlusIcon } from "@components/ui/icons";
 
 import { type User } from "@lib/definitions";
-import { AddReoccuringForm } from "@components/reoccuring/AddReoccuringForm";
+import { AddReoccuringForm } from "@/components/reoccuring/create/AddReoccuringForm";
 
 // sheet to add reoccuring transactions
 export function ReoccuringSheet({ user }: { user: User }) {

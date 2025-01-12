@@ -30,14 +30,6 @@ export type Savings = {
   created_at: Date;
 };
 
-export type Cashflow = {
-  id?: Number;
-  savings: string;
-  income: string;
-  user_id: string;
-  last_updated: Date;
-};
-
 export type Transaction = {
   id?: Number;
   name: string;
