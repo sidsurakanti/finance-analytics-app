@@ -72,20 +72,41 @@ export function DataTable<TData, TValue>({
             className="w-64 max-w-sm"
           />
 
-          {/* <ToggleGroup
-            type="single"
+          <ToggleGroup
+            type="multiple"
             onValueChange={(value) => {
-              table.getColumn("category")?.setFilterValue(value);
+              table.getColumn("timeperiod")?.setFilterValue(value);
             }}
           >
             <ToggleGroupItem
-              value="reoccuring"
+              value="weekly"
               size={"sm"}
-              className="data-[state=on]:bg-rose-100 data-[state=on]:text-rose-900 px-2.5 rounded-lg"
+              className="data-[state=on]:bg-blue-100 data-[state=on]:text-blue-900 px-2.5 rounded-lg"
             >
-              reoccuring
+              weekly
             </ToggleGroupItem>
-          </ToggleGroup> */}
+            <ToggleGroupItem
+              value="yearly"
+              size={"sm"}
+              className="data-[state=on]:bg-blue-100 data-[state=on]:text-blue-900 px-2.5 rounded-lg"
+            >
+              yearly
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="monthly"
+              size={"sm"}
+              className="data-[state=on]:bg-blue-100 data-[state=on]:text-blue-900 px-2.5 rounded-lg"
+            >
+              monthly
+            </ToggleGroupItem>
+            <ToggleGroupItem
+              value="bi-anually"
+              size={"sm"}
+              className="data-[state=on]:bg-blue-100 data-[state=on]:text-blue-900 px-2.5 rounded-lg"
+            >
+              bi-anually
+            </ToggleGroupItem>
+          </ToggleGroup>
         </div>
         <ReoccuringSheet user={user} />
       </div>

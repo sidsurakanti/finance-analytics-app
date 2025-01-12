@@ -23,7 +23,7 @@ export const columns: ColumnDef<Reoccuring>[] = [
     header: ({ column }) => {
       return (
         <div className="text-center">
-          type
+          category
           <Button
             variant={"ghost"}
             className="rounded-full hover:bg-transparent"
@@ -61,7 +61,7 @@ export const columns: ColumnDef<Reoccuring>[] = [
         </div>
       );
     },
-    filterFn: "equals",
+    filterFn: "arrIncludesSome",
     cell: ({ row }) => {
       const freq: Reoccuring["timeperiod"] = row.getValue("timeperiod");
       return (

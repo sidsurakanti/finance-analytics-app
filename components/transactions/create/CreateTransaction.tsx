@@ -24,7 +24,7 @@ export function CreateTransactionSheet({
       <Sheet>
         <SheetTrigger asChild>
           <span>
-            <Button className="hidden md:block bg-amber-100 hover:bg-amber-200 border border-amber-200 text-blue-950 font-medium" variant={"ghost"}>
+            <Button className="hidden md:block bg-pink-100 hover:bg-pink-200 border border-pink-200 text-pink-950 font-medium" variant={"ghost"}>
               <p>+ transaction</p>
             </Button>
 

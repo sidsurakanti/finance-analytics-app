@@ -19,7 +19,10 @@ export function ReoccuringSheet({ user }: { user: User }) {
       <Sheet>
         <SheetTrigger asChild>
           <div>
-            <Button className="hidden md:block">
+            <Button
+              className="hidden md:block bg-amber-100 hover:bg-amber-200 border border-amber-200 text-blue-950 font-medium"
+              variant={"ghost"}
+            >
               <p>+ reoccuring</p>
             </Button>
             <Button className="md:hidden" size="icon">
