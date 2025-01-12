@@ -10,19 +10,45 @@ import Incomes from "@/components/cashflows/income/Incomes";
 import SavingsCard from "@/components/cashflows/savings/Savings";
 import { Expenses } from "@/components/cashflows/spending/Expenses";
 import QuickAdd from "@/components/cashflows/QuickAdd";
+import {
+  getLastPaycheckSyncDate,
+  checkForMissedPaychecks,
+  addMissedPaychecks,
+} from "@/lib/actions";
+import { DispatchToaster } from "./income/MissedPaychecks";
 
 export default async function CashflowCards() {
   const session = await auth();
   const user = session?.user as User;
 
-  const balance: Balance = await fetchBalance(user.id);
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
   const savingsDetails: { savings: Savings; change: number } =
     await fetchCurrSavings(user.id);
-
   // console.log(savingsDetails);
-  // console.log(balance);
   // console.log(incomeSources);
+
+  // check for missed paychecks
+  const lastPaycheckSync = await getLastPaycheckSyncDate(user.id);
+  const isOutdated =
+    new Date().getTime() - new Date(lastPaycheckSync).getTime() >
+    24 * 60 * 60 * 1000;
+
+  // if (
+  //   new Date().getTime() - new Date(lastPaycheckSync).getTime() >
+  //   24 * 60 * 60 * 1000
+  // ) {
+  //   const missedPaychecks: number[][] = await checkForMissedPaychecks(
+  //     incomeSources,
+  //     lastPaycheckSync,
+  //   );
+  //   missedPaychecksDispatch = missedPaychecks;
+  //   // console.log(missedPaychecks);
+  //   addMissedPaychecks(missedPaychecks, user.id);
+  // }
+  // console.log(lastPaycheckSync);
+
+  const balance: Balance = await fetchBalance(user.id);
+  // console.log(balance);
 
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
     (job) => ({
@@ -69,6 +95,13 @@ export default async function CashflowCards() {
           <Expenses user={user} />
         </Suspense>
       </div>
+      {isOutdated && (
+        <DispatchToaster
+          lastPaycheckSync={lastPaycheckSync}
+          incomeSources={incomeSources}
+          user={user}
+        />
+      )}
     </section>
   );
 }
