@@ -1,12 +1,12 @@
 "use client";
 
-import { type Reoccuring } from "@lib/definitions";
+import type { Reoccuring } from "@lib/definitions";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { newReoccuringSchema } from "@/schemas/new-reoccuring";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { updateReoccuring } from "@lib/actions";
+import { updateReoccuring } from "@/lib/actions";
 
 import {
   Form,
