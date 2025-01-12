@@ -3,7 +3,11 @@ CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, -- auto-incrementing id
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-    name VARCHAR(255) NOT NULL
+    name VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_paycheck_sync TIMESTAMP,
+    last_logged_in TIMESTAMP,
+    login_count INTEGER DEFAULT 0
 )
 
 CREATE TABLE IF NOT EXISTS cashflows (
@@ -24,7 +28,7 @@ CREATE TABLE IF NOT EXISTS transactions (
 
 CREATE TABLE IF NOT EXISTS reoccuring (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
     timeperiod VARCHAR(255) NOT NULL,
     category VARCHAR(255) NOT NULL,
     user_id INTEGER REFERENCES users
@@ -39,7 +43,7 @@ CREATE TABLE IF NOT EXISTS balance (
 CREATE TABLE IF NOT EXISTS income_sources (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users(id),
-    name VARCHAR(255) UNIQUE NOT NULL,
+    name VARCHAR(255) NOT NULL,
     income_amt NUMERIC(10, 2) NOT NULL,
     frequency VARCHAR(255) NOT NULL,
     pay_dates text[]
@@ -56,8 +60,8 @@ CREATE TABLE IF NOT EXISTS savings (
 INSERT INTO income_sources
 (user_id, name, income_amt, frequency, pay_dates)
 VALUES 
-    (2, 'job1', 6200, 'bi-weekly', '{1, 15}'),
-    (2, 'job2', 9000, 'bi-weekly', '{1, 15}');
+    (2, 'job1', 6200, 'semi-monthly', '{1, 15}'),
+    (2, 'job2', 9000, 'monthly', '{8, 24}');
 
 
 INSERT INTO cashflows
@@ -85,15 +89,15 @@ VALUES
 
 INSERT INTO balance 
 (amount, user_id) 
-VALUES (3018.63, 2);
+VALUES (888.88, 2);
+
+INSERT INTO savings
+(amount, user_id)
+VALUES (888.88, 2)
 
 -- fetch user by email
 SELECT * FROM users
 WHERE email='johndoe@gmail.com'
-
--- fetch someone's cashflow
-SELECT * FROM cashflows
-WHERE user_id=1;
 
 -- fetch someone's last 5 transactions
 SELECT * FROM transactions
@@ -123,6 +127,8 @@ ADD COLUMN IF NOT EXISTS last_logged_in TIMESTAMP;
 
 ALTER TABLE users
 ADD COLUMN IF NOT EXISTS last_paycheck_sync TIMESTAMP;
+
+
 
 UPDATE cashflows
 SET 
@@ -157,5 +163,3 @@ UPDATE users
 SET 
     last_paycheck_sync = '2024-12-05'
 WHERE id = 2;
-
-CREATE INDEX idx_transactions_ ON transactions(created_at, amount);

@@ -10,12 +10,9 @@ import Incomes from "@/components/cashflows/income/Incomes";
 import SavingsCard from "@/components/cashflows/savings/Savings";
 import { Expenses } from "@/components/cashflows/spending/Expenses";
 import QuickAdd from "@/components/cashflows/QuickAdd";
-import {
-  getLastPaycheckSyncDate,
-  checkForMissedPaychecks,
-  addMissedPaychecks,
-} from "@/lib/actions";
+import { getLastPaycheckSyncDate } from "@/lib/actions";
 import { DispatchToaster } from "./income/MissedPaychecks";
+
 
 export default async function CashflowCards() {
   const session = await auth();
@@ -32,19 +29,6 @@ export default async function CashflowCards() {
   const isOutdated =
     new Date().getTime() - new Date(lastPaycheckSync).getTime() >
     24 * 60 * 60 * 1000;
-
-  // if (
-  //   new Date().getTime() - new Date(lastPaycheckSync).getTime() >
-  //   24 * 60 * 60 * 1000
-  // ) {
-  //   const missedPaychecks: number[][] = await checkForMissedPaychecks(
-  //     incomeSources,
-  //     lastPaycheckSync,
-  //   );
-  //   missedPaychecksDispatch = missedPaychecks;
-  //   // console.log(missedPaychecks);
-  //   addMissedPaychecks(missedPaychecks, user.id);
-  // }
   // console.log(lastPaycheckSync);
 
   const balance: Balance = await fetchBalance(user.id);
@@ -63,7 +47,7 @@ export default async function CashflowCards() {
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-10 gap-2 mb-10">
-      <div className="col-span-5">
+      <div className="col-span-5" id="checking-bal">
         <Suspense
           fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
         >
