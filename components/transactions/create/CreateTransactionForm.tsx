@@ -170,11 +170,11 @@ export function CreateTransactionForm({
 
           <SheetFooter>
             <Button type="submit" className="w-full hover:bg-blue-500">
-              Add
+              add
             </Button>
 
             <SheetClose asChild>
-              <Button className="w-full hover:bg-rose-500">Close</Button>
+              <Button className="w-full hover:bg-rose-500">close</Button>
             </SheetClose>
           </SheetFooter>
         </form>
