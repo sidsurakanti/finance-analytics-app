@@ -1,5 +1,5 @@
-import { Nav } from "@/components/home/nav";
-import HeroSection from "@/components/home/hero";
+import { Nav } from "@/components/home/Nav";
+import HeroSection from "@/components/home/Hero";
 import FeatureSection from "@/components/home/FeaturesSection";
 
 export default function Home() {
