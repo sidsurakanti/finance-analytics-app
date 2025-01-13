@@ -1,9 +1,9 @@
 "use client";
 
-import { CardWrapper } from "@components/login/CardWrapper";
+import { CardWrapper } from "@/components/auth/CardWrapper";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
-import { FormError } from "@components/login/FormError";
+import { FormError } from "@/components/auth/FormError";
 import {
   Form,
   FormControl,

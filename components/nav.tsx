@@ -4,7 +4,7 @@ import {
   PopoverTrigger,
 } from "@components/ui/popover";
 import { ModeToggle, ModeSwitch } from "@components/ui/themes";
-import { LogoutButton } from "@components/login/LogoutButton";
+import { LogoutButton } from "@components/auth/login/LogoutButton";
 import { NavLinks } from "@components/nav-links";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@components/ui/button";
