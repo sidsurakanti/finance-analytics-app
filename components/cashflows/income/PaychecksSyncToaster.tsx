@@ -5,6 +5,7 @@ import { addMissedPaychecks, checkForMissedPaychecks } from "@/lib/actions";
 import { IncomeSources, User } from "@/lib/definitions";
 import { cashFormatter } from "@/lib/utils";
 import { useState, useEffect } from "react";
+import { ToastAction } from "@/components/ui/toast";
 
 export default function PaychecksSyncToaster({
   lastPaycheckSync,
@@ -46,6 +47,7 @@ export default function PaychecksSyncToaster({
           toast({
             title: "You've been paid!",
             description: description,
+            action: <ToastAction altText="dismiss">dismiss</ToastAction>
           });
         });
 
