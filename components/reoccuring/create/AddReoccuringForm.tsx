@@ -111,16 +111,13 @@ export function AddReoccuringForm({ user }: { user: User }) {
             )}
           />
 
-          {/* make sure submit button also closes the sheet AND calls on submit */}
           <SheetFooter>
+            <Button type="submit" className="w-full hover:bg-blue-500">
+              add
+            </Button>
+
             <SheetClose asChild>
-              <Button
-                variant="default"
-                type="submit"
-                className="w-full hover:bg-blue-500"
-              >
-                Add
-              </Button>
+              <Button className="w-full hover:bg-rose-500">close</Button>
             </SheetClose>
           </SheetFooter>
         </form>

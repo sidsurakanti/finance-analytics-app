@@ -101,3 +101,8 @@ UPDATE users
 SET 
     last_paycheck_sync = '2024-12-05'
 WHERE id = 2;
+
+SELECT *
+FROM reoccuring
+LEFT JOIN transactions
+ON transactions.name = reoccuring.name;

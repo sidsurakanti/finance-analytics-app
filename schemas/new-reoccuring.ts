@@ -22,7 +22,7 @@ const categoriesSchema = z.union([
 ]);
 
 export const newReoccuringSchema = z.object({
-  name: z.string(),
+  name: z.string().min(1, { message: "Please enter a name."}),
   timeperiod: timeperiodSchema,
   category: categoriesSchema,
 });
