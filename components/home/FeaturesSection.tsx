@@ -19,7 +19,7 @@ export default function FeatureSection() {
         <h1 className="text-3xl font-medium">Finances, Simplified</h1>
       </span>
 
-      <div className="grid grid-cols-2 h-full w-3/5 gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 h-full w-3/5 gap-2">
         {cardDetails.map((item, idx) => (
           <Card key={idx} {...item} />
         ))}
@@ -32,6 +32,9 @@ const Card = ({ header, title, description, image }: TCard) => {
   return (
     <motion.section
       initial={{ opacity: 0, y: 80 }}
+      whileHover={{
+        scale: 1.015
+      }}
       whileInView={{
         opacity: 1,
         y: 0,
@@ -39,7 +42,7 @@ const Card = ({ header, title, description, image }: TCard) => {
           duration: 0.25,
         }
       }}
-      className="bg-slate-200/70 cursor-pointer p-4 border-2 border-slate-200 rounded-lg shadow-sm flex flex-col gap-5 h-fit"
+      className="bg-slate-200/65 cursor-pointer p-4 border-2 border-slate-200 rounded-lg shadow-sm flex flex-col gap-5 h-fit"
     >
       <div
         className={cn(
