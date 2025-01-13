@@ -10,7 +10,6 @@ import {
   CardContent,
   CardFooter,
 } from "@components/ui/card";
-import { Socials } from "@components/login/Socials";
 import { Button } from "@components/ui/button";
 import { BackArrow } from "@components/ui/icons";
 
@@ -20,7 +19,6 @@ interface CardWrapperProps {
   backButtonLabel?: string;
   backButtonHref?: string;
   description?: string;
-  showSocial?: boolean;
   showBackIcon?: boolean;
 }
 
@@ -30,7 +28,6 @@ export function CardWrapper({
   backButtonLabel,
   backButtonHref,
   description,
-  showSocial,
   showBackIcon,
 }: CardWrapperProps) {
   return (
@@ -42,12 +39,6 @@ export function CardWrapper({
         </CardHeader>
 
         <CardContent>{children}</CardContent>
-
-        {showSocial && (
-          <CardFooter>
-            <Socials />
-          </CardFooter>
-        )}
 
         {backButtonHref && (
           <CardFooter>
