@@ -1,15 +1,33 @@
 "use client";
 
 import { motion } from "motion/react";
+import Link from "next/link";
 
-export default function Logo() {
+export default function Logo({ linkToHome = false }: { linkToHome?: boolean }) {
+  return (
+    <>
+      {linkToHome ? (
+        <Link href="/">
+          <LogoSvg />
+        </Link>
+      ) : (
+        <LogoSvg />
+      )}
+    </>
+  );
+}
+
+const LogoSvg = () => {
   return (
     <>
       <motion.svg
         animate={{ rotate: 360 }}
-        transition={{ duration: 0.3, scale: {
-          duration: 0.1
-        } }}
+        transition={{
+          duration: 0.3,
+          scale: {
+            duration: 0.1,
+          },
+        }}
         whileHover={{ scale: 1.3 }}
         width="26"
         height="26"
@@ -25,4 +43,4 @@ export default function Logo() {
       </motion.svg>
     </>
   );
-}
+};
