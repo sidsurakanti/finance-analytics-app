@@ -67,7 +67,7 @@ export default function HeroSection() {
             y: 0,
           }}
           initial={{
-            y: 300,
+            y: 150,
           }}
           transition={{
             type: "spring",
