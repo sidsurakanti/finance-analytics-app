@@ -21,24 +21,19 @@ export default function UpdateBalanceButton({
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button
-          variant={"link"}
-          size={"sm"}
-          // onClick={() =>
-          //   updateSavings(Number(savings.amount) + 300, savings.user_id)
-          // }
-          className={className}
-        >
+        <Button variant={"link"} size={"sm"} className={className}>
           update
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[425px] bg-accent">
         <DialogHeader>
           <DialogTitle>Update balance</DialogTitle>
-          <DialogDescription>Let&apos;s update your checking balance!</DialogDescription>
+          <DialogDescription>
+            Let&apos;s update your checking balance!
+          </DialogDescription>
         </DialogHeader>
 
-        <EditBalanceForm balance={balance}/>
+        <EditBalanceForm balance={balance} />
       </DialogContent>
     </Dialog>
   );
