@@ -411,7 +411,7 @@ export async function login(data: z.infer<typeof formSchema>) {
 
 export async function logout() {
   try {
-    await signOut();
+    await signOut({ redirectTo: "/" });
   } catch (error) {
     throw error;
   }
