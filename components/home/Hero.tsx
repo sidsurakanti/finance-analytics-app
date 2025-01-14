@@ -53,7 +53,7 @@ export default function HeroSection() {
             animate={{}}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            className="inline-flex items-center text-sm justify-center h-9 px-4 py-2 bg-fuchsia-200 text-fuchsia-800 border border-fuchsia-400 rounded-xl shadow-md hover:bg-fuchsia-300 hover:text-fuchsia-950"
+            className="inline-flex items-center text-sm justify-center h-9 px-4 py-2 bg-fuchsia-200 text-fuchsia-800 border border-fuchsia-400 rounded-lg shadow-md hover:bg-fuchsia-300 hover:text-fuchsia-950"
           >
             let&apos;s go
           </motion.button>
