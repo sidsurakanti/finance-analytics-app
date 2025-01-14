@@ -60,6 +60,11 @@ export function DataTable<TData, TValue>({
       sorting,
       columnFilters,
     },
+    initialState: {
+      pagination: {
+        pageSize: 20,
+      },
+    },
     meta: {
       reoccuring: reoccuring,
     },
