@@ -34,17 +34,29 @@ export function addDollarSign(value: string) {
   }
 }
 
-export function calculateLastPaidDiff(date: Date, offset: string[]) {
+export function calculateLastPaidDiff(
+  lastSyncedDate: Date,
+  offset: string[],
+): [number, Date[]] {
   const today = new Date();
+  let dates: Date[] = [];
   let count: number = 0;
-  for (let d = new Date(date); d <= today; d.setDate(d.getDate() + 1)) {
+
+  for (
+    let d = new Date(lastSyncedDate);
+    d <= today;
+    d.setDate(d.getDate() + 1)
+  ) {
     // console.log(d.getDate().toString());
     if (offset.includes(d.getDate().toString())) {
       // console.log(d);
       count++;
+      dates.push(new Date(d));
     }
+    // console.log(dates);
   }
-  return count;
+
+  return [count, dates];
 }
 
 export function findNextPayDate(offset: string[]): Date {

@@ -97,12 +97,26 @@ SELECT * FROM transactions
 WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));
 
 
+
+-- scrap
 UPDATE users
 SET 
-    last_paycheck_sync = '2024-12-05'
+    last_paycheck_sync = '2024-12-10'
 WHERE id = 2;
 
-SELECT *
+SELECT reoccuring.category, transactions.name, transactions.amount
 FROM reoccuring
-LEFT JOIN transactions
-ON transactions.name = reoccuring.name;
+INNER JOIN transactions
+ON transactions.name = reoccuring.name AND transactions.user_id = reoccuring.user_id
+WHERE reoccuring.user_id = 2;
+
+SELECT reoccuring.category, transactions.name, SUM(transactions.amount) as total_amount
+FROM reoccuring
+INNER JOIN transactions
+ON transactions.name = reoccuring.name AND transactions.user_id = reoccuring.user_id
+WHERE reoccuring.user_id = 2
+GROUP BY reoccuring.category, transactions.name;
+
+INSERT INTO transactions
+(name, amount, type, user_id, created_at)
+VALUES ('missed paycheck', 333, 'paycheck', 2, '2025-01-01 00:00:00');

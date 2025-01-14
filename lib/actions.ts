@@ -20,7 +20,6 @@ import { AuthError } from "next-auth";
 import bcrypt from "bcrypt";
 import { calculateLastPaidDiff } from "@/lib/utils";
 
-
 // PAYCHECK SYNC HANDLING
 export async function getLastPaycheckSyncDate(user_id: string) {
   try {
@@ -36,35 +35,60 @@ export async function getLastPaycheckSyncDate(user_id: string) {
   }
 }
 
+export type MissedPaycheckT = {
+  incomeSource: IncomeSources;
+  missedPaychecksCount: number;
+  missedIncome: number;
+  paycheckDatesMissed: Date[];
+};
+
 export async function checkForMissedPaychecks(
   incomeSources: IncomeSources[],
   lastSyncedDate: Date,
-) {
+): Promise<MissedPaycheckT[]> {
+  // for each income source
   const ret = incomeSources.map((job) => {
-    const missedPaychecksCount = calculateLastPaidDiff(
-      // new Date("2024-12-05"),
-      lastSyncedDate,
+    // check how many times they've missed their paycheck
+    const [missedPaychecksCount, dates] = calculateLastPaidDiff(
+      lastSyncedDate, // new Date("2024-12-05"),
       job.pay_dates,
     );
+
+    // get total income missed throughout missed paychecks
     const missedIncome = missedPaychecksCount * Number(job.income_amt);
 
-    return [missedPaychecksCount, missedIncome];
+    return {
+      incomeSource: job,
+      missedPaychecksCount: missedPaychecksCount,
+      missedIncome: missedIncome,
+      paycheckDatesMissed: dates,
+    };
   });
 
   return ret;
 }
 
 export async function addMissedPaychecks(
-  missedPaychecksDetails: number[][],
+  missedPaychecksDetails: MissedPaycheckT,
   user_id: string,
 ) {
-  let totalIncomeMissed = 0;
-  missedPaychecksDetails.forEach((missedPaycheck) => {
-    const [paychecksMissed, incomeMissed] = missedPaycheck;
-    totalIncomeMissed += incomeMissed;
+  missedPaychecksDetails.paycheckDatesMissed.forEach((date) => {
+    const newPaycheckTransaction: Transaction = {
+      name: `Missed paycheck (${missedPaychecksDetails.incomeSource.name})`,
+      amount:
+        missedPaychecksDetails.missedIncome /
+        missedPaychecksDetails.missedPaychecksCount,
+      user_id: user_id,
+      type: "paycheck",
+      created_at: date,
+    };
+    console.log(newPaycheckTransaction);
+    createTransaction(newPaycheckTransaction);
   });
+  // console.log(missedPaycheck.paycheckDatesMissed);
 
-  updateBalance(totalIncomeMissed, user_id, false);
+  updateBalance(missedPaychecksDetails.missedIncome, user_id, false);
+  // create a new transaction for paycheck
   // set lastPaycheckSyncDate to now
   setPaycheckSyncDate(user_id);
   revalidatePath("/cashflows");
@@ -178,14 +202,15 @@ export async function updateSavings(newSavings: number, user_id: number) {
 // TRANSACTION ACTIONS
 export async function createTransaction(transaction: Transaction) {
   // destructure data for cleaner code
-  const { name, amount, type, user_id } = transaction;
+  const { name, amount, type, user_id, created_at } = transaction;
+  const formattedDate = created_at.toISOString().split("T")[0] + " 00:00:00";
 
   try {
     await sql`
       INSERT INTO transactions
-      (name, amount, type, user_id)
+      (name, amount, type, user_id, created_at)
       VALUES 
-          (${name}, ${amount.toString()}, ${type}, ${user_id.toString()});
+          (${name}, ${amount.toString()}, ${type}, ${user_id.toString()}, ${formattedDate});
     `;
     console.log("CREATED TRANSACTION:", transaction);
     revalidatePath("/transactions");
