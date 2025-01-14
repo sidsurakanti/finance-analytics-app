@@ -1,6 +1,6 @@
 "use client";
 
-import { CardWrapper } from "@/components/auth/CardWrapper";
+import { AuthCardWrapper } from "@/components/auth/CardWrapper";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { FormError } from "@/components/auth/FormError";
@@ -43,7 +43,7 @@ export function LoginForm() {
 
   return (
     <>
-      <CardWrapper
+      <AuthCardWrapper
         headerLabel="Login"
         description="Welcome back!"
         backButtonLabel="Don't have an account?"
@@ -81,12 +81,15 @@ export function LoginForm() {
             />
 
             <FormError message={formError} />
-            <Button type="submit" className="hover:bg-blue-500">
-              Go
+            <Button
+              type="submit"
+              className="mt-2 bg-violet-100 dark:bg-violet-200 text-violet-950 hover:bg-violet-300/70 border border-violet-300 shadow-sm"
+            >
+              go
             </Button>
           </form>
         </Form>
-      </CardWrapper>
+      </AuthCardWrapper>
     </>
   );
 }

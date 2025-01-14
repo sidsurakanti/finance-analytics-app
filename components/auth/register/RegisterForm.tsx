@@ -1,7 +1,7 @@
 "use client";
 
 import { FormError } from "@components/auth/FormError";
-import { CardWrapper } from "@components/auth/CardWrapper";
+import { AuthCardWrapper } from "@components/auth/CardWrapper";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import {
@@ -56,7 +56,7 @@ export function RegisterForm() {
 
   return (
     <>
-      <CardWrapper
+      <AuthCardWrapper
         headerLabel="Register"
         description="Please register to continue."
         backButtonHref="/login"
@@ -125,12 +125,15 @@ export function RegisterForm() {
 
             {/* display if user entered invalid creds */}
             <FormError message={formError} />
-            <Button type="submit" className="hover:bg-blue-500">
-              Go
+            <Button
+              type="submit"
+              className="mt-2 bg-pink-100 dark:bg-pink-200 text-pink-950 hover:bg-pink-300/70 border border-pink-300 shadow-sm"
+            >
+              go
             </Button>
           </form>
         </Form>
-      </CardWrapper>
+      </AuthCardWrapper>
     </>
   );
 }
