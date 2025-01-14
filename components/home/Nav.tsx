@@ -9,10 +9,10 @@ export function Nav() {
   const pathname = usePathname();
 
   return (
-    <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto justify-between items-center my-3">
+    <header className="sticky top-0 flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto justify-between items-center my-3">
       <Logo linkToHome/>
 
-      {pathname === "/register" && (
+      {pathname === "register" || pathname === "/" && (
         <Link href="/login">
           <Button
             variant={"ghost"}
