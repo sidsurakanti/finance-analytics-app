@@ -117,6 +117,18 @@ ON transactions.name = reoccuring.name AND transactions.user_id = reoccuring.use
 WHERE reoccuring.user_id = 2
 GROUP BY reoccuring.category, transactions.name;
 
+SELECT reoccuring.category, SUM(transactions.amount) as total_amount
+FROM reoccuring
+INNER JOIN transactions
+ON transactions.name = reoccuring.name AND transactions.user_id = reoccuring.user_id
+WHERE reoccuring.user_id = 2
+GROUP BY reoccuring.category;
+
+SELECT type, SUM(amount) as total_amount
+FROM transactions
+WHERE user_id = 2
+GROUP BY type;
+
 INSERT INTO transactions
 (name, amount, type, user_id, created_at)
 VALUES ('missed paycheck', 333, 'paycheck', 2, '2025-01-01 00:00:00');

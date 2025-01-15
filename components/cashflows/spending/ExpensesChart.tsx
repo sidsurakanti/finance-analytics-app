@@ -128,7 +128,7 @@ const chartConfig = {
     color: "hsl(var(--chart-4))",
   },
   reoccuring: {
-    label: "Recurring",
+    label: "Recurring", 
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;

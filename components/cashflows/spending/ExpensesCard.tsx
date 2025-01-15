@@ -4,6 +4,7 @@ import { type SortedData, fetchTransactionsSorted } from "@/lib/data";
 import type { User } from "@/lib/definitions";
 import { useState, useEffect } from "react";
 import { ExpensesChart } from "@/components/cashflows/spending/ExpensesChart";
+import SankeyChart from "@components/cashflows/spending/Sankey";
 
 export default function ExpensesCard({ user }: { user: User }) {
   const [timespan, setTimespan] = useState<"3 months" | "6 months" | "1 year">(
@@ -34,7 +35,7 @@ export default function ExpensesCard({ user }: { user: User }) {
   }, [timespan]);
 
   return (
-    <div>
+    <div className="">
       <ExpensesChart
         expenses={expenses}
         reoccuring={reoccuring}
