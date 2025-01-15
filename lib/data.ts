@@ -11,6 +11,49 @@ import type {
 } from "@lib/definitions";
 import { unstable_noStore as noStore } from "next/cache";
 
+// FETCH SANKEY DATA AND FORMAT
+export interface TransactionTypesTotals {
+  type: string;
+  total_amount: number;
+}
+
+export default async function fetchTranscationsByTypes(user_id: string) {
+  try {
+    const res = await sql<TransactionTypesTotals>`
+      SELECT type, SUM(amount) as total_amount
+      FROM transactions
+      WHERE user_id = ${user_id}
+      GROUP BY type;
+    `;
+    return res.rows;
+  } catch (error) {
+    console.log("ERROR WHILE FETCHING TRANSACTIONS BY TYPE", error);
+    throw new Error("Failed to fetch transactions by type");
+  }
+}
+
+export interface TransactionCategoryTotals {
+  category: string;
+  total_amount: number;
+}
+
+export async function fetchTransactionByCategory(user_id: string) {
+  // get all the recurring transactions with their recurring type
+  try {
+    const res = await sql<TransactionCategoryTotals>`
+      SELECT reoccuring.category, SUM(transactions.amount) as total_amount
+      FROM reoccuring
+      INNER JOIN transactions
+      ON transactions.name = reoccuring.name AND transactions.user_id = reoccuring.user_id
+      WHERE reoccuring.user_id = ${user_id}
+      GROUP BY reoccuring.category;
+    `;
+    return res.rows;
+  } catch (error) {
+    console.log("ERROR WHILE FETCHING TRANSACTIONS BY TYPE", error);
+    throw new Error("Failed to fetch transactions by type");
+  }
+}
 
 // BALANCE FETCH
 export async function fetchBalance(user_id: string): Promise<Balance> {
@@ -23,7 +66,7 @@ export async function fetchBalance(user_id: string): Promise<Balance> {
         ORDER BY id DESC
         LIMIT 1;
       `;
-    
+
     // if there's no init balance
     // we already handle this in onboarding but i just left it here for backup
     if (res.rows.length < 1) {
@@ -307,4 +350,3 @@ export async function fetchAllTransactions(user: User): Promise<Transaction[]> {
     throw new Error("Failed to fetch all transactions.");
   }
 }
-
