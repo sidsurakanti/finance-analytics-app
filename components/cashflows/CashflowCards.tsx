@@ -43,86 +43,6 @@ export default async function CashflowCards() {
   const balance: Balance = await fetchBalance(user.id);
   // console.log(balance);
 
-  const transactionCategoryTotals: TransactionCategoryTotals[] =
-    await fetchTransactionByCategory(user.id);
-  const transactionTypesTotals: TransactionTypesTotals[] =
-    await fetchTranscationsByTypes(user.id);
-
-  // console.log(transactionTypesTotals);
-
-  const oneTimeTotals = Math.abs(
-    Number(
-      transactionTypesTotals.find((item) => item.type == "expense")
-        ?.total_amount,
-    ),
-  );
-  const recurringTotals = Math.abs(
-    Number(
-      transactionTypesTotals.find((item) => item.type == "reoccuring")
-        ?.total_amount,
-    ),
-  );
-  const paycheckTotals = Math.abs(
-    Number(
-      transactionTypesTotals.find((item) => item.type == "paycheck")
-        ?.total_amount,
-    ),
-  );
-  // console.log(transactionCategoryTotals);
-  const formattedDataLinks: {
-    source: number;
-    target: number;
-    value: number;
-  }[] = transactionCategoryTotals.map((item, index) => {
-    return {
-      source: 2,
-      target: index + 4,
-      value: Math.abs(Number(item.total_amount)),
-    };
-  });
-
-  const nodes: { name: string }[] = [
-    {
-      name: "income", // 0
-    },
-    {
-      name: "one time", // 1
-    },
-    {
-      name: "recurring", // 2
-    },
-    {
-      name: "remaining", // 3
-    },
-  ].concat(
-    transactionCategoryTotals.map((item) => {
-      return { name: item.category };
-    }),
-  );
-
-  const links: { source: number; target: number; value: number }[] = [
-    {
-      source: 0,
-      target: 1,
-      value: Number.isNaN(oneTimeTotals) ? 0.001 : oneTimeTotals,
-    },
-    {
-      source: 0,
-      target: 2,
-      value: Number.isNaN(recurringTotals) ? 0.001 : recurringTotals,
-    },
-    {
-      source: 0,
-      target: 3,
-      value: Number.isNaN(paycheckTotals - oneTimeTotals - recurringTotals)
-        ? 0.001
-        : paycheckTotals - oneTimeTotals - recurringTotals,
-    },
-  ].concat(formattedDataLinks);
-
-  console.log(nodes);
-  console.log(links);
-
   // we're gonna use this to calculate when the next paycheck is for the balance component
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
     (job) => ({
@@ -148,6 +68,7 @@ export default async function CashflowCards() {
           />
         </Suspense>
       </div>
+
       <div className="col-span-5">
         <Suspense
           fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
@@ -155,23 +76,24 @@ export default async function CashflowCards() {
           <SavingsCard savingsDetails={savingsDetails} />
         </Suspense>
       </div>
+
       <div className="col-span-6 space-y-2">
         <Suspense
           fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
         >
           <Incomes incomeSources={incomeSources} user={user} />
-          <QuickAddList user={user} />
+          <SankeyChart user={user} />
         </Suspense>
       </div>
-      <div className="col-span-4">
+
+      <div className="col-span-4 space-y-2">
         <Suspense
           fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
         >
           <ExpensesCard user={user} />
+          <QuickAddList user={user} />
         </Suspense>
       </div>
-
-      <SankeyChart nodes={nodes} links={links} />
 
       {/* send out a toaster if any paychecks have landed 
       or if we've added any missed paychecks since last paycheck sync  */}

@@ -35,7 +35,7 @@ export default function QuickAddList({ user }: { user: User }) {
           <CreateTransactionSheet user={user} reoccuring={reoccuring} />
         )}
       </span>
-      <ScrollArea className="h-72 w-full">
+      <ScrollArea className="h-96 w-full">
         <div className="grid grid-cols-2 gap-2">
           {reoccuring?.map((item, index) => (
             <Dialog key={index}>
