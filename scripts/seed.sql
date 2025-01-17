@@ -101,7 +101,7 @@ WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT
 -- scrap
 UPDATE users
 SET 
-    last_paycheck_sync = '2024-12-10'
+    last_paycheck_sync = '2025-1-10'
 WHERE id = 2;
 
 SELECT reoccuring.category, transactions.name, transactions.amount
