@@ -17,7 +17,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formSchema } from "@/schemas/login";
-import { login } from "@lib/actions";
+import { login } from "@lib/auth/actions";
 
 export function LoginForm() {
   // state to display server error messages

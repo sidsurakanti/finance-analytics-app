@@ -1,24 +1,24 @@
 "use client";
 
-import { FormError } from "@components/auth/FormError";
-import { AuthCardWrapper } from "@components/auth/CardWrapper";
-import { Input } from "@components/ui/input";
-import { Button } from "@components/ui/button";
+import { FormError } from "@/components/auth/FormError";
+import { AuthCardWrapper } from "@/components/auth/CardWrapper";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@components/ui/form";
+} from "@/components/ui/form";
 
 import { z } from "zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/schemas/register";
-import { User } from "@lib/definitions";
-import { createUser } from "@lib/actions";
+import { User } from "@/lib/definitions";
+import { createUser } from "@/lib/auth/actions";
 
 export function RegisterForm() {
   // to display error messages from the server
