@@ -109,6 +109,16 @@ export async function loginWithGithub() {
   }
 }
 
+export async function loginWithGoogle() {
+  try {
+    // call signIn from next-auth
+    // @see auth.ts
+    await signIn("google");
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createUserOauth(
   user: User,
 ): Promise<"User with that email already exists" | undefined> {
