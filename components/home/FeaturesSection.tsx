@@ -20,9 +20,16 @@ export default function FeatureSection() {
       </span>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 h-full w-3/5 gap-2">
-        {cardDetails.map((item, idx) => (
-          <Card key={idx} {...item} />
-        ))}
+        <div className="space-y-2">
+          {cardDetails.slice(0, 2).map((item, idx) => (
+            <Card key={idx} {...item} />
+          ))}
+        </div>
+        <div className="space-y-2">
+          {cardDetails.slice(2).map((item, idx) => (
+            <Card key={idx} {...item} />
+          ))}
+        </div>
       </div>
     </section>
   );
