@@ -8,6 +8,8 @@ import { cashFormatter } from "@/lib/utils";
 import { useState, useEffect } from "react";
 import { Sankey, Tooltip, Rectangle, Layer } from "recharts";
 import type { User } from "@/lib/definitions";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useTheme } from "next-themes";
 
 interface SankeyLinks {
   source: number;
@@ -18,11 +20,7 @@ interface SankeyNode {
   name: string;
 }
 
-export default function SankeyChart({
-  user,
-}: {
-  user: User;
-}) {
+export default function SankeyChart({ user }: { user: User }) {
   // const data1 = { nodes: nodes, links: links };
   const [data, setData] = useState<{
     nodes: SankeyNode[];
@@ -144,7 +142,7 @@ export default function SankeyChart({
       {data && (
         <Sankey
           data={data}
-          width={750}
+          width={675}
           height={750}
           nodePadding={30}
           nodeWidth={20}
@@ -152,16 +150,17 @@ export default function SankeyChart({
           link={{ stroke: "#f0abfc" }}
           linkCurvature={0.25}
           margin={{
-            left: 50,
-            right: 200,
-            top: 50,
-            bottom: 50,
+            left: 35,
+            right: 150,
+            top: 30,
+            bottom: 30,
           }}
-          sort={true}
         >
           <Tooltip />
         </Sankey>
       )}
+
+      {!data && <Skeleton className="h-[700px] rounded-xl" />}
     </div>
   );
 }
@@ -176,6 +175,8 @@ const CNode = ({
   containerWidth,
 }: any) => {
   const isOut = x + width + 6 > containerWidth;
+  const { theme } = useTheme();
+
 
   return (
     <>
@@ -188,13 +189,13 @@ const CNode = ({
           fill={payload.color || NODE_FILL}
           fillOpacity="1"
           radius={5}
-          
         />
 
         <text
           x={isOut ? x - 6 : x + width + 6}
           y={y + height / 2}
           className="text-sm"
+          fill={theme === "dark" ? "#fff" : "#000"}
         >
           {payload.name}
         </text>
@@ -202,6 +203,7 @@ const CNode = ({
           x={isOut ? x - 6 : x + width + 6}
           y={y + height / 2 + 13}
           className="text-xs"
+          fill={theme === "dark" ? "#fff" : "#000"}
         >
           {cashFormatter(payload.value)}
         </text>
