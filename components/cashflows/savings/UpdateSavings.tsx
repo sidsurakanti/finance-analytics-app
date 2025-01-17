@@ -1,4 +1,4 @@
-import type { Savings } from "@/lib/definitions";
+import type { Balance, Savings } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,9 +14,11 @@ import ManageSavingsForm from "@/components/cashflows/savings/ManageSavingsForm"
 
 export default function UpdateSavingsButton({
   savings,
+  balance,
   className,
 }: {
   savings: Savings;
+  balance: Balance
   className?: string;
 }) {
   return (
@@ -50,7 +52,7 @@ export default function UpdateSavingsButton({
             <AddSavings savings={savings} />
           </TabsContent>
           <TabsContent value="manage">
-            <ManageSavingsForm savings={savings} />
+            <ManageSavingsForm savings={savings} balance={balance}/>
           </TabsContent>
         </Tabs>
       </DialogContent>
