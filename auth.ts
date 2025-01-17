@@ -1,11 +1,12 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import GitHub from "next-auth/providers/github";
+import Google from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 import { authConfig } from "@/auth.config";
 import { formSchema } from "@/schemas/login";
 import { fetchUser } from "@lib/data";
-import { createUser, createUserOauth, onSignIn } from "@/lib/auth/actions";
+import { createUserOauth, onSignIn } from "@/lib/auth/actions";
 import { User } from "./lib/definitions";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -24,7 +25,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     },
 
     async signIn({ user, account }: any) {
-      if (account.provider === "github") {
+      if (account.provider === "github" || "google") {
         // console.log(account);
         const userIfExists = await fetchUser(user.email);
 
@@ -42,11 +43,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const message = await createUserOauth(newUser);
           return true;
         }
-      }
+      } 
       return true; // or return a string if needed
     },
   },
   providers: [
+    Google,
     GitHub,
     Credentials({
       async authorize(credentials) {

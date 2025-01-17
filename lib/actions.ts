@@ -8,16 +8,10 @@ import type {
   Balance,
   IncomeSources,
 } from "@lib/definitions";
-import { fetchBalance, fetchUser } from "@lib/data";
+import { fetchBalance } from "@lib/data";
 
-import { z } from "zod";
-import { formSchema } from "@/schemas/login";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 
-import { signIn, signOut } from "@/auth";
-import { AuthError } from "next-auth";
-import bcrypt from "bcrypt";
 import { calculateLastPaidDiff } from "@/lib/utils";
 
 // PAYCHECK SYNC HANDLING
