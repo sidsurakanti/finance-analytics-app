@@ -83,7 +83,7 @@ export async function addMissedPaychecks(
       created_at: date,
     };
     console.log(newPaycheckTransaction);
-    createTransaction(newPaycheckTransaction);
+    createTransaction(newPaycheckTransaction, false);
   });
   // console.log(missedPaycheck.paycheckDatesMissed);
 
@@ -200,7 +200,11 @@ export async function updateSavings(newSavings: number, user_id: number) {
 }
 
 // TRANSACTION ACTIONS
-export async function createTransaction(transaction: Transaction) {
+
+export async function createTransaction(
+  transaction: Transaction,
+  refreshPath: boolean = true,
+) {
   // destructure data for cleaner code
   const { name, amount, type, user_id, created_at } = transaction;
   const formattedDate = created_at.toISOString().split("T")[0] + " 00:00:00";
@@ -213,7 +217,7 @@ export async function createTransaction(transaction: Transaction) {
           (${name}, ${amount.toString()}, ${type}, ${user_id.toString()}, ${formattedDate});
     `;
     console.log("CREATED TRANSACTION:", transaction);
-    revalidatePath("/transactions");
+    if (refreshPath) revalidatePath("/transactions");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failted to create transaction");

@@ -8,7 +8,7 @@ import {
 } from "@/lib/actions";
 import { IncomeSources, User } from "@/lib/definitions";
 import { cashFormatter } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { ToastAction } from "@/components/ui/toast";
 
 export default function PaychecksSyncToaster({
@@ -21,14 +21,13 @@ export default function PaychecksSyncToaster({
   user: User;
 }) {
   const { toast } = useToast();
-  const [hasChecked, setHasChecked] = useState<boolean>();
+  const hasChecked = useRef(false);
 
+  
   useEffect(() => {
-    let isMounted = true;
-    if (hasChecked) return;
+    if (hasChecked.current) return;
 
     const func = async () => {
-      if (!isMounted) return;
       // get missed paycheck data for each income source a user has
       const missedPaychecks: MissedPaycheckT[] = await checkForMissedPaychecks(
         incomeSources,
@@ -38,7 +37,7 @@ export default function PaychecksSyncToaster({
 
       // if user hasn't missed any paychecks for all incomeSources
       if (missedPaychecks.every((arr) => arr.missedPaychecksCount < 1)) {
-        setHasChecked(true);
+        hasChecked.current = true;
         return;
       }
 
@@ -63,15 +62,11 @@ export default function PaychecksSyncToaster({
         });
       }
 
-      setHasChecked(true);
+      hasChecked.current = true;
     };
 
     func();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [hasChecked, incomeSources, lastPaycheckSync, user.id, toast]);
+  });
 
   return null;
 }
