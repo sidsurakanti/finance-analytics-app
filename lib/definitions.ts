@@ -6,6 +6,7 @@ export type User = {
   created_at: Date;
   login_count: number;
   last_logged_in: Date | null;
+  provider: string | null;
 };
 
 export type Balance = {

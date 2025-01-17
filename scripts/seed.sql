@@ -2,12 +2,13 @@
 CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY, -- auto-incrementing id
     email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
+    password VARCHAR(255),
     name VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_paycheck_sync TIMESTAMP,
     last_logged_in TIMESTAMP,
-    login_count INTEGER DEFAULT 0
+    login_count INTEGER DEFAULT 0,
+    provider VARCHAR(255);
 )
 
 CREATE TABLE IF NOT EXISTS transactions (

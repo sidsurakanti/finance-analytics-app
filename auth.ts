@@ -1,12 +1,14 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
+import GitHub from "next-auth/providers/github";
 import bcrypt from "bcrypt";
 import { authConfig } from "@/auth.config";
 import { formSchema } from "@/schemas/login";
 import { fetchUser } from "@lib/data";
-import { onSignIn } from "@/lib/auth/actions";
+import { createUser, createUserOauth, onSignIn } from "@/lib/auth/actions";
+import { User } from "./lib/definitions";
 
-export const { auth, signIn, signOut } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig, // unpack config
   callbacks: {
     // add user's id to session.user so we can access it later on for db queries
@@ -16,11 +18,36 @@ export const { auth, signIn, signOut } = NextAuth({
       // console.log(token);
       // console.log(session);
       // here, the default value for the jwt.sub is always the users id
-      session.user.id = token.sub as string;
+      const user = await fetchUser(token.email as string);
+      session.user.id = user ? user.id : (token.sub as string);
       return session;
+    },
+
+    async signIn({ user, account }: any) {
+      if (account.provider === "github") {
+        // console.log(account);
+        const userIfExists = await fetchUser(user.email);
+
+        if (!userIfExists) {
+          const newUser: User = {
+            id: "", // random id we can cancel this out when adding to the db
+            name: user.name,
+            email: user.email,
+            password: "", // nullable since oauth
+            login_count: 0,
+            last_logged_in: null,
+            created_at: new Date(),
+            provider: "github",
+          };
+          const message = await createUserOauth(newUser);
+          return true;
+        }
+      }
+      return true; // or return a string if needed
     },
   },
   providers: [
+    GitHub,
     Credentials({
       async authorize(credentials) {
         // parse credentials again on server side to avoid exposing sensitive data
