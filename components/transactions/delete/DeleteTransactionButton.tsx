@@ -1,10 +1,9 @@
 "use client";
 
 import { deleteTransaction } from "@lib/actions";
-import { type Transaction } from "@lib/definitions";
+import type { Transaction } from "@lib/definitions";
 
 import { Button } from "@components/ui/button";
-import { TrashIcon } from "@components/ui/icons";
 import {
   Dialog,
   DialogContent,
@@ -22,7 +21,7 @@ export function DeleteTransactionWrapper({
   transaction: Transaction;
 }) {
   // on click handler
-  const onClickHandler = async () => {
+  const deleteTransactionHandler = async () => {
     await deleteTransaction(transaction);
   };
 
@@ -30,7 +29,11 @@ export function DeleteTransactionWrapper({
     <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant={"ghost"} size="icon" className="rounded-full p-1 hover:text-white hover:bg-rose-600/95">
+          <Button
+            variant={"ghost"}
+            size="icon"
+            className="rounded-full p-1 hover:text-white hover:bg-rose-600/95"
+          >
             <CircleX size={20} strokeWidth={1.2} />
           </Button>
         </DialogTrigger>
@@ -48,7 +51,7 @@ export function DeleteTransactionWrapper({
             <Button
               type="submit"
               className="bg-destructive"
-              onClick={onClickHandler}
+              onClick={deleteTransactionHandler}
             >
               confirm
             </Button>
