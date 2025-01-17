@@ -1,16 +1,16 @@
-import type { Savings } from "@/lib/definitions";
+import type { Balance, Savings, User } from "@/lib/definitions";
 import { inter, mono } from "@/styles/fonts";
 import { cn, cashFormatter } from "@/lib/utils";
 import { SavingsChart } from "@/components/cashflows/savings/SavingsChart";
 import UpdateSavingsButton from "@/components/cashflows/savings/UpdateSavings";
 import { TrendingUp, TrendingDown } from "lucide-react";
+import { fetchBalance, fetchCurrSavings } from "@/lib/data";
 
-export default function SavingsCard({
-  savingsDetails,
-}: {
-  savingsDetails: { savings: Savings; change: number };
-}) {
+export default async function SavingsCard({ user }: { user: User }) {
+  const savingsDetails: { savings: Savings; change: number } =
+    await fetchCurrSavings(user.id);
   const { savings, change } = savingsDetails;
+  const balance: Balance = await fetchBalance(user.id);
 
   return (
     <section className="h-48 group flex justify-between gap-3 rounded-xl p-4 bg-gradient-to-b from-[#FAFAFA] to-[#f3f3f3] dark:from-[#171717] dark:to-[#121212] shadow-md border border-border">
@@ -19,6 +19,7 @@ export default function SavingsCard({
           <h1 className="text-md">Savings</h1>
           <UpdateSavingsButton
             savings={savings}
+            balance={balance}
             className="opacity-0 group-hover:opacity-100 transition-opacity p-0 h-fit text-black dark:text-white"
           />
         </span>

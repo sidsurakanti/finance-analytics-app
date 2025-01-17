@@ -28,9 +28,6 @@ export default async function CashflowCards() {
   const user = session?.user as User;
 
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
-  const savingsDetails: { savings: Savings; change: number } =
-    await fetchCurrSavings(user.id);
-  // console.log(savingsDetails);
   // console.log(incomeSources);
 
   // check for missed paychecks
@@ -73,7 +70,7 @@ export default async function CashflowCards() {
         <Suspense
           fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
         >
-          <SavingsCard savingsDetails={savingsDetails} />
+          <SavingsCard user={user} />
         </Suspense>
       </div>
 
