@@ -43,6 +43,9 @@ CREATE TABLE IF NOT EXISTS income_sources (
     pay_dates text[]
 )
 
+ALTER TABLE income_sources
+ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 CREATE TABLE IF NOT EXISTS savings (
     id SERIAL PRIMARY KEY,
     user_id INTEGER REFERENCES users,

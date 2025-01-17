@@ -33,6 +33,7 @@ export default async function CashflowCards() {
   // console.log(lastPaycheckSync);
 
   const balance: Balance = await fetchBalance(user.id);
+
   // console.log(balance);
 
   // we're gonna use this to calculate when the next paycheck is for the balance component

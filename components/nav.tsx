@@ -39,18 +39,20 @@ export async function Nav() {
           </PopoverTrigger>
 
           <PopoverContent className="p-3 flex flex-col justify-start gap-3 w-fit divide-slate-400">
-            <span>
+            <span className="flex gap-3 items-center">
               {user?.image && (
                 <Image
                   src={user?.image}
-                  width={20}
-                  height={20}
+                  width={36}
+                  height={36}
                   className="rounded-full"
                   alt="pfp"
                 />
               )}
-              <p>{user?.name}</p>
-              <p className="text-sm text-gray-400">{user?.email}</p>
+              <span>
+                <p>{user?.name}</p>
+                <p className="text-sm text-gray-400">{user?.email}</p>
+              </span>
             </span>
 
             <ModeSwitch />
