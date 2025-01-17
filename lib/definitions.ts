@@ -7,6 +7,7 @@ export type User = {
   login_count: number;
   last_logged_in: Date | null;
   provider: string | null;
+  picture?: string
 };
 
 export type Balance = {

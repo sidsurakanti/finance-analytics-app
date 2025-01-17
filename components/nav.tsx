@@ -9,12 +9,14 @@ import { NavLinks } from "@components/nav-links";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@components/ui/button";
 import Logo from "@/components/logo";
+import Image from "next/image";
 
 import { auth } from "@/auth";
 
 export async function Nav() {
   const session = await auth();
   const user = session?.user;
+  console.log(user);
 
   return (
     <header className="flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto justify-between items-center my-3">
@@ -38,6 +40,15 @@ export async function Nav() {
 
           <PopoverContent className="p-3 flex flex-col justify-start gap-3 w-fit divide-slate-400">
             <span>
+              {user?.image && (
+                <Image
+                  src={user?.image}
+                  width={20}
+                  height={20}
+                  className="rounded-full"
+                  alt="pfp"
+                />
+              )}
               <p>{user?.name}</p>
               <p className="text-sm text-gray-400">{user?.email}</p>
             </span>
