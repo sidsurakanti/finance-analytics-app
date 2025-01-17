@@ -10,6 +10,7 @@ import {
   SortingState,
   getFilteredRowModel,
   ColumnFiltersState,
+  Row,
 } from "@tanstack/react-table";
 
 import {
@@ -27,9 +28,16 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Reoccuring, User } from "@/lib/definitions";
+import type { Reoccuring, Transaction, User } from "@/lib/definitions";
 
 import { CreateTransactionSheet } from "@/components/transactions/create/CreateTransaction";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -47,6 +55,17 @@ export function DataTable<TData, TValue>({
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
+  const dateRangeFilterFn = (
+    row: Row<Transaction>,
+    columnId: string,
+    filterValue: number | string,
+    addMeta: (meta: any) => void,
+  ): boolean => {
+    const date = new Date(row.getValue(columnId));
+    console.log(date);
+    return true;
+  };
+
   const table = useReactTable({
     data,
     columns,
@@ -56,6 +75,9 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
+    filterFns: {
+      dateRange: dateRangeFilterFn,
+    },
     state: {
       sorting,
       columnFilters,
@@ -72,15 +94,15 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="flex flex-col gap-2 items-start rounded-md">
-      <div className="w-full flex justify-between items-end mb-1">
-        <div className="flex gap-x-4 items-end">
+      <div className="w-full flex justify-between items-start lg:items-end mb-1">
+        <div className="flex flex-col w-5/6 space-y-1 lg:flex-wrap lg:flex-row gap-x-3 items-start lg:items-baseline">
           <Input
-            placeholder="Search transactions"
+            placeholder="search transactions"
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               table.getColumn("name")?.setFilterValue(event.target.value)
             }
-            className="w-64 max-w-sm"
+            className="w-48 max-w-sm"
           />
 
           <ToggleGroup
@@ -125,6 +147,22 @@ export function DataTable<TData, TValue>({
               withdrawl
             </ToggleGroupItem>
           </ToggleGroup>
+
+          <Select
+            onValueChange={(value) => {
+              table.getColumn("created_at")?.setFilterValue(value);
+            }}
+          >
+            <SelectTrigger className="max-w-fit space-x-2">
+              <SelectValue placeholder="select date range" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">last week</SelectItem>
+              <SelectItem value="30">last month</SelectItem>
+              <SelectItem value="90">last 3 months</SelectItem>
+              <SelectItem value="max">all</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
 
         <CreateTransactionSheet user={user} reoccuring={reoccuring} />

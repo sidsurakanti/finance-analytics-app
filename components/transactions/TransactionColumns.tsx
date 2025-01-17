@@ -1,8 +1,8 @@
 "use client";
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef, Row } from "@tanstack/react-table";
 import { Reoccuring, Transaction } from "@/lib/definitions";
-import { DeleteTransactionWrapper } from "@/components/transactions/delete/DeleteTransactionWrapper";
+import { DeleteTransactionWrapper } from "@/components/transactions/delete/DeleteTransactionButton";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";
@@ -10,6 +10,7 @@ import { transactionTypeColors } from "@lib/colors";
 import { Badge } from "@components/ui/badge";
 import { EditTransaction } from "@/components/transactions/edit/EditTransaction";
 import { mono } from "@/styles/fonts";
+import { differenceInDays } from "date-fns";
 
 export const columns: ColumnDef<Transaction>[] = [
   {
@@ -43,7 +44,12 @@ export const columns: ColumnDef<Transaction>[] = [
       // }
 
       return (
-        <div className={cn(mono.className, "text-right text-base tracking-wider pr-8")}>
+        <div
+          className={cn(
+            mono.className,
+            "text-right text-base tracking-wider pr-8",
+          )}
+        >
           {formatted}
         </div>
       );
@@ -64,6 +70,18 @@ export const columns: ColumnDef<Transaction>[] = [
   },
   {
     accessorKey: "created_at",
+    filterFn: (
+      row: Row<Transaction>,
+      columnId: string,
+      filterValue: number | string,
+      addMeta: (meta: any) => void,
+    ): boolean => {
+      const date = new Date(row.getValue(columnId));
+      // console.log(date);
+      if (filterValue == "max") return true;
+      if (differenceInDays(new Date(), date) < Number(filterValue)) return true;
+      return false;
+    },
     header: ({ column }) => {
       return (
         <div className="text-center">
