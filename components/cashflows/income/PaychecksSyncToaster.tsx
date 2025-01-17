@@ -23,7 +23,6 @@ export default function PaychecksSyncToaster({
   const { toast } = useToast();
   const hasChecked = useRef(false);
 
-  
   useEffect(() => {
     if (hasChecked.current) return;
 

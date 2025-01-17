@@ -45,7 +45,7 @@ export async function checkForMissedPaychecks(
     // check how many times they've missed their paycheck
     const [missedPaychecksCount, dates] = calculateLastPaidDiff(
       lastSyncedDate, // new Date("2024-12-05"),
-      job.pay_dates,
+      job.pay_dates, // ex: [1, 15]
     );
 
     // get total income missed throughout missed paychecks
