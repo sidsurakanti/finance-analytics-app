@@ -1,14 +1,7 @@
 import { auth } from "@/auth";
 import type { User, Balance, IncomeSources, Savings } from "@/lib/definitions";
 
-import fetchTranscationsByTypes, {
-  fetchBalance,
-  fetchIncomeSources,
-  fetchCurrSavings,
-  fetchTransactionByCategory,
-  TransactionCategoryTotals,
-  TransactionTypesTotals,
-} from "@/lib/data";
+import { fetchBalance, fetchIncomeSources } from "@/lib/data";
 import { findNextPayDate } from "@/lib/utils";
 import { getLastPaycheckSyncDate } from "@/lib/actions";
 
@@ -21,11 +14,13 @@ import SavingsCard from "@/components/cashflows/savings/Savings";
 import ExpensesCard from "@/components/cashflows/spending/ExpensesCard";
 import QuickAddList from "@/components/cashflows/shortcuts/QuickAddList";
 import PaychecksSyncToaster from "@/components/cashflows/income/PaychecksSyncToaster";
-import SankeyChart from "./spending/Sankey";
+import SankeyChart from "@/components/cashflows/spending/Sankey";
 
 export default async function CashflowCards() {
   const session = await auth();
+  // console.log(session)
   const user = session?.user as User;
+  // if (session?.user?.image) return <></>
 
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
   // console.log(incomeSources);
@@ -47,7 +42,6 @@ export default async function CashflowCards() {
       nextPayDate: findNextPayDate(job.pay_dates),
     }),
   );
-
   // calculate next paycheck for bal component
   const nextPaycheckDetails: nextPaycheckDetailsT = incomeSourcesWNextPay.sort(
     (a, b) => a.nextPayDate.getTime() - b.nextPayDate.getTime(),

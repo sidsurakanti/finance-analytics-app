@@ -12,6 +12,9 @@ import {
 } from "@components/ui/card";
 import { Button } from "@components/ui/button";
 import { BackArrow } from "@components/ui/icons";
+import { loginWithGithub } from "@lib/auth/actions";
+import { GithubLogo } from "@/components/ui/icons";
+
 
 interface AuthCardWrapperProps {
   children: React.ReactNode;
@@ -264,7 +267,7 @@ export function AuthCardWrapper({
         <rect y="674.60352" width="888" height="2" fill="#3f3d56" />
       </svg>
 
-      <Card className="w-[325px] lg:w-[400px] xl:w-[450px] shadow-none bg-background border-none ">
+      <Card className="w-[325px] lg:w-[400px] xl:w-[450px] shadow-none bg-background border-none">
         <CardHeader>
           <CardTitle className="text-xl lg:text-2xl 2xl:text-4xl">
             {headerLabel}
@@ -272,7 +275,15 @@ export function AuthCardWrapper({
           {description && <CardDescription>{description}</CardDescription>}
         </CardHeader>
 
-        <CardContent>{children}</CardContent>
+        <CardContent className="space-y-4">
+          <form action={loginWithGithub} className="">
+            <Button type="submit" className="flex gap-2">
+              <GithubLogo className="w-6 h-6" />
+              Sign in with GitHub
+            </Button>
+          </form>
+          {children}
+        </CardContent>
 
         {backButtonHref && (
           <CardFooter>

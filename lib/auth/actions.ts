@@ -66,6 +66,7 @@ export async function logout(): Promise<void> {
   }
 }
 
+
 export async function createUser(user: User): Promise<string> {
   const { name, email, password } = {
     ...user,
@@ -96,6 +97,46 @@ export async function createUser(user: User): Promise<string> {
 
   redirect("/login");
 }
+
+// OAUTH SIGN IN AND CREATE ACC
+export async function loginWithGithub() {
+  try {
+    // call signIn from next-auth
+    // @see auth.ts
+    await signIn("github");
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function createUserOauth(
+  user: User,
+): Promise<"User with that email already exists" | undefined> {
+  const { name, email } = user;
+
+  // no need to check for duplicate users here
+  // since duplicate users are not allowed by db columns bc of unique email contrainsts
+  try {
+    await sql`
+      INSERT INTO users (name, email) 
+      VALUES (${name}, ${email})
+    `;
+    console.log("CREATED NEW USER", email);
+    const { id } = await fetchUser(email);
+    await onUserCreate(id);
+    // add init values for db!
+  } catch (error) {
+    // handle duplicate user error (non-unique email)
+    if ((error as any).code === "23505") {
+      console.log("ERROR: USER WITH THAT EMAIL ALREADY EXISTS");
+      return "User with that email already exists";
+    }
+
+    console.log("Database error", error);
+    throw new Error("Database error");
+  }
+}
+
 
 // add default sets for balance, savings, and recurring transactions
 export async function onUserCreate(user_id: string) {

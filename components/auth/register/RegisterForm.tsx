@@ -46,6 +46,7 @@ export function RegisterForm() {
       login_count: 0,
       last_logged_in: null,
       created_at: new Date(),
+      provider: "credentials",
     };
     // console.log(newUser)
 
