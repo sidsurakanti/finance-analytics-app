@@ -8,7 +8,7 @@ import {
 } from "@/lib/actions";
 import { IncomeSources, User } from "@/lib/definitions";
 import { cashFormatter } from "@/lib/utils";
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ToastAction } from "@/components/ui/toast";
 
 export default function PaychecksSyncToaster({
@@ -30,7 +30,7 @@ export default function PaychecksSyncToaster({
       // get missed paycheck data for each income source a user has
       const missedPaychecks: MissedPaycheckT[] = await checkForMissedPaychecks(
         incomeSources,
-        lastPaycheckSync,
+        // lastPaycheckSync,
       );
       // console.log(missedPaychecks);
 
@@ -42,8 +42,10 @@ export default function PaychecksSyncToaster({
 
       // missed paychecks details per income source
       // len of missedPaychecks = incomeSources.length
+
       for (const missed of missedPaychecks) {
         const { incomeSource, missedPaychecksCount, missedIncome } = missed;
+        console.log(missed);
 
         if (missedPaychecksCount === 0) continue;
 

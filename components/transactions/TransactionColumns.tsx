@@ -2,7 +2,7 @@
 
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { Reoccuring, Transaction } from "@/lib/definitions";
-import { DeleteTransactionWrapper } from "@/components/transactions/delete/DeleteTransactionButton";
+import { DeleteTransactionButton } from "@/components/transactions/delete/DeleteTransactionButton";
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
 import { cn, cashFormatter, dateFormatter } from "@lib/utils";
@@ -114,7 +114,7 @@ export const columns: ColumnDef<Transaction>[] = [
       return (
         <div className="flex opacity-0 group-hover:opacity-100 gap-0.5 justify-end pr-4">
           <EditTransaction transaction={transaction} reoccuring={reoccuring} />
-          <DeleteTransactionWrapper transaction={transaction} />
+          <DeleteTransactionButton transaction={transaction} />
         </div>
       );
     },
