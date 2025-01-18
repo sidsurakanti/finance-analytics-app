@@ -125,7 +125,7 @@ export function DataTable<TData, TValue>({
                   {headerGroup.headers.map((header) => {
                     return (
                       <TableHead
-                        className="first:rounded-tl-lg last:rounded-tr-lg rounded-lg bg-transparent"
+                        className="first:rounded-tl-lg last:rounded-tr-lg bg-transparent"
                         key={header.id}
                       >
                         {header.isPlaceholder

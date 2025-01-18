@@ -27,6 +27,7 @@ export const authConfig = {
         }
         return false;
       } else if (isLoggedIn) {
+        if (url.pathname == "/") return true;
         return NextResponse.redirect(new URL("/cashflows", url));
       }
 
