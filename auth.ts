@@ -21,7 +21,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       // here, the default value for the jwt.sub is always the users id
       const user = await fetchUser(token.email as string);
       session.user.id = user ? user.id : (token.sub as string);
-      session.user.image = token.picture
+      session.user.image = token.picture;
       return session;
     },
 
@@ -44,7 +44,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           const message = await createUserOauth(newUser);
           return true;
         }
-      } 
+      }
       return true; // or return a string if needed
     },
   },

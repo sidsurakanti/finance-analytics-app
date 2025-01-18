@@ -1,0 +1,47 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+}
+
+h1 {
+  margin: 10px;
+  display: inline-block;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid DimGray;
+  margin: 10px;
+}
+
+.controls {
+  border-bottom: 1px solid black;
+  padding: 10px;
+  background-color: Gainsboro;
+}
+
+.controls > div {
+  margin-bottom: 10px;
+}
+
+.controls > div:last-child {
+  margin-bottom: 0px;
+}
+
+.controls button {
+  outline: 0;
+  cursor: pointer;
+  width: 150px;
+  height: 30px;
+  font-size: .85rem;
+  border: 1px solid RoyalBlue;
+  background-color: LightSteelBlue;
+  margin-right: 10px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+.controls button:hover {
+  color: Snow;
+  background-color: RoyalBlue;
+}
