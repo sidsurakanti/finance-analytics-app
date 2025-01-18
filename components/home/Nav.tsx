@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Button } from "@components/ui/button";
-import Logo from "@/components/logo";
+import Logo from "@/components/base/logo";
 import Link from "next/link";
 
 export function Nav() {
@@ -10,7 +10,7 @@ export function Nav() {
 
   return (
     <header className="sticky top-0 flex min-h-16 w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto justify-between items-center my-3">
-      <Logo linkToHome/>
+      <Logo linkToHome />
 
       {(pathname === "/register" || pathname === "/") && (
         <Link href="/login">

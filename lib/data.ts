@@ -252,7 +252,7 @@ export type SortedData = {
   total_amount: string;
 };
 
-// sorted by monthly intervals for timespan
+// used for bar chart
 export async function fetchTransactionsSorted(
   user: User,
   type: Transaction["type"],
@@ -332,6 +332,7 @@ export async function fetchTransactionsSorted(
   }
 }
 
+// full transactions fetch
 export async function fetchAllTransactions(user: User): Promise<Transaction[]> {
   noStore();
   const id = user.id?.toString();
