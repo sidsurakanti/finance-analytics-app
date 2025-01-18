@@ -34,6 +34,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "date-fns": "^4.1.0",
+    "intro.js": "^7.2.0",
     "intro.js-react": "^1.0.0",
     "lucide-react": "^0.469.0",
     "motion": "^11.16.4",
