@@ -79,6 +79,9 @@ export default function EditIncomeSource({
       income_amt,
       frequency,
       pay_dates: payDates,
+      // updater function doesn't use these two values anyway js for type checking
+      created_at: new Date(),
+      last_paycheck_sync: new Date(),
     };
 
     // console.log(constructedData);

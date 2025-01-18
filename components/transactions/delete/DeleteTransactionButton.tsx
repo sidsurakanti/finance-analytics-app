@@ -15,7 +15,7 @@ import {
 } from "@components/ui/dialog";
 import { CircleX } from "lucide-react";
 
-export function DeleteTransactionWrapper({
+export function DeleteTransactionButton({
   transaction,
 }: {
   transaction: Transaction;

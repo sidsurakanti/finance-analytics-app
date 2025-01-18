@@ -38,13 +38,14 @@ export type MissedPaycheckT = {
 
 export async function checkForMissedPaychecks(
   incomeSources: IncomeSources[],
-  lastSyncedDate: Date,
+  // lastSyncedDate: Date,
 ): Promise<MissedPaycheckT[]> {
   // for each income source
   const ret = incomeSources.map((job) => {
     // check how many times they've missed their paycheck
     const [missedPaychecksCount, dates] = calculateLastPaidDiff(
-      lastSyncedDate, // new Date("2024-12-05"),
+      // lastSyncedDate, // new Date("2024-12-05"),
+      job.last_paycheck_sync,
       job.pay_dates, // ex: [1, 15]
     );
 
@@ -84,23 +85,33 @@ export async function addMissedPaychecks(
   updateBalance(missedPaychecksDetails.missedIncome, user_id, false);
   // create a new transaction for paycheck
   // set lastPaycheckSyncDate to now
-  setPaycheckSyncDate(user_id);
+  setPaycheckSyncDate(missedPaychecksDetails.incomeSource);
   revalidatePath("/cashflows");
-  console.log("ADD MISSED PAYCHECKS INTO CHECKING BALANCE");
+  console.log(
+    "ADD MISSED PAYCHECKS INTO CHECKING BALANCE, TOTALING:",
+    missedPaychecksDetails.missedIncome,
+  );
   return;
 }
 
-export async function setPaycheckSyncDate(user_id: string) {
+export async function setPaycheckSyncDate(job: IncomeSources) {
+  const { id, user_id } = job;
   const now = new Date();
   const formattedDate = now.toISOString().split("T")[0]; // get date in YYYY-MM-DD
 
   try {
     await sql`
-    UPDATE users
-    SET 
-      last_paycheck_sync = ${formattedDate}
-    WHERE id = ${user_id};
-  `;
+      UPDATE income_sources
+      SET 
+        last_paycheck_sync = ${formattedDate}
+      WHERE id = ${id.toString()};
+    `;
+    await sql`
+      UPDATE users
+      SET 
+        last_paycheck_sync = ${formattedDate}
+      WHERE id = ${user_id};
+    `;
   } catch (error) {
     console.log("ERROR WHILE SETTING PAYCHECK SYNC DATE", error);
     throw new Error("Failed to set paycheck sync date");
@@ -124,8 +135,8 @@ export async function createIncomeSource(
   try {
     await sql`
       INSERT INTO income_sources
-      (user_id, name, income_amt, frequency, pay_dates)
-      VALUES (${user_id}, ${name}, ${income_amt}, ${frequency}, ${formattedPayDates})
+      (user_id, name, income_amt, frequency, pay_dates, created_at, last_paycheck_sync)
+      VALUES (${user_id}, ${name}, ${income_amt}, ${frequency}, ${formattedPayDates}, NOW(), NOW())
     `;
     revalidatePath("/cashflows");
     console.log("CREATED NEW INCOME SOURCE: ", name);
@@ -250,8 +261,8 @@ export async function deleteTransaction(transaction: Transaction) {
     // delete older transactions to keep table from getting too large
     deleteOldTransactions(user_id);
 
-    revalidatePath("/transactions");
     console.log("DELETED TRANSACTION", transaction);
+    revalidatePath("/transactions");
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to delete reoccuring transaction");

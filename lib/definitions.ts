@@ -23,6 +23,8 @@ export type IncomeSources = {
   income_amt: string;
   frequency: string;
   pay_dates: string[];
+  created_at: Date,
+  last_paycheck_sync: Date,
 };
 
 export type Savings = {
