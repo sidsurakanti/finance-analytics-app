@@ -11,6 +11,19 @@ CREATE TABLE IF NOT EXISTS users (
     provider VARCHAR(255);
 )
 
+CREATE TABLE IF NOT EXISTS balance (
+    id SERIAL PRIMARY KEY,
+    amount NUMERIC NOT NULL,
+    user_id INTEGER REFERENCES users
+)
+
+CREATE TABLE IF NOT EXISTS savings (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users,
+    amount NUMERIC(10, 2) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+)
+
 CREATE TABLE IF NOT EXISTS transactions (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
@@ -28,11 +41,6 @@ CREATE TABLE IF NOT EXISTS reoccuring (
     user_id INTEGER REFERENCES users
 )
 
-CREATE TABLE IF NOT EXISTS balance (
-    id SERIAL PRIMARY KEY,
-    amount NUMERIC NOT NULL,
-    user_id INTEGER REFERENCES users
-)
 
 CREATE TABLE IF NOT EXISTS income_sources (
     id SERIAL PRIMARY KEY,
@@ -40,27 +48,17 @@ CREATE TABLE IF NOT EXISTS income_sources (
     name VARCHAR(255) NOT NULL,
     income_amt NUMERIC(10, 2) NOT NULL,
     frequency VARCHAR(255) NOT NULL,
-    pay_dates text[]
-)
-
-ALTER TABLE income_sources
-ADD COLUMN created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
-
-
-
-CREATE TABLE IF NOT EXISTS savings (
-    id SERIAL PRIMARY KEY,
-    user_id INTEGER REFERENCES users,
-    amount NUMERIC(10, 2) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    pay_dates text[],
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    last_paycheck_sync TIMESTAMP,
 )
 
 -- some placeholder data if needed
 INSERT INTO income_sources
-(user_id, name, income_amt, frequency, pay_dates)
+(user_id, name, income_amt, frequency, pay_dates, created_at, last_paycheck_sync)
 VALUES 
-    (2, 'Job 1', 6200, 'semi-monthly', '{1, 15}'),
-    (2, 'Job 2', 9000, 'monthly', '{8, 24}');
+    (2, 'Job 1', 6200, 'semi-monthly', '{1, 15}', NOW(), NOW()),
+    (2, 'Job 2', 9000, 'monthly', '{8, 24}', NOW(), NOW());
 
 
 INSERT INTO reoccuring 
@@ -103,8 +101,7 @@ SELECT * FROM transactions
 WHERE (user_id=1 AND EXTRACT(MONTH from created_at) = EXTRACT(MONTH from CURRENT_DATE AND (type in ('expense', 'reoccuring'))));
 
 
-
--- scrap
+-- scrap (IGNORE THIS)
 UPDATE users
 SET 
     last_paycheck_sync = '2025-1-10'

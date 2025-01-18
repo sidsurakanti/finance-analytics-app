@@ -14,12 +14,6 @@ Keep track of where your money goes with a clean, minimal dashboard.
 - Responsive layout
 - Dark and light themes
 
-  <!-- <img src="./docs/new-reoccuring1.png" width=220 height=400>
-  <img src="./docs/new-transaction1.gif" height=400>
-  <img src="./docs/chart.png" width=320px>
-  <img src="./docs/balance.png" height=90px>
-  <img src="./docs/reoccuring.png" width=620px> -->
-
 ## Stack
 
 ![Next.js](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
@@ -47,24 +41,30 @@ git clone https://github.com/sidsurakanti/budgeting-app.git
 
 Navigate to the project directory
 
-```shell
-cd budgeting-app
+```zsh
+cd finance-analytics-app
 ```
 
 Install dependencies
 
-```shell
-npm install
+```zsh
+npm install --legacy-peer-deps # use legacy peer deps b/c some packages don't have support for React 19 yet
 ```
 
 Create a new .env.local file and populate it
 
 ```bash
-# auth secret used for jwt encoding
+# auth.js secret
 # run: openssl rand -base64 32
 AUTH_SECRET=""
+# see: https://github.com/settings/developers
+# set your callback url as http://[origin]/api/auth/callback/github
+AUTH_GITHUB_ID=""
+AUTH_GITHUB_SECRET=""
+# see: https://console.cloud.google.com/apis/credentials/
+AUTH_GOOGLE_ID=""
+AUTH_GOOGLE_SECRET=""
 # refer to @vercel/postgres docs: https://vercel.com/docs/storage/vercel-postgres/quickstart
-# you might also need to host this project using vercel if you want to use their db
 POSTGRES_URL=""
 POSTGRES_PRISMA_URL=""
 POSTGRES_URL_NON_POOLING=""
@@ -76,7 +76,7 @@ POSTGRES_DATABASE=""
 
 Start up the server
 
-```shell
+```zsh
 npm run dev
 ```
 
@@ -90,14 +90,8 @@ Refer to [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 
 - [x] Clean up code
 - [ ] Write a better README
-- [ ] Track previous paychecks
-- [ ] Find APIs from banking or credit card companies to use to automatically get transactions
-- [ ] Add other sign in options
+- [ ] Look into Plaid's API to auto-fetch transactions from user's credit cards
 
 ## Support
 
 If you need help with anything or want to request new features, you can reach me on [discord](https://discord.com/users/521872289231273994) 👍
-
-## Acknowledgements
-
-Thanks to everyone who assisted me on this project ❤️

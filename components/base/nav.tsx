@@ -5,10 +5,10 @@ import {
 } from "@components/ui/popover";
 import { ModeToggle, ModeSwitch } from "@components/ui/themes";
 import { LogoutButton } from "@components/auth/login/LogoutButton";
-import { NavLinks } from "@components/nav-links";
+import { NavLinks } from "@/components/base/nav-links";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@components/ui/button";
-import Logo from "@/components/logo";
+import Logo from "@/components/base/logo";
 import Image from "next/image";
 
 import { auth } from "@/auth";
