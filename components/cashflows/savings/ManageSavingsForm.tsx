@@ -9,6 +9,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { DialogClose } from "@/components/ui/dialog";
+import { motion } from "motion/react";
 
 export default function ManageSavingsForm({
   savings,
@@ -88,7 +89,7 @@ export default function ManageSavingsForm({
           <Button
             variant={"outline"}
             size="sm"
-            className="bg-rose-200 hover:bg-rose-400 border border-rose-400 h-6"
+            className="bg-rose-200 hover:bg-rose-200 hover:scale-105 border border-rose-400 h-6"
             onClick={() => setToChecking(!toChecking)}
           >
             {toChecking ? (

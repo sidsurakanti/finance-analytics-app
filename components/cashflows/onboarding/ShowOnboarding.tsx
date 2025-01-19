@@ -37,6 +37,35 @@ export default function ShowOnboarding({ user }: { user: User }) {
         </div>
       ),
     },
+    {
+      element: ".incomes",
+      intro: <div>View, add, and edit your income sources here!</div>,
+    },
+    {
+      element: ".spending",
+      intro: <div>This graph breaks down your total spending.</div>,
+      position: "left",
+    },
+    {
+      element: ".quickadd",
+      intro: (
+        <div>
+          Quickly add your recurring transactions here! You can edit these
+          recurring transactions in the recurring tab.
+        </div>
+      ),
+      position: "left",
+    },
+    {
+      element: ".sankey",
+      intro: (
+        <div>
+          Once populated, this will become a graph to visualize where your money
+          is
+        </div>
+      ),
+      position: "right middle",
+    },
   ];
 
   return (
@@ -48,17 +77,22 @@ export default function ShowOnboarding({ user }: { user: User }) {
             steps={steps}
             initialStep={0}
             onExit={() => setShowSteps(false)}
+            options={{
+              doneLabel: "Finish"
+            }}
           />
-          <div className="w-full h-10 rounded-xl py-6 bg-teal-100 border border-teal-300 flex justify-center items-center gap-2 mb-2">
+          <div className="w-fit mx-auto h-6 rounded-xl py-5 px-3 bg-teal-100 border text-teal-800 border-teal-300 flex justify-center items-center gap-2 mb-2">
             Seems like you&apos;ve just created your account, let&apos;s get you
             started.
             <Button
-              variant={"ghost"}
+              variant={"link"}
+              className="rounded-full underline underline-offset-4 hover:text-teal-900 hover:font-bold text-teal-900"
+              size={"sm"}
               onClick={() => {
                 setShowSteps(true);
               }}
             >
-              go
+              start tour
             </Button>
           </div>
         </>

@@ -52,7 +52,7 @@ export default async function CashflowCards() {
   return (
     <>
       <ShowOnboarding user={user} />
-      <section className="grid grid-cols-1 lg:grid-cols-10 gap-2">
+      <section className="grid grid-cols-1 lg:grid-cols-10 gap-2 ">
         <div className="col-span-5 checkingbalance">
           <Suspense
             fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
@@ -76,8 +76,12 @@ export default async function CashflowCards() {
           <Suspense
             fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
           >
-            <Incomes incomeSources={incomeSources} user={user} />
-            <SankeyChart user={user} />
+            <div className="incomes">
+              <Incomes incomeSources={incomeSources} user={user} />
+            </div>
+            <div className="sankey">
+              <SankeyChart user={user} />
+            </div>
           </Suspense>
         </div>
 
@@ -85,8 +89,12 @@ export default async function CashflowCards() {
           <Suspense
             fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
           >
-            <ExpensesCard user={user} />
-            <QuickAddList user={user} />
+            <div className="spending">
+              <ExpensesCard user={user} />
+            </div>
+            <div className="quickadd">
+              <QuickAddList user={user} />
+            </div>
           </Suspense>
         </div>
 

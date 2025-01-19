@@ -6,8 +6,8 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@components/ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/base/footer";
-import "@/styles/introjs.css";
 import "intro.js/introjs.css"
+
 
 export const metadata: Metadata = {
   title: "PBD",
