@@ -116,3 +116,28 @@ input[type="number"]::-webkit-outer-spin-button {
 ::-webkit-scrollbar-thumb:hover {
   background: #888;
 }
+
+a.introjs-button.introjs-nextbutton {
+  border-radius: 50px;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #94a3b8;
+  color: white;
+  text-shadow: none;
+}
+
+div.introjs-tooltiptext {
+  padding-bottom: 0;
+}
+
+.introjs-helperLayer {
+  border: none;
+  box-shadow: none;
+}
+
+.introjs-bullets {
+  padding: 0 0;
+}
+
