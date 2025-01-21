@@ -7,6 +7,7 @@ export const authConfig = {
     signIn: "/login",
   },
   providers: [],
+  trustHost: true,
   callbacks: {
     // run callback everytime middleware is run (basically, every time a page is accessed and matches middleware regex)
     // ^ @see middleware.ts
