@@ -34,7 +34,6 @@ export default function RootLayout({
       <body
         className={`min-h-screen w-full ${poppins.className} overflow-x-hidden antialiased scroll-smooth`}
       >
-        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
@@ -44,6 +43,7 @@ export default function RootLayout({
           {children}
           <Footer />
         </ThemeProvider>
+        <Analytics />
       </body>
     </html>
   );
