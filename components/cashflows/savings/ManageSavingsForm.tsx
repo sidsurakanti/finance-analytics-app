@@ -22,14 +22,16 @@ export default function ManageSavingsForm({
   const [toChecking, setToChecking] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  // TODO: revisit this logic
   const update = () => {
     if (toChecking) {
       if (transferPercent == "custom") {
-        if (Number(transferAmount) > Number(savings.amount))
+        if (Number(transferAmount) > Number(savings.amount)) {
           setErrorMessage(
             "You can't transfer more amount than exists in savings.",
           );
-
+          return;
+        }
         updateBalance(Number(transferAmount), balance.user_id);
         updateSavings(
           Number(savings.amount) - Number(transferAmount),
@@ -52,10 +54,12 @@ export default function ManageSavingsForm({
       }
     } else {
       if (transferPercent == "custom") {
-        if (Number(transferAmount) > Number(balance.amount))
+        if (Number(transferAmount) > Number(balance.amount)) {
           setErrorMessage(
             "You can't transfer more amount than exists in balance.",
           );
+          return;
+        }
 
         updateSavings(
           Number(savings.amount) + Number(transferAmount),
@@ -147,7 +151,11 @@ export default function ManageSavingsForm({
                     type="number"
                     placeholder="enter transfer amount"
                     value={transferAmount}
-                    onChange={(event) => setTransferAmount(event.target.value)}
+                    maxLength={10}
+                    onChange={(event) => {
+                      setTransferAmount(event.target.value);
+                      if (errorMessage) setErrorMessage("");
+                    }}
                     className="pl-6"
                   />
                 </div>

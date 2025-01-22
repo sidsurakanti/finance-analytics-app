@@ -189,7 +189,8 @@ export async function updateIncomeSource(incomeSource: IncomeSources) {
 export async function updateSavings(newSavings: number, user_id: number) {
   let savings = Number(newSavings);
   if (savings > 1000000) savings = 1000000;
-
+  if (savings < -1000000) savings = 0;
+  console.log(savings);
   try {
     await sql`
     INSERT INTO savings
@@ -200,7 +201,7 @@ export async function updateSavings(newSavings: number, user_id: number) {
     revalidatePath("/cashflows");
   } catch (error) {
     console.log("Database error", error);
-    throw new Error("Failed to add new savings");
+    throw new Error("Failed to update savings");
   }
 }
 
@@ -333,7 +334,11 @@ export async function updateBalance(
   const balance: Balance = await fetchBalance(user_id);
   // if there's no previous balance, set the balance to the change
   // backup if there was no init balance during onboarding
-  const updatedBalance = balance ? Number(balance.amount) + change : change;
+  let updatedBalance = balance ? Number(balance.amount) + change : change;
+
+  // deal with absurd entries
+  if (updatedBalance > 1000000) updatedBalance = 1000000;
+  if (updatedBalance < -1000000) updatedBalance = -1000000;
 
   try {
     // insert instead of updating to keep history of balance

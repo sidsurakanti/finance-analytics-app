@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { Savings } from "@/lib/definitions";
+import type { Balance, Savings } from "@/lib/definitions";
 import { Input } from "@/components/ui/input";
 import { updateBalance, updateSavings } from "@/lib/actions";
 import { Label } from "@/components/ui/label";
@@ -9,16 +9,29 @@ import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { DialogClose } from "@/components/ui/dialog";
 
-export default function AddSavings({ savings }: { savings: Savings }) {
+export default function AddSavings({
+  savings,
+  balance,
+}: {
+  savings: Savings;
+  balance: Balance;
+}) {
   const [newSavings, setNewSavings] = useState<string>("");
   const [fromBalance, setFromBalance] = useState<boolean>(true);
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const handleSubmit = () => {
     if (newSavings == "") {
       return;
     }
 
+    if (fromBalance && Number(newSavings) > Number(balance.amount)) {
+      setErrorMessage("You can't transfer more money than exists in checking.");
+      return;
+    }
+
     const newSavingsTotal = Number(savings.amount) + Number(newSavings);
+
     updateSavings(newSavingsTotal, savings.user_id);
     if (fromBalance) {
       updateBalance(-Number(newSavings), savings.user_id.toString());
@@ -39,7 +52,10 @@ export default function AddSavings({ savings }: { savings: Savings }) {
             <Input
               type="number"
               placeholder="0.00"
-              onChange={(event) => setNewSavings(event.target.value)}
+              onChange={(event) => {
+                setNewSavings(event.target.value);
+                if (errorMessage) setErrorMessage("");
+              }}
               className="pl-6"
             />
           </div>
@@ -63,15 +79,13 @@ export default function AddSavings({ savings }: { savings: Savings }) {
       </div>
 
       <div className="w-full flex justify-center gap-2 mt-2">
-        <DialogClose asChild>
-          <Button
-            onClick={() => handleSubmit()}
-            variant={"ghost"}
-            className="bg-lime-200 hover:bg-lime-400 border border-lime-400 text-lime-900"
-          >
-            make changes
-          </Button>
-        </DialogClose>
+        <Button
+          onClick={() => handleSubmit()}
+          variant={"ghost"}
+          className="bg-lime-200 hover:bg-lime-400 border border-lime-400 text-lime-900"
+        >
+          make changes
+        </Button>
         <DialogClose asChild>
           <Button
             variant={"ghost"}
@@ -81,6 +95,12 @@ export default function AddSavings({ savings }: { savings: Savings }) {
           </Button>
         </DialogClose>
       </div>
+
+      {errorMessage && (
+        <span className="p-2 rounded-full text-xs flex justify-center bg-red-200 text-red-900">
+          {errorMessage}
+        </span>
+      )}
     </div>
   );
 }

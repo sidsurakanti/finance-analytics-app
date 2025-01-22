@@ -18,7 +18,7 @@ export default function UpdateSavingsButton({
   className,
 }: {
   savings: Savings;
-  balance: Balance
+  balance: Balance;
   className?: string;
 }) {
   return (
@@ -49,10 +49,10 @@ export default function UpdateSavingsButton({
             </div>
           </TabsList>
           <TabsContent value="add">
-            <AddSavings savings={savings} />
+            <AddSavings savings={savings} balance={balance} />
           </TabsContent>
           <TabsContent value="manage">
-            <ManageSavingsForm savings={savings} balance={balance}/>
+            <ManageSavingsForm savings={savings} balance={balance} />
           </TabsContent>
         </Tabs>
       </DialogContent>

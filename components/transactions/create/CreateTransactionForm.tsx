@@ -53,6 +53,12 @@ export function CreateTransactionForm({
     data: z.infer<typeof createTransactionSchema>,
   ) => {
     // console.log(data);
+    let { amount } = data;
+    if (Number(amount) > 1000000) {
+      amount = "1000000";
+    } else if (Number(amount) < -1000000) {
+      amount = "0";
+    }
 
     // tranform data into a new transaction object
     const transaction: Transaction = {
@@ -60,15 +66,12 @@ export function CreateTransactionForm({
       // if type of transaction is a not a paycheck nor a deposit
       // change the value to negative
       amount:
-        data.type === "paycheck" || data.type === "deposit"
-          ? data.amount
-          : -data.amount,
+        data.type === "paycheck" || data.type === "deposit" ? amount : -amount,
       type: data.type,
       user_id: user.id,
       created_at: new Date(),
     };
-
-    // update income in cashflows table if user adds a new paycheck
+    // console.log(transaction.amount);
 
     // add transaction to db
     createTransaction(transaction);
