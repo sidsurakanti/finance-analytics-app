@@ -9,7 +9,6 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import { Button } from "@/components/ui/button";
 import { MoveLeft, MoveRight } from "lucide-react";
 import { DialogClose } from "@/components/ui/dialog";
-import { motion } from "motion/react";
 
 export default function ManageSavingsForm({
   savings,
@@ -89,7 +88,7 @@ export default function ManageSavingsForm({
           <Button
             variant={"outline"}
             size="sm"
-            className="bg-rose-200 hover:bg-rose-200 hover:scale-105 border border-rose-400 h-6"
+            className="bg-neutral-200 hover:bg-neutral-200 hover:scale-105 border border-neutral-400 h-6"
             onClick={() => setToChecking(!toChecking)}
           >
             {toChecking ? (
@@ -110,25 +109,25 @@ export default function ManageSavingsForm({
           >
             <ToggleGroupItem
               value="10"
-              className="data-[state=on]:bg-rose-200 data-[state=on]:text-rose-900 px-2.5 rounded-lg data-[state=on]:border border-rose-400"
+              className="data-[state=on]:bg-neutral-200 data-[state=on]:text-neutral-900 px-2.5 rounded-lg data-[state=on]:border border-neutral-400"
             >
               10%
             </ToggleGroupItem>
             <ToggleGroupItem
               value="50"
-              className="data-[state=on]:bg-rose-200 data-[state=on]:text-rose-900 px-2.5 rounded-lg data-[state=on]:border border-rose-400"
+              className="data-[state=on]:bg-neutral-200 data-[state=on]:text-neutral-900 px-2.5 rounded-lg data-[state=on]:border border-neutral-400"
             >
               50%
             </ToggleGroupItem>
             <ToggleGroupItem
               value="75"
-              className="data-[state=on]:bg-rose-200 data-[state=on]:text-rose-900 px-2.5 rounded-lg data-[state=on]:border border-rose-400"
+              className="data-[state=on]:bg-neutral-200 data-[state=on]:text-neutral-900 px-2.5 rounded-lg data-[state=on]:border border-neutral-400"
             >
               75%
             </ToggleGroupItem>
             <ToggleGroupItem
               value="custom"
-              className="data-[state=on]:bg-rose-200 data-[state=on]:text-rose-900 px-2.5 rounded-lg border border-border data-[state=on]:border-rose-400"
+              className="data-[state=on]:bg-neutral-200 data-[state=on]:text-neutral-900 px-2.5 rounded-lg border border-border data-[state=on]:border-neutral-400"
             >
               custom
             </ToggleGroupItem>
@@ -136,14 +135,6 @@ export default function ManageSavingsForm({
 
           {transferPercent === "custom" && (
             <>
-              {/* <Label>amount</Label>
-              <Input
-                type="number"
-                value={transferAmount}
-                placeholder="enter transfer amount"
-                onChange={(event) => setTransferAmount(event.target.value)}
-              /> */}
-
               <span className="flex flex-col gap-2">
                 <Label>Amount</Label>
                 <div className="relative w-full rounded-md shadow-sm">
