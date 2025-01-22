@@ -205,6 +205,61 @@ export async function updateSavings(newSavings: number, user_id: number) {
   }
 }
 
+// BALANCE ACTIONS
+export async function updateBalance(
+  change: number,
+  user_id: string,
+  refreshPath: boolean = true,
+) {
+  const balance: Balance = await fetchBalance(user_id);
+  // if there's no previous balance, set the balance to the change
+  // backup if there was no init balance during onboarding
+  let updatedBalance = balance ? Number(balance.amount) + change : change;
+
+  // deal with absurd entries
+  if (updatedBalance > 1000000) updatedBalance = 1000000;
+  if (updatedBalance < -1000000) updatedBalance = -1000000;
+
+  try {
+    // insert instead of updating to keep history of balance
+    await sql`
+      INSERT INTO balance
+      (amount, user_id) 
+      VALUES (${updatedBalance}, ${user_id});
+    `;
+
+    // delete older balances to keep balance table from getting too large
+    deleteOldBalances(user_id);
+    console.log("UPDATED BALANCE:", updatedBalance);
+    if (refreshPath) revalidatePath("/cashflows");
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to update balance");
+  }
+}
+
+// keep old balances from cluttering up the db
+// we won't be using all those extra balances anyway
+export async function deleteOldBalances(user_id: string) {
+  try {
+    await sql`
+      DELETE FROM balance
+      WHERE id NOT IN (
+        SELECT id
+        FROM balance
+        WHERE user_id = ${user_id}
+        ORDER BY id DESC
+        LIMIT 50
+      )
+      AND user_id = ${user_id};
+    `;
+    console.log("DELETED OLD BALANCES");
+  } catch (error) {
+    console.log("Database error", error);
+    throw new Error("Failed to delete old balances");
+  }
+}
+
 // TRANSACTION ACTIONS
 
 export async function createTransaction(
@@ -322,61 +377,6 @@ export async function deleteReoccuringById(reoccuringId: Number) {
   } catch (error) {
     console.log("Database error", error);
     throw new Error("Failed to delete reoccuring transaction");
-  }
-}
-
-// BALANCE ACTIONS
-export async function updateBalance(
-  change: number,
-  user_id: string,
-  refreshPath: boolean = true,
-) {
-  const balance: Balance = await fetchBalance(user_id);
-  // if there's no previous balance, set the balance to the change
-  // backup if there was no init balance during onboarding
-  let updatedBalance = balance ? Number(balance.amount) + change : change;
-
-  // deal with absurd entries
-  if (updatedBalance > 1000000) updatedBalance = 1000000;
-  if (updatedBalance < -1000000) updatedBalance = -1000000;
-
-  try {
-    // insert instead of updating to keep history of balance
-    await sql`
-      INSERT INTO balance
-      (amount, user_id) 
-      VALUES (${updatedBalance}, ${user_id});
-    `;
-
-    // delete older balances to keep balance table from getting too large
-    deleteOldBalances(user_id);
-    console.log("UPDATED BALANCE:", updatedBalance);
-    if (refreshPath) revalidatePath("/cashflows");
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to update balance");
-  }
-}
-
-// keep old balances from cluttering up the db
-// we won't be using all those extra balances anyway
-export async function deleteOldBalances(user_id: string) {
-  try {
-    await sql`
-      DELETE FROM balance
-      WHERE id NOT IN (
-        SELECT id
-        FROM balance
-        WHERE user_id = ${user_id}
-        ORDER BY id DESC
-        LIMIT 50
-      )
-      AND user_id = ${user_id};
-    `;
-    console.log("DELETED OLD BALANCES");
-  } catch (error) {
-    console.log("Database error", error);
-    throw new Error("Failed to delete old balances");
   }
 }
 
