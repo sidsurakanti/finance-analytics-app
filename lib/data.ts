@@ -18,6 +18,7 @@ export interface TransactionTypesTotals {
 }
 
 export default async function fetchTranscationsByTypes(user_id: string) {
+  // get all transactions grouped by types and the total amounts by their type
   try {
     const res = await sql<TransactionTypesTotals>`
       SELECT type, SUM(amount) as total_amount
@@ -38,7 +39,7 @@ export interface TransactionCategoryTotals {
 }
 
 export async function fetchTransactionByCategory(user_id: string) {
-  // get all the recurring transactions with their recurring type
+  // get all the transactions with type recurring and their specific recurring category
   try {
     const res = await sql<TransactionCategoryTotals>`
       SELECT reoccuring.category, SUM(transactions.amount) as total_amount

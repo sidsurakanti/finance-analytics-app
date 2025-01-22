@@ -6,8 +6,7 @@ import "@/styles/globals.css";
 import { ThemeProvider } from "@components/ui/themes";
 import { Analytics } from "@vercel/analytics/react";
 import Footer from "@/components/base/footer";
-import "intro.js/introjs.css"
-
+import "intro.js/introjs.css";
 
 export const metadata: Metadata = {
   title: "PBD",
@@ -33,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`min-h-screen w-full ${poppins.className} overflow-x-hidden antialiased`}
+        className={`min-h-screen w-full ${poppins.className} overflow-x-hidden antialiased scroll-smooth`}
       >
         <Analytics />
         <ThemeProvider

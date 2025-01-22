@@ -24,16 +24,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function ExpensesChart({
   expenses,
-  reoccuring,
+  recurring,
+  paychecks,
   handleTimespanChange,
 }: {
   expenses: SortedData[] | undefined;
-  reoccuring: SortedData[] | undefined;
+  recurring: SortedData[] | undefined;
+  paychecks: SortedData[] | undefined;
   handleTimespanChange: Dispatch<
     SetStateAction<"6 months" | "1 year" | "3 months">
   >;
 }) {
-  if (!expenses || !reoccuring) {
+  if (!expenses || !recurring || !paychecks) {
     return <Skeleton className="h-96 w-full bg-neutral-200" />;
   }
 
@@ -41,23 +43,33 @@ export function ExpensesChart({
     ...expense,
     total_amount: Math.abs(Number(expense.total_amount)),
   }));
-  const reoccuringF = reoccuring.map((reoccuring) => ({
-    ...reoccuring,
-    total_amount: Math.abs(Number(reoccuring.total_amount)),
+  const recurringF = recurring.map((recurring) => ({
+    ...recurring,
+    total_amount: Math.abs(Number(recurring.total_amount)),
+  }));
+  const paychecksF = paychecks.map((paycheck) => ({
+    ...paycheck,
+    total_amount: Math.abs(Number(paycheck.total_amount)),
   }));
 
-  let data: Array<{ month: Date; reoccuring: number; oneTime: number }> = [];
+  let data: Array<{
+    month: Date;
+    recurring: number;
+    oneTime: number;
+    income: number;
+  }> = [];
 
   for (let i = 0; i < expensesF.length; i++) {
     data.push({
       month: new Date(expensesF[i].month.getTime() + 86400000), // add one day in milliseconds
       oneTime: expensesF[i].total_amount,
-      reoccuring: reoccuringF[i].total_amount,
+      recurring: recurringF[i].total_amount,
+      income: paychecksF[i].total_amount,
     });
   }
 
   const totalSpending: number = data.reduce(
-    (acc, curr) => acc + curr.oneTime + curr.reoccuring,
+    (acc, curr) => acc + curr.oneTime + curr.recurring,
     0,
   );
 
@@ -105,15 +117,21 @@ export function ExpensesChart({
           />
           <ChartLegend content={<ChartLegendContent />} />
           <Bar
-            dataKey="oneTime"
+            dataKey="income"
             stackId="a"
+            fill="var(--color-income)"
+            radius={4}
+          />
+          <Bar
+            dataKey="oneTime"
+            stackId="b"
             fill="var(--color-oneTime)"
             radius={[0, 0, 4, 4]}
           />
           <Bar
-            dataKey="reoccuring"
-            stackId="a"
-            fill="var(--color-reoccuring)"
+            dataKey="recurring"
+            stackId="b"
+            fill="var(--color-recurring)"
             radius={[4, 4, 0, 0]}
           />
         </BarChart>
@@ -127,8 +145,12 @@ const chartConfig = {
     label: "One time",
     color: "hsl(var(--chart-4))",
   },
-  reoccuring: {
-    label: "Recurring", 
+  recurring: {
+    label: "Recurring",
     color: "hsl(var(--chart-5))",
+  },
+  income: {
+    label: "Income",
+    color: "#10b981",
   },
 } satisfies ChartConfig;

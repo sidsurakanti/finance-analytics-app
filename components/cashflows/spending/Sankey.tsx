@@ -27,6 +27,7 @@ export default function SankeyChart({ user }: { user: User }) {
     links: SankeyLinks[];
   }>();
 
+  // on mount fetch data and hydrate chart
   useEffect(() => {
     const fetchData = async () => {
       const transactionCategoryTotals: TransactionCategoryTotals[] =
@@ -36,6 +37,7 @@ export default function SankeyChart({ user }: { user: User }) {
 
       // console.log(transactionTypesTotals);
 
+      // sort data from transaction types into categories
       const oneTimeTotals =
         Math.abs(
           Number(
@@ -61,27 +63,17 @@ export default function SankeyChart({ user }: { user: User }) {
         ) || 0.001;
 
       // console.log(transactionCategoryTotals);
-      const formattedDataLinks: {
-        source: number;
-        target: number;
-        value: number;
-      }[] = transactionCategoryTotals.map((item, index) => {
-        return {
-          source: 1,
-          target: index + 5,
-          value: Math.abs(Number(item.total_amount)),
-        };
-      });
 
+      // attach all nodes to chart
       const nodes: { name: string }[] = [
         {
           name: "income", // 0
         },
         {
-          name: "recurring", // 2
+          name: "recurring", // 1
         },
         {
-          name: "one time expenses", // 1
+          name: "one time expenses", // 2
         },
         {
           name: "left over", // 3
@@ -95,6 +87,19 @@ export default function SankeyChart({ user }: { user: User }) {
           return { name: item.category };
         }),
       );
+
+      // append links for recurring transactions w/ categories
+      const formattedDataLinks: {
+        source: number;
+        target: number;
+        value: number;
+      }[] = transactionCategoryTotals.map((item, index) => {
+        return {
+          source: 1,
+          target: index + 5,
+          value: Math.abs(Number(item.total_amount)),
+        };
+      });
 
       const links: { source: number; target: number; value: number }[] = [
         {
@@ -177,7 +182,6 @@ const CNode = ({
   const isOut = x + width + 6 > containerWidth;
   const { theme } = useTheme();
 
-
   return (
     <>
       <Layer key={`CNODE${index}${x * y}${y}${payload.height}`}>
@@ -213,48 +217,3 @@ const CNode = ({
 };
 
 const NODE_FILL = "#f0abfc";
-const DATA0 = {
-  nodes: [
-    {
-      name: "income", // 0
-    },
-    {
-      name: "one time", // 1
-    },
-    {
-      name: "recurring", // 2
-    },
-    {
-      name: "remaining", // 3
-    },
-  ],
-  links: [
-    {
-      source: 0,
-      target: 1, // expenses
-      value: 2256.12, // amt
-    },
-    {
-      source: 0,
-      target: 5, // remaining
-      value: 2256.12, // amt
-    },
-    {
-      source: 0,
-      target: 2,
-      value: 7172.99,
-    },
-
-    // for each in transactionreoccuringcateogries
-    {
-      source: 2,
-      target: 3,
-      value: 4832,
-    },
-    {
-      source: 2,
-      target: 4,
-      value: 249.99,
-    },
-  ],
-};
