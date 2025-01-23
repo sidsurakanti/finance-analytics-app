@@ -27,6 +27,8 @@ import { DialogFooter, DialogClose } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { TypeSelect } from "@/components/transactions/edit/TypeSelect";
+import { FormError } from "@/components/auth/FormError";
+import { useState } from "react";
 
 export function EditTransactionForm({
   transaction,
@@ -47,11 +49,23 @@ export function EditTransactionForm({
     },
   });
 
+  const [errorMessage, setErrorMessage] = useState<string>("");
+
   // form submit handler
   const onSubmit: SubmitHandler<z.infer<typeof createTransactionSchema>> = (
     data: z.infer<typeof createTransactionSchema>,
   ) => {
     // console.log(data);
+    if (errorMessage) setErrorMessage("");
+
+    let { amount } = data;
+    if (Number(amount) > 1000000) {
+      setErrorMessage("Amount too big.");
+      return;
+    } else if (Number(amount) < 0) {
+      setErrorMessage("Amount can't be negative.");
+      return;
+    }
 
     // tranform data into a new transaction object
     const updatedTransaction: Transaction = {
@@ -168,18 +182,26 @@ export function EditTransactionForm({
             )}
           />
 
+          <FormError message={errorMessage} />
+
           {/* make sure submit button also closes the sheet AND calls on submit */}
-          <DialogFooter>
+          <div className="w-full flex justify-center gap-2 mt-2">
+            <Button
+              type="submit"
+              variant={"ghost"}
+              className="bg-sky-200 hover:bg-sky-400 border border-sky-400 text-sky-900"
+            >
+              make changes
+            </Button>
             <DialogClose asChild>
               <Button
-                variant="default"
-                type="submit"
-                className="w-full hover:bg-blue-500"
+                variant={"ghost"}
+                className="hover:bg-neutral-300 border border-neutral-300"
               >
-                Save
+                close
               </Button>
             </DialogClose>
-          </DialogFooter>
+          </div>
         </form>
       </Form>
     </>
