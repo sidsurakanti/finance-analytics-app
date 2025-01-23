@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import type { Balance, Savings } from "@/lib/definitions";
 import { Input } from "@/components/ui/input";
 import { updateBalance, updateSavings } from "@/lib/actions";
@@ -13,90 +13,52 @@ import { DialogClose } from "@/components/ui/dialog";
 export default function ManageSavingsForm({
   savings,
   balance,
+  handleSheetOpen,
 }: {
   savings: Savings;
   balance: Balance;
+  handleSheetOpen: Dispatch<SetStateAction<boolean | undefined>>;
 }) {
   const [transferAmount, setTransferAmount] = useState<string>("");
   const [transferPercent, setTransferPercent] = useState<string>("10");
   const [toChecking, setToChecking] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-  // TODO: revisit this logic
   const update = () => {
+    const isCustom = transferPercent === "custom";
+    const amount = isCustom
+      ? Number(transferAmount)
+      : Math.floor(
+          Number(toChecking ? savings.amount : balance.amount) *
+            (Number(transferPercent) / 100),
+        );
+
+    if (amount < 0)
+      return setErrorMessage("You can't transfer negative amounts.");
+
+    // SAVINGS -> CHECKINGS
     if (toChecking) {
-      // SAVINGS -> CHECKINGS
-      if (transferPercent == "custom") {
-        if (Number(transferAmount) < 0) {
-          setErrorMessage("You can't transfer negative amounts.");
-          return;
-        }
-        if (Number(transferAmount) > Number(savings.amount)) {
-          setErrorMessage(
-            "You can't transfer more amount than exists in savings.",
-          );
-          return;
-        }
-
-        updateBalance(Number(transferAmount), balance.user_id);
-        updateSavings(
-          Number(savings.amount) - Number(transferAmount),
-          savings.user_id,
-        );
-      } else {
-        const amt = Math.floor(
-          Number(savings.amount) * (Number(transferPercent) / 100),
+      if (amount > Number(savings.amount))
+        return setErrorMessage(
+          "You can't transfer more amount than exists in savings.",
         );
 
-        if (Number(savings.amount) < amt) {
-          setErrorMessage(
-            "You can't transfer more amount than exists in savings.",
-          );
-          return;
-        }
-
-        updateBalance(amt, balance.user_id);
-        updateSavings(Number(savings.amount) - amt, savings.user_id);
-      }
-    } else {
-      // CHECKING -> SAVINGS
-      if (transferPercent == "custom") {
-        if (Number(transferAmount) < 0) {
-          setErrorMessage("You can't transfer negative amounts.");
-          return;
-        }
-
-        if (Number(transferAmount) > Number(balance.amount)) {
-          setErrorMessage(
-            "You can't transfer more amount than exists in balance.",
-          );
-          return;
-        }
-
-        // add to savings, subtract from balance
-        updateSavings(
-          Number(savings.amount) + Number(transferAmount),
-          savings.user_id,
-        );
-        updateBalance(-Number(transferAmount), balance.user_id);
-      } else {
-        const amt = Math.floor(
-          Number(balance.amount) * (Number(transferPercent) / 100),
-        );
-
-        if (Number(balance.amount) < amt) {
-          setErrorMessage(
-            "You can't transfer more amount than exists in balance.",
-          );
-          return;
-        }
-
-        // add amt to savings
-        updateSavings(Number(savings.amount) + amt, savings.user_id);
-        // subtract that amt from balance
-        updateBalance(-amt, balance.user_id);
-      }
+      updateBalance(amount, balance.user_id);
+      updateSavings(Number(savings.amount) - amount, savings.user_id);
     }
+
+    // CHECKING -> SAVINGS
+    else {
+      if (amount > Number(balance.amount))
+        return setErrorMessage(
+          "You can't transfer more amount than exists in balance.",
+        );
+
+      updateSavings(Number(savings.amount) + amount, savings.user_id);
+      updateBalance(-amount, balance.user_id);
+    }
+
+    handleSheetOpen(false);
   };
 
   return (
