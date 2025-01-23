@@ -27,16 +27,18 @@ import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { SheetClose, SheetFooter } from "@components/ui/sheet";
 import { TypeSelect } from "@/components/transactions/edit/TypeSelect";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { FormError } from "@/components/auth/FormError";
 
 // * this is a client component bc of the useForm hook
 export function CreateTransactionForm({
   user,
   reoccuring,
+  handleSheetOpen,
 }: {
   user: User;
   reoccuring: Reoccuring[];
+  handleSheetOpen: Dispatch<SetStateAction<boolean | undefined>>;
 }) {
   // form hook
   const form = useForm<z.infer<typeof createTransactionSchema>>({
@@ -84,6 +86,7 @@ export function CreateTransactionForm({
     createTransaction(transaction);
     // update user balance
     updateBalance(Number(transaction.amount), user.id);
+    handleSheetOpen(false);
   };
 
   return (

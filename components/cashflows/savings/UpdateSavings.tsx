@@ -1,3 +1,5 @@
+"use client";
+
 import type { Balance, Savings } from "@/lib/definitions";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,8 +11,9 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import AddSavings from "@/components/cashflows/savings/AddSavingsForm";
+import AddSavingsForm from "@/components/cashflows/savings/AddSavingsForm";
 import ManageSavingsForm from "@/components/cashflows/savings/ManageSavingsForm";
+import { useState } from "react";
 
 export default function UpdateSavingsButton({
   savings,
@@ -21,8 +24,10 @@ export default function UpdateSavingsButton({
   balance: Balance;
   className?: string;
 }) {
+  const [dialogOpen, setDialogOpen] = useState<boolean | undefined>(undefined);
+
   return (
-    <Dialog>
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
         <Button
           variant={"link"}
@@ -48,11 +53,21 @@ export default function UpdateSavingsButton({
               <TabsTrigger value="manage">manage</TabsTrigger>
             </div>
           </TabsList>
+
           <TabsContent value="add">
-            <AddSavings savings={savings} balance={balance} />
+            <AddSavingsForm
+              savings={savings}
+              balance={balance}
+              handleSheetOpen={setDialogOpen}
+            />
           </TabsContent>
+
           <TabsContent value="manage">
-            <ManageSavingsForm savings={savings} balance={balance} />
+            <ManageSavingsForm
+              savings={savings}
+              balance={balance}
+              handleSheetOpen={setDialogOpen}
+            />
           </TabsContent>
         </Tabs>
       </DialogContent>
