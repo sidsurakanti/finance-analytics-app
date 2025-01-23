@@ -23,6 +23,9 @@ export default function AddSavings({
   const handleSubmit = () => {
     if (newSavings == "") {
       return;
+    } else if (Number(newSavings) < 0 && fromBalance) {
+      setErrorMessage("You can't transfer negative amounts.");
+      return;
     }
 
     if (fromBalance && Number(newSavings) > Number(balance.amount)) {
