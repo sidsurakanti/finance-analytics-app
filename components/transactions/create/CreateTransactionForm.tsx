@@ -27,6 +27,8 @@ import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { SheetClose, SheetFooter } from "@components/ui/sheet";
 import { TypeSelect } from "@/components/transactions/edit/TypeSelect";
+import { useState } from "react";
+import { FormError } from "@/components/auth/FormError";
 
 // * this is a client component bc of the useForm hook
 export function CreateTransactionForm({
@@ -47,17 +49,22 @@ export function CreateTransactionForm({
       type: "expense",
     },
   });
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // form submit handler
   const onSubmit: SubmitHandler<z.infer<typeof createTransactionSchema>> = (
     data: z.infer<typeof createTransactionSchema>,
   ) => {
     // console.log(data);
+    if (errorMessage) setErrorMessage("");
+
     let { amount } = data;
     if (Number(amount) > 1000000) {
-      amount = "1000000";
-    } else if (Number(amount) < -1000000) {
-      amount = "0";
+      setErrorMessage("Amount too big.");
+      return;
+    } else if (Number(amount) < 0) {
+      setErrorMessage("Amount can't be negative.");
+      return;
     }
 
     // tranform data into a new transaction object
@@ -170,6 +177,8 @@ export function CreateTransactionForm({
               </FormItem>
             )}
           />
+
+          <FormError message={errorMessage} />
 
           <SheetFooter>
             <Button type="submit" className="w-full hover:bg-blue-500">

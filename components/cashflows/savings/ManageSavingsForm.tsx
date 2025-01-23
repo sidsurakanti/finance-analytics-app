@@ -73,6 +73,7 @@ export default function ManageSavingsForm({
           return;
         }
 
+        // add to savings, subtract from balance
         updateSavings(
           Number(savings.amount) + Number(transferAmount),
           savings.user_id,
@@ -90,7 +91,9 @@ export default function ManageSavingsForm({
           return;
         }
 
+        // add amt to savings
         updateSavings(Number(savings.amount) + amt, savings.user_id);
+        // subtract that amt from balance
         updateBalance(-amt, balance.user_id);
       }
     }
@@ -99,7 +102,7 @@ export default function ManageSavingsForm({
   return (
     <div className="justify-between space-y-8 pt-4">
       <div className="space-y-3">
-        <span className="flex justify-center items-center gap-3">
+        <span className="flex justify-center items-center gap-3.5">
           <p className="font-medium">CHECKING</p>
           <Button
             variant={"outline"}

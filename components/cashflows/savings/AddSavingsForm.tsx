@@ -33,9 +33,15 @@ export default function AddSavings({
       return;
     }
 
+    if (Number(newSavings) > 1_000_000) {
+      setErrorMessage("Transfer amount too large. Try again.");
+      return;
+    }
+
     const newSavingsTotal = Number(savings.amount) + Number(newSavings);
 
     updateSavings(newSavingsTotal, savings.user_id);
+
     if (fromBalance) {
       updateBalance(-Number(newSavings), savings.user_id.toString());
     }

@@ -16,10 +16,10 @@ import {
   FormItem,
   FormMessage,
 } from "@components/ui/form";
-import { DialogFooter, DialogClose } from "@components/ui/dialog";
+import { DialogClose } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function QuickAddForm({ reoccuring }: { reoccuring: Reoccuring }) {
   // create form using the current transactions values
@@ -33,12 +33,24 @@ export function QuickAddForm({ reoccuring }: { reoccuring: Reoccuring }) {
       type: "reoccuring",
     },
   });
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   // form submit handler
   const onSubmit: SubmitHandler<z.infer<typeof createTransactionSchema>> = (
     data: z.infer<typeof createTransactionSchema>,
   ) => {
     // console.log(data);
+    // console.log(data);
+    if (errorMessage) setErrorMessage("");
+
+    let { amount } = data;
+    if (Number(amount) > 1000000) {
+      setErrorMessage("Amount too big.");
+      return;
+    } else if (Number(amount) < 0) {
+      setErrorMessage("Amount can't be negative.");
+      return;
+    }
 
     // tranform data into a new transaction object
     const transaction: Transaction = {
@@ -100,17 +112,29 @@ export function QuickAddForm({ reoccuring }: { reoccuring: Reoccuring }) {
           />
 
           {/* make sure submit button also closes the Dialog AND calls on submit */}
-          <DialogFooter>
+          <div className="w-full flex justify-center gap-2 mt-2">
+            <Button
+              variant="ghost"
+              type="submit"
+              className="w-full bg-amber-100 border border-amber-300 hover:bg-amber-300 text-amber-900"
+            >
+              add
+            </Button>
             <DialogClose asChild>
               <Button
-                variant="ghost"
-                type="submit"
-                className="w-full bg-amber-100 border border-amber-300 hover:bg-amber-300 text-amber-900"
+                variant={"ghost"}
+                className="hover:bg-neutral-300 border border-neutral-300"
               >
-                add
+                close
               </Button>
             </DialogClose>
-          </DialogFooter>
+          </div>
+
+          {errorMessage && (
+            <span className="p-2 rounded-full text-xs flex justify-center bg-red-200 text-red-900">
+              {errorMessage}
+            </span>
+          )}
         </form>
       </Form>
     </>
