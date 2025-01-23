@@ -25,13 +25,19 @@ export default function ManageSavingsForm({
   // TODO: revisit this logic
   const update = () => {
     if (toChecking) {
+      // SAVINGS -> CHECKINGS
       if (transferPercent == "custom") {
+        if (Number(transferAmount) < 0) {
+          setErrorMessage("You can't transfer negative amounts.");
+          return;
+        }
         if (Number(transferAmount) > Number(savings.amount)) {
           setErrorMessage(
             "You can't transfer more amount than exists in savings.",
           );
           return;
         }
+
         updateBalance(Number(transferAmount), balance.user_id);
         updateSavings(
           Number(savings.amount) - Number(transferAmount),
@@ -53,7 +59,13 @@ export default function ManageSavingsForm({
         updateSavings(Number(savings.amount) - amt, savings.user_id);
       }
     } else {
+      // CHECKING -> SAVINGS
       if (transferPercent == "custom") {
+        if (Number(transferAmount) < 0) {
+          setErrorMessage("You can't transfer negative amounts.");
+          return;
+        }
+
         if (Number(transferAmount) > Number(balance.amount)) {
           setErrorMessage(
             "You can't transfer more amount than exists in balance.",
