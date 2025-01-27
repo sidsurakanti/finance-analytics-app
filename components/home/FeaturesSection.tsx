@@ -35,7 +35,10 @@ export default function FeatureSection() {
 
       <ul className="list-none space-y-2 mt-10 pl-10">
         {FEATURE_LIST.map((feature, idx) => (
-          <div key={idx} className="flex gap-4 items-center cursor-pointer p-4 bg-sky-100 shadow-sm border border-sky-200 rounded-md">
+          <div
+            key={idx}
+            className="flex gap-4 items-center cursor-pointer p-4 bg-sky-100 shadow-sm border border-sky-200 rounded-md"
+          >
             <motion.svg
               width="14"
               height="14"
