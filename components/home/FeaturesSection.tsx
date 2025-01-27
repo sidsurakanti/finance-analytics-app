@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 
 import Image from "next/image";
 import incomeSourcesImg from "@/public/incomesources.png";
+import checkmark from "@public/checkmark.svg";
 import transactions from "@/public/transactions.png";
 import design from "@/public/Fhome.png";
 import { cn } from "@/lib/utils";
@@ -31,23 +32,64 @@ export default function FeatureSection() {
           ))}
         </div>
       </div>
+
+      <ul className="list-none space-y-2 mt-10 pl-10">
+        {FEATURE_LIST.map((feature, idx) => (
+          <div key={idx} className="flex gap-4 items-center cursor-pointer p-4 bg-sky-100 shadow-sm border border-sky-200 rounded-md">
+            <motion.svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              initial={{ rotate: 180, scale: 0 }}
+              animate={{ rotate: 0, scale: 1 }}
+            >
+              <g clipPath="url(#clip0_367_1122)">
+                <path
+                  d="M7 0C7.23765 3.76317 10.2368 6.76236 14 7C10.2368 7.23765 7.23765 10.2368 7 14C6.76236 10.2368 3.76317 7.23765 0 7C3.76317 6.76236 6.76236 3.76317 7 0Z"
+                  fill="black"
+                />
+              </g>
+              <defs>
+                <clipPath id="clip0_367_1122">
+                  <rect width="14" height="14" fill="white" />
+                </clipPath>
+              </defs>
+            </motion.svg>
+
+            <li>{feature}</li>
+          </div>
+        ))}
+      </ul>
     </section>
   );
 }
+
+const FEATURE_LIST = [
+  "Create and manage income sources",
+  "Automatic income tracking",
+  "Manage checking and savings balances",
+  "Add, update, delete transactions",
+  "Search, sort, filter transactions",
+  "Set up recurring transactions",
+  "Quick add recurring transactions",
+  "View analytics and charts to see spending habits",
+];
 
 const Card = ({ header, title, description, image }: TCard) => {
   return (
     <motion.section
       initial={{ opacity: 0, y: 80 }}
       whileHover={{
-        scale: 1.015
+        scale: 1.015,
       }}
       whileInView={{
         opacity: 1,
         y: 0,
         transition: {
           duration: 0.25,
-        }
+        },
       }}
       className="bg-slate-200/65 cursor-pointer p-4 border-2 border-slate-200 rounded-lg shadow-sm flex flex-col gap-5 h-fit"
     >
