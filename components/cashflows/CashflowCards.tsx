@@ -28,10 +28,21 @@ export default async function CashflowCards() {
   // console.log(incomeSources);
 
   // check for missed paychecks
-  const lastPaycheckSync = await getLastPaycheckSyncDate(user.id);
-  const isOutdated =
-    new Date().getTime() - new Date(lastPaycheckSync).getTime() >
-    24 * 60 * 60 * 1000;
+  const lastPaycheckSync: Date = await getLastPaycheckSyncDate(user.id);
+  // const isOutdated =
+  //   new Date().getTime() - new Date(lastPaycheckSync).getTime() >
+  //   24 * 60 * 60 * 1000;
+
+  const isOutdatedF = (lastSyncDate: Date) => {
+    return (
+      new Date().getTime() - new Date(lastSyncDate).getTime() >
+      24 * 60 * 60 * 1000
+    );
+  };
+
+  const isOutdated = incomeSources.some((job) =>
+    isOutdatedF(job.last_paycheck_sync),
+  );
   // console.log(lastPaycheckSync);
 
   const balance: Balance = await fetchBalance(user.id);
