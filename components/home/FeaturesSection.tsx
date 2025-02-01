@@ -35,7 +35,18 @@ export default function FeatureSection() {
 
       <ul className="list-none space-y-2 mt-10 pl-10">
         {FEATURE_LIST.map((feature, idx) => (
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 80 }}
+            whileHover={{
+              scale: 1.015,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.25,
+              },
+            }}
             key={idx}
             className="flex gap-4 items-center cursor-pointer p-4 bg-sky-100 shadow-sm border border-sky-200 rounded-md"
           >
@@ -62,7 +73,7 @@ export default function FeatureSection() {
             </motion.svg>
 
             <li>{feature}</li>
-          </div>
+          </motion.div>
         ))}
       </ul>
     </section>
