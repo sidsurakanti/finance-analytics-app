@@ -2,7 +2,7 @@
 
 Keep track of where your money goes.
 
-<img src="./docs/home.png">
+<img src="./public/home.png">
 <img src="./docs/transactions.png">
 
 ## Features
@@ -15,6 +15,7 @@ Keep track of where your money goes.
 - search, sort, filter transactions
 - set up recurring transactions
 - quick add recurring transactions
+- google and github sign in 
 
 ## Stack
 
@@ -96,7 +97,8 @@ Refer to [CONTRIBUTING.md](./docs/CONTRIBUTING.md)
 ## Roadmap
 
 - [x] Clean up code
-- [ ] Write a better README
+- [x] Write a better README
+- [ ] Polish the app
 - [ ] Look into Plaid's API to auto-fetch transactions from user's credit cards
 
 ## Support
