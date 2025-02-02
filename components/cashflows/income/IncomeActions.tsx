@@ -58,7 +58,7 @@ export default function IncomeSourceActions({
         </DropdownMenu>
         <SheetContent side={"right"}>
           <SheetHeader>
-            <SheetTitle>Edit Income</SheetTitle>
+            <SheetTitle>Edit income</SheetTitle>
             <SheetDescription>
               Make changes to your income source here!
             </SheetDescription>

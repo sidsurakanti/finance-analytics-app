@@ -78,7 +78,9 @@ export default function ShowOnboarding({ user }: { user: User }) {
             initialStep={0}
             onExit={() => setShowSteps(false)}
             options={{
-              doneLabel: "Finish"
+              doneLabel: "finish",
+              prevLabel: "back",
+              nextLabel: "next",
             }}
           />
           <div className="w-fit mx-auto h-6 rounded-xl py-5 px-3 bg-teal-100 border text-teal-800 border-teal-300 flex justify-center items-center gap-2 mb-2">

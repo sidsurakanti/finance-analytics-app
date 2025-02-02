@@ -117,13 +117,51 @@ input[type="number"]::-webkit-outer-spin-button {
   background: #888;
 }
 
+div.introjs-tooltiptext {
+  padding-top: 0;
+}
+
+div.introjs-tooltipbuttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 10px;
+  border-top: none;
+}
+
 a.introjs-button.introjs-nextbutton {
   border-radius: 50px;
+  border: none;
   height: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #94a3b8;
+  background-color: #4a4e54;
+  color: white;
+  text-shadow: none;
+}
+
+a.introjs-button.introjs-prevbutton {
+  border-radius: 50px;
+  border: none;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4a4e54;
+  color: white;
+  text-shadow: none;
+}
+
+a.introjs-button.introjs-prevbutton.introjs-disabled {
+  cursor: not-allowed;
+  border-radius: 50px;
+  border: none;
+  height: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #8a8a8a;
   color: white;
   text-shadow: none;
 }
@@ -140,4 +178,3 @@ div.introjs-tooltiptext {
 .introjs-bullets {
   padding: 0 0;
 }
-

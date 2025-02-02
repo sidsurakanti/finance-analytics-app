@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import { eachDayOfInterval, isWithinInterval, parseISO } from "date-fns";
+import { eachDayOfInterval } from "date-fns";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -35,42 +35,18 @@ export function addDollarSign(value: string) {
   }
 }
 
-// export function calculateLastPaidDiff(
-//   lastSyncedDate: Date,
-//   offset: string[],
-// ): [number, Date[]] {
-//   const today = new Date();
-//   let dates: Date[] = [];
-//   let count: number = 0;
-
-//   for (
-//     let d = new Date(lastSyncedDate);
-//     d <= today;
-//     d.setDate(d.getDate() + 1)
-//   ) {
-//     // console.log(d.getDate().toString());
-//     if (offset.includes(d.getDate().toString())) {
-//       // console.log(d);
-//       count++;
-//       dates.push(new Date(d));
-//     }
-//     // console.log(dates);
-//   }
-
-//   return [count, dates];
-// }
-
 export function calculateLastPaidDiff(
   lastSyncedDate: Date,
-  offset: string[],
+  offset: string[], // paycheck dates eg: ['22', '1']
 ): [number, Date[]] {
   const today = new Date();
+  const datesSinceLastSync = eachDayOfInterval({
+    start: lastSyncedDate,
+    end: today,
+  });
 
-  // Generate all dates between lastSyncedDate and today
-  const datesInRange = eachDayOfInterval({ start: lastSyncedDate, end: today });
-
-  // Filter dates based on offset (day of the month)
-  const matchingDates = datesInRange.filter((date) =>
+  // get matched paycheck dates
+  const matchingDates = datesSinceLastSync.filter((date) =>
     offset.includes(date.getDate().toString()),
   );
 
@@ -79,8 +55,7 @@ export function calculateLastPaidDiff(
 
 export function findNextPayDate(offset: string[]): Date {
   let counter = 0;
-  // end loop at 32 b/c next pay date has to be within 31 days anyway
-  // prevents an inf loop
+  // loop through the next 31 days to find the next date where the user gets paid
   for (let d: Date = new Date(); counter < 32; d.setDate(d.getDate() + 1)) {
     if (offset.includes(d.getDate().toString())) {
       return d;
