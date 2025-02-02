@@ -4,6 +4,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { newIncomesSchema } from "@/schemas/new-incomes";
+import { getDate } from "date-fns";
 
 import {
   Sheet,
@@ -47,27 +48,38 @@ export default function CreateIncomeSource({ user_id }: { user_id: string }) {
     },
   });
 
+  const customGetDate = (dt: string) => {
+    const dateOfMonth = dt.slice(-2);
+    // if (dateOfMonth + 1 > 31) return dateOfMonth
+    // else return dateOfMonth + 1
+    return Number(dateOfMonth);
+  };
+
   const onSubmit: SubmitHandler<z.infer<typeof newIncomesSchema>> = (
     data: z.infer<typeof newIncomesSchema>,
   ) => {
-    // console.log(data);
     const { name, income_amt, frequency, pay_date1, pay_date2 } = data;
+
+    const dF = (pay_date: string): string => {
+      const d = new Date(pay_date);
+      d.setDate(d.getDate() + 1);
+      return d.getDate().toString();
+    };
+
     const payDates =
       frequency === "monthly"
-        ? [new Date(pay_date1).getDate() + 1]
-        : [
-            new Date(pay_date1).getDate() + 1,
-            new Date(pay_date2).getDate() + 1,
-          ];
+        ? [dF(pay_date1)]
+        : [dF(pay_date1), dF(pay_date2)];
+
     const constructedData = {
       name,
       income_amt,
       frequency,
       pay_dates: payDates,
     };
+    console.log(constructedData);
 
     createIncomeSource(user_id, constructedData);
-    console.log(constructedData);
   };
 
   return (

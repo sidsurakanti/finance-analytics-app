@@ -125,7 +125,7 @@ export async function createIncomeSource(
     name: string;
     income_amt: string;
     frequency: "semi-monthly" | "monthly";
-    pay_dates: Date[] | number[];
+    pay_dates: string[];
   },
 ) {
   const { name, income_amt, frequency, pay_dates } = incomeSource;
