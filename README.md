@@ -15,7 +15,7 @@ Keep track of where your money goes.
 - search, sort, filter transactions
 - set up recurring transactions
 - quick add recurring transactions
-- google and github sign in 
+- google and github sign in
 
 ## Stack
 
@@ -82,7 +82,7 @@ POSTGRES_PASSWORD=""
 POSTGRES_DATABASE=""
 ```
 
-Start up the server
+Spin up the server
 
 ```zsh
 npm run dev
