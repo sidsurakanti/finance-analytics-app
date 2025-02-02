@@ -20,8 +20,10 @@ import { DialogClose } from "@components/ui/dialog";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { useEffect, useState } from "react";
+import { useToast } from "@/components/ui/hooks/use-toast";
 
 export function QuickAddForm({ reoccuring }: { reoccuring: Reoccuring }) {
+  const { toast } = useToast();
   // create form using the current transactions values
   const form = useForm<z.infer<typeof createTransactionSchema>>({
     // form validation
@@ -70,6 +72,11 @@ export function QuickAddForm({ reoccuring }: { reoccuring: Reoccuring }) {
     createTransaction(transaction);
     // update user balance
     updateBalance(Number(transaction.amount), reoccuring.user_id);
+
+    toast({
+      title: `Added new transaction: ${data.name}`,
+      description: `${data.name}: ${amount}`,
+    });
   };
 
   useEffect(() => {
