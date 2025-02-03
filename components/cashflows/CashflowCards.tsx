@@ -111,11 +111,7 @@ export default async function CashflowCards() {
         {/* send out a toaster if any paychecks have landed 
       or if we've added any missed paychecks since last paycheck sync  */}
         {isOutdated && (
-          <PaychecksSyncToaster
-            lastPaycheckSync={lastPaycheckSync}
-            incomeSources={incomeSources}
-            user={user}
-          />
+          <PaychecksSyncToaster incomeSources={incomeSources} user={user} />
         )}
       </section>
     </>
