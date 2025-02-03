@@ -280,7 +280,7 @@ export function AuthCardWrapper({
             <form action={loginWithGithub} className="">
               <Button
                 type="submit"
-                className="flex gap-2 border border-border shadow-md"
+                className="flex gap-2 bg-black text-white border border-border shadow-md"
               >
                 <GithubLogo className="w-6 h-6" />
                 Github
@@ -289,7 +289,7 @@ export function AuthCardWrapper({
             <form action={loginWithGoogle} className="">
               <Button
                 type="submit"
-                className="flex bg-white border border-border shadow-md gap-2"
+                className="flex bg-white text-black border border-border shadow-md gap-2"
                 variant={"ghost"}
               >
                 <svg

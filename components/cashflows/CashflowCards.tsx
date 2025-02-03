@@ -21,7 +21,6 @@ export default async function CashflowCards() {
   const session = await auth();
   // console.log(session)
   const sessionUser = session?.user as User;
-  // if (session?.user?.image) return <></>
   const user = await fetchUser(sessionUser.email);
 
   const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
