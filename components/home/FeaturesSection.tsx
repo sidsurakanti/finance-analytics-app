@@ -72,7 +72,7 @@ export default function FeatureSection() {
               </defs>
             </motion.svg>
 
-            <li>{feature}</li>
+            <li className="text-sky-900">{feature}</li>
           </motion.div>
         ))}
       </ul>
@@ -105,7 +105,7 @@ const Card = ({ header, title, description, image }: TCard) => {
           duration: 0.25,
         },
       }}
-      className="bg-slate-200/65 cursor-pointer p-4 border-2 border-slate-200 rounded-lg shadow-sm flex flex-col gap-5 h-fit"
+      className="bg-slate-200/65 dark:bg-slate-200 cursor-pointer p-4 border-2 border-slate-200 rounded-lg shadow-sm flex flex-col gap-5 h-fit"
     >
       <div
         className={cn(
@@ -127,7 +127,7 @@ const Card = ({ header, title, description, image }: TCard) => {
       <div className="h-fit flex flex-col items-start gap-2 mt-3">
         <span className="space-y-0.5">
           <h5 className="font-mono text-blue-600 text-sm">{header}</h5>
-          <h1 className="font-medium text-lg">{title}</h1>
+          <h1 className="font-medium text-lg text-black">{title}</h1>
         </span>
 
         <p className="text-[13px] text-neutral-900">{description}</p>
