@@ -10,6 +10,7 @@ import { motion } from "motion/react";
 import { cn } from "@lib/utils";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
+import { HelpCircle } from "lucide-react";
 
 const links = [
   {
@@ -27,6 +28,11 @@ const links = [
     icon: ReoccuringSymbol,
     text: "recurring",
   },
+  {
+    href: "/help",
+    icon: HelpCircle,
+    text: "help"
+  }
 ];
 
 export function NavLinks() {
