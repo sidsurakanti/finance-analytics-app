@@ -313,7 +313,7 @@ export async function deleteTransaction(transaction: Transaction) {
     `;
 
     // reflect deleted trasaction in balance
-    updateBalance(Number(amount) * -1, transaction.user_id);
+    updateBalance(Number(amount) * -1, transaction.user_id, false);
     // delete older transactions to keep table from getting too large
     deleteOldTransactions(user_id);
 

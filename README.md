@@ -2,8 +2,16 @@
 
 Keep track of where your money goes.
 
-<img src="./public/home.png">
-<img src="./docs/transactions.png">
+<table>
+  <tr>
+    <td><img src="./public/home.png" width="600"/></td>
+    <td><img src="./docs/home2.png" width="600"/></td>
+  </tr>
+  <tr>
+    <td><img src="./docs/transactions.png" width="600"/></td>
+    <td><img src="./docs/recurring.png" width="600"/></td>
+  </tr>
+</table>
 
 ## Features
 
@@ -89,6 +97,9 @@ npm run dev
 ```
 
 Your app should now be running on `http://localhost:3000`.
+
+## Awards
+Placed #1 FBLA States for Coding and Programming with this project.
 
 ## Contributing
 
