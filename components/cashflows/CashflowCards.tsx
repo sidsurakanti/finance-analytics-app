@@ -23,14 +23,11 @@ export default async function CashflowCards() {
   const sessionUser = session?.user as User;
   const user = await fetchUser(sessionUser.email);
 
-  const incomeSources: IncomeSources[] = await fetchIncomeSources(user);
+  const fIncomeSources: Promise<IncomeSources[]> = fetchIncomeSources(user);
+  const fBalance: Promise<Balance> = fetchBalance(user.id);
+  const [incomeSources, balance] = await Promise.all([ fIncomeSources, fBalance])
   // console.log(incomeSources);
-
-  // check for missed paychecks
-  const lastPaycheckSync: Date = await getLastPaycheckSyncDate(user.id);
-  // const isOutdated =
-  //   new Date().getTime() - new Date(lastPaycheckSync).getTime() >
-  //   24 * 60 * 60 * 1000;
+  // console.log(balance);
 
   const isOutdatedF = (lastSyncDate: Date) => {
     return (
@@ -42,10 +39,6 @@ export default async function CashflowCards() {
   const isOutdated = incomeSources.some((job) =>
     isOutdatedF(job.last_paycheck_sync),
   );
-  // console.log(lastPaycheckSync);
-
-  const balance: Balance = await fetchBalance(user.id);
-  // console.log(balance);
 
   // we're gonna use this to calculate when the next paycheck is for the balance component
   const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
