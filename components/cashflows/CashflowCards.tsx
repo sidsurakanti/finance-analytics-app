@@ -18,10 +18,10 @@ import SankeyChart from "@/components/cashflows/spending/Sankey";
 import ShowOnboarding from "@/components/cashflows/onboarding/ShowOnboarding";
 
 export default async function CashflowCards() {
-  const session = await auth();
-  // console.log(session)
-  const sessionUser = session?.user as User;
-  const user = await fetchUser(sessionUser.email);
+	const session = await auth();
+	// console.log(session)
+	const sessionUser = session?.user as User;
+	const user = await fetchUser(sessionUser.email);
 
   const fIncomeSources: Promise<IncomeSources[]> = fetchIncomeSources(user);
   const fBalance: Promise<Balance> = fetchBalance(user.id);
@@ -29,88 +29,90 @@ export default async function CashflowCards() {
   // console.log(incomeSources);
   // console.log(balance);
 
-  const isOutdatedF = (lastSyncDate: Date) => {
-    return (
-      new Date().getTime() - new Date(lastSyncDate).getTime() >
-      24 * 60 * 60 * 1000
-    );
-  };
+	const isOutdatedF = (lastSyncDate: Date) => {
+		// console.log(lastSyncDate)
+		// console.log(new Date().getTime() - new Date(lastSyncDate).getTime())
+		return (
+			new Date().getTime() - new Date(lastSyncDate).getTime() >
+			24 * 60 * 60 * 1000
+		);
+	};
 
   const isOutdated = incomeSources.some((job) =>
     isOutdatedF(job.last_paycheck_sync),
   );
 
-  // we're gonna use this to calculate when the next paycheck is for the balance component
-  const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
-    (job) => ({
-      ...job,
-      nextPayDate: findNextPayDate(job.pay_dates),
-    }),
-  );
-  // calculate next paycheck for bal component
-  const nextPaycheckDetails: nextPaycheckDetailsT = incomeSourcesWNextPay.sort(
-    (a, b) => a.nextPayDate.getTime() - b.nextPayDate.getTime(),
-  )[0];
+	// we're gonna use this to calculate when the next paycheck is for the balance component
+	const incomeSourcesWNextPay: nextPaycheckDetailsT[] = incomeSources.map(
+		(job) => ({
+			...job,
+			nextPayDate: findNextPayDate(job.pay_dates),
+		}),
+	);
+	// calculate next paycheck for bal component
+	const nextPaycheckDetails: nextPaycheckDetailsT = incomeSourcesWNextPay.sort(
+		(a, b) => a.nextPayDate.getTime() - b.nextPayDate.getTime(),
+	)[0];
 
-  return (
-    <>
-      <ShowOnboarding user={user} />
-      <section className="grid grid-cols-1 lg:grid-cols-10 gap-2 ">
-        <div className="col-span-5 checkingbalance">
-          <Suspense
-            fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
-          >
-            <CheckingBalanceCard
-              balance={balance}
-              paycheckDetails={nextPaycheckDetails}
-            />
-          </Suspense>
-        </div>
+	return (
+		<>
+			<ShowOnboarding user={user} />
+			<section className="grid grid-cols-1 lg:grid-cols-10 gap-2 ">
+				<div className="col-span-5 checkingbalance">
+					<Suspense
+						fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
+					>
+						<CheckingBalanceCard
+							balance={balance}
+							paycheckDetails={nextPaycheckDetails}
+						/>
+					</Suspense>
+				</div>
 
-        <div className="col-span-5 savings">
-          <Suspense
-            fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
-          >
-            <SavingsCard user={user} />
-          </Suspense>
-        </div>
+				<div className="col-span-5 savings">
+					<Suspense
+						fallback={<Skeleton className="h-[200px] rounded-xl w-full" />}
+					>
+						<SavingsCard user={user} />
+					</Suspense>
+				</div>
 
-        <div className="col-span-6 space-y-2">
-          <Suspense
-            fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
-          >
-            <div className="incomes">
-              <Incomes incomeSources={incomeSources} user={user} />
-            </div>
-            <div className="sankey">
-              <SankeyChart user={user} />
-            </div>
-          </Suspense>
-        </div>
+				<div className="col-span-6 space-y-2">
+					<Suspense
+						fallback={<Skeleton className="h-[300px] rounded-xl w-full" />}
+					>
+						<div className="incomes">
+							<Incomes incomeSources={incomeSources} user={user} />
+						</div>
+						<div className="sankey">
+							<SankeyChart user={user} />
+						</div>
+					</Suspense>
+				</div>
 
-        <div className="col-span-4 space-y-2">
-          <Suspense
-            fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
-          >
-            <div className="spending">
-              <ExpensesCard user={user} />
-            </div>
-            <div className="quickadd">
-              <QuickAddList user={user} />
-            </div>
-          </Suspense>
-        </div>
+				<div className="col-span-4 space-y-2">
+					<Suspense
+						fallback={<Skeleton className="h-[700px] rounded-xl w-full" />}
+					>
+						<div className="spending">
+							<ExpensesCard user={user} />
+						</div>
+						<div className="quickadd">
+							<QuickAddList user={user} />
+						</div>
+					</Suspense>
+				</div>
 
-        {/* send out a toaster if any paychecks have landed 
+				{/* send out a toaster if any paychecks have landed 
       or if we've added any missed paychecks since last paycheck sync  */}
-        {isOutdated && (
-          <PaychecksSyncToaster incomeSources={incomeSources} user={user} />
-        )}
-      </section>
-    </>
-  );
+				{isOutdated && (
+					<PaychecksSyncToaster incomeSources={incomeSources} user={user} />
+				)}
+			</section>
+		</>
+	);
 }
 
 export type nextPaycheckDetailsT = {
-  nextPayDate: Date;
+	nextPayDate: Date;
 } & IncomeSources;
