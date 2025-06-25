@@ -40,7 +40,7 @@ export default async function SavingsCard({ user }: { user: User }) {
               change > 0
                 ? "text-sky-800 bg-sky-200 hover:bg-sky-300/65"
                 : "text-red-500 hover:bg-red-200/75 bg-red-100",
-              "tracking-tight flex w-fit items-center gap-2 text-sm font-medium rounded-xl py-2 px-3 transition-colors cursor-pointer",
+              "tracking-tight flex w-fit items-center gap-2 text-sm font-medium rounded-xl py-2 md:mt-0.5 px-3 transition-colors cursor-pointer",
             )}
           >
             {change > 0 ? <TrendingUp size={15} /> : <TrendingDown size={15} />}

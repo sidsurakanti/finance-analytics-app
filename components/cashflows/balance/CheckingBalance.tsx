@@ -37,7 +37,7 @@ export default function CheckingBalanceCard({
             {cashFormatter(Number(balance.amount), false)}
           </span>
           {paycheckDetails && (
-            <div className="text-xs sm:text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 px-3 rounded-xl">
+            <div className="text-xs sm:text-sm text-emerald-800 bg-emerald-200 hover:bg-emerald-300/65 transition-colors cursor-pointer w-fit py-2 md:mt-0.5 px-3 rounded-xl">
               <span
                 className={cn(mono.className, "font-medium tracking-tight")}
               >
