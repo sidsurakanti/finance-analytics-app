@@ -33,7 +33,7 @@ export default function FeatureSection() {
         </div>
       </div>
 
-      <ul className="list-none space-y-2 mt-10 pl-10">
+      <ul className="grid grid-cols-2 list-none gap-y-1.5 gap-2 mt-10 pl-10">
         {FEATURE_LIST.map((feature, idx) => (
           <motion.div
             initial={{ opacity: 0, y: 80 }}
@@ -88,7 +88,7 @@ const FEATURE_LIST = [
   "Search, sort, filter transactions",
   "Set up recurring transactions",
   "Quick add recurring transactions",
-  "View analytics and charts to see spending habits",
+  "Visualize spending habits through charts",
 ];
 
 const Card = ({ header, title, description, image }: TCard) => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { ChevronsUpDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -44,20 +45,21 @@ export default function HelpPage() {
     },
     {
       question:
-        "Does the app automatically add my paychecks or do I have to enter them manually?",
+        "Do I have to add my paycheck through a transaction every payday?",
       answer:
         "Our system auto-adds paychecks to your balance. You just need to enter the income source(s) once, and we'll handle the rest. No manual entry every payday.",
     },
   ];
 
   return (
-    <main className="w-[90%] md:w-[85%] 2xl:w-4/5 3xl:w-2/3 mx-auto">
-      <h1 className="text-5xl font-medium my-7">Help & Support</h1>
+    <main className="w-[90%] md:w-[85%] 2xl:w-4/5 h-[600px] 3xl:w-2/3 mx-auto">
+      <h1 className="text-5xl font-medium tracking-tighter mt-8 mb-6">Help & Support</h1>
       <section className="space-y-3">
         {faqItems.map((item, index) => (
-          <div
+          <motion.div
             key={index}
-            className="rounded-xl border bg-gray-100 hover:bg-gray-200/70 transition-colors"
+            whileHover={{scale: 1.007}}
+            className="rounded-xl border bg-accent shadow-sm hover:dark:bg-neutral-900/60 hover:bg-gray-200/70 transition-colors"
           >
             <button
               className={cn(
@@ -69,14 +71,14 @@ export default function HelpPage() {
               onClick={() => toggleSection(index)}
             >
               {item.question}
-              <ChevronsUpDown />
+              <ChevronsUpDown strokeWidth={1.5}/>
             </button>
             {openSection === index && (
-              <div className="p-4 bg-white border-t rounded-xl rounded-t-none">
+              <div className="p-4 dark:bg-neutral-800 bg-neutral-100 border-t rounded-xl rounded-t-none">
                 {item.answer}
               </div>
             )}
-          </div>
+          </motion.div>
         ))}
       </section>
     </main>
