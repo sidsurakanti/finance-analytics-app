@@ -268,8 +268,7 @@ export async function createTransaction(
 ) {
   // destructure data for cleaner code
   const { name, amount, type, user_id, created_at } = transaction;
-  const formattedDate = created_at.toISOString().split("T")[0] + " 00:00:00";
-  console.log(formattedDate);
+  const formattedDate = created_at.toISOString().replace('T', ' ').replace('Z', '');
 
   try {
     await sql`
