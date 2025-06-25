@@ -145,6 +145,7 @@ export default function SankeyChart({ user }: { user: User }) {
       <h1>Overview</h1>
 
       {data && (
+        <>
         <Sankey
           data={data}
           width={675}
@@ -154,6 +155,7 @@ export default function SankeyChart({ user }: { user: User }) {
           node={<CNode />}
           link={{ stroke: "#f0abfc" }}
           linkCurvature={0.25}
+          className="sm:block hidden"
           margin={{
             left: 35,
             right: 150,
@@ -163,6 +165,26 @@ export default function SankeyChart({ user }: { user: User }) {
         >
           <Tooltip />
         </Sankey>
+        <Sankey
+          data={data}
+          width={450}
+          height={500}
+          nodePadding={30}
+          nodeWidth={20}
+          node={<CNode />}
+          link={{ stroke: "#f0abfc" }}
+          linkCurvature={0.25}
+          className="sm:hidden"
+          margin={{
+            left: 35,
+            right: 150,
+            top: 30,
+            bottom: 30,
+          }}
+        >
+          <Tooltip />
+        </Sankey>
+</>
       )}
 
       {!data && <Skeleton className="h-[700px] rounded-xl" />}

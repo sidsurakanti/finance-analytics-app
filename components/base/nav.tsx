@@ -37,7 +37,7 @@ export async function Nav() {
             {/* <Image src="/logo.svg" alt="logo" height={26} width={26} className="dark:fill-white"/> */}
           </PopoverTrigger>
 
-          <PopoverContent className="p-3 flex flex-col justify-start gap-3 w-fit divide-slate-400">
+          <PopoverContent className="p-3 flex flex-col justify-start gap-2 w-fit divide-slate-400">
             <span className="flex gap-3 items-center">
               {user?.image && (
                 <Image

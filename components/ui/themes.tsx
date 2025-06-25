@@ -36,7 +36,7 @@ export function ModeSwitch({}) {
 
   return (
     <div className="flex gap-2 justify-between items-center md:hidden">
-      <Label htmlFor="dark-mode">Dark mode</Label>
+      <Label htmlFor="dark-mode" className="font-light">Dark mode</Label>
       <Switch
         checked={theme == "dark"}
         onCheckedChange={() => setTheme(theme === "dark" ? "light" : "dark")}
