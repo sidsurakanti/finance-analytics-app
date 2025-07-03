@@ -100,6 +100,7 @@ Your app should now be running on `http://localhost:3000`.
 
 ## Awards
 Placed #1 FBLA States for Coding and Programming with this project.
+Finaled FBLA Finals
 
 ## Contributing
 
